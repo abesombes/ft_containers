@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/13 22:05:34 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/13 23:23:06 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ int main()
     vector.push_back(300);
     std::cout << "begin: " << *(vector.begin()) << std::endl;
     std::cout << "vector[1]: " << vector[1] << std::endl;
+    std::cout << "vector.at(2): " << vector.at(2) << std::endl;
+    std::cout << "vector.at(-1): " << vector.at(-1) << std::endl;
+    std::cout << "vector.at(1432): " << vector.at(1432) << std::endl;
     std::cout << "end - 1: " << *(--(vector.end())) << std::endl;
     std::cout << "end: " << *(vector.end()) << std::endl;
     vector.pop_back();
@@ -33,6 +36,9 @@ int main()
     vector.pop_back();
     std::cout << "begin: " << *(vector.begin()) << std::endl;
     std::cout << "end: " << *(vector.end()) << std::endl;
+    ft::Vector<int *> ptr_vec;
+    std::cout << "max_size(): " << ptr_vec.max_size() << std::endl; 
+    
 
     std::cout << "------------------------- STL VECTOR --------------------------" << std::endl;
     std::vector<int> stl_vector;
@@ -48,6 +54,7 @@ int main()
     stl_vector.pop_back();
     std::cout << "begin: " << *(stl_vector.begin()) << std::endl;
     std::cout << "end: " << *(stl_vector.end()) << std::endl;
-
+    std::vector<int *> stl_ptr_vector;
+    std::cout << "max_size(): " << stl_ptr_vector.max_size() << std::endl; 
     
 }
