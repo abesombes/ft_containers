@@ -20,5 +20,8 @@ int main()
     vector.push_back(100);
     vector.push_back(200);
     vector.push_back(300);
-    std::cout << *(vector.begin()) << std::endl;
+    std::cout << "begin: " << *(vector.begin()) << std::endl;
+    std::cout << "vector[1]: " << vector[1] << std::endl;
+    std::cout << "end - 1: " << *(--(vector.end())) << std::endl;
+    std::cout << "end: " << *(vector.end()) << std::endl;
 }

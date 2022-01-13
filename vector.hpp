@@ -43,27 +43,52 @@ namespace ft{
                     iterator end() { return iterator(_arr + _current); };
                     const_iterator begin() const { return const_iterator(_arr); };
                     const_iterator end() const { return const_iterator(_arr + _current); };
+
+                    /******************* VECTOR - CONSTRUCTORS *********************/
+
                     explicit Vector(const allocator_type& alloc = allocator_type()): _alloc(alloc), _arr(NULL), _current(0), _capacity(0) {};
-                    explicit Vector(size_type n, const value_type& value, const allocator_type& a = allocator_type()): _alloc(alloc), _current(n), _capacity(n)
+
+                    /**
+                    *  @brief  Creates a %vector with copies of an exemplar element.
+                    *  @param  n  The number of elements to initially create.
+                    *  @param  value  An element to copy.
+                    *  @param  a  An allocator.
+                    *
+                    *  This constructor fills the %vector with @a __n copies of @a __value.
+                    */
+
+                    explicit Vector(size_type n, const value_type& value, const allocator_type& alloc = allocator_type()): _alloc(alloc), _current(n), _capacity(n)
                     {
                         _arr = _alloc.allocate(_capacity);
                         for (size_t i = 0; i < _current; i++)
                             _alloc.construct(&_arr[i], value);
                     }
 
-                    Vector(Vector const &src)
+                    Vector(Vector const &src): _alloc(src._alloc), _current(src._current), _capacity(src._capacity)
                     {
-
+                        _arr = _alloc.allocate(_capacity);
+                        for (size_t i = 0; i < _current; i++)
+                            _alloc.construct(&_arr[i], src._arc[i]);
                     }
 
+                    /******************* VECTOR - DESTRUCTORS *********************/
+
                     ~Vector(){
-                        this->clear();
+                        for (size_t i = 0; i < _current; i++)
+                            _alloc.destroy(&_arr[i]);
                         _alloc.deallocate(_arr, this->_capacity);
                     };
+
+
+                    /******************* VECTOR - OPERATOR OVERLOAD *********************/
+                    const_reference operator[] (size_type n) const
+                    {
+                        return (_arr[n]);
+                    }
                     
                     void clear()
                     {
-                        erase(begin(), end());
+                        // erase(begin(), end());
                     }
                     
                     void push_back(T data)
