@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/09 20:38:25 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/01/13 21:59:27 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,25 @@ namespace ft{
                     };
 
 
-                    /******************* VECTOR - OPERATOR OVERLOAD *********************/
+                    /******************* VECTOR - OPERATOR OVERLOAD = - ASSIGNATION *********************/
+
+                    Vector& operator= (const Vector& rhs)
+                    {
+                        Vector tmp(rhs);
+                        this->swap(tmp);
+                        return (*this);
+                    }
+
+                    /******************* VECTOR - OPERATOR OVERLOAD [] - AT *********************/
                     const_reference operator[] (size_type n) const
                     {
                         return (_arr[n]);
                     }
+
+                    /******************* VECTOR - CAPACITY FUNCTIONS *********************/
+                    size_type size() const { return (_current); };
+
+                    const_reference at (size_type n) const;
                     
                     void clear()
                     {
@@ -111,6 +125,21 @@ namespace ft{
                             _current++;
                         }
                     }
+
+                    void pop_back()
+                    {
+                        _current--;
+                        _alloc.destroy(&_arr[_current]);
+                    }
+
+                    /******************* VECTOR - MODIFIERS FUNCTIONS *********************/
+                    void swap (Vector& other)
+                    {
+                        swap(this->_arr, other._arr);
+                        swap(this->_current, other._current);
+                        swap(this->_capacity,other._capacity);
+                    }
+                    
             
         private:
                     allocator_type  _alloc;
