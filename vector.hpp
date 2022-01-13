@@ -43,7 +43,19 @@ namespace ft{
                     iterator end() { return iterator(_arr + _current); };
                     const_iterator begin() const { return const_iterator(_arr); };
                     const_iterator end() const { return const_iterator(_arr + _current); };
-                    Vector(const allocator_type& alloc = allocator_type()): _alloc(alloc), _arr(NULL), _current(0), _capacity(0) {};
+                    explicit Vector(const allocator_type& alloc = allocator_type()): _alloc(alloc), _arr(NULL), _current(0), _capacity(0) {};
+                    explicit Vector(size_type n, const value_type& value, const allocator_type& a = allocator_type()): _alloc(alloc), _current(n), _capacity(n)
+                    {
+                        _arr = _alloc.allocate(_capacity);
+                        for (size_t i = 0; i < _current; i++)
+                            _alloc.construct(&_arr[i], value);
+                    }
+
+                    Vector(Vector const &src)
+                    {
+
+                    }
+
                     ~Vector(){
                         this->clear();
                         _alloc.deallocate(_arr, this->_capacity);
