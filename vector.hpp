@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/13 23:20:15 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/14 23:56:39 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,30 @@ namespace ft{
                     size_type size() const { return (_size); };
 
                     size_type max_size() const{
-                        return ((size_t)(-1) / sizeof(T));
+                        // size_t max_size = -1;
+                        // return (max_size / sizeof(T));
+                        return (std::numeric_limits<size_t>::max() / sizeof(T));z   
+                    }
+                    
+                    /**
+                    *  @brief  Resizes the Vector to the specified number of elements.
+                    *  @param  new_size Number of elements the Vector should contain.
+                    *  @param  val Data with which new elements should be populated.
+                    *
+                    *  This function will resize the Vector to the specified
+                    *  number of elements.  If the number is smaller than the
+                    *  Vector's current size the Vector is truncated, otherwise
+                    *  the Vector is extended and new elements are populated with
+                    *  given data.
+                    */
+                    
+                    void resize (size_type new_size, value_type val = value_type()){
+                        if (new_size > _capacity)
+                            reallocate_Vector(new_size);
+                        while (new_size < _size)
+                            pop_back();
+                        while (new_size > _size) 
+                            push_back(val);                 
                     }
                     
                     void clear()
@@ -176,6 +199,17 @@ namespace ft{
                     pointer         _arr;
                     size_t          _size;
                     size_t          _capacity;
+                    
+                    void reallocate_Vector(size_type new_capacity)
+                    {
+                        pointer tmp = _alloc.allocate(new_capacity);
+                        for (size_t i = 0; i < _size; i++)
+                            _alloc.construct(&_tmp[i], _arr[i]);
+
+                        this->~Vector();
+                        _capacity = new_capacity;
+                        _arr = tmp;
+                    }
     };
 
 
