@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/13 23:23:06 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/15 18:59:38 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,22 @@ int main()
     vector.pop_back();
     std::cout << "begin: " << *(vector.begin()) << std::endl;
     std::cout << "end: " << *(vector.end()) << std::endl;
+    ft::Vector<int> vector2;
+    vector2.push_back(6);
+    vector2.push_back(3);
+    vector2.push_back(12);
+    vector2.push_back(10);
+    vector2.push_back(1);
+    ft::Vector<int>::iterator itb = vector2.begin();
+    // ++itb;
+    // ++itb;
+    vector2.erase(itb, --vector2.end());
+    std::cout << "begin: " << *(vector2.begin()) << std::endl;
+    std::cout << "vector2[1]: " << vector2[1] << std::endl;
+    std::cout << "vector2[2]: " << vector2[2] << std::endl;
+    std::cout << "vector2[3]: " << vector2[3] << std::endl;
+    std::cout << "vector2[4]: " << vector2[4] << std::endl;
+    std::cout << "vector2[5]: " << vector2[5] << std::endl;
     ft::Vector<int *> ptr_vec;
     std::cout << "max_size(): " << ptr_vec.max_size() << std::endl; 
     

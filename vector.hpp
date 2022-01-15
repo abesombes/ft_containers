@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/15 00:09:33 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/15 18:57:36 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,56 @@ namespace ft{
                     const_iterator begin() const { return const_iterator(_arr); };
                     const_iterator end() const { return const_iterator(_arr + _size); };
 
-                    /******************* VECTOR - CONSTRUCTORS *********************/
+                    /*
+                    ----------------------------------------------------------------------------------------------------
+                    Member functions
+                    ----------------------------------------------------------------------------------------------------
+                    (constructor) - Construct vector (public member function )
+                    (destructor) - Vector destructor (public member function )
+                    operator= - Assign content (public member function )
+
+                    ----------------------------------------------------------------------------------------------------
+                    Iterators:
+                    ----------------------------------------------------------------------------------------------------
+                    begin - Return iterator to beginning (public member function )
+                    end - Return iterator to end (public member function )
+                    rbegin - Return reverse iterator to reverse beginning (public member function )
+                    rend - Return reverse iterator to reverse end (public member function )
+
+                    ----------------------------------------------------------------------------------------------------
+                    Capacity:
+                    ----------------------------------------------------------------------------------------------------
+                    size - Return size (public member function )
+                    max_size - Return maximum size (public member function )
+                    resize - Change size (public member function )
+                    capacity - Return size of allocated storage capacity (public member function )
+                    empty - Test whether vector is empty (public member function )
+                    reserve - Request a change in capacity (public member function )
+
+                    ----------------------------------------------------------------------------------------------------
+                    Element access:
+                    ----------------------------------------------------------------------------------------------------
+                    operator[] - Access element (public member function )
+                    at - Access element (public member function )
+                    front - Access first element (public member function )
+                    back - Access last element (public member function )
+
+                    ----------------------------------------------------------------------------------------------------
+                    Modifiers:
+                    ----------------------------------------------------------------------------------------------------
+                    assign - Assign vector content (public member function )
+                    push_back - Add element at the end (public member function )
+                    pop_back - Delete last element (public member function )
+                    insert - Insert elements (public member function )
+                    erase - Erase elements (public member function )
+                    swap - Swap content (public member function )
+                    clear - Clear content (public member function ) */
+
+                    /*
+                    ----------------------------------------------------------------------------------------------------
+                    Vector: Constructors
+                    ----------------------------------------------------------------------------------------------------
+                    */
 
                     explicit Vector(const allocator_type& alloc = allocator_type()): _alloc(alloc), _arr(NULL), _size(0), _capacity(0) {};
 
@@ -71,7 +120,11 @@ namespace ft{
                             _alloc.construct(&_arr[i], src._arc[i]);
                     }
 
-                    /******************* VECTOR - DESTRUCTORS *********************/
+                    /*
+                    ----------------------------------------------------------------------------------------------------
+                    Vector: Destructors
+                    ----------------------------------------------------------------------------------------------------
+                    */
 
                     ~Vector(){
                         for (size_t i = 0; i < _size; i++)
@@ -80,7 +133,11 @@ namespace ft{
                     };
 
 
-                    /******************* VECTOR - OPERATOR OVERLOAD = - ASSIGNATION *********************/
+                    /*
+                    ----------------------------------------------------------------------------------------------------
+                    Vector: Operator Overloads = and []
+                    ----------------------------------------------------------------------------------------------------
+                    */
 
                     Vector& operator= (const Vector& rhs)
                     {
@@ -88,15 +145,17 @@ namespace ft{
                         this->swap(tmp);
                         return (*this);
                     }
-
-                    /******************* VECTOR - OPERATOR OVERLOAD [] - AT *********************/
-                    
+    
                     const_reference operator[] (size_type n) const
                     {
                         return (_arr[n]);
                     }
 
-                    /******************* VECTOR - ELEMENT ACCESS FUNCTIONS *********************/
+                    /*
+                    ----------------------------------------------------------------------------------------------------
+                    Vector: Element Access Functions
+                    ----------------------------------------------------------------------------------------------------
+                    */
 
                     const_reference at (size_type n) const
                     {
@@ -121,7 +180,11 @@ namespace ft{
                         return (_arr[_size - 1]);
                     }
 
-                    /******************* VECTOR - CAPACITY FUNCTIONS *********************/
+                    /*
+                    ----------------------------------------------------------------------------------------------------
+                    Vector: Capacity Functions
+                    ----------------------------------------------------------------------------------------------------
+                    */
                     
                     size_type size() const { return (_size); };
 
@@ -164,11 +227,17 @@ namespace ft{
                             reallocate_Vector(n);
                     }
                     
-                    void clear()
-                    {
-                        // erase(begin(), end());
-                    }
+                    /*
+                    ----------------------------------------------------------------------------------------------------
+                    Vector: Modifiers Functions
+                    ----------------------------------------------------------------------------------------------------
+                    */
                     
+                    template <class InputIterator>
+                    void assign (InputIterator first, InputIterator last);
+
+                    void assign (size_type n, const value_type& val);
+             
                     void push_back(T data)
                     {
                         if (_size == _capacity)
@@ -196,13 +265,111 @@ namespace ft{
                         _alloc.destroy(&_arr[_size]);
                     }
 
-                    /******************* VECTOR - MODIFIERS FUNCTIONS *********************/
+                    iterator insert (iterator position, const value_type& val);
+
+                    void insert (iterator position, size_type n, const value_type& val);
+
+                    template <class InputIterator>
+                    void insert (iterator position, InputIterator first, InputIterator last);
+
+
+                    /*
+                    ----------------------------------------------------------------------------------------------------
+                    ERASE - Erase elements
+                    ----------------------------------------------------------------------------------------------------
+                    Removes from the vector either a single element (position) or a range of elements ([first,last)).
+                    This effectively reduces the container size by the number of elements removed, which are destroyed.
+                    Because vectors use an array as their underlying storage, erasing elements in positions other than 
+                    the vector end causes the container to relocate (NOT REALLOCATE) all the elements after the segment erased to their 
+                    new positions. This is generally an inefficient operation compared to the one performed for the same
+                    operation by other kinds of sequence containers (such as list or forward_list). Returns an iterator 
+                    pointing to the new location of the element that followed the last element erased by the function 
+                    call. This is the container end if the operation erased the last element in the sequence. 
+                    Member type iterator is a random access iterator type that points to elements.
+                    */
+                   
+                    iterator erase (iterator position)
+                    {
+                        erase(position, position + 1);
+                    }
                     
+                    iterator erase (iterator first, iterator last)
+                    {
+                        if (first == end())
+                            return (end());
+                        size_t nb_pop_back = end() - first;
+                        if (last > end())
+                        {
+                            std::cout << "nb_pop_back: " << nb_pop_back << std::endl;
+                            while (nb_pop_back--)
+                                pop_back();
+                        }
+                        else
+                            while (first != end() && last != end())
+                            {
+                                _alloc.destroy(&(*first));
+                                _alloc.construct(&(*first), *last);
+                                first++;
+                                last++;
+                            }
+                        return (first);
+                        // if (first == end() || first == last)
+                        //     return first;
+                        
+                        // // In case of a realloc, iterators will be invalited because _vector
+                        // // points to another allocated area so we need to save the index array
+                        // // where first is pointing to create a new iterator after the reallocation
+                        // difference_type index = first - begin();
+                        
+                        // // If there is elements after the iterators range, we need to move them at first position
+                        // if (last < end())
+                        // {
+                        //     moveElementsToTheLeft(first, last);
+                        //     _size -= static_cast<size_type>(last - first);
+                        // }
+                        // else
+                        // {
+                        //     size_type newSize = _size - static_cast<size_type>(last - first);
+                        //     while (_size != newSize)
+                        //         pop_back();
+                        // }
+                        
+                        // return iterator(&_arr[index]);
+                    }
+                
+                    /*
+                    ----------------------------------------------------------------------------------------------------
+                    SWAP - Swap content
+                    ----------------------------------------------------------------------------------------------------
+                    Exchanges the content of the container by the content of x, which is another vector object of the 
+                    same type. Sizes may differ. After the call to this member function, the elements in this container 
+                    are those which were in x before the call, and the elements of x are those which were in this. All 
+                    iterators, references and pointers remain valid for the swapped objects. Notice that a non-member 
+                    function exists with the same name, swap, overloading that algorithm with an optimization that 
+                    behaves like this member function.
+                    */
+
                     void swap (Vector& other)
                     {
                         swap(this->_arr, other._arr);
                         swap(this->_size, other._size);
                         swap(this->_capacity,other._capacity);
+                    }
+
+                    /*
+                    ----------------------------------------------------------------------------------------------------
+                    CLEAR - Clear content
+                    ----------------------------------------------------------------------------------------------------
+                    Removes all elements from the vector (which are destroyed), leaving the container with a size of 0.
+                    A reallocation is not guaranteed to happen, and the vector capacity is not guaranteed to change due 
+                    to calling this function. A typical alternative that forces a reallocation is to use swap:
+                    vector<T>().swap(x);   // clear x reallocating 
+                    */
+
+                    void clear()
+                    {
+                        while (_size)
+                            pop_back();
                     }
                     
             
@@ -221,6 +388,20 @@ namespace ft{
                         this->~Vector();
                         _capacity = new_capacity;
                         _arr = tmp;
+                    }
+                    void moveElementsToTheLeft(iterator first, iterator last)
+                    {
+                        for (; first != end(); ++first, ++last)
+                        {
+                            // Destructing the previous element to replace it by a new one.
+                            // First will destroy all the element until the end.
+                            _alloc.destroy(&(*first));
+                            
+                            // Moving a new element to the left at first position, only if there is
+                            // still element to move
+                            if (last < end())
+                                _alloc.construct(&(*(first)), *last);
+                        }
                     }
     };
 

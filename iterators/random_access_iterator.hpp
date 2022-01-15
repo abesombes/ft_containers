@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   random_access_iterator.hpp                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:30:34 by abesombes         #+#    #+#             */
-/*   Updated: 2022/01/09 16:54:42 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/01/15 18:21:30 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ class random_access_iterator
             self_type &operator--(){ _val--; return (*this);};
             self_type operator--(T){ self_type tmp = *this; --*this; return tmp; };
             bool operator==(self_type const & rhs) const { 
-                if (compatible(rhs))
+                // if (compatible(rhs))
                     return _val == rhs._val; 
             };
             bool operator!=(self_type const & rhs) const { 
@@ -52,7 +52,7 @@ class random_access_iterator
             self_type operator-(difference_type offset) const { return (_val - offset); };
             difference_type operator-(self_type const &rhs) const { return (_val - rhs._val); };
             bool operator<(self_type const &rhs) const {                 
-                if (compatible(rhs))
+                // if (compatible(rhs))
                     return (_val < rhs._val);  
             };  
             bool operator>(self_type const &rhs) const { return (rhs < *this); };  
