@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/15 18:59:38 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/16 19:39:31 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,28 @@ int main()
     vector2.push_back(12);
     vector2.push_back(10);
     vector2.push_back(1);
+    vector2.push_back(27);
+    std::cout << "vector2.size(): " << vector2.size() << std::endl;
     ft::Vector<int>::iterator itb = vector2.begin();
+    ++itb;
     // ++itb;
     // ++itb;
-    vector2.erase(itb, --vector2.end());
-    std::cout << "begin: " << *(vector2.begin()) << std::endl;
+    std::cout << "itb: " << *itb << std::endl;
+    ft::Vector<int>::iterator ite = vector2.begin();
+    ++ite;
+    ++ite;
+    ++ite;
+    std::cout << "ite: " << *ite << std::endl;
+    // std::cout << "vector2.end: " << *(vector2.end()) << std::endl;    
+    vector2.erase(itb, ite);
+    std::cout << "vector2.size(): " << vector2.size() << std::endl;
+    std::cout << "vector2[0]: " << vector2[0] << std::endl;
     std::cout << "vector2[1]: " << vector2[1] << std::endl;
     std::cout << "vector2[2]: " << vector2[2] << std::endl;
     std::cout << "vector2[3]: " << vector2[3] << std::endl;
     std::cout << "vector2[4]: " << vector2[4] << std::endl;
     std::cout << "vector2[5]: " << vector2[5] << std::endl;
+    std::cout << "vector2.size(): " << vector2.size() << std::endl;
     ft::Vector<int *> ptr_vec;
     std::cout << "max_size(): " << ptr_vec.max_size() << std::endl; 
     
@@ -70,6 +82,34 @@ int main()
     stl_vector.pop_back();
     std::cout << "begin: " << *(stl_vector.begin()) << std::endl;
     std::cout << "end: " << *(stl_vector.end()) << std::endl;
+
+    
+    std::vector<int> stl_vector2;
+    stl_vector2.push_back(6);
+    stl_vector2.push_back(3);
+    stl_vector2.push_back(12);
+    stl_vector2.push_back(10);
+    stl_vector2.push_back(1);
+    stl_vector2.push_back(27);
+    std::cout << "stl_vector2.size(): " << stl_vector2.size() << std::endl;
+    std::vector<int>::iterator stl_itb = stl_vector2.begin();
+    std::vector<int>::iterator stl_ite = stl_vector2.begin();
+    ++stl_itb;
+    ++stl_ite;
+    ++stl_ite;
+    ++stl_ite;
+    std::cout << "stl_itb: " << *stl_itb << std::endl;
+    std::cout << "stl_ite: " << *stl_ite << std::endl;
+    // std::cout << "stl_vector2.end: " << *(stl_vector2.end()) << std::endl;    
+    // stl_vector2.erase(stl_itb, ++stl_vector2.end());
+    stl_vector2.erase(stl_itb, stl_ite);
+    std::cout << "stl_vector2[0]: " << stl_vector2[0] << std::endl;
+    std::cout << "stl_vector2[1]: " << stl_vector2[1] << std::endl;
+    std::cout << "stl_vector2[2]: " << stl_vector2[2] << std::endl;
+    std::cout << "stl_vector2[3]: " << stl_vector2[3] << std::endl;
+    std::cout << "stl_vector2[4]: " << stl_vector2[4] << std::endl;
+    std::cout << "stl_vector2[5]: " << stl_vector2[5] << std::endl;
+    std::cout << "stl_vector2.size(): " << stl_vector2.size() << std::endl;
     std::vector<int *> stl_ptr_vector;
     std::cout << "max_size(): " << stl_ptr_vector.max_size() << std::endl; 
     

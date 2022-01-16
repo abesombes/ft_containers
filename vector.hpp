@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/15 18:57:36 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/16 15:26:27 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,6 +298,7 @@ namespace ft{
                         if (first == end())
                             return (end());
                         size_t nb_pop_back = end() - first;
+                        size_t removed = last - first;
                         if (last > end())
                         {
                             std::cout << "nb_pop_back: " << nb_pop_back << std::endl;
@@ -305,6 +306,7 @@ namespace ft{
                                 pop_back();
                         }
                         else
+                        {
                             while (first != end() && last != end())
                             {
                                 _alloc.destroy(&(*first));
@@ -312,6 +314,8 @@ namespace ft{
                                 first++;
                                 last++;
                             }
+                        }
+                        _size -= removed;
                         return (first);
                         // if (first == end() || first == last)
                         //     return first;
