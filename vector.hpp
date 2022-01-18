@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/18 16:30:01 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/18 17:36:44 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -315,18 +315,25 @@ namespace ft{
 
                     iterator insert (iterator position, const value_type& val)
                     {
-                        if (_size + 1 > _capacity)
+                        insert(position, (size_type)1, val);
+                        return (position);
+                        // difference_type index = position - begin();
+                        
+                        // insert(position, 1, val);
+                        // return iterator(&_arr[index]);
+                    }
+                 
+                    void insert (iterator position, size_type n, const value_type& val)
+                    {
+                        if (_size + n > _capacity)
                             reallocate_Vector(_size > 0 ? _capacity * 2: 1);
                         iterator tmp;
-                        for ( tmp = end() ; tmp > position ; tmp--)
+                        for ( tmp = end() ; tmp > position + n; tmp--)
                             *tmp = *(tmp - 1);
-                        *tmp = val;
-                        return (position);
+                        for ( tmp = position + n; tmp > position; tmp-- )
+                            *tmp = val;
+                        _size = _size + n;
                     }
-
-                    
-
-                    void insert (iterator position, size_type n, const value_type& val);
 
                     template <class InputIterator>
                     void insert (iterator position, InputIterator first, InputIterator last);

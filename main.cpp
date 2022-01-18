@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/18 16:46:28 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/18 17:38:50 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,37 +25,37 @@ int main()
         // std::cout << "v[0]: " << v[0] << std::endl;
         // std::cout << "v[1]: " << v[1] << std::endl;
         // v.printVec();
-        ft::Vector<int> v2;
-        v2.push_back(10);
-        v2.push_back(20);
-        v2.printVec();
-        ft::Vector<std::string> v;
-        v.push_back("hello");
-        v.push_back("world");
-        v.push_back("world");
-        v.printVec();
-        std::cout << "capacity: " << v.capacity() << std::endl;
-        // overwrite capacity
-        v.insert(v.begin(), *(v.end() - 1));
-        v.printVec();
-        std::cout << "capacity: " << v.capacity() << std::endl;
-        v.insert(v.begin(), *(v.end() - 1));
-        v.printVec();
-        v.insert(v.begin(), *(v.end() - 1));
-        v.printVec();
-        v.insert(v.begin(), *(v.end() - 1));
-        v.printVec(); 
-        std::cout << "capacity: " << v.capacity() << std::endl;
-        v.insert(v.begin(), *(v.end() - 1));
-        v.printVec();
-        v.insert(v.begin(), *(v.end() - 1));
-        v.insert(v.begin(), *(v.end() - 1));
-        v.insert(v.begin(), *(v.end() - 1));
-        v.insert(v.begin(), *(v.end() - 1));
-        std::cout << "v[5]: " << v[5] << std::endl;
-        v.insert(v.begin(), *(v.end() - 1));
-        v.insert(v.begin(), *(v.end() - 1));
-        v.insert(v.begin(), *(v.end() - 1));
+        // ft::Vector<int> v2;
+        // v2.push_back(10);
+        // v2.push_back(20);
+        // v2.printVec();
+        // ft::Vector<std::string> v;
+        // v.push_back("hello");
+        // v.push_back("world");
+        // v.push_back("world");
+        // v.printVec();
+        // std::cout << "capacity: " << v.capacity() << std::endl;
+        // // overwrite capacity
+        // v.insert(v.begin(), *(v.end() - 1));
+        // v.printVec();
+        // std::cout << "capacity: " << v.capacity() << std::endl;
+        // v.insert(v.begin(), *(v.end() - 1));
+        // v.printVec();
+        // v.insert(v.begin(), *(v.end() - 1));
+        // v.printVec();
+        // v.insert(v.begin(), *(v.end() - 1));
+        // v.printVec(); 
+        // std::cout << "capacity: " << v.capacity() << std::endl;
+        // v.insert(v.begin(), *(v.end() - 1));
+        // v.printVec();
+        // v.insert(v.begin(), *(v.end() - 1));
+        // v.insert(v.begin(), *(v.end() - 1));
+        // v.insert(v.begin(), *(v.end() - 1));
+        // v.insert(v.begin(), *(v.end() - 1));
+        // // std::cout << "v[5]: " << v[5] << std::endl;
+        // v.insert(v.begin(), *(v.end() - 1));
+        // v.insert(v.begin(), *(v.end() - 1));
+        // v.insert(v.begin(), *(v.end() - 1));
     
     std::cout << "------------------------ MY VECTOR ----------------------------" << std::endl;
     ft::Vector<int> vector;
@@ -97,7 +97,10 @@ int main()
     vector2.printVec();
     // vector2.insert(ite, 34);
     vector2.insert(vector2.begin()+2, *vector2.begin());
+    // vector2.insert(vector2.begin()+2, 2, *vector2.begin());
     vector2.printVec();
+    // std::cout << "vector[5]: " << vector[5] << std::endl;
+        
     // std::cout << "vector2.end: " << *(vector2.end()) << std::endl;    
     vector2.erase(itb, ite);
     std::cout << "vector2.size(): " << vector2.size() << std::endl;
