@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/18 10:39:39 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/18 15:25:15 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,20 +91,30 @@ namespace ft{
                     clear - Clear content (public member function ) */
 
                     /*
-                    ----------------------------------------------------------------------------------------------------
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                     Vector: Constructors
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    */
+
+                    /*
                     ----------------------------------------------------------------------------------------------------
+                    Vector - Default Constructor
+                    ----------------------------------------------------------------------------------------------------
+                    Constructs an empty container, with no elements.
                     */
 
                     explicit Vector(const allocator_type& alloc = allocator_type()): _alloc(alloc), _arr(NULL), _size(0), _capacity(0) {};
 
-                    /**
-                    *  @brief  Creates a %vector with copies of an exemplar element.
-                    *  @param  n  The number of elements to initially create.
-                    *  @param  value  An element to copy.
-                    *  @param  a  An allocator.
-                    *
-                    *  This constructor fills the %vector with @a n copies of @a value.
+                    /*
+                    ----------------------------------------------------------------------------------------------------
+                    Vector - Fill Constructor
+                    ----------------------------------------------------------------------------------------------------
+                    Constructs a container with as many elements as the range [first,last), with each element constructed
+                    from its corresponding element in that range, in the same order.
                     */
 
                     explicit Vector(size_type n, const value_type& value, const allocator_type& alloc = allocator_type()): _alloc(alloc), _size(n), _capacity(n)
@@ -112,6 +122,26 @@ namespace ft{
                         _arr = _alloc.allocate(_capacity);
                         for (size_t i = 0; i < _size; i++)
                             _alloc.construct(&_arr[i], value);
+                    }
+                    
+                    /*
+                    ----------------------------------------------------------------------------------------------------
+                    Vector - Range Constructor
+                    ----------------------------------------------------------------------------------------------------
+                    Constructs a container with as many elements as the range [first,last), with each element constructed
+                    from its corresponding element in that range, in the same order.
+                    */
+                   
+                    template <class InputIterator>
+                    Vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()): _alloc(alloc)
+                    {
+                        _capacity = last - first - 1;
+                        _arr = _alloc.allocate(_capacity);
+                        for (size_t i = 0; i < _size; i++)
+                        {
+                            _alloc.construct(&_arr[i], *first);
+                            first++;
+                        }
                     }
 
                     Vector(Vector const &src): _alloc(src._alloc), _size(src._size), _capacity(src._capacity)
@@ -122,9 +152,13 @@ namespace ft{
                     }
 
                     /*
-                    ----------------------------------------------------------------------------------------------------
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                     Vector: Destructors
-                    ----------------------------------------------------------------------------------------------------
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                     */
 
                     ~Vector(){
@@ -135,9 +169,13 @@ namespace ft{
 
 
                     /*
-                    ----------------------------------------------------------------------------------------------------
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                     Vector: Operator Overloads = and []
-                    ----------------------------------------------------------------------------------------------------
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                     */
 
                     Vector& operator= (const Vector& rhs)
@@ -153,9 +191,13 @@ namespace ft{
                     }
 
                     /*
-                    ----------------------------------------------------------------------------------------------------
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                     Vector: Element Access Functions
-                    ----------------------------------------------------------------------------------------------------
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                     */
 
                     const_reference at (size_type n) const
@@ -211,7 +253,7 @@ namespace ft{
                     
                     void resize (size_type new_size, value_type val = value_type()){
                         if (new_size > _capacity)
-                            reallocate_Vector(new_size);
+                            reallocate_Vector(_size > 0 ? _capacity * 2: 1);
                         while (new_size < _size)
                             pop_back();
                         while (new_size > _size) 
@@ -243,14 +285,20 @@ namespace ft{
              
                     void push_back(T data)
                     {
-                        if (_size == _capacity)
+                        if (_size + 1 > _capacity)
                         {
-                            T* tmp = new T[2 * _capacity];
+                            if (_capacity > 0)
+                                T* tmp = new T[2 * _capacity];
+                            else
+                                T* tmp = new T[1];                                                    
                             size_t i;
                             for (i = 0; i < _capacity; i++)
                                 tmp[i] = _arr[i];
                             delete[] _arr;
-                            _capacity *= 2;
+                            if (_capacity == 0)
+                                _capacity = 1;
+                            else
+                                _capacity *= 2;
                             tmp[i] = data;
                             _arr = tmp;
                             _size++;
@@ -283,7 +331,18 @@ namespace ft{
                     they are initialized.
                     */
 
-                    iterator insert (iterator position, const value_type& val);
+                    iterator insert (iterator position, const value_type& val)
+                    {
+                        if (_size + 1 > _capacity)
+                            reallocate_Vector(_size > 0 ? _capacity * 2: 1);
+                        iterator tmp;
+                        for ( tmp = end() ; tmp > position ; tmp--)
+                            *tmp = *(tmp - 1);
+                        *tmp = val;
+                        return (position);
+                    }
+
+                    
 
                     void insert (iterator position, size_type n, const value_type& val);
 
@@ -372,6 +431,21 @@ namespace ft{
                             pop_back();
                     }
                     
+
+                    void printVec()
+                    {
+                        std::cout << "\n-----------------------------" << std::endl; 
+                        std::cout << "------ VECTOR PRINTING ------" << std::endl;
+                        std::cout << "-----------------------------" << std::endl; 
+                        int j = 0;
+                        for (iterator i = begin(); i < end(); i++)
+                        {
+                            std::cout << "vector[" << j << "]: " << *i << std::endl;
+                            j++;
+                        }
+                        std::cout << "-----------------------------" << std::endl; 
+                        std::cout << "-----------------------------\n" << std::endl; 
+                    }
             
         private:
                     allocator_type  _alloc;
@@ -403,6 +477,8 @@ namespace ft{
                                 _alloc.construct(&(*(first)), *last);
                         }
                     }
+
+
     };
 
 
