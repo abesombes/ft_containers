@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/16 15:26:27 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/18 10:39:39 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <memory>
 #include <iostream>
 #include <cstddef>
+#include <limits>
 #include "iterators/random_access_iterator.hpp"
 
 // typedef typename ft::vector_iterator<T, false> iterator;
@@ -191,7 +192,9 @@ namespace ft{
                     size_type max_size() const{
                         // size_t max_size = -1;
                         // return (max_size / sizeof(T));
-                        return (std::numeric_limits<size_t>::max() / sizeof(T));   
+                        // return (std::numeric_limits<size_t>::max() / sizeof(T));   
+                        return allocator_type().max_size();
+                        // return std::numeric_limits<size_type>::max() / sizeof(value_type);
                     }
                     
                     /**
@@ -264,6 +267,21 @@ namespace ft{
                         _size--;
                         _alloc.destroy(&_arr[_size]);
                     }
+                    
+                    /*
+                    ----------------------------------------------------------------------------------------------------
+                    INSERT - Insert elements
+                    ----------------------------------------------------------------------------------------------------
+                    The vector is extended by inserting new elements before the element at the specified position, 
+                    effectively increasing the container size by the number of elements inserted.
+                    This causes an automatic reallocation of the allocated storage space if -and only if- the new vector
+                    size surpasses the current vector capacity. Because vectors use an array as their underlying storage,
+                    inserting elements in positions other than the vector end causes the container to relocate all the
+                    elements that were after position to their new positions. This is generally an inefficient operation
+                    compared to the one performed for the same operation by other kinds of sequence containers (such as
+                    list or forward_list). The parameters determine how many elements are inserted and to which values 
+                    they are initialized.
+                    */
 
                     iterator insert (iterator position, const value_type& val);
 
@@ -271,7 +289,7 @@ namespace ft{
 
                     template <class InputIterator>
                     void insert (iterator position, InputIterator first, InputIterator last);
-
+                   
 
                     /*
                     ----------------------------------------------------------------------------------------------------
@@ -317,28 +335,6 @@ namespace ft{
                         }
                         _size -= removed;
                         return (first);
-                        // if (first == end() || first == last)
-                        //     return first;
-                        
-                        // // In case of a realloc, iterators will be invalited because _vector
-                        // // points to another allocated area so we need to save the index array
-                        // // where first is pointing to create a new iterator after the reallocation
-                        // difference_type index = first - begin();
-                        
-                        // // If there is elements after the iterators range, we need to move them at first position
-                        // if (last < end())
-                        // {
-                        //     moveElementsToTheLeft(first, last);
-                        //     _size -= static_cast<size_type>(last - first);
-                        // }
-                        // else
-                        // {
-                        //     size_type newSize = _size - static_cast<size_type>(last - first);
-                        //     while (_size != newSize)
-                        //         pop_back();
-                        // }
-                        
-                        // return iterator(&_arr[index]);
                     }
                 
                     /*

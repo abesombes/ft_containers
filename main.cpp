@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/16 19:39:31 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/18 10:24:18 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,9 @@ int main()
     vector2.push_back(1);
     vector2.push_back(27);
     std::cout << "vector2.size(): " << vector2.size() << std::endl;
-    ft::Vector<int>::iterator itb = vector2.begin();
-    ++itb;
-    // ++itb;
-    // ++itb;
+    ft::Vector<int>::iterator itb = vector2.begin() + 1;
     std::cout << "itb: " << *itb << std::endl;
-    ft::Vector<int>::iterator ite = vector2.begin();
-    ++ite;
-    ++ite;
-    ++ite;
+    ft::Vector<int>::iterator ite = vector2.begin() + 3;
     std::cout << "ite: " << *ite << std::endl;
     // std::cout << "vector2.end: " << *(vector2.end()) << std::endl;    
     vector2.erase(itb, ite);
@@ -92,12 +86,9 @@ int main()
     stl_vector2.push_back(1);
     stl_vector2.push_back(27);
     std::cout << "stl_vector2.size(): " << stl_vector2.size() << std::endl;
-    std::vector<int>::iterator stl_itb = stl_vector2.begin();
-    std::vector<int>::iterator stl_ite = stl_vector2.begin();
-    ++stl_itb;
-    ++stl_ite;
-    ++stl_ite;
-    ++stl_ite;
+    std::vector<int>::iterator stl_itb = stl_vector2.begin() + 1;
+    std::vector<int>::iterator stl_ite = stl_vector2.begin() + 3;
+
     std::cout << "stl_itb: " << *stl_itb << std::endl;
     std::cout << "stl_ite: " << *stl_ite << std::endl;
     // std::cout << "stl_vector2.end: " << *(stl_vector2.end()) << std::endl;    

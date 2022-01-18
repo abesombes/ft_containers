@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:30:34 by abesombes         #+#    #+#             */
-/*   Updated: 2022/01/15 18:21:30 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/18 10:22:18 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ class random_access_iterator
             };
             reference operator*() const { return (*_val); };
             reference operator->() const { return (_val); };
-            self_type operator+(difference_type offset) const { return (_val + offset); };
-            self_type operator-(difference_type offset) const { return (_val - offset); };
+            self_type operator+(difference_type offset) const { return static_cast<self_type>(_val + offset); };
+            self_type operator-(difference_type offset) const { return static_cast<self_type>(_val - offset); };
             difference_type operator-(self_type const &rhs) const { return (_val - rhs._val); };
             bool operator<(self_type const &rhs) const {                 
                 // if (compatible(rhs))
