@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/18 15:25:15 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/18 16:30:01 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,10 @@ namespace ft{
                     typedef ptrdiff_t difference_type;
 
                     typedef size_t size_type;
-                    typedef random_access_iterator<value_type> iterator;
-                    typedef random_access_iterator<const value_type> const_iterator;
+                    // typedef random_access_iterator<value_type> iterator;
+                    typedef value_type*                 iterator;
+                    typedef const value_type*                 const_iterator;
+                    // typedef random_access_iterator<const value_type> const_iterator;
                     iterator begin() { return iterator(_arr); };
                     iterator end() { return iterator(_arr + _size); };
                     const_iterator begin() const { return const_iterator(_arr); };
@@ -286,28 +288,8 @@ namespace ft{
                     void push_back(T data)
                     {
                         if (_size + 1 > _capacity)
-                        {
-                            if (_capacity > 0)
-                                T* tmp = new T[2 * _capacity];
-                            else
-                                T* tmp = new T[1];                                                    
-                            size_t i;
-                            for (i = 0; i < _capacity; i++)
-                                tmp[i] = _arr[i];
-                            delete[] _arr;
-                            if (_capacity == 0)
-                                _capacity = 1;
-                            else
-                                _capacity *= 2;
-                            tmp[i] = data;
-                            _arr = tmp;
-                            _size++;
-                        }
-                        else
-                        {
-                            _arr[_size] = data;
-                            _size++;
-                        }
+                            reallocate_Vector(_capacity ? _capacity * 2 : 1);
+                        _alloc.construct(&_arr[_size++], data);
                     }
 
                     void pop_back()

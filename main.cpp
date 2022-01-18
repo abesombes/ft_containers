@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/18 15:09:24 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/18 16:46:28 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,29 +19,43 @@ int main()
 {
         // ft::Vector<std::string> v;
 
-        // // // fill capacity a little
+        // fill capacity a little
         // v.push_back("hello");
         // v.push_back("world");
-        // v.push_back("world");
-        // std::cout << "capacity: " << v.capacity() << std::endl;
-        // overrite capacity
-        // v.insert(v.begin(), *(v.end() - 1));
+        // std::cout << "v[0]: " << v[0] << std::endl;
+        // std::cout << "v[1]: " << v[1] << std::endl;
         // v.printVec();
-        // v.insert(v.begin(), *(v.end() - 1));
-        // v.printVec();
-        // v.insert(v.begin(), *(v.end() - 1));
-        // v.printVec();
-        // v.insert(v.begin(), *(v.end() - 1));
-        // v.printVec(); 
-        // v.insert(v.begin(), *(v.end() - 1));
-        // v.printVec();
-        // v.insert(v.begin(), *(v.end() - 1));
-        // v.insert(v.begin(), *(v.end() - 1));
-        // v.insert(v.begin(), *(v.end() - 1));
-        // v.insert(v.begin(), *(v.end() - 1));
-        // v.insert(v.begin(), *(v.end() - 1));
-        // v.insert(v.begin(), *(v.end() - 1));
-        // v.insert(v.begin(), *(v.end() - 1));
+        ft::Vector<int> v2;
+        v2.push_back(10);
+        v2.push_back(20);
+        v2.printVec();
+        ft::Vector<std::string> v;
+        v.push_back("hello");
+        v.push_back("world");
+        v.push_back("world");
+        v.printVec();
+        std::cout << "capacity: " << v.capacity() << std::endl;
+        // overwrite capacity
+        v.insert(v.begin(), *(v.end() - 1));
+        v.printVec();
+        std::cout << "capacity: " << v.capacity() << std::endl;
+        v.insert(v.begin(), *(v.end() - 1));
+        v.printVec();
+        v.insert(v.begin(), *(v.end() - 1));
+        v.printVec();
+        v.insert(v.begin(), *(v.end() - 1));
+        v.printVec(); 
+        std::cout << "capacity: " << v.capacity() << std::endl;
+        v.insert(v.begin(), *(v.end() - 1));
+        v.printVec();
+        v.insert(v.begin(), *(v.end() - 1));
+        v.insert(v.begin(), *(v.end() - 1));
+        v.insert(v.begin(), *(v.end() - 1));
+        v.insert(v.begin(), *(v.end() - 1));
+        std::cout << "v[5]: " << v[5] << std::endl;
+        v.insert(v.begin(), *(v.end() - 1));
+        v.insert(v.begin(), *(v.end() - 1));
+        v.insert(v.begin(), *(v.end() - 1));
     
     std::cout << "------------------------ MY VECTOR ----------------------------" << std::endl;
     ft::Vector<int> vector;
@@ -54,7 +68,7 @@ int main()
     std::cout << "vector.at(2): " << vector.at(2) << std::endl;
     std::cout << "vector.at(-1): " << vector.at(-1) << std::endl;
     std::cout << "vector.at(1432): " << vector.at(1432) << std::endl;
-    std::cout << "end - 1: " << *(--(vector.end())) << std::endl;
+    // std::cout << "end - 1: " << *(--(vector.end())) << std::endl;
     std::cout << "end: " << *(vector.end()) << std::endl;
     vector.pop_back();
     vector.pop_back();
@@ -103,6 +117,8 @@ int main()
     stl_vector.push_back(100);
     stl_vector.push_back(200);
     stl_vector.push_back(300);
+    // std::cout << "stl_vector.at(-1): " << stl_vector.at(-1) << std::endl;
+    // std::cout << "stl_vector.at(1432): " << stl_vector.at(1432) << std::endl;
     std::cout << "begin: " << *(stl_vector.begin()) << std::endl;
     std::cout << "vector[1]: " << stl_vector[1] << std::endl;
     std::cout << "end - 1: " << *(--(stl_vector.end())) << std::endl;

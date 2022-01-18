@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:30:34 by abesombes         #+#    #+#             */
-/*   Updated: 2022/01/18 10:22:18 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/18 16:28:51 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,14 @@ class random_access_iterator
             typedef T*                          pointer;
             typedef random_access_iterator_tag  iterator_category;
             typedef ptrdiff_t                   difference_type;
+
             random_access_iterator( void ): _val(NULL){};
             explicit random_access_iterator(pointer val): _val(val){};
             random_access_iterator( random_access_iterator const &src ): _val(src._val){};
             random_access_iterator &operator=(random_access_iterator const &rhs){ this->_val = rhs._val; return (*this); };
             virtual ~random_access_iterator(){};
             self_type &operator++(){ _val++; return (*this);};
-            self_type operator++(T){ self_type tmp = *this; ++*this; return tmp; };
+            self_type operator++(T){ self_type tmp = *this; ++(*this); return tmp; };
             self_type &operator--(){ _val--; return (*this);};
             self_type operator--(T){ self_type tmp = *this; --*this; return tmp; };
             bool operator==(self_type const & rhs) const { 
