@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:30:34 by abesombes         #+#    #+#             */
-/*   Updated: 2022/01/18 16:28:51 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/19 10:54:20 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ namespace ft{
 
 #include "iterator_traits.hpp"
 #include <cstddef>
+#include <iostream>
 
 class random_access_iterator_tag {};
 

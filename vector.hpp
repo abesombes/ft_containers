@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/18 17:36:44 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/19 16:44:02 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,10 @@ namespace ft{
 
                     ~Vector(){
                         for (size_t i = 0; i < _size; i++)
+                        {
+                            std::cout << "test " << i << std::endl;
                             _alloc.destroy(&_arr[i]);
+                        }
                         _alloc.deallocate(_arr, this->_capacity);
                     };
 
@@ -315,7 +318,8 @@ namespace ft{
 
                     iterator insert (iterator position, const value_type& val)
                     {
-                        insert(position, (size_type)1, val);
+                        size_type n = 1;
+                        insert(position, n, val);
                         return (position);
                         // difference_type index = position - begin();
                         
@@ -325,18 +329,39 @@ namespace ft{
                  
                     void insert (iterator position, size_type n, const value_type& val)
                     {
+                        difference_type offset = position - begin();
+                        
                         if (_size + n > _capacity)
                             reallocate_Vector(_size > 0 ? _capacity * 2: 1);
                         iterator tmp;
-                        for ( tmp = end() ; tmp > position + n; tmp--)
-                            *tmp = *(tmp - 1);
-                        for ( tmp = position + n; tmp > position; tmp-- )
+                        std::cout << "end() - 1 value: " << *(end() - 1)<< std::endl;
+                        position = iterator(_arr + offset);
+                        for ( tmp = end() - 1 + n ; tmp > position + n - 1; tmp--)
+                            *tmp = *(tmp - n);
+                        for ( tmp = position + n - 1; tmp >= position; tmp-- )
                             *tmp = val;
                         _size = _size + n;
                     }
 
                     template <class InputIterator>
-                    void insert (iterator position, InputIterator first, InputIterator last);
+                    void insert (iterator position, InputIterator first, InputIterator last)
+                    {
+                        size_t n = last - first;
+                        difference_type offset = position - begin();
+                        
+                        if (_size + n > _capacity)
+                            reallocate_Vector(_size > 0 ? _capacity * 2: 1);
+                        position = iterator(_arr + offset);
+                        iterator tmp;
+                        for ( tmp = end() - 1 + n ; tmp > position + n - 1; tmp--)
+                            *tmp = *(tmp - n);
+                        for ( tmp = position + n - 1; tmp >= position; tmp-- )
+                        {
+                            *tmp = *last;
+                            last--;
+                        }
+                        _size = _size + n;
+                    }
                    
 
                     /*
@@ -423,17 +448,17 @@ namespace ft{
 
                     void printVec()
                     {
-                        std::cout << "\n-----------------------------" << std::endl; 
-                        std::cout << "------ VECTOR PRINTING ------" << std::endl;
-                        std::cout << "-----------------------------" << std::endl; 
+                        std::cout << "\n---------------------------------" << std::endl; 
+                        std::cout << "---- VECTOR PRINTING (" << size() << "/" << capacity() << ") -----" << std::endl;
+                        std::cout << "---------------------------------" << std::endl; 
                         int j = 0;
                         for (iterator i = begin(); i < end(); i++)
                         {
-                            std::cout << "vector[" << j << "]: " << *i << std::endl;
+                            std::cout << "vector[" << j << "]: " << *i << " - addr = " << &*i << std::endl;
                             j++;
                         }
-                        std::cout << "-----------------------------" << std::endl; 
-                        std::cout << "-----------------------------\n" << std::endl; 
+                        std::cout << "---------------------------------" << std::endl; 
+                        std::cout << "---------------------------------\n" << std::endl; 
                     }
             
         private:
