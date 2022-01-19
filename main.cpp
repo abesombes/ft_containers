@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/19 16:42:22 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/19 17:00:30 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,31 +185,39 @@ int main()
     stl_vector2.insert(stl_ite, 34);
     std::cout << "stl_ite: " << *stl_ite << std::endl;
     std::cout << "\n----------------- BEFORE RANGE INSERTION ----------------\n" << std::endl;
-    std::cout << "stl_vector2[1]: " << stl_vector2[1] << std::endl;
-    std::cout << "stl_vector2[2]: " << stl_vector2[2] << std::endl;
-    std::cout << "stl_vector2[3]: " << stl_vector2[3] << std::endl;
-    std::cout << "stl_vector2[4]: " << stl_vector2[4] << std::endl;
-    std::cout << "stl_vector2[5]: " << stl_vector2[5] << std::endl;
-    // std::cout << "stl_vector2.end: " << *(stl_vector2.end()) << std::endl;    
-    // stl_vector2.erase(stl_itb, ++stl_vector2.end());
-    stl_vector2.insert(stl_ite, vector3.begin(), vector3.begin() + 2);
-    std::cout << "\n----------------- AFTER RANGE INSERTION ----------------\n" << std::endl;
-    std::cout << "stl_vector2[1]: " << stl_vector2[1] << std::endl;
-    std::cout << "stl_vector2[2]: " << stl_vector2[2] << std::endl;
-    std::cout << "stl_vector2[3]: " << stl_vector2[3] << std::endl;
-    std::cout << "stl_vector2[4]: " << stl_vector2[4] << std::endl;
-    std::cout << "stl_vector2[5]: " << stl_vector2[5] << std::endl;
-    // stl_vector2.printVec();
-
-    stl_itb = stl_vector2.begin() + 1;
-    stl_ite = stl_vector2.begin() + 3;
-    stl_vector2.erase(stl_itb, stl_ite);
     std::cout << "stl_vector2[0]: " << stl_vector2[0] << std::endl;
     std::cout << "stl_vector2[1]: " << stl_vector2[1] << std::endl;
     std::cout << "stl_vector2[2]: " << stl_vector2[2] << std::endl;
     std::cout << "stl_vector2[3]: " << stl_vector2[3] << std::endl;
     std::cout << "stl_vector2[4]: " << stl_vector2[4] << std::endl;
     std::cout << "stl_vector2[5]: " << stl_vector2[5] << std::endl;
+    std::cout << "stl_vector2[6]: " << stl_vector2[6] << std::endl;
+    // std::cout << "stl_vector2.end: " << *(stl_vector2.end()) << std::endl;    
+    // stl_vector2.erase(stl_itb, ++stl_vector2.end());
+    stl_vector2.insert(stl_ite, vector3.begin(), vector3.begin() + 2);
+    std::cout << "\n----------------- AFTER RANGE INSERTION ----------------\n" << std::endl;
+    std::cout << "stl_vector2[0]: " << stl_vector2[0] << std::endl;
+    std::cout << "stl_vector2[1]: " << stl_vector2[1] << std::endl;
+    std::cout << "stl_vector2[2]: " << stl_vector2[2] << std::endl;
+    std::cout << "stl_vector2[3]: " << stl_vector2[3] << std::endl;
+    std::cout << "stl_vector2[4]: " << stl_vector2[4] << std::endl;
+    std::cout << "stl_vector2[5]: " << stl_vector2[5] << std::endl;
+    std::cout << "stl_vector2[6]: " << stl_vector2[6] << std::endl;
+    std::cout << "stl_vector2[7]: " << stl_vector2[7] << std::endl;
+    std::cout << "stl_vector2[8]: " << stl_vector2[8] << std::endl;
+    // stl_vector2.printVec();
+
+    stl_itb = stl_vector2.begin() + 1;
+    stl_ite = stl_vector2.begin() + 3;
+    stl_vector2.erase(stl_itb, stl_ite);
+    std::cout << "\n----------------- AFTER RANGE ERASE ----------------\n" << std::endl;
+    std::cout << "stl_vector2[0]: " << stl_vector2[0] << std::endl;
+    std::cout << "stl_vector2[1]: " << stl_vector2[1] << std::endl;
+    std::cout << "stl_vector2[2]: " << stl_vector2[2] << std::endl;
+    std::cout << "stl_vector2[3]: " << stl_vector2[3] << std::endl;
+    std::cout << "stl_vector2[4]: " << stl_vector2[4] << std::endl;
+    std::cout << "stl_vector2[5]: " << stl_vector2[5] << std::endl;
+    std::cout << "stl_vector2[6]: " << stl_vector2[6] << std::endl;
     std::cout << "stl_vector2.size(): " << stl_vector2.size() << std::endl;
     std::vector<int *> stl_ptr_vector;
     std::cout << "max_size(): " << stl_ptr_vector.max_size() << std::endl; 

@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/19 16:44:02 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/19 17:08:07 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -357,8 +357,8 @@ namespace ft{
                             *tmp = *(tmp - n);
                         for ( tmp = position + n - 1; tmp >= position; tmp-- )
                         {
-                            *tmp = *last;
-                            last--;
+                            *tmp = *(first + n - 1);
+                            first--;
                         }
                         _size = _size + n;
                     }
