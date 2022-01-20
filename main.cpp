@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/19 17:00:30 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/20 18:08:31 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 int main()
 {
+
         // ft::Vector<std::string> v;
 
         // fill capacity a little
@@ -59,6 +60,13 @@ int main()
     
     std::cout << "------------------------ MY VECTOR ----------------------------" << std::endl;
     ft::Vector<int> vector;
+    
+    {
+        ft::Vector<int> v1;
+        ft::Vector<int> v2;
+        ft::Vector<int> v3;
+        ft::Vector<int> v4;
+    }
     
     vector.push_back(100);
     vector.push_back(200);
@@ -135,7 +143,7 @@ int main()
     std::cout << "vector2[3]: " << vector2[3] << std::endl;
     std::cout << "vector2[4]: " << vector2[4] << std::endl;
     std::cout << "vector2[5]: " << vector2[5] << std::endl;
-    std::cout << "vector.size(): " << vector.size() << std::endl;
+    std::cout << "vector.size(): " << vector.size() << " - vector.capacity(): " << vector.capacity() << std::endl;
     std::cout << "vector2.size(): " << vector2.size() << std::endl;
     std::cout << "vector3.size(): " << vector3.size() << std::endl;
     ft::Vector<int *> ptr_vec;

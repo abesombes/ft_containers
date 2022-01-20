@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:30:34 by abesombes         #+#    #+#             */
-/*   Updated: 2022/01/19 10:54:20 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/20 17:29:00 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ namespace ft{
 #include <cstddef>
 #include <iostream>
 
-class random_access_iterator_tag {};
-
 template <typename T>
 class random_access_iterator
 {
@@ -29,7 +27,7 @@ class random_access_iterator
             typedef T                           value_type;
             typedef T&                          reference;
             typedef T*                          pointer;
-            typedef random_access_iterator_tag  iterator_category;
+            typedef ft::random_access_iterator_tag  iterator_category;
             typedef ptrdiff_t                   difference_type;
 
             random_access_iterator( void ): _val(NULL){};
@@ -49,7 +47,7 @@ class random_access_iterator
                 return !(*this == rhs); 
             };
             reference operator*() const { return (*_val); };
-            reference operator->() const { return (_val); };
+            pointer operator->() const { return (_val); };
             self_type operator+(difference_type offset) const { return static_cast<self_type>(_val + offset); };
             self_type operator-(difference_type offset) const { return static_cast<self_type>(_val - offset); };
             difference_type operator-(self_type const &rhs) const { return (_val - rhs._val); };

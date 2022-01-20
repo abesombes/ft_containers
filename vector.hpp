@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/19 17:08:07 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/20 18:07:08 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,8 @@ namespace ft{
                     template <class InputIterator>
                     Vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()): _alloc(alloc)
                     {
-                        _capacity = last - first - 1;
+                        _capacity = last - first;
+                        _size = _capacity;
                         _arr = _alloc.allocate(_capacity);
                         for (size_t i = 0; i < _size; i++)
                         {
@@ -170,6 +171,7 @@ namespace ft{
                             _alloc.destroy(&_arr[i]);
                         }
                         _alloc.deallocate(_arr, this->_capacity);
+                        std::cout << "destruction completed" << std::endl;
                     };
 
 
@@ -284,7 +286,15 @@ namespace ft{
                     */
                     
                     template <class InputIterator>
-                    void assign (InputIterator first, InputIterator last);
+                    void assign (InputIterator first, InputIterator last)
+                    {
+                        difference_type n = last - first;
+                        if (n > _capacity)
+                        {
+                           clean_former_arr();
+                            
+                        }
+                    }
 
                     void assign (size_type n, const value_type& val);
              
@@ -473,7 +483,7 @@ namespace ft{
                         for (size_t i = 0; i < _size; i++)
                             _alloc.construct(&tmp[i], _arr[i]);
 
-                        this->~Vector();
+                        clean_former_arr();
                         _capacity = new_capacity;
                         _arr = tmp;
                     }
@@ -490,6 +500,13 @@ namespace ft{
                             if (last < end())
                                 _alloc.construct(&(*(first)), *last);
                         }
+                    }
+
+                    void clean_former_arr()
+                    {
+                        for (size_t i = 0; i < _size; i++)
+                            _alloc.destroy(&_arr[i]);
+                        _alloc.deallocate(_arr, this->_capacity);
                     }
 
 
