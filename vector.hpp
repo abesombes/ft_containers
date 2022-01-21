@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/20 18:07:08 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/21 17:35:28 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <iostream>
 #include <cstddef>
 #include <limits>
+#include <algorithm>
 #include "iterators/random_access_iterator.hpp"
 
 // typedef typename ft::vector_iterator<T, false> iterator;
@@ -39,13 +40,19 @@ namespace ft{
 
                     typedef size_t size_type;
                     // typedef random_access_iterator<value_type> iterator;
-                    typedef value_type*                 iterator;
-                    typedef const value_type*                 const_iterator;
+                    typedef random_access_iterator<value_type>           iterator;
+                    typedef const random_access_iterator<value_type>           const_iterator;
+                    // typedef value_type*                 iterator;
+                    // typedef const value_type*                 const_iterator;
                     // typedef random_access_iterator<const value_type> const_iterator;
                     iterator begin() { return iterator(_arr); };
                     iterator end() { return iterator(_arr + _size); };
                     const_iterator begin() const { return const_iterator(_arr); };
                     const_iterator end() const { return const_iterator(_arr + _size); };
+                    iterator rbegin() { return iterator(_arr); };
+                    iterator rend() { return iterator(_arr + _size); };
+                    const_iterator rbegin() const { return const_iterator(_arr); };
+                    const_iterator rend() const { return const_iterator(_arr + _size); };
 
                     /*
                     ----------------------------------------------------------------------------------------------------
@@ -101,6 +108,9 @@ namespace ft{
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                     */
+
+                   void setName(std::string name) { _name = name; };
+                   std::string getName() { return (_name); };
 
                     /*
                     ----------------------------------------------------------------------------------------------------
@@ -167,11 +177,11 @@ namespace ft{
                     ~Vector(){
                         for (size_t i = 0; i < _size; i++)
                         {
-                            std::cout << "test " << i << std::endl;
+                            std::cout << "object destroyed " << i << std::endl;
                             _alloc.destroy(&_arr[i]);
                         }
                         _alloc.deallocate(_arr, this->_capacity);
-                        std::cout << "destruction completed" << std::endl;
+                        std::cout << "destruction completed for " << getName() << std::endl;
                     };
 
 
@@ -231,9 +241,13 @@ namespace ft{
                     }
 
                     /*
-                    ----------------------------------------------------------------------------------------------------
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                     Vector: Capacity Functions
-                    ----------------------------------------------------------------------------------------------------
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                     */
                     
                     size_type size() const { return (_size); };
@@ -271,6 +285,18 @@ namespace ft{
 
                     bool empty() const { return (_size == 0 ? true : false); }
 
+
+                    /*
+                    ----------------------------------------------------------------------------------------------------
+                    RESERVE - Request a change in capacity
+                    ----------------------------------------------------------------------------------------------------
+                    Requests that the vector capacity be at least enough to contain n elements.
+                    If n is greater than the current vector capacity, the function causes the container to reallocate 
+                    its storage increasing its capacity to n (or greater). 
+                    In all other cases, the function call does not cause a reallocation and the vector capacity is not 
+                    affected. This function has no effect on the vector size and cannot alter its elements.
+                    */
+
                     void reserve (size_type n)
                     {
                         if (n > max_size())
@@ -280,30 +306,89 @@ namespace ft{
                     }
                     
                     /*
-                    ----------------------------------------------------------------------------------------------------
-                    Vector: Modifiers Functions
-                    ----------------------------------------------------------------------------------------------------
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    Vector: Modifier Functions
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                     */
                     
+
+
+
+
+
+                    
+                    /*
+                    ----------------------------------------------------------------------------------------------------
+                    ASSIGN - Assign vector content
+                    ----------------------------------------------------------------------------------------------------
+                    Assigns new contents to the vector replacing its current contents & modifying its size accordingly.
+                    In the range version (1), the new contents are elements constructed from each of the elements in the
+                    range between first and last, in the same order. 
+                    In the fill version (2), the new contents are n elements, each initialized to a copy of val.
+                    If a reallocation happens,the storage needed is allocated using the internal allocator.
+                    */
+                   
                     template <class InputIterator>
                     void assign (InputIterator first, InputIterator last)
                     {
-                        difference_type n = last - first;
+                        clear();
+                        size_t n = last - first;
                         if (n > _capacity)
                         {
-                           clean_former_arr();
-                            
+                            _alloc.deallocate(_arr, this->_capacity);
+                            _arr = _alloc.allocate(n);
                         }
+                        for (size_t i = 0; i < n; i++)
+                        {
+                            _alloc.construct(&_arr[i], *first);
+                            first++;
+                        }
+                        _size = n;
+                        _capacity = _size;
                     }
 
-                    void assign (size_type n, const value_type& val);
+                    void assign (size_type n, const value_type& val)
+                    {
+                        clear();
+                        if (n > _capacity)
+                        {
+                            _alloc.deallocate(_arr, this->_capacity);
+                            _arr = _alloc.allocate(n);
+                        }
+                        for (size_t i = 0; i < n; i++)
+                            _alloc.construct(&_arr[i], *val);
+                        _size = n;
+                        _capacity = _size;
+                    }
              
+                    /*
+                    ----------------------------------------------------------------------------------------------------
+                    PUSH_BACK - Add element at the end
+                    ----------------------------------------------------------------------------------------------------
+                    Adds a new element at the end of the vector, after its current last element. The content of val is 
+                    copied (or moved) to the new element. This effectively increases the container size by one, which 
+                    causes an automatic reallocation of the allocated storage space if -and only if- the new vector size
+                    surpasses the current vector capacity.
+                    */
+
                     void push_back(T data)
                     {
                         if (_size + 1 > _capacity)
                             reallocate_Vector(_capacity ? _capacity * 2 : 1);
                         _alloc.construct(&_arr[_size++], data);
                     }
+
+                    /*
+                    ----------------------------------------------------------------------------------------------------
+                    POP_BACK - Delete last element
+                    ----------------------------------------------------------------------------------------------------
+                    Removes the last element in the vector, effectively reducing the container size by one.
+                    This destroys the removed element.
+                    */
 
                     void pop_back()
                     {
@@ -458,17 +543,17 @@ namespace ft{
 
                     void printVec()
                     {
-                        std::cout << "\n---------------------------------" << std::endl; 
-                        std::cout << "---- VECTOR PRINTING (" << size() << "/" << capacity() << ") -----" << std::endl;
-                        std::cout << "---------------------------------" << std::endl; 
+                        std::cout << "\n-----------------------------------------" << std::endl; 
+                        std::cout << "---- VECTOR PRINTING: "<< getName() << " (" << size() << "/" << capacity() << ") -----" << std::endl;
+                        std::cout << "-----------------------------------------" << std::endl; 
                         int j = 0;
                         for (iterator i = begin(); i < end(); i++)
                         {
                             std::cout << "vector[" << j << "]: " << *i << " - addr = " << &*i << std::endl;
                             j++;
                         }
-                        std::cout << "---------------------------------" << std::endl; 
-                        std::cout << "---------------------------------\n" << std::endl; 
+                        std::cout << "-----------------------------------------" << std::endl; 
+                        std::cout << "-----------------------------------------\n" << std::endl; 
                     }
             
         private:
@@ -476,6 +561,7 @@ namespace ft{
                     pointer         _arr;
                     size_t          _size;
                     size_t          _capacity;
+                    std::string     _name;
                     
                     void reallocate_Vector(size_type new_capacity)
                     {
