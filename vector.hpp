@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/23 16:52:48 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/23 18:50:11 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,16 +268,18 @@ namespace ft{
                         // return std::numeric_limits<size_type>::max() / sizeof(value_type);
                     }
                     
-                    /**
-                    *  @brief  Resizes the Vector to the specified number of elements.
-                    *  @param  new_size Number of elements the Vector should contain.
-                    *  @param  val Data with which new elements should be populated.
-                    *
-                    *  This function will resize the Vector to the specified
-                    *  number of elements.  If the number is smaller than the
-                    *  Vector's current size the Vector is truncated, otherwise
-                    *  the Vector is extended and new elements are populated with
-                    *  given data.
+                    /*
+                    ----------------------------------------------------------------------------------------------------
+                    RESIZE - Change size
+                    ----------------------------------------------------------------------------------------------------
+                    Resizes the container so that it contains n elements. If n is smaller than the current container 
+                    size, the content is reduced to its first n elements, removing those beyond (and destroying them). 
+                    If n is greater than the current container size, the content is expanded by inserting at the end as 
+                    many elements as needed to reach a size of n. If val is specified, the new elements are initialized
+                    as copies of val, otherwise, they are value-initialized. If n is also greater than the current 
+                    container capacity, an automatic reallocation of the allocated storage space takes place. 
+                    Notice that this function changes the actual content of the container by inserting or erasing 
+                    elements from it.
                     */
                     
                     void resize (size_type new_size, value_type val = value_type()){
@@ -476,11 +478,11 @@ namespace ft{
                     Removes from the vector either a single element (position) or a range of elements ([first,last)).
                     This effectively reduces the container size by the number of elements removed, which are destroyed.
                     Because vectors use an array as their underlying storage, erasing elements in positions other than 
-                    the vector end causes the container to relocate (NOT REALLOCATE) all the elements after the segment erased to their 
-                    new positions. This is generally an inefficient operation compared to the one performed for the same
-                    operation by other kinds of sequence containers (such as list or forward_list). Returns an iterator 
-                    pointing to the new location of the element that followed the last element erased by the function 
-                    call. This is the container end if the operation erased the last element in the sequence. 
+                    the vector end causes the container to relocate (NOT REALLOCATE) all the elements after the segment 
+                    erased to their new positions. This is generally an inefficient operation compared to the one 
+                    performed for the same operation by other kinds of sequence containers (list/forward_list). Returns 
+                    an iterator pointing to the new location of the element that followed the last element erased by the
+                    function call. This is the container end if the operation erased the last element in the sequence. 
                     Member type iterator is a random access iterator type that points to elements.
                     */
                    
@@ -491,11 +493,14 @@ namespace ft{
                     
                     iterator erase (iterator first, iterator last)
                     {
-                        if (first == end())
+                        if (last < first)
+                            throw std::logic_error("Error: first iterator > last iterator");
+                        if (last == first || first == end())
                             return (end());
-                        size_t removed = last - first;
                         if (last > first)
                         {
+                            size_t removed = (last > end()? end() - first : last - first);
+                            size_t pos = first - begin();
                             while (first != end() && last != end())
                             {
                                 _alloc.destroy(&(*first));
@@ -503,12 +508,9 @@ namespace ft{
                                 first++;
                                 last++;
                             }
-                        }
-                        else if (last < first)
-                        {
-                            insert(last, last, first);
-                        }
-                        _size -= removed;
+                            _size -= removed;
+                            first = begin() + pos;
+                        }       
                         return (first);
                     }
                 

@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/23 16:55:23 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/23 18:51:38 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,27 @@ int main()
     // v4.printVec();
     // v4.erase(v4.end() - 1, v4.end() - 2);
     // v4.printVec();
-    ft::Vector<int> v7(16, 100);
-    v7.setName("v7");
-    v7.resize(17);
-    v7.push_back(999);
-    v7.printVec();
-    std::cout << v7.capacity() << std::endl;
+    // ft::Vector<int> v7(16, 100);
+    // v7.setName("v7");
+    // v7.resize(17);
+    // v7.push_back(999);
+    // v7.printVec();
+    // std::cout << v7.capacity() << std::endl;
+
+    ft::Vector<int> v8(10, 0);
+    v8.setName("v8");
+    for (size_t i = 0; i < 10; i++)
+        v8[i] = i;
+    v8.printVec();
+    v8.erase(v8.begin() + 4, v8.begin() + 8);
+    v8.printVec();
+
+    // std::vector<int> sv8(10, 0);
+    // for (size_t i = 0; i < 10; i++)
+    //     sv8[i] = i;
+    // sv8.erase(sv8.begin() + 1, sv8.begin() + 11);
+    // for (size_t i = 0; i < sv8.size() ; i++)
+    //     std::cout << "sv8[" << i << "]: " << sv8[i] << std::endl;
     
     // vector.push_back(100);
     // vector.push_back(200);
@@ -218,11 +233,11 @@ int main()
 
     // std::cout << "\n------------------------- STL VECTOR --------------------------\n" << std::endl;
     // std::vector<int> stl_vector;
-    std::vector<int> stl_v1(16, 100);
-    stl_v1.resize(17);
-    stl_v1.push_back(999);
-    for (size_t i = 0; i < stl_v1.size() ; i++)
-        std::cout << "stl_v1[" << i << "]: " << stl_v1[i] << std::endl;
+    // std::vector<int> stl_v1(16, 100);
+    // stl_v1.resize(17);
+    // stl_v1.push_back(999);
+    // for (size_t i = 0; i < stl_v1.size() ; i++)
+    //     std::cout << "stl_v1[" << i << "]: " << stl_v1[i] << std::endl;
     // stl_vector.push_back(100);
     // stl_vector.push_back(200);
     // stl_vector.push_back(300);
