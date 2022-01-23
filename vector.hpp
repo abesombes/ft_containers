@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/21 17:35:28 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/23 10:40:08 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,18 @@
 #include <algorithm>
 #include "iterators/random_access_iterator.hpp"
 
+
 // typedef typename ft::vector_iterator<T, false> iterator;
 // typedef typename ft::vector_iterator<T, true> const_iterator;
 // typedef typename ft::vector_iterator<T, false> reverse_iterator;
 // typedef typename ft::vector_iterator<T, true> const_reverse_iterator;
 
 namespace ft{
+    
 #include <cstddef>
+#include "utils/enable_if.hpp"
+#include "utils/is_integral.hpp"
+
     template <class T, class Alloc = std::allocator<T> >
     class Vector {
 
@@ -145,7 +150,8 @@ namespace ft{
                     */
                    
                     template <class InputIterator>
-                    Vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()): _alloc(alloc)
+                    Vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), 
+                    typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type = 0): _alloc(alloc)
                     {
                         _capacity = last - first;
                         _size = _capacity;
@@ -161,7 +167,7 @@ namespace ft{
                     {
                         _arr = _alloc.allocate(_capacity);
                         for (size_t i = 0; i < _size; i++)
-                            _alloc.construct(&_arr[i], src._arc[i]);
+                            _alloc.construct(&_arr[i], src._arr[i]);
                     }
 
                     /*
