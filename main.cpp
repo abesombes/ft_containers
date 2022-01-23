@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/23 10:57:28 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/01/23 16:55:23 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,20 +58,38 @@ int main()
         // v.insert(v.begin(), *(v.end() - 1));
         // v.insert(v.begin(), *(v.end() - 1));
     
-    // std::cout << "------------------------ MY VECTOR ----------------------------" << std::endl;
+    std::cout << "------------------------ MY VECTOR ----------------------------" << std::endl;
+    // ft::Vector<int> v6;
+    
     // ft::Vector<int> v1(3, 8);
     // v1.printVec();
     // v1.setName("v1");
     // ft::Vector<int> v2(v1);
     // v2.setName("v2");
     // v2.printVec();
+    // v2[1] = 9;
+    // v2[2] = 10;
+    // v2.printVec();
     // ft::Vector<int>::iterator it1 = v2.begin() + 2;
     
     // ft::Vector<int> v3(it1, it1 + 1);
     // v3.setName("v3");
     // v3.printVec();    
-    // ft::Vector<int> vector;
-    // vector.setName("vector");
+    // ft::Vector<int> v4(5, 100);
+    // v4[1] = 200;
+    // v4[2] = 300;
+    // v4[3] = 400;
+    // v4[4] = 500;
+    // v4.setName("v4");
+    // v4.printVec();
+    // v4.erase(v4.end() - 1, v4.end() - 2);
+    // v4.printVec();
+    ft::Vector<int> v7(16, 100);
+    v7.setName("v7");
+    v7.resize(17);
+    v7.push_back(999);
+    v7.printVec();
+    std::cout << v7.capacity() << std::endl;
     
     // vector.push_back(100);
     // vector.push_back(200);
@@ -174,10 +192,12 @@ int main()
     // vector5.printVec();
     // vector5.assign(vector3.begin(), vector3.end());
     // vector5.printVec();
-    // ft::Vector<int> vector6;
-    // vector6.setName("vector6");
-    // vector6.push_back(10);
-    // vector6.push_back(20);
+    // ft::Vector<int> vector    // ft::Vector<int> vector3;
+    // vector3.setName("vector3");
+    // vector3.push_back(7);
+    // vector3.push_back(2);
+    // vector3.push_back(9);
+    // vector3.printVec();
     // vector6.push_back(30);
     // vector6.push_back(40);
     // vector6.push_back(50);
@@ -196,19 +216,36 @@ int main()
     // vector7.printVec();
     
 
-    std::cout << "\n------------------------- STL VECTOR --------------------------\n" << std::endl;
-    std::vector<int> stl_vector;
-    stl_vector.push_back(100);
-    stl_vector.push_back(200);
-    stl_vector.push_back(300);
-    stl_vector[1] = 999;
-    std::cout << "stl_vector[0]: " << stl_vector[0] << std::endl;
-    std::cout << "stl_vector[1]: " << stl_vector[1] << std::endl;
-    std::cout << "stl_vector[2]: " << stl_vector[2] << std::endl;
-    std::cout << "stl_vector[3]: " << stl_vector[3] << std::endl;
-    std::cout << "stl_vector[4]: " << stl_vector[4] << std::endl;
-    std::cout << "stl_vector[5]: " << stl_vector[5] << std::endl;
-    std::cout << "stl_vector[6]: " << stl_vector[6] << std::endl;
+    // std::cout << "\n------------------------- STL VECTOR --------------------------\n" << std::endl;
+    // std::vector<int> stl_vector;
+    std::vector<int> stl_v1(16, 100);
+    stl_v1.resize(17);
+    stl_v1.push_back(999);
+    for (size_t i = 0; i < stl_v1.size() ; i++)
+        std::cout << "stl_v1[" << i << "]: " << stl_v1[i] << std::endl;
+    // stl_vector.push_back(100);
+    // stl_vector.push_back(200);
+    // stl_vector.push_back(300);
+    // stl_vector.push_back(400);
+    // stl_vector.push_back(500);
+    // stl_vector.push_back(600);
+    // stl_vector.push_back(700);
+    // stl_vector.push_back(800);
+    // for (size_t i = 0; i < stl_vector.size() ; i++)
+    //     std::cout << "stl_vector[" << i << "]: " << stl_vector[i] << std::endl;
+    
+    // // stl_vector.erase(stl_vector.end() - 1, stl_vector.end() - 2);
+    // std::cout << *stl_vector.insert(stl_vector.begin() + 2, 555) << std::endl;
+    // // stl_vector.insert(stl_vector.begin() + 2, stl_vector.begin() + 1, stl_vector.begin() + 3);
+    // // stl_vector.insert(stl_vector.begin() + 2, stl_vector.begin() + 3, stl_vector.begin() + 1); 
+    // /* terminate called after throwing an instance of 'std::length_error'  what():  vector::_M_range_insert
+    // [1]    133894 abort (core dumped)  ./a.out */
+    // stl_vector.size();
+    
+    // std::cout << "\n------------------------- AFTER WRONG ERASE --------------------------\n" << std::endl;
+    // for (size_t i = 0; i < stl_vector.size() ; i++)
+    //     std::cout << "stl_vector[" << i << "]: " << stl_vector[i] << std::endl;
+    // std::cout << "stl_vector[100]: " << stl_vector[100] << std::endl;
     // // std::cout << "stl_vector.at(-1): " << stl_vector.at(-1) << std::endl;
     // // std::cout << "stl_vector.at(1432): " << stl_vector.at(1432) << std::endl;
     // std::cout << "begin: " << *(stl_vector.begin()) << std::endl;
@@ -257,18 +294,22 @@ int main()
     // // stl_vector2.erase(stl_itb, ++stl_vector2.end());
     // std::vector<int>::iterator stl_start = stl_vector2.begin() + 1;    
     // std::cout << "stl_start: " << *stl_start << std::endl;
-    // // stl_vector2.insert(stl_start, vector3.begin(), vector3.begin() + 2);
-    // // std::cout << "\n----------------- AFTER RANGE INSERTION ----------------\n" << std::endl;
-    // // std::cout << "stl_vector2[0]: " << stl_vector2[0] << std::endl;
-    // // std::cout << "stl_vector2[1]: " << stl_vector2[1] << std::endl;
-    // // std::cout << "stl_vector2[2]: " << stl_vector2[2] << std::endl;
-    // // std::cout << "stl_vector2[3]: " << stl_vector2[3] << std::endl;
-    // // std::cout << "stl_vector2[4]: " << stl_vector2[4] << std::endl;
-    // // std::cout << "stl_vector2[5]: " << stl_vector2[5] << std::endl;
-    // // std::cout << "stl_vector2[6]: " << stl_vector2[6] << std::endl;
-    // // std::cout << "stl_vector2[7]: " << stl_vector2[7] << std::endl;
-    // // std::cout << "stl_vector2[8]: " << stl_vector2[8] << std::endl;
-    // // stl_vector2.printVec();
+
+    // std::vector<int> stl_vector3;
+    // stl_vector3.push_back(7);
+    // stl_vector3.push_back(2);
+    // stl_vector3.push_back(9);
+    // stl_vector2.insert(stl_start, stl_vector3.begin(), stl_vector3.begin() + 2);
+    // std::cout << "\n----------------- AFTER RANGE INSERTION ----------------\n" << std::endl;
+    // std::cout << "stl_vector2[0]: " << stl_vector2[0] << std::endl;
+    // std::cout << "stl_vector2[1]: " << stl_vector2[1] << std::endl;
+    // std::cout << "stl_vector2[2]: " << stl_vector2[2] << std::endl;
+    // std::cout << "stl_vector2[3]: " << stl_vector2[3] << std::endl;
+    // std::cout << "stl_vector2[4]: " << stl_vector2[4] << std::endl;
+    // std::cout << "stl_vector2[5]: " << stl_vector2[5] << std::endl;
+    // std::cout << "stl_vector2[6]: " << stl_vector2[6] << std::endl;
+    // std::cout << "stl_vector2[7]: " << stl_vector2[7] << std::endl;
+    // std::cout << "stl_vector2[8]: " << stl_vector2[8] << std::endl;
 
     // stl_itb = stl_vector2.begin() + 1;
     // stl_ite = stl_vector2.begin() + 3;

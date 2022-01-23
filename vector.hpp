@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/23 10:40:08 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/01/23 16:52:48 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,8 @@ namespace ft{
                     typedef ptrdiff_t difference_type;
 
                     typedef size_t size_type;
-                    // typedef random_access_iterator<value_type> iterator;
                     typedef random_access_iterator<value_type>           iterator;
                     typedef const random_access_iterator<value_type>           const_iterator;
-                    // typedef value_type*                 iterator;
-                    // typedef const value_type*                 const_iterator;
-                    // typedef random_access_iterator<const value_type> const_iterator;
                     iterator begin() { return iterator(_arr); };
                     iterator end() { return iterator(_arr + _size); };
                     const_iterator begin() const { return const_iterator(_arr); };
@@ -124,7 +120,7 @@ namespace ft{
                     Constructs an empty container, with no elements.
                     */
 
-                    explicit Vector(const allocator_type& alloc = allocator_type()): _alloc(alloc), _arr(NULL), _size(0), _capacity(0) {};
+                    explicit Vector(const allocator_type& alloc = allocator_type()): _alloc(alloc), _arr(NULL), _size(0), _capacity(0) { _arr = _alloc.allocate(0); };
 
                     /*
                     ----------------------------------------------------------------------------------------------------
@@ -207,6 +203,12 @@ namespace ft{
                         this->swap(tmp);
                         return (*this);
                     }
+
+                    reference operator[] (size_type n)
+                    {
+                        return (_arr[n]);
+                    }
+
     
                     const_reference operator[] (size_type n) const
                     {
@@ -280,7 +282,7 @@ namespace ft{
                     
                     void resize (size_type new_size, value_type val = value_type()){
                         if (new_size > _capacity)
-                            reallocate_Vector(_size > 0 ? _capacity * 2: 1);
+                            reallocate_Vector(new_size);
                         while (new_size < _size)
                             pop_back();
                         while (new_size > _size) 
@@ -419,8 +421,7 @@ namespace ft{
 
                     iterator insert (iterator position, const value_type& val)
                     {
-                        size_type n = 1;
-                        insert(position, n, val);
+                        insert(position, 1, val);
                         return (position);
                         // difference_type index = position - begin();
                         
@@ -445,14 +446,17 @@ namespace ft{
                     }
 
                     template <class InputIterator>
-                    void insert (iterator position, InputIterator first, InputIterator last)
+                    void insert (iterator position, InputIterator first, InputIterator last, 
+                    typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type = 0)
                     {
                         size_t n = last - first;
                         difference_type offset = position - begin();
                         
                         if (_size + n > _capacity)
+                        {
                             reallocate_Vector(_size > 0 ? _capacity * 2: 1);
-                        position = iterator(_arr + offset);
+                            position = iterator(_arr + offset);
+                        }
                         iterator tmp;
                         for ( tmp = end() - 1 + n ; tmp > position + n - 1; tmp--)
                             *tmp = *(tmp - n);
@@ -489,15 +493,8 @@ namespace ft{
                     {
                         if (first == end())
                             return (end());
-                        size_t nb_pop_back = end() - first;
                         size_t removed = last - first;
-                        if (last > end())
-                        {
-                            std::cout << "nb_pop_back: " << nb_pop_back << std::endl;
-                            while (nb_pop_back--)
-                                pop_back();
-                        }
-                        else
+                        if (last > first)
                         {
                             while (first != end() && last != end())
                             {
@@ -506,6 +503,10 @@ namespace ft{
                                 first++;
                                 last++;
                             }
+                        }
+                        else if (last < first)
+                        {
+                            insert(last, last, first);
                         }
                         _size -= removed;
                         return (first);
