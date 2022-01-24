@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/24 16:25:23 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/24 18:18:07 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,26 @@
 #include "vector.hpp"
 #include <iostream>
 #include <vector>
+
+    
+template <typename T>
+void autohundreds(std::vector<T> &v)
+{
+    for (size_t i = 0; i < v.size(); i++)
+        v[i] = 100 * (i + 1);
+}
+
+template <typename T>
+void print_STLVec(std::vector<T> &v)
+{
+    std::cout << "\n-----------------------------------------" << std::endl; 
+    std::cout << "---- STL VECTOR PRINTING (" << v.size() << "/" << v.capacity() << ") -----" << std::endl;
+    std::cout << "-----------------------------------------" << std::endl; 
+    for (size_t i = 0; i < v.size() ; i++)
+    std::cout << "v[" << i << "]: " << v[i] << std::endl;
+    std::cout << "-----------------------------------------" << std::endl; 
+    std::cout << "-----------------------------------------\n" << std::endl; 
+}
 
 int main()
 {
@@ -178,12 +198,12 @@ int main()
     // std::cout << "_capacity: " << vector2.capacity() << std::endl;
     // // vector2.insert(vector2.begin()+2, *vector2.begin());
     // // vector2.insert(vector2.begin()+2, 2, *vector2.begin());
-    ft::Vector<int> vector3;
-    vector3.setName("vector3");
-    vector3.push_back(7);
-    vector3.push_back(2);
-    vector3.push_back(9);
-    vector3.printVec();
+    // ft::Vector<int> vector3;
+    // vector3.setName("vector3");
+    // vector3.push_back(7);
+    // vector3.push_back(2);
+    // vector3.push_back(9);
+    // vector3.printVec();
     // vector2.insert(ite, vector3.begin(), vector3.begin() + 2);
     // vector2.printVec();
     // // std::cout << "vector[5]: " << vector[5] << std::endl;
@@ -203,15 +223,14 @@ int main()
     // ft::Vector<int *> ptr_vec;
     // ptr_vec.setName("ptr_vec");
     // std::cout << "max_size(): " << ptr_vec.max_size() << std::endl;
-    ft::Vector<int> vector4;
+    ft::Vector<int> vector4(10, 0);
     vector4.setName("vector4");
-    vector4.push_back(96);
-    vector4.push_back(97);
-    vector4.push_back(98);
-    vector4.push_back(99);
-    vector4.push_back(100);
-    vector4.assign(vector3.end(), vector3.begin());
+    vector4.fill(0);
+    // vector4.assign(vector3.end(), vector3.begin());
     vector4.printVec();
+    vector4.insert(vector4.begin() + 3, vector4.begin() + 2, vector4.begin() + 7);
+    // vector4.printVec();
+    
     // ft::Vector<int> vector5;
     // vector5.setName("vector5");
     // vector5.push_back(93);
@@ -243,26 +262,30 @@ int main()
     
 
     // std::cout << "\n------------------------- STL VECTOR --------------------------\n" << std::endl;
-    // std::vector<int> stl_vector;
-    // std::vector<int> stl_v1(16, 100);
-    // stl_v1.resize(17);
-    // stl_v1.push_back(999);
-    // for (size_t i = 0; i < stl_v1.size() ; i++)
-    //     std::cout << "stl_v1[" << i << "]: " << stl_v1[i] << std::endl;
-    // stl_vector.push_back(100);
-    // stl_vector.push_back(200);
-    // stl_vector.push_back(300);
-    // stl_vector.push_back(400);
-    // stl_vector.push_back(500);
-    // stl_vector.push_back(600);
-    // stl_vector.push_back(700);
-    // stl_vector.push_back(800);
-    // for (size_t i = 0; i < stl_vector.size() ; i++)
-    //     std::cout << "stl_vector[" << i << "]: " << stl_vector[i] << std::endl;
+    // std::vector<int> stl_vector(8, 0);
+    // // std::vector<int> stl_v1(16, 100);
+    // // stl_v1.resize(17);
+    // // stl_v1.push_back(999);
+    // // for (size_t i = 0; i < stl_v1.size() ; i++)
+    // //     std::cout << "stl_v1[" << i << "]: " << stl_v1[i] << std::endl;
+    // autohundreds(stl_vector);
+    // // stl_vector.push_back(100);
+    // // stl_vector.push_back(200);
+    // // stl_vector.push_back(300);
+    // // stl_vector.push_back(400);
+    // // stl_vector.push_back(500);
+    // // stl_vector.push_back(600);
+    // // stl_vector.push_back(700);
+    // // stl_vector.push_back(800);
+    // // for (size_t i = 0; i < stl_vector.size() ; i++)
+    // //     std::cout << "stl_vector[" << i << "]: " << stl_vector[i] << std::endl;
+    // print_STLVec(stl_vector);
     
-    // // stl_vector.erase(stl_vector.end() - 1, stl_vector.end() - 2);
-    // std::cout << *stl_vector.insert(stl_vector.begin() + 2, 555) << std::endl;
-    // // stl_vector.insert(stl_vector.begin() + 2, stl_vector.begin() + 1, stl_vector.begin() + 3);
+    // // // stl_vector.erase(stl_vector.end() - 1, stl_vector.end() - 2);
+    // // std::cout << *stl_vector.insert(stl_vector.begin() + 2, 555) << std::endl;
+    // stl_vector.insert(stl_vector.begin() + 2, stl_vector.begin(), stl_vector.begin() + 6);
+    // print_STLVec(stl_vector);
+    
     // // stl_vector.insert(stl_vector.begin() + 2, stl_vector.begin() + 3, stl_vector.begin() + 1); 
     // /* terminate called after throwing an instance of 'std::length_error'  what():  vector::_M_range_insert
     // [1]    133894 abort (core dumped)  ./a.out */

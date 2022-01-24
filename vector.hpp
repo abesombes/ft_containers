@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/24 17:07:17 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/24 18:35:45 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -455,12 +455,9 @@ namespace ft{
 
                     iterator insert (iterator position, const value_type& val)
                     {
+                        difference_type index = position - begin();
                         insert(position, 1, val);
-                        return (position);
-                        // difference_type index = position - begin();
-                        
-                        // insert(position, 1, val);
-                        // return iterator(&_arr[index]);
+                        return (iterator(&_arr[index]));
                     }
                  
                     void insert (iterator position, size_type n, const value_type& val)
@@ -470,7 +467,6 @@ namespace ft{
                         if (_size + n > _capacity)
                             reallocate_Vector(_size > 0 ? _capacity * 2: 1);
                         iterator tmp;
-                        std::cout << "end() - 1 value: " << *(end() - 1)<< std::endl;
                         position = iterator(_arr + offset);
                         for ( tmp = end() - 1 + n ; tmp > position + n - 1; tmp--)
                             *tmp = *(tmp - n);
@@ -489,17 +485,17 @@ namespace ft{
                         if (_size + n > _capacity)
                         {
                             reallocate_Vector(_size > 0 ? _capacity * 2: 1);
-                            position = iterator(_arr + offset);
+                            position = iterator(&_arr[offset]);
                         }
                         iterator tmp;
-                        for ( tmp = end() - 1 + n ; tmp > position + n - 1; tmp--)
+                        _size = _size + n;
+                        for ( tmp = end() + n - 1; tmp > position + n - 1; tmp--)
                             *tmp = *(tmp - n);
                         for ( tmp = position + n - 1; tmp >= position; tmp-- )
                         {
                             *tmp = *(first + n - 1);
                             first--;
                         }
-                        _size = _size + n;
                     }
                    
 
@@ -598,7 +594,7 @@ namespace ft{
                     void fill(int start) // to be removed later
                     {
                         for (size_t i = 0; i < _size; i++, start++)
-                            _arr[i] = start;
+                            _arr[i] = (start + 1) * 100;
                     }
 
                     void printVec() // to be removed later
@@ -667,8 +663,6 @@ namespace ft{
 
 
     };
-
-
 }
 
 
