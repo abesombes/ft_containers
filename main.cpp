@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/23 18:51:38 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/24 16:10:04 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,20 @@
 
 int main()
 {
+        // std::cout << SIZE_MAX << std::endl;
+        
+        // ft::Vector<int> v9(8998000, 82387432);
+        // ft::Vector<int> v10(100, 0);
+        // v10.fill(0);
+        // v10.printVec();
+        // // ft::Vector<int> v12(v10);
+        // v10.resize(1942730943297535664);
+
+        // ft::Vector<int> v11(v10.begin() + 2, v10.begin() + 6);
+
+        // std::vector<int> sv10(10, 0);
+        // sv10.resize(1942730943297535664);
+        // std::vector<int> sv11(sv10.begin() + 6, sv10.begin() + 2);
 
         // ft::Vector<std::string> v;
 
@@ -58,7 +72,7 @@ int main()
         // v.insert(v.begin(), *(v.end() - 1));
         // v.insert(v.begin(), *(v.end() - 1));
     
-    std::cout << "------------------------ MY VECTOR ----------------------------" << std::endl;
+    // std::cout << "------------------------ MY VECTOR ----------------------------" << std::endl;
     // ft::Vector<int> v6;
     
     // ft::Vector<int> v1(3, 8);
@@ -91,13 +105,13 @@ int main()
     // v7.printVec();
     // std::cout << v7.capacity() << std::endl;
 
-    ft::Vector<int> v8(10, 0);
-    v8.setName("v8");
-    for (size_t i = 0; i < 10; i++)
-        v8[i] = i;
-    v8.printVec();
-    v8.erase(v8.begin() + 4, v8.begin() + 8);
-    v8.printVec();
+    // ft::Vector<int> v8(10, 0);
+    // v8.setName("v8");
+    // for (size_t i = 0; i < 10; i++)
+    //     v8[i] = i;
+    // v8.printVec();
+    // v8.erase(v8.begin() + 4, v8.begin() + 8);
+    // v8.printVec();
 
     // std::vector<int> sv8(10, 0);
     // for (size_t i = 0; i < 10; i++)
@@ -207,28 +221,24 @@ int main()
     // vector5.printVec();
     // vector5.assign(vector3.begin(), vector3.end());
     // vector5.printVec();
-    // ft::Vector<int> vector    // ft::Vector<int> vector3;
-    // vector3.setName("vector3");
-    // vector3.push_back(7);
-    // vector3.push_back(2);
-    // vector3.push_back(9);
-    // vector3.printVec();
-    // vector6.push_back(30);
-    // vector6.push_back(40);
-    // vector6.push_back(50);
-    // vector6.push_back(60);
-    // vector6.push_back(70);
-    // vector6.printVec();
-    // ft::Vector<int> vector7;
-    // vector7.setName("vector7");
-    // vector7.push_back(1000);
-    // vector7.push_back(2000);
-    // vector7.push_back(3000);
-    // vector7.push_back(4000);
-    // vector7.push_back(5000);
-    // vector7.printVec();
-    // vector7.assign(vector6.begin(), vector6.end());
-    // vector7.printVec();
+    ft::Vector<int> vector6;
+    vector6.setName("vector6");
+    vector6.push_back(30);
+    vector6.push_back(40);
+    vector6.push_back(50);
+    vector6.push_back(60);
+    vector6.push_back(70);
+    vector6.printVec();
+    ft::Vector<int> vector7;
+    vector7.setName("vector7");
+    vector7.push_back(1000);
+    vector7.push_back(2000);
+    vector7.push_back(3000);
+    vector7.push_back(4000);
+    vector7.push_back(5000);
+    vector7.printVec();
+    vector7.assign(vector6.begin(), vector6.end());
+    vector7.printVec();
     
 
     // std::cout << "\n------------------------- STL VECTOR --------------------------\n" << std::endl;
@@ -341,13 +351,17 @@ int main()
     // std::vector<int *> stl_ptr_vector;
     // std::cout << "max_size(): " << stl_ptr_vector.max_size() << std::endl; 
 
-    // std::vector<int> stl_v3;
+    std::vector<int> stl_v3;
+    // ft::Vector<int> v8(-3, 250);
+    
     // stl_v3.push_back(7);
     // stl_v3.push_back(2);
     // stl_v3.push_back(9);
     // std::vector<int> stl_v4;
     // stl_v4.push_back(99);
-    // stl_v4.assign(stl_v3.begin(), stl_v3.end());
+    // stl_v4.assign(stl_v3.end() - 1, stl_v3.begin());
+    // for (size_t i = 0; i < stl_v4.size() ; i++)
+    //     std::cout << "stl_v4[" << i << "]: " << stl_v4[i] << std::endl;
     // std::cout << "stl_v4[0]: " << stl_v4[0] << std::endl;
     // std::cout << "stl_v4[1]: " << stl_v4[1] << std::endl;
     // std::cout << "stl_v4[2]: " << stl_v4[2] << std::endl;

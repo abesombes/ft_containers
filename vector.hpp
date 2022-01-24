@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/23 18:50:11 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/24 16:09:49 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,8 +110,8 @@ namespace ft{
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                     */
 
-                   void setName(std::string name) { _name = name; };
-                   std::string getName() { return (_name); };
+                   void setName(std::string name) { _name = name; }; // to be removed later
+                   std::string getName() { return (_name); }; // to be removed later
 
                     /*
                     ----------------------------------------------------------------------------------------------------
@@ -120,7 +120,7 @@ namespace ft{
                     Constructs an empty container, with no elements.
                     */
 
-                    explicit Vector(const allocator_type& alloc = allocator_type()): _alloc(alloc), _arr(NULL), _size(0), _capacity(0) { _arr = _alloc.allocate(0); };
+                    explicit Vector(const allocator_type& alloc = allocator_type()): _alloc(alloc), _arr(NULL), _size(0), _capacity(0) { /*_arr = _alloc.allocate(0);*/ };
 
                     /*
                     ----------------------------------------------------------------------------------------------------
@@ -132,6 +132,7 @@ namespace ft{
 
                     explicit Vector(size_type n, const value_type& value, const allocator_type& alloc = allocator_type()): _alloc(alloc), _size(n), _capacity(n)
                     {
+                        
                         _arr = _alloc.allocate(_capacity);
                         for (size_t i = 0; i < _size; i++)
                             _alloc.construct(&_arr[i], value);
@@ -150,6 +151,8 @@ namespace ft{
                     typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type = 0): _alloc(alloc)
                     {
                         _capacity = last - first;
+                        if (max_size() - size() < _capacity)
+	                        throw std::length_error("Vector");
                         _size = _capacity;
                         _arr = _alloc.allocate(_capacity);
                         for (size_t i = 0; i < _size; i++)
@@ -161,6 +164,8 @@ namespace ft{
 
                     Vector(Vector const &src): _alloc(src._alloc), _size(src._size), _capacity(src._capacity)
                     {
+                        if (max_size() - size() < _capacity)
+	                        throw std::length_error("Vector");
                         _arr = _alloc.allocate(_capacity);
                         for (size_t i = 0; i < _size; i++)
                             _alloc.construct(&_arr[i], src._arr[i]);
@@ -229,8 +234,21 @@ namespace ft{
                     {
                         try
                         {
-                            if (n < 0 || n > _size - 1)
-                                throw std::out_of_range("Out of Range error");
+                            if (n > _size - 1)
+                                throw std::out_of_range("Vector");
+                        }
+                        catch (const std::out_of_range& e) {
+                            std::cerr << "\nVector: " << e.what() << '\n';
+                        }
+                        return (_arr[n]);
+                    }
+                    
+                    reference at (size_type n)
+                    {
+                        try
+                        {
+                            if (n > _size - 1)
+                                throw std::out_of_range("Vector");
                         }
                         catch (const std::out_of_range& e) {
                             std::cerr << "\nVector: " << e.what() << '\n';
@@ -243,7 +261,17 @@ namespace ft{
                         return (_arr[0]);
                     }
 
+                    reference front()
+                    {
+                        return (_arr[0]);
+                    }
+
                     const_reference back() const
+                    {
+                        return (_arr[_size - 1]);
+                    }
+
+                    reference back()
                     {
                         return (_arr[_size - 1]);
                     }
@@ -261,11 +289,11 @@ namespace ft{
                     size_type size() const { return (_size); };
 
                     size_type max_size() const{
-                        // size_t max_size = -1;
+                        // alternative solution: size_t max_size = -1;
                         // return (max_size / sizeof(T));
-                        // return (std::numeric_limits<size_t>::max() / sizeof(T));   
+                        // other solution: return (std::numeric_limits<size_t>::max() / sizeof(T));   
                         return allocator_type().max_size();
-                        // return std::numeric_limits<size_type>::max() / sizeof(value_type);
+                        // other solution: return std::numeric_limits<size_type>::max() / sizeof(value_type);
                     }
                     
                     /*
@@ -283,6 +311,8 @@ namespace ft{
                     */
                     
                     void resize (size_type new_size, value_type val = value_type()){
+	                    if (new_size > max_size())
+	                        throw std::length_error("Vector");
                         if (new_size > _capacity)
                             reallocate_Vector(new_size);
                         while (new_size < _size)
@@ -347,6 +377,8 @@ namespace ft{
                     {
                         clear();
                         size_t n = last - first;
+                        if (max_size() - size() < n)
+	                        throw std::length_error("Vector");
                         if (n > _capacity)
                         {
                             _alloc.deallocate(_arr, this->_capacity);
@@ -548,9 +580,28 @@ namespace ft{
                         while (_size)
                             pop_back();
                     }
+
+
+                    /*
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    Vector: Allocator Functions
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    */
                     
 
-                    void printVec()
+                    allocator_type get_allocator() const { return (_alloc); };
+                    
+                    void fill(int start) // to be removed later
+                    {
+                        for (size_t i = 0; i < _size; i++, start++)
+                            _arr[i] = start;
+                    }
+
+                    void printVec() // to be removed later
                     {
                         std::cout << "\n-----------------------------------------" << std::endl; 
                         std::cout << "---- VECTOR PRINTING: "<< getName() << " (" << size() << "/" << capacity() << ") -----" << std::endl;
@@ -603,6 +654,16 @@ namespace ft{
                             _alloc.destroy(&_arr[i]);
                         _alloc.deallocate(_arr, this->_capacity);
                     }
+
+                    size_type check_len(size_type n) const
+                    {
+	                    if (max_size() - size() < n)
+	                        throw std::length_error("Vector");
+
+	                    const size_type len = size() + (std::max)(size(), n);
+	                    return ((len < size() || len > max_size()) ? max_size() : len);
+                    }
+                    
 
 
     };
