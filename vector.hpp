@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/24 16:09:49 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/24 16:22:53 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -383,6 +383,7 @@ namespace ft{
                         {
                             _alloc.deallocate(_arr, this->_capacity);
                             _arr = _alloc.allocate(n);
+                            _capacity = _size;
                         }
                         for (size_t i = 0; i < n; i++)
                         {
@@ -390,7 +391,6 @@ namespace ft{
                             first++;
                         }
                         _size = n;
-                        _capacity = _size;
                     }
 
                     void assign (size_type n, const value_type& val)

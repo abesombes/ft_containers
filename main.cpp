@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/24 16:10:04 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/24 16:25:23 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,12 +178,12 @@ int main()
     // std::cout << "_capacity: " << vector2.capacity() << std::endl;
     // // vector2.insert(vector2.begin()+2, *vector2.begin());
     // // vector2.insert(vector2.begin()+2, 2, *vector2.begin());
-    // ft::Vector<int> vector3;
-    // vector3.setName("vector3");
-    // vector3.push_back(7);
-    // vector3.push_back(2);
-    // vector3.push_back(9);
-    // vector3.printVec();
+    ft::Vector<int> vector3;
+    vector3.setName("vector3");
+    vector3.push_back(7);
+    vector3.push_back(2);
+    vector3.push_back(9);
+    vector3.printVec();
     // vector2.insert(ite, vector3.begin(), vector3.begin() + 2);
     // vector2.printVec();
     // // std::cout << "vector[5]: " << vector[5] << std::endl;
@@ -203,11 +203,15 @@ int main()
     // ft::Vector<int *> ptr_vec;
     // ptr_vec.setName("ptr_vec");
     // std::cout << "max_size(): " << ptr_vec.max_size() << std::endl;
-    // ft::Vector<int> vector4;
-    // vector4.setName("vector4");
-    // vector4.push_back(99);
-    // vector4.assign(vector3.begin(), vector3.end());
-    // vector4.printVec();
+    ft::Vector<int> vector4;
+    vector4.setName("vector4");
+    vector4.push_back(96);
+    vector4.push_back(97);
+    vector4.push_back(98);
+    vector4.push_back(99);
+    vector4.push_back(100);
+    vector4.assign(vector3.end(), vector3.begin());
+    vector4.printVec();
     // ft::Vector<int> vector5;
     // vector5.setName("vector5");
     // vector5.push_back(93);
@@ -221,24 +225,21 @@ int main()
     // vector5.printVec();
     // vector5.assign(vector3.begin(), vector3.end());
     // vector5.printVec();
-    ft::Vector<int> vector6;
-    vector6.setName("vector6");
-    vector6.push_back(30);
-    vector6.push_back(40);
-    vector6.push_back(50);
-    vector6.push_back(60);
-    vector6.push_back(70);
-    vector6.printVec();
-    ft::Vector<int> vector7;
-    vector7.setName("vector7");
-    vector7.push_back(1000);
-    vector7.push_back(2000);
-    vector7.push_back(3000);
-    vector7.push_back(4000);
-    vector7.push_back(5000);
-    vector7.printVec();
-    vector7.assign(vector6.begin(), vector6.end());
-    vector7.printVec();
+    // ft::Vector<int> vector6;
+    // vector6.setName("vector6");
+    // vector6.push_back(30);
+    // vector6.push_back(40);
+    // vector6.printVec();
+    // ft::Vector<int> vector7;
+    // vector7.setName("vector7");
+    // vector7.push_back(1000);
+    // vector7.push_back(2000);
+    // vector7.push_back(3000);
+    // vector7.push_back(4000);
+    // vector7.push_back(5000);
+    // vector7.printVec();
+    // vector7.assign(vector6.begin(), vector6.end());
+    // vector7.printVec();
     
 
     // std::cout << "\n------------------------- STL VECTOR --------------------------\n" << std::endl;
@@ -351,17 +352,21 @@ int main()
     // std::vector<int *> stl_ptr_vector;
     // std::cout << "max_size(): " << stl_ptr_vector.max_size() << std::endl; 
 
-    std::vector<int> stl_v3;
-    // ft::Vector<int> v8(-3, 250);
+    // std::vector<int> stl_v3;
+    // // ft::Vector<int> v8(-3, 250);
     
     // stl_v3.push_back(7);
     // stl_v3.push_back(2);
     // stl_v3.push_back(9);
     // std::vector<int> stl_v4;
+    // stl_v4.push_back(96);
+    // stl_v4.push_back(97);
+    // stl_v4.push_back(98);
     // stl_v4.push_back(99);
-    // stl_v4.assign(stl_v3.end() - 1, stl_v3.begin());
+    // stl_v4.assign(stl_v3.begin(), stl_v3.end());
     // for (size_t i = 0; i < stl_v4.size() ; i++)
     //     std::cout << "stl_v4[" << i << "]: " << stl_v4[i] << std::endl;
+    // std::cout << "stl_v4: size = " << stl_v4.size() << " - capacity = " << stl_v4.capacity() << std::endl;
     // std::cout << "stl_v4[0]: " << stl_v4[0] << std::endl;
     // std::cout << "stl_v4[1]: " << stl_v4[1] << std::endl;
     // std::cout << "stl_v4[2]: " << stl_v4[2] << std::endl;
