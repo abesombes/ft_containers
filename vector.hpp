@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/24 19:25:46 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/24 19:39:42 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -521,12 +521,8 @@ namespace ft{
                     
                     iterator erase (iterator first, iterator last)
                     {
-                        // if (last < first)
-                        //     throw std::logic_error("Error: first iterator > last iterator");
                         if (last == first || first == end())
                             return (end());
-                        // if (last > first)
-                        // {
                         size_t removed = (last > end()? end() - first : last - first);
                         size_t pos = first - begin();
                         _size -= removed;
@@ -536,10 +532,10 @@ namespace ft{
                             _alloc.construct(&(*first), *last);
                             first++;
                             last++;
+                            printVec();
                         }
 
                         first = begin() + pos;
-                        // }       
                         return (first);
                     }
                 
@@ -660,9 +656,6 @@ namespace ft{
 	                    const size_type len = size() + (std::max)(size(), n);
 	                    return ((len < size() || len > max_size()) ? max_size() : len);
                     }
-                    
-
-
     };
 }
 
