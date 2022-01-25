@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/25 14:48:28 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/25 15:37:06 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ namespace ft{
 #include "utils/is_integral.hpp"
 
     template <class T, class Alloc = std::allocator<T> >
-    class Vector {
+    class vector {
 
         public:
                     typedef T value_type;
@@ -117,7 +117,7 @@ namespace ft{
                     Constructs an empty container, with no elements.
                     */
 
-                    explicit Vector(const allocator_type& alloc = allocator_type()): _alloc(alloc), _arr(NULL), _size(0), _capacity(0) { /*_arr = _alloc.allocate(0);*/ };
+                    explicit vector(const allocator_type& alloc = allocator_type()): _alloc(alloc), _arr(NULL), _size(0), _capacity(0) { /*_arr = _alloc.allocate(0);*/ };
 
                     /*
                     ----------------------------------------------------------------------------------------------------
@@ -127,7 +127,7 @@ namespace ft{
                     from its corresponding element in that range, in the same order.
                     */
 
-                    explicit Vector(size_type n, const value_type& value, const allocator_type& alloc = allocator_type()): _alloc(alloc), _size(n), _capacity(n)
+                    explicit vector(size_type n, const value_type& value = value_type(), const allocator_type& alloc = allocator_type()): _alloc(alloc), _size(n), _capacity(n)
                     {
                         
                         _arr = _alloc.allocate(_capacity);
@@ -144,7 +144,7 @@ namespace ft{
                     */
                    
                     template <class InputIterator>
-                    Vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), 
+                    vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), 
                     typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type* = 0): _alloc(alloc)
                     {
                         _capacity = last - first;
@@ -159,7 +159,7 @@ namespace ft{
                         }
                     }
 
-                    Vector(Vector const &src): _alloc(src._alloc), _size(src._size), _capacity(src._capacity)
+                    vector(vector const &src): _alloc(src._alloc), _size(src._size), _capacity(src._capacity)
                     {
                         if (max_size() - size() < _capacity)
 	                        throw std::length_error("Vector");
@@ -178,7 +178,7 @@ namespace ft{
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                     */
 
-                    ~Vector(){
+                    ~vector(){
                         for (size_t i = 0; i < _size; i++)
                         {
                             std::cout << "object destroyed " << i << std::endl;
@@ -199,9 +199,9 @@ namespace ft{
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                     */
 
-                    Vector& operator= (const Vector& rhs)
+                    vector& operator= (const vector& rhs)
                     {
-                        Vector tmp(rhs);
+                        vector tmp(rhs);
                         this->swap(tmp);
                         return (*this);
                     }
@@ -548,7 +548,7 @@ namespace ft{
                     behaves like this member function.
                     */
 
-                    void swap (Vector& other)
+                    void swap (vector& other)
                     {
                         swap(this->_arr, other._arr);
                         swap(this->_size, other._size);
@@ -606,7 +606,7 @@ namespace ft{
                      *  vectors.  Vectors are considered equivalent if their sizes are equal,
                      *  and if corresponding elements compare equal.
                      */
-                    friend bool operator==(const Vector &lhs, const Vector &rhs)
+                    friend bool operator==(const vector &lhs, const vector &rhs)
                         { return (lhs.size() == rhs.size()
                             && std::equal(lhs.begin(), lhs.end(), rhs.begin())); }
 
@@ -634,28 +634,28 @@ namespace ft{
                     *  }
                     */
 
-                    friend bool operator<(const Vector& lhs, const Vector &rhs)
+                    friend bool operator<(const vector& lhs, const vector &rhs)
                     { return std::lexicographical_compare(lhs.begin(), lhs.end(),
                                     rhs.begin(), rhs.end()); }
 
                     /// Based on operator==
-                    friend bool operator!=(const Vector& lhs, const Vector &rhs)
+                    friend bool operator!=(const vector& lhs, const vector &rhs)
                     { return (!(lhs == rhs)); }
 
                     /// Based on operator<
-                    friend bool operator>(const Vector &lhs, const Vector &rhs)
+                    friend bool operator>(const vector &lhs, const vector &rhs)
                     { return (rhs < lhs); }
 
                     /// Based on operator<
-                    friend bool operator<=(const Vector &lhs, const Vector &rhs)
+                    friend bool operator<=(const vector &lhs, const vector &rhs)
                     { return !(rhs < lhs); }
 
                     /// Based on operator<
-                    friend bool operator>=(const Vector &lhs, const Vector &rhs)
+                    friend bool operator>=(const vector &lhs, const vector &rhs)
                     { return !(lhs < rhs); }
 
                     /// See std::vector::swap().
-                    friend void swap(Vector &lhs, Vector &rhs)
+                    friend void swap(vector &lhs, vector &rhs)
                     { lhs.swap(rhs); }
 
 

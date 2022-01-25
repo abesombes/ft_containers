@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/25 15:09:00 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/25 15:15:03 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,29 +39,29 @@ int main()
 {
         // std::cout << SIZE_MAX << std::endl;
         
-        // ft::Vector<int> v11(5, 0);
-        // v11.fill(0);
-        // v11.printVec();
-        // ft::Vector<int>::reverse_iterator rit = v11.rbegin();
-        // ft::Vector<int>::reverse_iterator rite = v11.rend();
-        // std::cout << *rit << std::endl;
-        // std::cout << *(rit + 2) << std::endl;
-        // std::cout << *(rite - 2) << std::endl;
+        ft::vector<int> v11(5, 0);
+        v11.fill(0);
+        v11.printVec();
+        ft::vector<int>::reverse_iterator rit = v11.rbegin();
+        ft::vector<int>::reverse_iterator rite = v11.rend();
+        std::cout << *rit << std::endl;
+        std::cout << *(rit + 2) << std::endl;
+        std::cout << *(rite - 2) << std::endl;
         
-        // ft::Vector<int> v9(8998000, 82387432);
-        // ft::Vector<int> v10(100, 0);
+        // ft::vector<int> v9(8998000, 82387432);
+        // ft::vector<int> v10(100, 0);
         // v10.fill(0);
         // v10.printVec();
-        // // ft::Vector<int> v12(v10);
+        // // ft::vector<int> v12(v10);
         // v10.resize(1942730943297535664);
 
-        // ft::Vector<int> v11(v10.begin() + 2, v10.begin() + 6);
+        // ft::vector<int> v11(v10.begin() + 2, v10.begin() + 6);
 
         // std::vector<int> sv10(10, 0);
         // sv10.resize(1942730943297535664);
         // std::vector<int> sv11(sv10.begin() + 6, sv10.begin() + 2);
 
-        // ft::Vector<std::string> v;
+        // ft::vector<std::string> v;
 
         // fill capacity a little
         // v.push_back("hello");
@@ -69,11 +69,11 @@ int main()
         // std::cout << "v[0]: " << v[0] << std::endl;
         // std::cout << "v[1]: " << v[1] << std::endl;
         // v.printVec();
-        // ft::Vector<int> v2;
+        // ft::vector<int> v2;
         // v2.push_back(10);
         // v2.push_back(20);
         // v2.printVec();
-        // ft::Vector<std::string> v;
+        // ft::vector<std::string> v;
         // v.push_back("hello");
         // v.push_back("world");
         // v.push_back("world");
@@ -101,24 +101,24 @@ int main()
         // v.insert(v.begin(), *(v.end() - 1));
         // v.insert(v.begin(), *(v.end() - 1));
     
-    // std::cout << "------------------------ MY VECTOR ----------------------------" << std::endl;
-    // ft::Vector<int> v6;
+    // std::cout << "------------------------ MY vector ----------------------------" << std::endl;
+    // ft::vector<int> v6;
     
-    // ft::Vector<int> v1(3, 8);
+    // ft::vector<int> v1(3, 8);
     // v1.printVec();
     // v1.setName("v1");
-    // ft::Vector<int> v2(v1);
+    // ft::vector<int> v2(v1);
     // v2.setName("v2");
     // v2.printVec();
     // v2[1] = 9;
     // v2[2] = 10;
     // v2.printVec();
-    // ft::Vector<int>::iterator it1 = v2.begin() + 2;
+    // ft::vector<int>::iterator it1 = v2.begin() + 2;
     
-    // ft::Vector<int> v3(it1, it1 + 1);
+    // ft::vector<int> v3(it1, it1 + 1);
     // v3.setName("v3");
     // v3.printVec();    
-    // ft::Vector<int> v4(5, 100);
+    // ft::vector<int> v4(5, 100);
     // v4[1] = 200;
     // v4[2] = 300;
     // v4[3] = 400;
@@ -127,14 +127,14 @@ int main()
     // v4.printVec();
     // v4.erase(v4.end() - 1, v4.end() - 2);
     // v4.printVec();
-    // ft::Vector<int> v7(16, 100);
+    // ft::vector<int> v7(16, 100);
     // v7.setName("v7");
     // v7.resize(17);
     // v7.push_back(999);
     // v7.printVec();
     // std::cout << v7.capacity() << std::endl;
 
-    // ft::Vector<int> v8(10, 0);
+    // ft::vector<int> v8(10, 0);
     // v8.setName("v8");
     // for (size_t i = 0; i < 10; i++)
     //     v8[i] = i;
@@ -164,7 +164,7 @@ int main()
     // vector.pop_back();
     // std::cout << "begin: " << *(vector.begin()) << std::endl;
     // std::cout << "end: " << *(vector.end()) << std::endl;
-    // ft::Vector<int> vector2;
+    // ft::vector<int> vector2;
     // vector2.setName("vector2");
     // std::cout << "vector2.capacity(): " << vector2.capacity() << std::endl;
     // vector2.push_back(6);
@@ -181,10 +181,10 @@ int main()
     // std::cout << "&_arr: " << &vector2.at(0) << std::endl;
     // std::cout << "vector2.capacity(): " << vector2.capacity() << std::endl;
     // std::cout << "vector2.size(): " << vector2.size() << std::endl;
-    // ft::Vector<int>::iterator itb = vector2.begin() + 1;
+    // ft::vector<int>::iterator itb = vector2.begin() + 1;
     // std::cout << "itb: " << *itb << std::endl;
     // std::cout << "vector2.begin(): " << *vector2.begin() << std::endl;
-    // ft::Vector<int>::iterator ite = vector2.begin() + 3;
+    // ft::vector<int>::iterator ite = vector2.begin() + 3;
     // std::cout << "ite: " << *ite << std::endl;
     // vector2.printVec();
     // vector2.insert(ite, 34);
@@ -207,7 +207,7 @@ int main()
     // std::cout << "_capacity: " << vector2.capacity() << std::endl;
     // // vector2.insert(vector2.begin()+2, *vector2.begin());
     // // vector2.insert(vector2.begin()+2, 2, *vector2.begin());
-    // ft::Vector<int> vector3;
+    // ft::vector<int> vector3;
     // vector3.setName("vector3");
     // vector3.push_back(7);
     // vector3.push_back(2);
@@ -229,10 +229,10 @@ int main()
     // std::cout << "vector.size(): " << vector.size() << " - vector.capacity(): " << vector.capacity() << std::endl;
     // std::cout << "vector2.size(): " << vector2.size() << std::endl;
     // std::cout << "vector3.size(): " << vector3.size() << std::endl;
-    // ft::Vector<int *> ptr_vec;
+    // ft::vector<int *> ptr_vec;
     // ptr_vec.setName("ptr_vec");
     // std::cout << "max_size(): " << ptr_vec.max_size() << std::endl;
-    // ft::Vector<int> vector4(10, 0);
+    // ft::vector<int> vector4(10, 0);
     // vector4.setName("vector4");
     // vector4.fill(0);
     // vector4.assign(vector3.end(), vector3.begin());
@@ -248,7 +248,7 @@ int main()
     // sv14.erase(sv14.begin() + 7, sv14.begin() + 2);
     // print_STLVec(sv14);
     
-    // ft::Vector<int> vector5;
+    // ft::vector<int> vector5;
     // vector5.setName("vector5");
     // vector5.push_back(93);
     // vector5.push_back(94);
