@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/25 15:37:06 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/25 15:56:56 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ namespace ft{
 
                     typedef size_t size_type;
                     typedef random_access_iterator<value_type>           iterator;
-                    typedef const random_access_iterator<value_type>           const_iterator;
+                    typedef random_access_iterator<const value_type>           const_iterator;
                     typedef rev_random_access_iterator<value_type>           reverse_iterator;
-                    typedef const rev_random_access_iterator<value_type>           const_reverse_iterator;
+                    typedef rev_random_access_iterator<const value_type>           const_reverse_iterator;
                     iterator begin() { return iterator(_arr); };
                     iterator end() { return iterator(_arr + _size); };
                     const_iterator begin() const { return const_iterator(_arr); };
