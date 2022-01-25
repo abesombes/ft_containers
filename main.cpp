@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/25 14:52:42 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/25 15:09:00 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,15 @@ void print_STLVec(std::vector<T> &v)
 int main()
 {
         // std::cout << SIZE_MAX << std::endl;
+        
+        // ft::Vector<int> v11(5, 0);
+        // v11.fill(0);
+        // v11.printVec();
+        // ft::Vector<int>::reverse_iterator rit = v11.rbegin();
+        // ft::Vector<int>::reverse_iterator rite = v11.rend();
+        // std::cout << *rit << std::endl;
+        // std::cout << *(rit + 2) << std::endl;
+        // std::cout << *(rite - 2) << std::endl;
         
         // ft::Vector<int> v9(8998000, 82387432);
         // ft::Vector<int> v10(100, 0);
