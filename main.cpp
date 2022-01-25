@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/25 23:15:19 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/01/25 23:45:20 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,23 @@ void print_STLVec(std::vector<T> &v)
 int main()
 {
         // std::cout << SIZE_MAX << std::endl;
-        ft::vector<int> vct(7);
-        vct.setName("vct");
-	    for (unsigned long int i = 0; i < vct.size(); ++i)
-		vct[i] = (vct.size() - i) * 3;
-        ft::vector<int> vct_three;
-        vct_three.setName("vct_three");
-        vct_three.assign(vct.begin(), vct.end());
-        vct_three.printVec();
+        ft::vector<int> vct_c(7);
+        vct_c.setName("vct_c");
+	    for (unsigned long int i = 0; i < vct_c.size(); ++i)
+		    vct_c[i] = (vct_c.size() - i) * 3;
+        // ft::vector<int> vct_three;
+        // vct_three.setName("vct_three");
+        // vct_three.assign(vct.begin(), vct.end());
+        // vct_three.printVec();
+        try {
+            std::cout << vct_c.at(10) << std::endl;
+        }
+        catch (std::out_of_range &e) {
+            std::cout << "Catch out_of_range exception!" << std::endl;
+        }
+        catch (std::exception &e) {
+            std::cout << "Catch exception: " << e.what() << std::endl;
+        }
         
         // ft::vector<int> v11(5, 0);
         // v11.fill(0);

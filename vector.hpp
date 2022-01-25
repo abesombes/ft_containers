@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/25 23:26:52 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/01/26 00:04:06 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 namespace ft{
     
 #include <cstddef>
+#include <stdexcept>
 #include "utils/enable_if.hpp"
 #include "utils/is_integral.hpp"
 
@@ -229,27 +230,15 @@ namespace ft{
 
                     const_reference at (size_type n) const
                     {
-                        try
-                        {
-                            if (n > _size - 1)
-                                throw std::out_of_range("Vector");
-                        }
-                        catch (const std::out_of_range& e) {
-                            std::cerr << "\nVector: " << e.what() << '\n';
-                        }
+                        if (n > _size - 1)
+                            throw std::out_of_range("Out of Range error.");
                         return (_arr[n]);
                     }
                     
                     reference at (size_type n)
                     {
-                        try
-                        {
-                            if (n > _size - 1)
-                                throw std::out_of_range("Vector");
-                        }
-                        catch (const std::out_of_range& e) {
-                            std::cerr << "\nVector: " << e.what() << '\n';
-                        }
+                        if (n > _size - 1)
+                            throw std::out_of_range("Out of Range error.");
                         return (_arr[n]);
                     }
 
