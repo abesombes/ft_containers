@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/25 15:56:56 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/25 22:56:57 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ namespace ft{
                    
                     template <class InputIterator>
                     vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), 
-                    typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type* = 0): _alloc(alloc)
+                    typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type = 0): _alloc(alloc)
                     {
                         _capacity = last - first;
                         if (max_size() - size() < _capacity)
@@ -370,7 +370,8 @@ namespace ft{
                     */
                    
                     template <class InputIterator>
-                    void assign (InputIterator first, InputIterator last)
+                    void assign (InputIterator first, InputIterator last, 
+                    typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type = 0)
                     {
                         clear();
                         size_t n = last - first;
@@ -400,7 +401,7 @@ namespace ft{
                             _capacity = _size;
                         }
                         for (size_t i = 0; i < n; i++)
-                            _alloc.construct(&_arr[i], *val);
+                            _alloc.construct(&_arr[i], val);
                         _size = n;
                     }
              
