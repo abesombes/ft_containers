@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/25 22:56:57 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/01/25 23:26:52 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,11 +181,11 @@ namespace ft{
                     ~vector(){
                         for (size_t i = 0; i < _size; i++)
                         {
-                            std::cout << "object destroyed " << i << std::endl;
+                            // std::cout << "object destroyed " << i << std::endl;
                             _alloc.destroy(&_arr[i]);
                         }
                         _alloc.deallocate(_arr, this->_capacity);
-                        std::cout << "destruction completed for " << getName() << std::endl;
+                        // std::cout << "destruction completed for " << getName() << std::endl;
                     };
 
 
@@ -375,13 +375,13 @@ namespace ft{
                     {
                         clear();
                         size_t n = last - first;
-                        if (max_size() - size() < n)
+                        if (n > max_size())
 	                        throw std::length_error("Vector");
                         if (n > _capacity)
                         {
-                            _alloc.deallocate(_arr, this->_capacity);
+                            _alloc.deallocate(_arr, _capacity);
                             _arr = _alloc.allocate(n);
-                            _capacity = _size;
+                            _capacity = n;
                         }
                         for (size_t i = 0; i < n; i++)
                         {
@@ -398,7 +398,7 @@ namespace ft{
                         {
                             _alloc.deallocate(_arr, this->_capacity);
                             _arr = _alloc.allocate(n);
-                            _capacity = _size;
+                            _capacity = n;
                         }
                         for (size_t i = 0; i < n; i++)
                             _alloc.construct(&_arr[i], val);
