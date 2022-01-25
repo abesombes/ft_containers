@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/24 19:31:29 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/25 14:52:42 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,15 +223,15 @@ int main()
     // ft::Vector<int *> ptr_vec;
     // ptr_vec.setName("ptr_vec");
     // std::cout << "max_size(): " << ptr_vec.max_size() << std::endl;
-    ft::Vector<int> vector4(10, 0);
-    vector4.setName("vector4");
-    vector4.fill(0);
+    // ft::Vector<int> vector4(10, 0);
+    // vector4.setName("vector4");
+    // vector4.fill(0);
     // vector4.assign(vector3.end(), vector3.begin());
-    vector4.printVec();
+    // vector4.printVec();
     // vector4.erase(vector4.begin() + 2, vector4.begin() + 7);
-    vector4.erase(vector4.begin() + 7, vector4.begin() + 2);
+    // vector4.erase(vector4.begin() + 7, vector4.begin() + 2);
     // vector4.insert(vector4.begin() + 3, vector4.begin() + 2, vector4.begin() + 7);
-    vector4.printVec();
+    // vector4.printVec();
     // std::vector<int> sv14(10, 0);
     // autohundreds(sv14);
     // print_STLVec(sv14);

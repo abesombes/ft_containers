@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 17:05:11 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/21 17:14:42 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/25 14:36:46 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,15 @@ class rev_random_access_iterator
             typedef ft::random_access_iterator_tag  iterator_category;
             typedef ptrdiff_t                   difference_type;
 
-            random_access_iterator( void ): _val(NULL){};
-            explicit random_access_iterator(pointer val): _val(val){};
-            random_access_iterator( random_access_iterator const &src ): _val(src._val){};
-            random_access_iterator &operator=(random_access_iterator const &rhs){ this->_val = rhs._val; return (*this); };
-            virtual ~random_access_iterator(){};
-            self_type &operator++(){ _val++; return (*this);};
-            self_type operator++(T){ self_type tmp = *this; ++(*this); return tmp; };
-            self_type &operator--(){ _val--; return (*this);};
-            self_type operator--(T){ self_type tmp = *this; --*this; return tmp; };
+            rev_random_access_iterator( void ): _val(NULL){};
+            explicit rev_random_access_iterator(pointer val): _val(val){};
+            rev_random_access_iterator( rev_random_access_iterator const &src ): _val(src._val){};
+            rev_random_access_iterator &operator=(rev_random_access_iterator const &rhs){ this->_val = rhs._val; return (*this); };
+            virtual ~rev_random_access_iterator(){};
+            self_type &operator++(){ _val--; return (*this);};
+            self_type operator++(T){ self_type tmp = *this; --(*this); return tmp; };
+            self_type &operator--(){ _val++; return (*this);};
+            self_type operator--(T){ self_type tmp = *this; ++*this; return tmp; };
             bool operator==(self_type const & rhs) const { 
                 // if (compatible(rhs))
                     return _val == rhs._val; 
@@ -48,20 +48,20 @@ class rev_random_access_iterator
             };
             reference operator*() const { return (*_val); };
             pointer operator->() const { return (_val); };
-            self_type operator+(difference_type offset) const { return static_cast<self_type>(_val + offset); };
-            self_type operator-(difference_type offset) const { return static_cast<self_type>(_val - offset); };
+            self_type operator+(difference_type offset) const { return static_cast<self_type>(_val - offset); };
+            self_type operator-(difference_type offset) const { return static_cast<self_type>(_val + offset); };
             difference_type operator-(self_type const &rhs) const { return (_val - rhs._val); };
             bool operator<(self_type const &rhs) const {                 
                 // if (compatible(rhs))
                     return (_val < rhs._val);  
             };  
-            bool operator>(self_type const &rhs) const { return (rhs < *this); };  
-            bool operator<=(self_type const & rhs) const { return !(rhs < *this); };
-            bool operator>=(self_type const & rhs) const { return !(*this < rhs); };
-            self_type & operator+=( difference_type const offset) { _val += offset; return (*this); };
-            self_type & operator-=( difference_type const offset) { _val -= offset; return (*this); };
-            value_type & operator[]( difference_type const offset ) { return (*(*this + offset)); };
-            value_type const & operator[]( difference_type const offset ) const { return (*(*this + offset)); };
+            bool operator>(self_type const &rhs) const { return (*this > rhs); };  
+            bool operator<=(self_type const & rhs) const { return !(*this < rhs); };
+            bool operator>=(self_type const & rhs) const { return !(rhs < *this); };
+            self_type & operator+=( difference_type const offset) { _val -= offset; return (*this); };
+            self_type & operator-=( difference_type const offset) { _val += offset; return (*this); };
+            value_type & operator[]( difference_type const offset ) { return (*(*this - offset)); };
+            value_type const & operator[]( difference_type const offset ) const { return (*(*this - offset)); };
     
     private:
             T*      _val;

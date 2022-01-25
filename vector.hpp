@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/25 12:20:56 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/25 14:48:28 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,7 @@
 #include <limits>
 #include <algorithm>
 #include "iterators/random_access_iterator.hpp"
-
-
-// typedef typename ft::vector_iterator<T, false> iterator;
-// typedef typename ft::vector_iterator<T, true> const_iterator;
-// typedef typename ft::vector_iterator<T, false> reverse_iterator;
-// typedef typename ft::vector_iterator<T, true> const_reverse_iterator;
+#include "iterators/rev_random_access_iterator.hpp"
 
 namespace ft{
     
@@ -46,14 +41,16 @@ namespace ft{
                     typedef size_t size_type;
                     typedef random_access_iterator<value_type>           iterator;
                     typedef const random_access_iterator<value_type>           const_iterator;
+                    typedef rev_random_access_iterator<value_type>           reverse_iterator;
+                    typedef const rev_random_access_iterator<value_type>           const_reverse_iterator;
                     iterator begin() { return iterator(_arr); };
                     iterator end() { return iterator(_arr + _size); };
                     const_iterator begin() const { return const_iterator(_arr); };
                     const_iterator end() const { return const_iterator(_arr + _size); };
-                    iterator rbegin() { return iterator(_arr); };
-                    iterator rend() { return iterator(_arr + _size); };
-                    const_iterator rbegin() const { return const_iterator(_arr); };
-                    const_iterator rend() const { return const_iterator(_arr + _size); };
+                    reverse_iterator rbegin() { return reverse_iterator(_arr + _size - 1); };
+                    reverse_iterator rend() { return reverse_iterator(_arr - 1); };
+                    const_reverse_iterator rbegin() const { return const_reverse_iterator(_arr + _size - 1); };
+                    const_reverse_iterator rend() const { return const_reverse_iterator(_arr - 1); };
 
                     /*
                     ----------------------------------------------------------------------------------------------------
@@ -148,7 +145,7 @@ namespace ft{
                    
                     template <class InputIterator>
                     Vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), 
-                    typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type = 0): _alloc(alloc)
+                    typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type* = 0): _alloc(alloc)
                     {
                         _capacity = last - first;
                         if (max_size() - size() < _capacity)
@@ -623,6 +620,18 @@ namespace ft{
                     *  vectors.  The elements must be comparable with @c <.
                     *
                     *  See std::lexicographical_compare() for how the determination is made.
+                    *  template <class InputIterator1, class InputIterator2>
+                    *  bool lexicographical_compare (InputIterator1 first1, InputIterator1 last1,
+                    *  InputIterator2 first2, InputIterator2 last2)
+                    *  {
+                    *       while (first1!=last1)
+                    *       {
+                    *           if (first2==last2 || *first2<*first1) return false; // is v2 shorter in size than v1 or the elem of v2 < elem v1? if yes return false
+                    *           else if (*first1<*first2) return true; // otherwise if elem of v2 > elem of v1, return true 
+                    *           ++first1; ++first2; // otherwise, it means v2 is large enough to provide an element at this point and this elem is strictly equal to v1's element.
+                    *       }
+                    *  return (first2!=last2); // we checked all elements so far > they are all equal. Now the last point to check is to see if v2 is larger in size than v1
+                    *  }
                     */
 
                     friend bool operator<(const Vector& lhs, const Vector &rhs)
