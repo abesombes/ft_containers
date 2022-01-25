@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/24 19:39:42 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/25 12:20:56 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -587,6 +587,78 @@ namespace ft{
                     
 
                     allocator_type get_allocator() const { return (_alloc); };
+
+
+                                        /*
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    Vector: Non-Member Function Overloads
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    */
+
+                    /**
+                     *  @brief  Vector equality comparison.
+                     *  @param  lhs  A %vector.
+                     *  @param  rhs  A %vector of the same type as lhs.
+                     *  @return  True if the size and elements of the vectors are equal.
+                     *
+                     *  This is an equivalence relation.  It is linear in the size of the
+                     *  vectors.  Vectors are considered equivalent if their sizes are equal,
+                     *  and if corresponding elements compare equal.
+                     */
+                    friend bool operator==(const Vector &lhs, const Vector &rhs)
+                        { return (lhs.size() == rhs.size()
+                            && std::equal(lhs.begin(), lhs.end(), rhs.begin())); }
+
+                    /**
+                    *  @brief  Vector ordering relation.
+                    *  @param  __x  A %vector.
+                    *  @param  __y  A %vector of the same type as @a __x.
+                    *  @return  True iff @a __x is lexicographically less than @a __y.
+                    *
+                    *  This is a total ordering relation.  It is linear in the size of the
+                    *  vectors.  The elements must be comparable with @c <.
+                    *
+                    *  See std::lexicographical_compare() for how the determination is made.
+                    */
+
+                    friend bool operator<(const Vector& lhs, const Vector &rhs)
+                    { return std::lexicographical_compare(lhs.begin(), lhs.end(),
+                                    rhs.begin(), rhs.end()); }
+
+                    /// Based on operator==
+                    friend bool operator!=(const Vector& lhs, const Vector &rhs)
+                    { return (!(lhs == rhs)); }
+
+                    /// Based on operator<
+                    friend bool operator>(const Vector &lhs, const Vector &rhs)
+                    { return (rhs < lhs); }
+
+                    /// Based on operator<
+                    friend bool operator<=(const Vector &lhs, const Vector &rhs)
+                    { return !(rhs < lhs); }
+
+                    /// Based on operator<
+                    friend bool operator>=(const Vector &lhs, const Vector &rhs)
+                    { return !(lhs < rhs); }
+
+                    /// See std::vector::swap().
+                    friend void swap(Vector &lhs, Vector &rhs)
+                    { lhs.swap(rhs); }
+
+
+                   /*
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! TO BE REMOVED !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    */
                     
                     void fill(int start) // to be removed later
                     {
