@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/26 14:40:47 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/01/26 14:49:59 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -559,9 +559,9 @@ namespace ft{
 
                     void swap (vector& other)
                     {
-                        swap(this->_arr, other._arr);
-                        swap(this->_size, other._size);
-                        swap(this->_capacity,other._capacity);
+                        std::swap(this->_arr, other._arr);
+                        std::swap(this->_size, other._size);
+                        std::swap(this->_capacity,other._capacity);
                     }
 
                     /*
