@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/26 16:22:24 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/01/27 00:30:51 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ namespace ft{
 #include <stdexcept>
 #include "utils/enable_if.hpp"
 #include "utils/is_integral.hpp"
+#include "utils/const_or_not.hpp"
 
     template <class T, class Alloc = std::allocator<T> >
     class vector {
@@ -40,10 +41,10 @@ namespace ft{
                     typedef ptrdiff_t difference_type;
 
                     typedef size_t size_type;
-                    typedef random_access_iterator<value_type>           iterator;
-                    typedef random_access_iterator<const value_type>           const_iterator;
-                    typedef rev_random_access_iterator<value_type>           reverse_iterator;
-                    typedef rev_random_access_iterator<const value_type>           const_reverse_iterator;
+                    typedef random_access_iterator<T, false>              iterator;
+                    typedef random_access_iterator<T, true>               const_iterator;
+                    typedef rev_random_access_iterator<T, false>          reverse_iterator;
+                    typedef rev_random_access_iterator<T, true>           const_reverse_iterator;
                     iterator begin() { return iterator(_arr); };
                     iterator end() { return iterator(_arr + _size); };
                     const_iterator begin() const { return const_iterator(_arr); };
@@ -544,7 +545,7 @@ namespace ft{
                    
                     iterator erase (iterator position)
                     {
-                        erase(position, position + 1);
+                        return (erase(position, position + 1));
                     }
                     
                     iterator erase (iterator first, iterator last)

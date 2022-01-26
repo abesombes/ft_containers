@@ -3,42 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   random_access_iterator.hpp                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:30:34 by abesombes         #+#    #+#             */
-/*   Updated: 2022/01/25 15:52:51 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/27 00:34:42 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RANDOM_ACCESS_ITERATOR_HPP
 #define RANDOM_ACCESS_ITERATOR_HPP
-
-namespace ft{
-
 #include "iterator_traits.hpp"
+#include "../utils/const_or_not.hpp"
 #include <cstddef>
 #include <iostream>
 
-template <typename T>
+namespace ft{
+
+
+
+template <typename T, bool B>
 class random_access_iterator
 {
     public:
-            typedef random_access_iterator      self_type;
-            typedef T                           value_type;
-            typedef T&                          reference;
-            typedef T*                          pointer;
-            typedef ft::random_access_iterator_tag  iterator_category;
-            typedef ptrdiff_t                   difference_type;
+            typedef random_access_iterator                          self_type;
+            typedef T                                               value_type;
+            typedef typename const_or_not<B, T&, const T&>::type    reference;
+            typedef typename const_or_not<B, T*, const T*>::type    pointer;
+            typedef ft::random_access_iterator_tag                  iterator_category;
+            typedef ptrdiff_t                                       difference_type;
+            typedef T*                                              elem_pointer;
 
             random_access_iterator( void ): _val(NULL){};
-            explicit random_access_iterator(pointer val): _val(val){};
-            random_access_iterator( random_access_iterator const &src ): _val(src._val){};
+            explicit random_access_iterator(elem_pointer val): _val(val){};
+            elem_pointer getVal() const { return _val; };
+            random_access_iterator( random_access_iterator<T, false> const &src ): _val(src.getVal()){};
             random_access_iterator &operator=(random_access_iterator const &rhs){ this->_val = rhs._val; return (*this); };
             virtual ~random_access_iterator(){};
             self_type &operator++(){ _val++; return (*this);};
-            self_type operator++(T){ self_type tmp = *this; ++(*this); return tmp; };
+            self_type operator++(int){ self_type tmp = *this; ++(*this); return tmp; };
             self_type &operator--(){ _val--; return (*this);};
-            self_type operator--(T){ self_type tmp = *this; --*this; return tmp; };
+            self_type operator--(int){ self_type tmp = *this; --*this; return tmp; };
             bool operator==(self_type const & rhs) const { 
                 // if (compatible(rhs))
                     return _val == rhs._val; 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rev_random_access_iterator.hpp                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 17:05:11 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/25 14:36:46 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/01/26 19:29:25 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,26 @@
 namespace ft{
 
 #include "iterator_traits.hpp"
+#include "../utils/const_or_not.hpp"
 #include <cstddef>
 #include <iostream>
 
-template <typename T>
+template <typename T, bool B>
 class rev_random_access_iterator
 {
     public:
-            typedef rev_random_access_iterator      self_type;
-            typedef T                           value_type;
-            typedef T&                          reference;
-            typedef T*                          pointer;
-            typedef ft::random_access_iterator_tag  iterator_category;
-            typedef ptrdiff_t                   difference_type;
+            typedef rev_random_access_iterator                      self_type;
+            typedef T                                               value_type;
+            typedef typename const_or_not<B, T&, const T&>::type    reference;
+            typedef typename const_or_not<B, T*, const T*>::type    pointer;
+            typedef ft::random_access_iterator_tag                  iterator_category;
+            typedef ptrdiff_t                                       difference_type;
+            typedef T*                                              elem_pointer;
 
             rev_random_access_iterator( void ): _val(NULL){};
-            explicit rev_random_access_iterator(pointer val): _val(val){};
-            rev_random_access_iterator( rev_random_access_iterator const &src ): _val(src._val){};
-            rev_random_access_iterator &operator=(rev_random_access_iterator const &rhs){ this->_val = rhs._val; return (*this); };
+            explicit rev_random_access_iterator(elem_pointer val): _val(val){};
+            rev_random_access_iterator( rev_random_access_iterator<T, false> const &src ): _val(src._val){};
+            rev_random_access_iterator &operator=(rev_random_access_iterator<T, false> const &rhs){ this->_val = rhs._val; return (*this); };
             virtual ~rev_random_access_iterator(){};
             self_type &operator++(){ _val--; return (*this);};
             self_type operator++(T){ self_type tmp = *this; --(*this); return tmp; };
