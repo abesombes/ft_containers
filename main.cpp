@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/25 23:45:20 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/01/26 10:28:46 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "vector.hpp"
 #include <iostream>
 #include <vector>
+#include <list>
 
     
 template <typename T>
@@ -38,23 +39,39 @@ void print_STLVec(std::vector<T> &v)
 int main()
 {
         // std::cout << SIZE_MAX << std::endl;
-        ft::vector<int> vct_c(7);
-        vct_c.setName("vct_c");
-	    for (unsigned long int i = 0; i < vct_c.size(); ++i)
-		    vct_c[i] = (vct_c.size() - i) * 3;
+        
+        std::list<int> lst1;
+        for (int i = 0; i < 10; i++)
+            lst1.push_back(i);
+        
+        std::list<int>::iterator itl1 = lst1.begin();
+        for (size_t i = 0; i < 7; i++)
+            itl1++;
+        std::list<int>::iterator itl2 = lst1.begin();
+        for (size_t i = 0; i < 3; i++)
+            itl2++;
+                
+        // ft::vector<int> vct_c(itl1, itl2);
+        // vct_c.setName("vct_c");
+        // vct_c.printVec();
+        // std::vector<int> std_v(itl1, itl2);
+        // print_STLVec(std_v);
+	    // for (unsigned long int i = 0; i < vct_c.size(); ++i)
+		//     vct_c[i] = (vct_c.size() - i) * 3;
+            
         // ft::vector<int> vct_three;
         // vct_three.setName("vct_three");
         // vct_three.assign(vct.begin(), vct.end());
         // vct_three.printVec();
-        try {
-            std::cout << vct_c.at(10) << std::endl;
-        }
-        catch (std::out_of_range &e) {
-            std::cout << "Catch out_of_range exception!" << std::endl;
-        }
-        catch (std::exception &e) {
-            std::cout << "Catch exception: " << e.what() << std::endl;
-        }
+        // try {
+        //     std::cout << vct_c.at(10) << std::endl;
+        // }
+        // catch (std::out_of_range &e) {
+        //     std::cout << "Catch out_of_range exception!" << std::endl;
+        // }
+        // catch (std::exception &e) {
+        //     std::cout << "Catch exception: " << e.what() << std::endl;
+        // }
         
         // ft::vector<int> v11(5, 0);
         // v11.fill(0);

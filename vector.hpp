@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/26 00:04:06 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/01/26 10:39:07 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,10 +146,14 @@ namespace ft{
                    
                     template <class InputIterator>
                     vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), 
-                    typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type = 0): _alloc(alloc)
+                    typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type = 0): _alloc(alloc), _size(0), _capacity(0)
                     {
-                        _capacity = last - first;
-                        if (max_size() - size() < _capacity)
+                        // _capacity = last - first; // cannot use that because of the nature of InputIterator
+                        // InputIterator can be bidirectional iterators - in this case, no -operator overload avail
+                        InputIterator tmp(first);
+                        while (tmp++ != last)
+                            _capacity++;
+                        if (_capacity > max_size())
 	                        throw std::length_error("Vector");
                         _size = _capacity;
                         _arr = _alloc.allocate(_capacity);
@@ -363,7 +367,12 @@ namespace ft{
                     typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type = 0)
                     {
                         clear();
-                        size_t n = last - first;
+                        // n = last - first; // cannot use that because of the nature of InputIterator
+                        // InputIterator can be bidirectional iterators - in this case, no -operator overload avail
+                        InputIterator tmp(first);
+                        size_t n = 0;
+                        while (tmp++ != last)
+                            n++;
                         if (n > max_size())
 	                        throw std::length_error("Vector");
                         if (n > _capacity)
@@ -466,7 +475,14 @@ namespace ft{
                     void insert (iterator position, InputIterator first, InputIterator last, 
                     typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type = 0)
                     {
-                        size_t n = last - first;
+                        // n = last - first; // cannot use that because of the nature of InputIterator
+                        // InputIterator can be bidirectional iterators - in this case, no -operator overload avail
+                        InputIterator tmp_it(first);
+                        size_t n = 0;
+                        while (tmp_it++ != last)
+                            n++;
+                        if (n + size() > max_size())
+	                        throw std::length_error("Vector");
                         difference_type offset = position - begin();
                         
                         if (_size + n > _capacity)
