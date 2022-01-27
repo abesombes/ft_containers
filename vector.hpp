@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/27 21:29:58 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/01/27 23:17:43 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -504,40 +504,77 @@ namespace ft{
                         size_t n = 0;
                         while (tmp_it++ != last)
                             n++;
-                        std::cout << "n elements to add: " << n << std::endl;
-                        if (n + size() > max_size())
-	                        throw std::length_error("Vector");
                         difference_type offset = position - begin();
-                        std::cout << "offset: " << offset << " - size = " << size() << " - capacity = " << capacity() << std::endl;
-                        iterator tmp;                        
+                        // std::cout << "n: " << n << " - offset: " << offset << std::endl;
                         if (_size + n > _capacity)
-                        {
-                            // reallocate_Vector(_size > 0 ? _capacity * 2: 1);
-                            reallocate_Vector(_size + n >  _capacity * 2? _size + n: _capacity * 2);
-                            // std::cout << "_size: " << size() << " - capacity: " << capacity() << std::endl;
-                            // for (size_t i = _size; i < _capacity; i++)
-                            //     _alloc.construct(_arr + i, 0);
-                        }
-                        if (!offset && !_size)
-                            position = begin();
-                        else
-                            position = iterator(&_arr[offset]);
+                            reallocate_Vector(_size + n > _capacity * 2 ? _size + n: _capacity * 2);
+                        position = iterator(begin() + offset);
                         // if (_size)
-                        //     std::cout << "TEST POSITION: " << *position << std::endl;
+                        //     std::cout << "*position: " << *position << std::endl;
+                        size_t nb_elem_to_move_to_right = _size - offset;
+                        // std::cout << "nb elem to move to the right = " << nb_elem_to_move_to_right << std::endl;
+                        size_t save = _size;
                         _size = _size + n;
-                        std::cout << "new_size: " << size() << std::endl;
-                        for ( tmp = end() - 1; tmp > end() - n - 1; tmp--)
-                            *tmp = *(tmp - n);                            
-                        tmp_it = first;
-                        for (size_t i = 0; i < n - 1; i++)
-                            tmp_it++;
-                        std::cout << "*tmp_it: " << *tmp_it << std::endl;
-                        for ( tmp = position + n - 1; tmp >= position; tmp-- )
+                        if (nb_elem_to_move_to_right)
                         {
-                            *tmp = *tmp_it;
-                            tmp_it--;
+                            // std::cout << "I come this way" << std::endl;
+                            for (size_t i = 0; i < n; i++)
+                                _alloc.construct(&(*(end() - 1 - i)), *(end() - 1 - i - n));
+                            for (size_t i = n; i < save; i++)
+                                *(end() - 1 - i) = *(end() - 1 - i - n); 
+                            // std::cout << "all necessary elements moved to the right." << std::endl;
+                        }
+                        for (tmp_it = first; tmp_it != last ; tmp_it++, position++)
+                        {
+                            // std::cout << *tmp_it << std::endl;
+                            _alloc.construct(&(*position), *tmp_it);
                         }
                     }
+
+                    // template <class InputIterator>
+                    // void insert (iterator position, InputIterator first, InputIterator last, 
+                    // typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type = 0)
+                    // {
+                    //     // n = last - first; // cannot use that because of the nature of InputIterator
+                    //     // InputIterator can be bidirectional iterators - in this case, no -operator overload avail
+                    //     InputIterator tmp_it(first);
+                    //     size_t n = 0;
+                    //     while (tmp_it++ != last)
+                    //         n++;
+                    //     std::cout << "n elements to add: " << n << std::endl;
+                    //     if (n + size() > max_size())
+	                //         throw std::length_error("Vector");
+                    //     difference_type offset = position - begin();
+                    //     std::cout << "offset: " << offset << " - size = " << size() << " - capacity = " << capacity() << std::endl;
+                    //     iterator tmp;                        
+                    //     if (_size + n > _capacity)
+                    //     {
+                    //         // reallocate_Vector(_size > 0 ? _capacity * 2: 1);
+                    //         reallocate_Vector(_size + n >  _capacity * 2? _size + n: _capacity * 2);
+                    //         // std::cout << "_size: " << size() << " - capacity: " << capacity() << std::endl;
+                    //         // for (size_t i = _size; i < _capacity; i++)
+                    //         //     _alloc.construct(_arr + i, 0);
+                    //     }
+                    //     if (!offset && !_size)
+                    //         position = begin();
+                    //     else
+                    //         position = iterator(&_arr[offset]);
+                    //     // if (_size)
+                    //     //     std::cout << "TEST POSITION: " << *position << std::endl;
+                    //     _size = _size + n;
+                    //     std::cout << "new_size: " << size() << std::endl;
+                    //     for ( tmp = end() - 1; tmp > end() - n - 1; tmp--)
+                    //         *tmp = *(tmp - n);                            
+                    //     tmp_it = first;
+                    //     for (size_t i = 0; i < n - 1; i++)
+                    //         tmp_it++;
+                    //     std::cout << "*tmp_it: " << *tmp_it << std::endl;
+                    //     for ( tmp = position + n - 1; tmp >= position; tmp-- )
+                    //     {
+                    //         *tmp = *tmp_it;
+                    //         tmp_it--;
+                    //     }
+                    // }
             // template <class InputIterator>
             // void insert (iterator position, InputIterator first, InputIterator last, 
             //             typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type* = 0)
@@ -776,6 +813,7 @@ namespace ft{
                     
                     void reallocate_Vector(size_type new_capacity)
                     {
+                        // std::cout << "new_capacity: "<< new_capacity << std::endl;
                         pointer tmp = _alloc.allocate(new_capacity);
                         for (size_t i = 0; i < _size; i++)
                             _alloc.construct(&tmp[i], _arr[i]);
