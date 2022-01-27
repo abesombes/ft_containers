@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/26 10:28:46 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/01/27 18:26:42 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,55 @@ int main()
 {
         // std::cout << SIZE_MAX << std::endl;
         
-        std::list<int> lst1;
-        for (int i = 0; i < 10; i++)
-            lst1.push_back(i);
+        // std::list<int> lst1;
+        // for (int i = 0; i < 10; i++)
+        //     lst1.push_back(i);
         
-        std::list<int>::iterator itl1 = lst1.begin();
-        for (size_t i = 0; i < 7; i++)
-            itl1++;
-        std::list<int>::iterator itl2 = lst1.begin();
-        for (size_t i = 0; i < 3; i++)
-            itl2++;
-                
+        // std::list<int>::iterator itl1 = lst1.begin();
+        // for (size_t i = 0; i < 7; i++)
+        //     itl1++;
+        // std::list<int>::iterator itl2 = lst1.begin();
+        // for (size_t i = 0; i < 3; i++)
+        //     itl2++;
+
+        ft::vector<int> vct(5);
+        ft::vector<int> vct2;
+	    const int cut = 3;
+
+        for (unsigned long int i = 0; i < vct.size(); ++i)
+            vct[i] = (vct.size() - i) * 7;
+        vct.printVec();
+
+        vct2.insert(vct2.begin(), vct.begin(), vct.begin() + cut);
+        vct2.printVec();
+        vct2.insert(vct2.begin(), vct.begin() + cut, vct.end());
+        vct2.printVec();
+    	vct2.insert(vct2.end(), vct.begin(), vct.begin() + cut);
+        vct2.printVec();
+        // std::vector<int> vct(5);
+        // std::vector<int> vct2;
+	    // const int cut = 3;
+
+        // for (unsigned long int i = 0; i < vct.size(); ++i)
+        //     vct[i] = (vct.size() - i) * 7;
+        // print_STLVec(vct);
+
+        // vct2.insert(vct2.begin(), vct.begin(), vct.begin() + cut);
+        // print_STLVec(vct2);
+        // vct2.insert(vct2.begin(), vct.begin() + cut, vct.end());
+        // print_STLVec(vct2);
+        // vct2.insert(vct2.end(), vct.begin(), vct.begin() + cut);
+        // vct2.printVec();
+        // vct2.insert(vct2.end(), 42);
+        // std::cout << *vct2.insert(vct2.end(), 42) << std::endl;
+        // std::cout << *vct2.insert(vct2.begin() + 5, 84) << std::endl;
+
+        // for (unsigned long int i = 0; i < vct.size(); ++i)
+        //     vct[i] = std::string((vct.size() - i), i + 65);
+        // vct.printVec();
+        // vct.erase(vct.begin() + 2);
+        // vct.printVec();       
+        // vct.erase(vct.begin());         
         // ft::vector<int> vct_c(itl1, itl2);
         // vct_c.setName("vct_c");
         // vct_c.printVec();

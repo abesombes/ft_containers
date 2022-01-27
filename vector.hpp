@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/27 00:30:51 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/01/27 21:29:58 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -504,28 +504,70 @@ namespace ft{
                         size_t n = 0;
                         while (tmp_it++ != last)
                             n++;
+                        std::cout << "n elements to add: " << n << std::endl;
                         if (n + size() > max_size())
 	                        throw std::length_error("Vector");
                         difference_type offset = position - begin();
-                        
+                        std::cout << "offset: " << offset << " - size = " << size() << " - capacity = " << capacity() << std::endl;
+                        iterator tmp;                        
                         if (_size + n > _capacity)
                         {
-                            reallocate_Vector(_size > 0 ? _capacity * 2: 1);
-                            position = iterator(&_arr[offset]);
+                            // reallocate_Vector(_size > 0 ? _capacity * 2: 1);
+                            reallocate_Vector(_size + n >  _capacity * 2? _size + n: _capacity * 2);
+                            // std::cout << "_size: " << size() << " - capacity: " << capacity() << std::endl;
+                            // for (size_t i = _size; i < _capacity; i++)
+                            //     _alloc.construct(_arr + i, 0);
                         }
-                        iterator tmp;
+                        if (!offset && !_size)
+                            position = begin();
+                        else
+                            position = iterator(&_arr[offset]);
+                        // if (_size)
+                        //     std::cout << "TEST POSITION: " << *position << std::endl;
                         _size = _size + n;
-                        for ( tmp = end() + n - 1; tmp > position + n - 1; tmp--)
-                            *tmp = *(tmp - n);
+                        std::cout << "new_size: " << size() << std::endl;
+                        for ( tmp = end() - 1; tmp > end() - n - 1; tmp--)
+                            *tmp = *(tmp - n);                            
                         tmp_it = first;
                         for (size_t i = 0; i < n - 1; i++)
                             tmp_it++;
+                        std::cout << "*tmp_it: " << *tmp_it << std::endl;
                         for ( tmp = position + n - 1; tmp >= position; tmp-- )
                         {
                             *tmp = *tmp_it;
                             tmp_it--;
                         }
                     }
+            // template <class InputIterator>
+            // void insert (iterator position, InputIterator first, InputIterator last, 
+            //             typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type* = 0)
+            // {
+            //     // Counting number of elements to add
+            //     size_type n = 0;
+            //     InputIterator tmp(first);
+            //     while (tmp++ != last)
+            //         ++n;
+                
+            //     // In case of a realloc, position will be invalited because _vector
+            //     // points to another allocated area so we need to save the index array
+            //     // where position iterator is pointing to create a new one after the reallocation
+            //     difference_type index = position - begin();
+                
+            //     if (_size + n > _capacity)
+            //         reallocate_Vector(_capacity + n);
+
+            //     // Creating a new iterator pointing to the correct allocated are (case a realloc occured previously)
+            //     iterator newPosition(&_arr[index]);
+                
+            //     // Moving at newPosition + n all elements after newPosition
+            //     if (newPosition != end())
+            //         moveElementsToTheRight(newPosition, n);
+
+            //     // Constructing n new elements from the iterator's range
+            //     for (size_type i = 0; i < n; ++i)
+            //         _alloc.construct(&(*newPosition++), *first++);
+            //     _size += n;
+            // }
                    
 
                     /*
@@ -553,17 +595,17 @@ namespace ft{
                         if (last == first || first == end())
                             return (end());
                         size_t removed = (last > end()? end() - first : last - first);
+                        // std::cout << removed << std::endl;
                         size_t pos = first - begin();
+                        // std::cout << pos << std::endl;                        
                         _size -= removed;
-                        while (first != end() && last != end())
+                        while (first != end() /* && last != end() */)
                         {
                             _alloc.destroy(&(*first));
                             _alloc.construct(&(*first), *last);
                             first++;
                             last++;
-                            printVec();
                         }
-
                         first = begin() + pos;
                         return (first);
                     }
@@ -713,10 +755,13 @@ namespace ft{
                         std::cout << "---- VECTOR PRINTING: "<< getName() << " (" << size() << "/" << capacity() << ") -----" << std::endl;
                         std::cout << "-----------------------------------------" << std::endl; 
                         int j = 0;
-                        for (iterator i = begin(); i < end(); i++)
+                        if (_size > 0)
                         {
-                            std::cout << "vector[" << j << "]: " << *i << " - addr = " << &*i << std::endl;
-                            j++;
+                            for (iterator i = begin(); i < end(); i++)
+                            {
+                                std::cout << "vector[" << j << "]: " << *i << " - addr = " << &*i << std::endl;
+                                j++;
+                            }
                         }
                         std::cout << "-----------------------------------------" << std::endl; 
                         std::cout << "-----------------------------------------\n" << std::endl; 
@@ -734,10 +779,10 @@ namespace ft{
                         pointer tmp = _alloc.allocate(new_capacity);
                         for (size_t i = 0; i < _size; i++)
                             _alloc.construct(&tmp[i], _arr[i]);
-
                         clean_former_arr();
                         _capacity = new_capacity;
                         _arr = tmp;
+                        // printVec();
                     }
                     void moveElementsToTheLeft(iterator first, iterator last)
                     {
@@ -753,6 +798,18 @@ namespace ft{
                                 _alloc.construct(&(*(first)), *last);
                         }
                     }
+
+                                void moveElementsToTheRight(iterator pos, size_type lenMov)
+            {
+                // Starting from the end, until it meets pos iterator
+                for (std::pair<iterator, iterator> it(end() - 1, end());
+                    it.second != pos; --it.first, --it.second)
+                {
+                    _alloc.construct(&(*(it.first + lenMov)), *it.first);
+                    _alloc.destroy(&(*it.first));
+                }
+            }
+
 
                     void clean_former_arr()
                     {
