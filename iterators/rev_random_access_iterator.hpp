@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 17:05:11 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/26 19:29:25 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/01/27 11:55:32 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ class rev_random_access_iterator
     public:
             typedef rev_random_access_iterator                      self_type;
             typedef T                                               value_type;
-            typedef typename const_or_not<B, T&, const T&>::type    reference;
-            typedef typename const_or_not<B, T*, const T*>::type    pointer;
+            typedef typename const_or_not<B, const T&, T&>::type    reference;
+            typedef typename const_or_not<B, const T*, T*>::type    pointer;
             typedef ft::random_access_iterator_tag                  iterator_category;
             typedef ptrdiff_t                                       difference_type;
             typedef T*                                              elem_pointer;

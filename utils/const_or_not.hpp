@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:47:40 by abesombes         #+#    #+#             */
-/*   Updated: 2022/01/27 00:19:32 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/01/27 11:53:43 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 
 namespace ft{
 
-   template <bool flag, typename isFalse, typename isTrue>
+   template <bool flag, typename isTrue, typename isFalse>
    struct const_or_not {};
 
-   template <typename isFalse, typename isTrue>
-   struct const_or_not<true, isFalse, isTrue> {
-      typedef isFalse type;
+   template <typename isTrue, typename isFalse>
+   struct const_or_not<true, isTrue, isFalse> {
+       typedef isTrue type;     
    };
 
-   template <typename isFalse, typename isTrue>
-   struct const_or_not<false, isFalse, isTrue> {
-      typedef isTrue type;
+   template <typename isTrue, typename isFalse>
+   struct const_or_not<false, isTrue, isFalse> {
+      typedef isFalse type;
    };
 }
 
