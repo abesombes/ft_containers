@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/28 10:25:41 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/01/28 11:02:29 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -484,7 +484,7 @@ namespace ft{
                         difference_type offset = position - begin();
                         
                         if (_size + n > _capacity)
-                            reallocate_Vector(_size > 0 ? _capacity * 2: 1);
+                            reallocate_Vector(_size + n > 2 * _size ? _size + n: 2 * _size);
                         iterator tmp;
                         position = iterator(_arr + offset);
                         for ( tmp = end() - 1 + n ; tmp > position + n - 1; tmp--)
@@ -513,7 +513,6 @@ namespace ft{
                         _size = _size + n;
                         if (nb_elem_to_move_to_right)
                         {
-                            // std::cout << "I come this way" << std::endl;
                             for (size_t i = 0; i < n; i++)
                                 if (iterator(&(*(end() - 1 - i - n))) >= begin() )
                                     _alloc.construct(&(*(end() - 1 - i)), *(end() - 1 - i - n));
@@ -523,82 +522,7 @@ namespace ft{
                         for (tmp_it = first; tmp_it != last ; tmp_it++, position++)
                             _alloc.construct(&(*position), *tmp_it);
                     }
-
-                    // template <class InputIterator>
-                    // void insert (iterator position, InputIterator first, InputIterator last, 
-                    // typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type = 0)
-                    // {
-                    //     // n = last - first; // cannot use that because of the nature of InputIterator
-                    //     // InputIterator can be bidirectional iterators - in this case, no -operator overload avail
-                    //     InputIterator tmp_it(first);
-                    //     size_t n = 0;
-                    //     while (tmp_it++ != last)
-                    //         n++;
-                    //     std::cout << "n elements to add: " << n << std::endl;
-                    //     if (n + size() > max_size())
-	                //         throw std::length_error("Vector");
-                    //     difference_type offset = position - begin();
-                    //     std::cout << "offset: " << offset << " - size = " << size() << " - capacity = " << capacity() << std::endl;
-                    //     iterator tmp;                        
-                    //     if (_size + n > _capacity)
-                    //     {
-                    //         // reallocate_Vector(_size > 0 ? _capacity * 2: 1);
-                    //         reallocate_Vector(_size + n >  _capacity * 2? _size + n: _capacity * 2);
-                    //         // std::cout << "_size: " << size() << " - capacity: " << capacity() << std::endl;
-                    //         // for (size_t i = _size; i < _capacity; i++)
-                    //         //     _alloc.construct(_arr + i, 0);
-                    //     }
-                    //     if (!offset && !_size)
-                    //         position = begin();
-                    //     else
-                    //         position = iterator(&_arr[offset]);
-                    //     // if (_size)
-                    //     //     std::cout << "TEST POSITION: " << *position << std::endl;
-                    //     _size = _size + n;
-                    //     std::cout << "new_size: " << size() << std::endl;
-                    //     for ( tmp = end() - 1; tmp > end() - n - 1; tmp--)
-                    //         *tmp = *(tmp - n);                            
-                    //     tmp_it = first;
-                    //     for (size_t i = 0; i < n - 1; i++)
-                    //         tmp_it++;
-                    //     std::cout << "*tmp_it: " << *tmp_it << std::endl;
-                    //     for ( tmp = position + n - 1; tmp >= position; tmp-- )
-                    //     {
-                    //         *tmp = *tmp_it;
-                    //         tmp_it--;
-                    //     }
-                    // }
-            // template <class InputIterator>
-            // void insert (iterator position, InputIterator first, InputIterator last, 
-            //             typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type* = 0)
-            // {
-            //     // Counting number of elements to add
-            //     size_type n = 0;
-            //     InputIterator tmp(first);
-            //     while (tmp++ != last)
-            //         ++n;
-                
-            //     // In case of a realloc, position will be invalited because _vector
-            //     // points to another allocated area so we need to save the index array
-            //     // where position iterator is pointing to create a new one after the reallocation
-            //     difference_type index = position - begin();
-                
-            //     if (_size + n > _capacity)
-            //         reallocate_Vector(_capacity + n);
-
-            //     // Creating a new iterator pointing to the correct allocated are (case a realloc occured previously)
-            //     iterator newPosition(&_arr[index]);
-                
-            //     // Moving at newPosition + n all elements after newPosition
-            //     if (newPosition != end())
-            //         moveElementsToTheRight(newPosition, n);
-
-            //     // Constructing n new elements from the iterator's range
-            //     for (size_type i = 0; i < n; ++i)
-            //         _alloc.construct(&(*newPosition++), *first++);
-            //     _size += n;
-            // }
-                   
+               
 
                     /*
                     ----------------------------------------------------------------------------------------------------

@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:30:34 by abesombes         #+#    #+#             */
-/*   Updated: 2022/01/27 11:55:19 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/01/28 13:11:34 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,18 @@ class random_access_iterator
             bool compatible(self_type const &other) const { return (_val == other._val); };
 };
 
+template<typename T>
+    bool operator!=(random_access_iterator<T, false> lhs, const random_access_iterator<T, true> rhs)
+{
+    return (lhs.getVal() != rhs.getVal());
 }
+
+template<typename T>
+bool operator!=(random_access_iterator<T, true> lhs, const random_access_iterator<T, false> rhs)
+{
+    return (lhs.getVal() != rhs.getVal());
+}
+
+}
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/28 10:23:45 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/01/28 10:36:04 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,50 +51,69 @@ int main()
         // for (size_t i = 0; i < 3; i++)
         //     itl2++;
 
-        ft::vector<int> vct(5);
-        ft::vector<int> vct3(15);
+        ft::vector<int> vct(10);
+        // ft::vector<int> vct3(15);
         ft::vector<int> vct2;
-	    const int cut = 3;
+	    // const int cut = 3;
 
         for (unsigned long int i = 0; i < vct.size(); ++i)
-            vct[i] = (vct.size() - i) * 7;
-        // vct.printVec();
+            vct[i] = (vct.size() - i) * 3;
+        vct.printVec();
 
-        for (unsigned long int i = 0; i < vct3.size(); ++i)
-            vct3[i] = (vct3.size() - i) * 5;
-        // vct3.printVec();
-
-        vct2.insert(vct2.begin(), vct.begin(), vct.begin() + cut);
-        // vct2.printVec();
-        vct2.insert(vct2.begin(), vct.begin() + cut, vct.end());
-        // vct2.printVec();
-    	vct2.insert(vct2.end(), vct.begin(), vct.begin() + cut + 1);
-        // vct2.printVec();
-    	vct2.insert(vct2.begin() + 3, vct3.begin() + 1, vct3.begin() + 12);
+        vct2.insert(vct2.end(), 42);
+        vct2.insert(vct2.begin(), 2, 21);
         vct2.printVec();
+
+        std::vector<int> svct(10);
+        std::vector<int> svct2;
+
+        for (unsigned long int i = 0; i < svct.size(); ++i)
+            svct[i] = (svct.size() - i) * 3;
+        print_STLVec(svct);
+
+        svct2.insert(svct2.end(), 42);
+        svct2.insert(svct2.begin(), 2, 21);
+        print_STLVec(svct2);
+
+        // for (unsigned long int i = 0; i < vct.size(); ++i)
+        //     vct[i] = (vct.size() - i) * 7;
+        // // vct.printVec();
+
+        // for (unsigned long int i = 0; i < vct3.size(); ++i)
+        //     vct3[i] = (vct3.size() - i) * 5;
+        // // vct3.printVec();
+
+        // vct2.insert(vct2.begin(), vct.begin(), vct.begin() + cut);
+        // // vct2.printVec();
+        // vct2.insert(vct2.begin(), vct.begin() + cut, vct.end());
+        // // vct2.printVec();
+    	// vct2.insert(vct2.end(), vct.begin(), vct.begin() + cut + 1);
+        // // vct2.printVec();
+    	// vct2.insert(vct2.begin() + 3, vct3.begin() + 1, vct3.begin() + 12);
+        // vct2.printVec();
     	// vct2.insert(vct2.begin() + 3, vct2.begin() + 1, vct2.begin() + 5);
         // vct2.printVec();
         
-        std::vector<int> svct(5);
-        std::vector<int> svct2;
-        std::vector<int> svct3(15);
+        // std::vector<int> svct(5);
+        // std::vector<int> svct2;
+        // std::vector<int> svct3(15);
 
-        for (unsigned long int i = 0; i < svct.size(); ++i)
-            svct[i] = (svct.size() - i) * 7;
-        // print_STLVec(svct);
+        // for (unsigned long int i = 0; i < svct.size(); ++i)
+        //     svct[i] = (svct.size() - i) * 7;
+        // // print_STLVec(svct);
 
-        for (unsigned long int i = 0; i < svct3.size(); ++i)
-            svct3[i] = (svct3.size() - i) * 5;
-        // print_STLVec(svct3);
+        // for (unsigned long int i = 0; i < svct3.size(); ++i)
+        //     svct3[i] = (svct3.size() - i) * 5;
+        // // print_STLVec(svct3);
 
-        svct2.insert(svct2.begin(), svct.begin(), svct.begin() + cut);
+        // svct2.insert(svct2.begin(), svct.begin(), svct.begin() + cut);
+        // // print_STLVec(svct2);
+        // svct2.insert(svct2.begin(), svct.begin() + cut, svct.end());
+        // // print_STLVec(svct2);
+    	// svct2.insert(svct2.end(), svct.begin(), svct.begin() + cut + 1);
+        // // print_STLVec(svct2);
+    	// svct2.insert(svct2.begin() + 3, svct3.begin() + 1, svct3.begin() + 12);
         // print_STLVec(svct2);
-        svct2.insert(svct2.begin(), svct.begin() + cut, svct.end());
-        // print_STLVec(svct2);
-    	svct2.insert(svct2.end(), svct.begin(), svct.begin() + cut + 1);
-        // print_STLVec(svct2);
-    	svct2.insert(svct2.begin() + 3, svct3.begin() + 1, svct3.begin() + 12);
-        print_STLVec(svct2);
     	// svct2.insert(svct2.begin() + 3, svct2.begin() + 1, svct2.begin() + 5);
         // print_STLVec(svct2);
         // std::vector<int> vct(5);
