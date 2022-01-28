@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:30:34 by abesombes         #+#    #+#             */
-/*   Updated: 2022/01/28 14:31:35 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/01/28 19:23:14 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 #include <iostream>
 
 namespace ft{
-
-
 
 template <typename T, bool B>
 class random_access_iterator
@@ -74,20 +72,24 @@ class random_access_iterator
             bool compatible(self_type const &other) const { return (_val == other._val); };
 };
 
-// enables implicit conversion from const to non_const
-// template<typename T>
-//     bool operator!=(random_access_iterator<T, false> lhs, const random_access_iterator<T, true> rhs)
-// {
-//     return (lhs.getVal() != rhs.getVal());
-// }
+//enables implicit conversion from const to non_const
+template<typename T>
+    bool operator!=(random_access_iterator<T, false> lhs, const random_access_iterator<T, true> rhs)
+{
+    return (lhs.getVal() != rhs.getVal());
+}
 
-// template<typename T>
-// bool operator!=(random_access_iterator<T, true> lhs, const random_access_iterator<T, false> rhs)
-// {
-//     return (lhs.getVal() != rhs.getVal());
-// }
+template<typename T>
+bool operator!=(random_access_iterator<T, true> lhs, const random_access_iterator<T, false> rhs)
+{
+    return (lhs.getVal() != rhs.getVal());
+}
+
 template <typename T, bool B>
 random_access_iterator<T, B> operator+(ptrdiff_t offset, random_access_iterator<T, B> it) { return static_cast<random_access_iterator<T, B> >(it.getVal() + offset); };
+
+template <typename T, bool B>
+random_access_iterator<T, B> operator-(ptrdiff_t offset, random_access_iterator<T, B> it) { return static_cast<random_access_iterator<T, B> >(it.getVal() - offset); };
 
 }
 

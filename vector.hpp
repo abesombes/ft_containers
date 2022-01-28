@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/28 11:02:29 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/01/28 22:16:34 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,10 +131,11 @@ namespace ft{
 
                     explicit vector(size_type n, const value_type& value = value_type(), const allocator_type& alloc = allocator_type()): _alloc(alloc), _size(n), _capacity(n)
                     {
-                        
+                        // std::cout << "value: " << value << std::endl;
                         _arr = _alloc.allocate(_capacity);
                         for (size_t i = 0; i < _size; i++)
                             _alloc.construct(&_arr[i], value);
+                        // printVec();
                     }
                     
                     /*

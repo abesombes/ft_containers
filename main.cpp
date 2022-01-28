@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/28 10:36:04 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/01/28 23:39:57 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,54 @@ void print_STLVec(std::vector<T> &v)
     std::cout << "-----------------------------------------\n" << std::endl; 
 }
 
+// --- Class foo
+template <typename T>
+class foo {
+	public:
+		typedef T	value_type;
+
+		foo(void) : value(), _verbose(false) { };
+		foo(value_type src, const bool verbose = false) : value(src), _verbose(verbose) { };
+		foo(foo const &src, const bool verbose = false) : value(src.value), _verbose(verbose) { };
+		~foo(void) { if (this->_verbose) std::cout << "~foo::foo()" << std::endl; };
+		void m(void) { std::cout << "foo::m called [" << this->value << "]" << std::endl; };
+		void m(void) const { std::cout << "foo::m const called [" << this->value << "]" << std::endl; };
+		foo &operator=(value_type src) { this->value = src; return *this; };
+		foo &operator=(foo const &src) {
+			if (this->_verbose || src._verbose)
+				std::cout << "foo::operator=(foo) CALLED" << std::endl;
+			this->value = src.value;
+			return *this;
+		};
+		value_type	getValue(void) const { return this->value; };
+		void		switchVerbose(void) { this->_verbose = !(this->_verbose); };
+
+		operator value_type(void) const {
+			return value_type(this->value);
+		}
+	private:
+		value_type	value;
+		bool		_verbose;
+};
+
+template <typename T>
+std::ostream	&operator<<(std::ostream &o, foo<T> const &bar) {
+	o << bar.getValue();
+	return o;
+}
+// --- End of class foo
+
+template <typename Ite_1, typename Ite_2>
+void ft_eq_ope(const Ite_1 &first, const Ite_2 &second, const bool redo = 1)
+{
+	std::cout << (first < second) << std::endl;
+	std::cout << (first <= second) << std::endl;
+	std::cout << (first > second) << std::endl;
+	std::cout << (first >= second) << std::endl;
+	if (redo)
+		ft_eq_ope(second, first, 0);
+}
+
 int main()
 {
         // std::cout << SIZE_MAX << std::endl;
@@ -51,29 +99,149 @@ int main()
         // for (size_t i = 0; i < 3; i++)
         //     itl2++;
 
-        ft::vector<int> vct(10);
-        // ft::vector<int> vct3(15);
-        ft::vector<int> vct2;
-	    // const int cut = 3;
+    const int size = 5;
+	ft::vector<foo<int> > vct(size);
+	ft::vector<foo<int> >::reverse_iterator it_0(vct.rbegin());
+	ft::vector<foo<int> >::reverse_iterator it_1(vct.rend());
+	ft::vector<foo<int> >::reverse_iterator it_mid;
 
-        for (unsigned long int i = 0; i < vct.size(); ++i)
-            vct[i] = (vct.size() - i) * 3;
-        vct.printVec();
+	ft::vector<foo<int> >::const_reverse_iterator cit_0 = vct.rbegin();
+	ft::vector<foo<int> >::const_reverse_iterator cit_1;
+	ft::vector<foo<int> >::const_reverse_iterator cit_mid;
 
-        vct2.insert(vct2.end(), 42);
-        vct2.insert(vct2.begin(), 2, 21);
-        vct2.printVec();
+	for (int i = size; it_0 != it_1; --i)
+		*it_0++ = i;
+    vct.printVec();
+	it_0 = vct.rbegin();
+	cit_1 = vct.rend();
+	it_mid = it_0 + 3;
+	cit_mid = it_0 + 3; cit_mid = cit_0 + 3; cit_mid = it_mid;
 
-        std::vector<int> svct(10);
-        std::vector<int> svct2;
+	std::cout << std::boolalpha;
+	std::cout << ((it_0 + 3 == cit_0 + 3) && (cit_0 + 3 == it_mid)) << std::endl;
 
-        for (unsigned long int i = 0; i < svct.size(); ++i)
-            svct[i] = (svct.size() - i) * 3;
-        print_STLVec(svct);
+	std::cout << "\t\tft_eq_ope:" << std::endl;
+    	// regular it
+	// ft_eq_ope(it_0 + 3, it_mid);
+	ft_eq_ope(it_0, it_1);
+	// ft_eq_ope(it_1 - 3, it_mid);
+	// // const it
+	// ft_eq_ope(cit_0 + 3, cit_mid);
+	// ft_eq_ope(cit_0, cit_1);
+	// ft_eq_ope(cit_1 - 3, cit_mid);
+	// // both it
+	// ft_eq_ope(it_0 + 3, cit_mid);
+	// ft_eq_ope(it_mid, cit_0 + 3);
+	// ft_eq_ope(it_0, cit_1);
+	// ft_eq_ope(it_1, cit_0);
+	// ft_eq_ope(it_1 - 3, cit_mid);
+	// ft_eq_ope(it_mid, cit_1 - 3);
+    
+	// const int size = 5;
+	// ft::vector<foo<int> > vct(size);
+    // vct.printVec();
+	// ft::vector<foo<int> >::reverse_iterator it(vct.rbegin());
+	// ft::vector<foo<int> >::const_reverse_iterator ite(vct.rend());
 
-        svct2.insert(svct2.end(), 42);
-        svct2.insert(svct2.begin(), 2, 21);
-        print_STLVec(svct2);
+    // *it = 7;
+    // it++;
+    // vct.printVec();
+    
+    // *it = 14;
+    // std::cout << &*it << std::endl;
+    // it++;
+    // vct.printVec();
+
+    // *it = 21;
+    // it++;
+    // vct.printVec();
+    
+    // *it = 28;
+    // it++;
+    // vct.printVec();
+    
+    // *it = 35;
+    // it++;
+    // vct.printVec();
+	// for (int i = 1; it != ite; ++i)
+    // {
+	// 	*it = (i * 7);
+    //     it++;
+    // }
+	// vct.printVec();
+
+	// it = vct.rbegin();
+	// ite = vct.rbegin();
+
+	// std::cout << *(++ite) << std::endl;
+	// std::cout << *(ite++) << std::endl;
+	// std::cout << *ite++ << std::endl;
+	// std::cout << *++ite << std::endl;
+
+	// it->m();
+	// ite->m();
+
+	// std::cout << *(++it) << std::endl;
+	// std::cout << *(it++) << std::endl;
+	// std::cout << *it++ << std::endl;
+	// std::cout << *++it << std::endl;
+
+	// std::cout << *(--ite) << std::endl;
+	// std::cout << *(ite--) << std::endl;
+	// std::cout << *--ite << std::endl;
+	// std::cout << *ite-- << std::endl;
+
+	// (*it).m();
+	// (*ite).m();
+
+	// std::cout << *(--it) << std::endl;
+	// std::cout << *(it--) << std::endl;
+	// std::cout << *it-- << std::endl;
+	// std::cout << *--it << std::endl;
+
+
+	    // const int size = 5;
+        // ft::vector<int> vct(size);
+        // ft::vector<int>::reverse_iterator it = vct.rbegin();
+	    // ft::vector<int>::const_reverse_iterator ite = vct.rbegin();
+
+        // for (int i = 0; i < size; ++i)
+        // {
+        //     // std::cout << "Just before " << i << std::endl;
+		//     it[i] = (size - i) * 5;
+        //     // std::cout << "it[i] = " << it[i] << " - address = " << &it[i] << std::endl;
+        //     // std::cout << "Just after " << i << std::endl;
+        //     // vct.printVec();
+        // }
+        // vct.printVec();
+        // it = it + 5;
+        // it = 1 + it;
+
+        // for (unsigned long int i = 0; i < vct.size(); ++i)
+        //     vct[i] = (vct.size() - i) * 3;
+        // vct.printVec();
+        
+        // ft::vector<int>::reverse_iterator rit = vct.rbegin() + 3;
+        // ft::vector<int>::iterator it = rit.base();
+        // std::cout << *it << std::endl;
+        // vct2.insert(vct2.end(), 42);
+        // vct2.insert(vct2.begin(), 2, 21);
+        // vct2.printVec();
+
+        // std::vector<int> svct(10);
+        // std::vector<int> svct2;
+
+        // for (unsigned long int i = 0; i < svct.size(); ++i)
+        //     svct[i] = (svct.size() - i) * 3;
+        // print_STLVec(svct);
+
+        // std::vector<int>::reverse_iterator srit = svct.rbegin() + 3;
+        // std::vector<int>::iterator sit = srit.base();
+        // std::cout << *sit << std::endl;
+
+        // svct2.insert(svct2.end(), 42);
+        // svct2.insert(svct2.begin(), 2, 21);
+        // print_STLVec(svct2);
 
         // for (unsigned long int i = 0; i < vct.size(); ++i)
         //     vct[i] = (vct.size() - i) * 7;
