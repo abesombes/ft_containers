@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/28 23:39:57 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/01/29 00:10:53 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,56 +36,65 @@ void print_STLVec(std::vector<T> &v)
     std::cout << "-----------------------------------------\n" << std::endl; 
 }
 
-// --- Class foo
-template <typename T>
-class foo {
-	public:
-		typedef T	value_type;
+// // --- Class foo
+// template <typename T>
+// class foo {
+// 	public:
+// 		typedef T	value_type;
 
-		foo(void) : value(), _verbose(false) { };
-		foo(value_type src, const bool verbose = false) : value(src), _verbose(verbose) { };
-		foo(foo const &src, const bool verbose = false) : value(src.value), _verbose(verbose) { };
-		~foo(void) { if (this->_verbose) std::cout << "~foo::foo()" << std::endl; };
-		void m(void) { std::cout << "foo::m called [" << this->value << "]" << std::endl; };
-		void m(void) const { std::cout << "foo::m const called [" << this->value << "]" << std::endl; };
-		foo &operator=(value_type src) { this->value = src; return *this; };
-		foo &operator=(foo const &src) {
-			if (this->_verbose || src._verbose)
-				std::cout << "foo::operator=(foo) CALLED" << std::endl;
-			this->value = src.value;
-			return *this;
-		};
-		value_type	getValue(void) const { return this->value; };
-		void		switchVerbose(void) { this->_verbose = !(this->_verbose); };
+// 		foo(void) : value(), _verbose(false) { };
+// 		foo(value_type src, const bool verbose = false) : value(src), _verbose(verbose) { };
+// 		foo(foo const &src, const bool verbose = false) : value(src.value), _verbose(verbose) { };
+// 		~foo(void) { if (this->_verbose) std::cout << "~foo::foo()" << std::endl; };
+// 		void m(void) { std::cout << "foo::m called [" << this->value << "]" << std::endl; };
+// 		void m(void) const { std::cout << "foo::m const called [" << this->value << "]" << std::endl; };
+// 		foo &operator=(value_type src) { this->value = src; return *this; };
+// 		foo &operator=(foo const &src) {
+// 			if (this->_verbose || src._verbose)
+// 				std::cout << "foo::operator=(foo) CALLED" << std::endl;
+// 			this->value = src.value;
+// 			return *this;
+// 		};
+// 		value_type	getValue(void) const { return this->value; };
+// 		void		switchVerbose(void) { this->_verbose = !(this->_verbose); };
 
-		operator value_type(void) const {
-			return value_type(this->value);
-		}
-	private:
-		value_type	value;
-		bool		_verbose;
-};
+// 		operator value_type(void) const {
+// 			return value_type(this->value);
+// 		}
+// 	private:
+// 		value_type	value;
+// 		bool		_verbose;
+// };
 
-template <typename T>
-std::ostream	&operator<<(std::ostream &o, foo<T> const &bar) {
-	o << bar.getValue();
-	return o;
-}
-// --- End of class foo
+// template <typename T>
+// std::ostream	&operator<<(std::ostream &o, foo<T> const &bar) {
+// 	o << bar.getValue();
+// 	return o;
+// }
+// // --- End of class foo
 
-template <typename Ite_1, typename Ite_2>
-void ft_eq_ope(const Ite_1 &first, const Ite_2 &second, const bool redo = 1)
-{
-	std::cout << (first < second) << std::endl;
-	std::cout << (first <= second) << std::endl;
-	std::cout << (first > second) << std::endl;
-	std::cout << (first >= second) << std::endl;
-	if (redo)
-		ft_eq_ope(second, first, 0);
-}
+// template <typename Ite_1, typename Ite_2>
+// void ft_eq_ope(const Ite_1 &first, const Ite_2 &second, const bool redo = 1)
+// {
+// 	std::cout << (first < second) << std::endl;
+// 	std::cout << (first <= second) << std::endl;
+// 	std::cout << (first > second) << std::endl;
+// 	std::cout << (first >= second) << std::endl;
+// 	if (redo)
+// 		ft_eq_ope(second, first, 0);
+// }
 
 int main()
 {
+
+    const int size = 5;
+	ft::vector<int> const vct(size);
+	ft::vector<int>::const_iterator it = vct.begin(); // <-- error expected
+
+	std::vector<int> const svct(size);
+	std::vector<int>::iterator sit = svct.begin();  // <-- error expected
+	// std::vector<int>::const_iterator sit = svct.begin(); // <-- no error anymore
+    std::cout << *sit << std::endl;
         // std::cout << SIZE_MAX << std::endl;
         
         // std::list<int> lst1;
@@ -99,31 +108,31 @@ int main()
         // for (size_t i = 0; i < 3; i++)
         //     itl2++;
 
-    const int size = 5;
-	ft::vector<foo<int> > vct(size);
-	ft::vector<foo<int> >::reverse_iterator it_0(vct.rbegin());
-	ft::vector<foo<int> >::reverse_iterator it_1(vct.rend());
-	ft::vector<foo<int> >::reverse_iterator it_mid;
+    // const int size = 5;
+	// ft::vector<foo<int> > vct(size);
+	// ft::vector<foo<int> >::reverse_iterator it_0(vct.rbegin());
+	// ft::vector<foo<int> >::reverse_iterator it_1(vct.rend());
+	// ft::vector<foo<int> >::reverse_iterator it_mid;
 
-	ft::vector<foo<int> >::const_reverse_iterator cit_0 = vct.rbegin();
-	ft::vector<foo<int> >::const_reverse_iterator cit_1;
-	ft::vector<foo<int> >::const_reverse_iterator cit_mid;
+	// ft::vector<foo<int> >::const_reverse_iterator cit_0 = vct.rbegin();
+	// ft::vector<foo<int> >::const_reverse_iterator cit_1;
+	// ft::vector<foo<int> >::const_reverse_iterator cit_mid;
 
-	for (int i = size; it_0 != it_1; --i)
-		*it_0++ = i;
-    vct.printVec();
-	it_0 = vct.rbegin();
-	cit_1 = vct.rend();
-	it_mid = it_0 + 3;
-	cit_mid = it_0 + 3; cit_mid = cit_0 + 3; cit_mid = it_mid;
+	// for (int i = size; it_0 != it_1; --i)
+	// 	*it_0++ = i;
+    // vct.printVec();
+	// it_0 = vct.rbegin();
+	// cit_1 = vct.rend();
+	// it_mid = it_0 + 3;
+	// cit_mid = it_0 + 3; cit_mid = cit_0 + 3; cit_mid = it_mid;
 
-	std::cout << std::boolalpha;
-	std::cout << ((it_0 + 3 == cit_0 + 3) && (cit_0 + 3 == it_mid)) << std::endl;
+	// std::cout << std::boolalpha;
+	// std::cout << ((it_0 + 3 == cit_0 + 3) && (cit_0 + 3 == it_mid)) << std::endl;
 
-	std::cout << "\t\tft_eq_ope:" << std::endl;
-    	// regular it
-	// ft_eq_ope(it_0 + 3, it_mid);
-	ft_eq_ope(it_0, it_1);
+	// std::cout << "\t\tft_eq_ope:" << std::endl;
+    // 	// regular it
+	// // ft_eq_ope(it_0 + 3, it_mid);
+	// ft_eq_ope(it_0, it_1);
 	// ft_eq_ope(it_1 - 3, it_mid);
 	// // const it
 	// ft_eq_ope(cit_0 + 3, cit_mid);
