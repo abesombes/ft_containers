@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/27 23:17:43 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/01/28 10:25:41 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -505,30 +505,23 @@ namespace ft{
                         while (tmp_it++ != last)
                             n++;
                         difference_type offset = position - begin();
-                        // std::cout << "n: " << n << " - offset: " << offset << std::endl;
                         if (_size + n > _capacity)
-                            reallocate_Vector(_size + n > _capacity * 2 ? _size + n: _capacity * 2);
+                            reallocate_Vector(_size + n > _size * 2 ? _size + n: _size * 2);
                         position = iterator(begin() + offset);
-                        // if (_size)
-                        //     std::cout << "*position: " << *position << std::endl;
                         size_t nb_elem_to_move_to_right = _size - offset;
-                        // std::cout << "nb elem to move to the right = " << nb_elem_to_move_to_right << std::endl;
                         size_t save = _size;
                         _size = _size + n;
                         if (nb_elem_to_move_to_right)
                         {
                             // std::cout << "I come this way" << std::endl;
                             for (size_t i = 0; i < n; i++)
-                                _alloc.construct(&(*(end() - 1 - i)), *(end() - 1 - i - n));
+                                if (iterator(&(*(end() - 1 - i - n))) >= begin() )
+                                    _alloc.construct(&(*(end() - 1 - i)), *(end() - 1 - i - n));
                             for (size_t i = n; i < save; i++)
                                 *(end() - 1 - i) = *(end() - 1 - i - n); 
-                            // std::cout << "all necessary elements moved to the right." << std::endl;
                         }
                         for (tmp_it = first; tmp_it != last ; tmp_it++, position++)
-                        {
-                            // std::cout << *tmp_it << std::endl;
                             _alloc.construct(&(*position), *tmp_it);
-                        }
                     }
 
                     // template <class InputIterator>
