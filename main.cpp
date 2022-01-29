@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/29 15:13:36 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/01/29 17:42:23 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,18 +95,39 @@ int main()
 	// ft::vector<int>::const_iterator it = vct.begin(); // <-- error expected
 
     ft::stack<int, ft::vector<int> > s0;
-    std::cout << s0.empty() << std::endl;
-    std::cout << s0.size() << std::endl;   
+    std::cout << "s0 empty? " << s0.empty() << std::endl;
+    std::cout << "s0 size? " << s0.size() << std::endl;   
     s0.push(1);
     s0.push(2);
     s0.push(3); 
+    s0.push(4);
     (s0.get_ctnr()).printVec();
-    std::cout << s0.top() << std::endl;    
+    std::cout << "TOP before pop: " <<  s0.top() << std::endl;
+    s0.pop();
+    std::cout << "TOP after pop: " <<  s0.top() << std::endl;   
+    ft::stack<int, ft::vector<int> > s1;
+    s1.push(1);
+    s1.push(2);
+    s1.push(3); 
+    std::cout << "Comparaison s0 < s1? " << std::boolalpha << (s0 > s1) << std::endl;       
 
-    // std::stack<int, ft::vector<int> > ss0;
-    // std::cout << ss0.empty() << std::endl;
-    // std::cout << ss0.size() << std::endl;    
-    // std::cout << ss0.top() << std::endl;    
+    std::stack<int, ft::vector<int> > ss0;
+    std::cout << "================================================================================" << std::endl;
+    std::cout << "ss0 empty? " << ss0.empty() << std::endl;
+    std::cout << "ss0 size? " << ss0.size() << std::endl;
+    ss0.push(1);
+    ss0.push(2);
+    ss0.push(3);
+    // print_STLVec(ss0.get_ctnr());
+    std::cout << "TOP before pop: " <<  ss0.top() << std::endl;
+    ss0.pop();
+    std::cout << "TOP after pop: " <<  ss0.top() << std::endl;
+    std::stack<int, ft::vector<int> > ss1;
+    ss1.push(1);
+    ss1.push(2);
+    ss1.push(3); 
+    ss1.push(4);
+    std::cout << "Comparaison ss0 < ss1? " << std::boolalpha << (ss0 > ss1) << std::endl;  
 
 
 	// std::vector<int> const svct(size);

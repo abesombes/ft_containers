@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:16 by abesombes         #+#    #+#             */
-/*   Updated: 2022/01/29 15:21:05 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/01/29 18:25:26 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,11 +107,30 @@ public:
         ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        Stack: Operator overload =
+        ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        */
+
+        stack &operator=(const stack &rhs)
+        {
+            stack tmp(rhs);
+            swap (_ctnr, tmp._ctnr);
+            return (*this);
+        }
+
+
+        /*
+        ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         Stack: Member Functions
         ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         */
+
 
         bool empty() const { return (!_ctnr.size()); }
         
@@ -136,9 +155,9 @@ public:
         member back of the underlying container object.
         */
 
-        value_type& top() { return (size() > 0? _ctnr.back(): _ctnr[0]); };
+        value_type& top() { return (_ctnr.back()); }; // quid de la compatibilite avec d'autres containers? back() pas dispo dans map, list, set etc
         
-        const value_type& top() const  { return (size() > 0? _ctnr.back(): _ctnr[0]); };
+        const value_type& top() const  { return (_ctnr.back()); };
 
         /*
         ----------------------------------------------------------------------------------------------------
@@ -149,45 +168,45 @@ public:
         function push_back of the underlying container object.
         */
 
-        void push (const value_type& val) { _ctnr[0] = val; }
+        void push (const value_type& val) { _ctnr.push_back(val); }
         container_type &get_ctnr() { return (_ctnr); };
-        
+
         /*
-        (1)	
-
-        template <class T, class Container>
-        bool operator== (const stack<T,Container>& lhs, const stack<T,Container>& rhs);
-
-        (2)	
-
-        template <class T, class Container>
-        bool operator!= (const stack<T,Container>& lhs, const stack<T,Container>& rhs);
-
-        (3)	
-
-        template <class T, class Container>
-        bool operator<  (const stack<T,Container>& lhs, const stack<T,Container>& rhs);
-
-        (4)	
-
-        template <class T, class Container>
-        bool operator<= (const stack<T,Container>& lhs, const stack<T,Container>& rhs);
-
-        (5)	
-
-        template <class T, class Container>
-        bool operator>  (const stack<T,Container>& lhs, const stack<T,Container>& rhs);
-
-        (6)	
-
-        template <class T, class Container>
-        bool operator>= (const stack<T,Container>& lhs, const stack<T,Container>& rhs);
+        ----------------------------------------------------------------------------------------------------
+        POP - Remove top element
+        ----------------------------------------------------------------------------------------------------
+        Removes the element on top of the stack, effectively reducing its size by one. The element removed 
+        is the latest element inserted into the stack, whose value can be retrieved by calling member 
+        stack::top. This calls the removed element's destructor. This member function effectively calls the 
+        member function pop_back of the underlying container object.
         */
+        // void pop() { _ctnr.erase(static_cast<typename Container::iterator>(&_ctnr[0] + size() - 1)); };    
+        // autre solution qui a l'avantage d'utiliser size() et erase() qui sont disponibles dans tous les
+        // containers standards mais peut-etre moins efficace (moins rapide)?   
+        void pop() { _ctnr.pop_back(); };   // quid de la compatibilite avec d'autres containers ne disposant pas de pop_back?
+
+        /*
+        ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        Vector: Non-Member Function Overloads
+        ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        */
+       
+        friend bool operator== (const stack<T, Container>& lhs, const stack<T, Container>& rhs) { return (lhs._ctnr == rhs._ctnr); }
+        friend bool operator!= (const stack<T, Container>& lhs, const stack<T, Container>& rhs) { return (lhs._ctnr != rhs._ctnr); }
+        friend bool operator>= (const stack<T, Container>& lhs, const stack<T, Container>& rhs) { return (lhs._ctnr >= rhs._ctnr); }
+        friend bool operator<= (const stack<T, Container>& lhs, const stack<T, Container>& rhs) { return (lhs._ctnr <= rhs._ctnr); }
+        friend bool operator> (const stack<T, Container>& lhs, const stack<T, Container>& rhs) { return (lhs._ctnr > rhs._ctnr); }
+        friend bool operator< (const stack<T, Container>& lhs, const stack<T, Container>& rhs) { return (lhs._ctnr < rhs._ctnr); }  
 
         private:
                 container_type _ctnr;
     
 };
+
 
 }
 
