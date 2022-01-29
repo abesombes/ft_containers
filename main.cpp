@@ -6,18 +6,19 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/29 17:42:23 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/01/29 22:57:51 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "vector.hpp"
 #include "stack.hpp"
+#include "utils/pair.hpp"
 #include <iostream>
 #include <vector>
 #include <list>
 #include <stack>
-
+#include <utility>
     
 template <typename T>
 void autohundreds(std::vector<T> &v)
@@ -93,41 +94,62 @@ int main()
     // const int size = 5;
 	// ft::vector<int> const vct(size);
 	// ft::vector<int>::const_iterator it = vct.begin(); // <-- error expected
+    ft::pair<int, int> p1(5, 10);
+    ft::pair<int, int> p2 (5, 11);
+    std::cout << "p1 values: " << p1.first << " " << p1.second << std::endl;
+    std::cout << "p2 values: " << p2.first << " " << p2.second << std::endl;
+    std::cout << "p1 == p2? " << (p1 == p2) << std::endl;
+    std::cout << "p1 != p2? " << (p1 != p2) << std::endl;    
+    std::cout << "p1 < p2? " << (p1 < p2) << std::endl;   
+    std::cout << "p1 > p2? " << (p1 > p2) << std::endl;   
+    std::cout << "p1 <= p2? " << (p1 <= p2) << std::endl;   
+    std::cout << "p1 >= p2? " << (p1 >= p2) << std::endl;   
+    ft::pair<int, int> p3 = ft::make_pair(3, 10);
 
-    ft::stack<int, ft::vector<int> > s0;
-    std::cout << "s0 empty? " << s0.empty() << std::endl;
-    std::cout << "s0 size? " << s0.size() << std::endl;   
-    s0.push(1);
-    s0.push(2);
-    s0.push(3); 
-    s0.push(4);
-    (s0.get_ctnr()).printVec();
-    std::cout << "TOP before pop: " <<  s0.top() << std::endl;
-    s0.pop();
-    std::cout << "TOP after pop: " <<  s0.top() << std::endl;   
-    ft::stack<int, ft::vector<int> > s1;
-    s1.push(1);
-    s1.push(2);
-    s1.push(3); 
-    std::cout << "Comparaison s0 < s1? " << std::boolalpha << (s0 > s1) << std::endl;       
+    std::pair<int, int> sp1(5, 10);
+    std::pair<int, int> sp2(5, 11);
+    std::cout << "sp1 values: " << sp1.first << " " << sp1.second << std::endl;
+    std::cout << "sp2 values: " << sp2.first << " " << sp2.second << std::endl;
+    std::cout << "sp1 == sp2? " << (sp1 == sp2) << std::endl;
+    std::cout << "sp1 != sp2? " << (sp1 != sp2) << std::endl;    
+    std::cout << "sp1 < sp2? " << (sp1 < sp2) << std::endl;   
+    std::cout << "sp1 > sp2? " << (sp1 > sp2) << std::endl;   
+    std::cout << "sp1 <= sp2? " << (sp1 <= sp2) << std::endl;   
+    std::cout << "sp1 >= sp2? " << (sp1 >= sp2) << std::endl; 
+    // ft::stack<int, ft::vector<int> > s0;
+    // std::cout << "s0 empty? " << s0.empty() << std::endl;
+    // std::cout << "s0 size? " << s0.size() << std::endl;   
+    // s0.push(1);
+    // s0.push(2);
+    // s0.push(3); 
+    // s0.push(4);
+    // (s0.get_ctnr()).printVec();
+    // std::cout << "TOP before pop: " <<  s0.top() << std::endl;
+    // s0.pop();
+    // std::cout << "TOP after pop: " <<  s0.top() << std::endl;   
+    // ft::stack<int, ft::vector<int> > s1;
+    // s1.push(1);
+    // s1.push(2);
+    // s1.push(3); 
+    // std::cout << "Comparaison s0 < s1? " << std::boolalpha << (s0 > s1) << std::endl;       
 
-    std::stack<int, ft::vector<int> > ss0;
-    std::cout << "================================================================================" << std::endl;
-    std::cout << "ss0 empty? " << ss0.empty() << std::endl;
-    std::cout << "ss0 size? " << ss0.size() << std::endl;
-    ss0.push(1);
-    ss0.push(2);
-    ss0.push(3);
-    // print_STLVec(ss0.get_ctnr());
-    std::cout << "TOP before pop: " <<  ss0.top() << std::endl;
-    ss0.pop();
-    std::cout << "TOP after pop: " <<  ss0.top() << std::endl;
-    std::stack<int, ft::vector<int> > ss1;
-    ss1.push(1);
-    ss1.push(2);
-    ss1.push(3); 
-    ss1.push(4);
-    std::cout << "Comparaison ss0 < ss1? " << std::boolalpha << (ss0 > ss1) << std::endl;  
+    // std::stack<int, ft::vector<int> > ss0;
+    // std::cout << "================================================================================" << std::endl;
+    // std::cout << "ss0 empty? " << ss0.empty() << std::endl;
+    // std::cout << "ss0 size? " << ss0.size() << std::endl;
+    // ss0.push(1);
+    // ss0.push(2);
+    // ss0.push(3);
+    // // print_STLVec(ss0.get_ctnr());
+    // std::cout << "TOP before pop: " <<  ss0.top() << std::endl;
+    // ss0.pop();
+    // std::cout << "TOP after pop: " <<  ss0.top() << std::endl;
+    // std::stack<int, ft::vector<int> > ss1;
+    // ss1.push(1);
+    // ss1.push(2);
+    // ss1.push(3); 
+    // ss1.push(4);
+    // std::cout << "Comparaison ss0 < ss1? " << std::boolalpha << (ss0 > ss1) << std::endl;  
 
 
 	// std::vector<int> const svct(size);
