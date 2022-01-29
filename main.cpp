@@ -6,15 +6,17 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/29 00:10:53 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/01/29 15:13:36 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "vector.hpp"
+#include "stack.hpp"
 #include <iostream>
 #include <vector>
 #include <list>
+#include <stack>
 
     
 template <typename T>
@@ -87,14 +89,30 @@ void print_STLVec(std::vector<T> &v)
 int main()
 {
 
-    const int size = 5;
-	ft::vector<int> const vct(size);
-	ft::vector<int>::const_iterator it = vct.begin(); // <-- error expected
+    /* DERNIER TEST VECTOR QUI NE PASSE PAS - IL FAUT TROUVER UNE SOLUTION */
+    // const int size = 5;
+	// ft::vector<int> const vct(size);
+	// ft::vector<int>::const_iterator it = vct.begin(); // <-- error expected
 
-	std::vector<int> const svct(size);
-	std::vector<int>::iterator sit = svct.begin();  // <-- error expected
-	// std::vector<int>::const_iterator sit = svct.begin(); // <-- no error anymore
-    std::cout << *sit << std::endl;
+    ft::stack<int, ft::vector<int> > s0;
+    std::cout << s0.empty() << std::endl;
+    std::cout << s0.size() << std::endl;   
+    s0.push(1);
+    s0.push(2);
+    s0.push(3); 
+    (s0.get_ctnr()).printVec();
+    std::cout << s0.top() << std::endl;    
+
+    // std::stack<int, ft::vector<int> > ss0;
+    // std::cout << ss0.empty() << std::endl;
+    // std::cout << ss0.size() << std::endl;    
+    // std::cout << ss0.top() << std::endl;    
+
+
+	// std::vector<int> const svct(size);
+	// std::vector<int>::iterator sit = svct.begin();  // <-- error expected
+	// // std::vector<int>::const_iterator sit = svct.begin(); // <-- no error anymore
+    // std::cout << *sit << std::endl;
         // std::cout << SIZE_MAX << std::endl;
         
         // std::list<int> lst1;
