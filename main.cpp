@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/29 22:57:51 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/01/30 10:10:39 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <list>
 #include <stack>
 #include <utility>
+#include <map>
     
 template <typename T>
 void autohundreds(std::vector<T> &v)
@@ -94,28 +95,41 @@ int main()
     // const int size = 5;
 	// ft::vector<int> const vct(size);
 	// ft::vector<int>::const_iterator it = vct.begin(); // <-- error expected
-    ft::pair<int, int> p1(5, 10);
-    ft::pair<int, int> p2 (5, 11);
-    std::cout << "p1 values: " << p1.first << " " << p1.second << std::endl;
-    std::cout << "p2 values: " << p2.first << " " << p2.second << std::endl;
-    std::cout << "p1 == p2? " << (p1 == p2) << std::endl;
-    std::cout << "p1 != p2? " << (p1 != p2) << std::endl;    
-    std::cout << "p1 < p2? " << (p1 < p2) << std::endl;   
-    std::cout << "p1 > p2? " << (p1 > p2) << std::endl;   
-    std::cout << "p1 <= p2? " << (p1 <= p2) << std::endl;   
-    std::cout << "p1 >= p2? " << (p1 >= p2) << std::endl;   
-    ft::pair<int, int> p3 = ft::make_pair(3, 10);
+    
+    // TESTS POUR MAP
+    std::map<int, int> smap1;
+    std::cout << "\n=================== SMAP1: ===================\n" << std::endl;
+    smap1.insert(std::pair<int, int> (6, 50));
+    smap1.insert(std::pair<int, int> (17, -3));
+    std::map<int,int>::iterator sit;
+    std::cout << '\t' << "KEY" << '\t' << "VALUE" << std::endl; 
+    for (sit = smap1.begin(); sit != smap1.end(); ++sit)
+    {
+        std::cout << '\t' << sit->first << '\t' << sit->second << std::endl; 
+    }
+    std::cout << "\n==============================================\n" << std::endl;
+    // ft::pair<int, int> p1(5, 10);
+    // ft::pair<int, int> p2 (5, 11);
+    // std::cout << "p1 values: " << p1.first << " " << p1.second << std::endl;
+    // std::cout << "p2 values: " << p2.first << " " << p2.second << std::endl;
+    // std::cout << "p1 == p2? " << (p1 == p2) << std::endl;
+    // std::cout << "p1 != p2? " << (p1 != p2) << std::endl;    
+    // std::cout << "p1 < p2? " << (p1 < p2) << std::endl;   
+    // std::cout << "p1 > p2? " << (p1 > p2) << std::endl;   
+    // std::cout << "p1 <= p2? " << (p1 <= p2) << std::endl;   
+    // std::cout << "p1 >= p2? " << (p1 >= p2) << std::endl;   
+    // ft::pair<int, int> p3 = ft::make_pair(3, 10);
 
-    std::pair<int, int> sp1(5, 10);
-    std::pair<int, int> sp2(5, 11);
-    std::cout << "sp1 values: " << sp1.first << " " << sp1.second << std::endl;
-    std::cout << "sp2 values: " << sp2.first << " " << sp2.second << std::endl;
-    std::cout << "sp1 == sp2? " << (sp1 == sp2) << std::endl;
-    std::cout << "sp1 != sp2? " << (sp1 != sp2) << std::endl;    
-    std::cout << "sp1 < sp2? " << (sp1 < sp2) << std::endl;   
-    std::cout << "sp1 > sp2? " << (sp1 > sp2) << std::endl;   
-    std::cout << "sp1 <= sp2? " << (sp1 <= sp2) << std::endl;   
-    std::cout << "sp1 >= sp2? " << (sp1 >= sp2) << std::endl; 
+    // std::pair<int, int> sp1(5, 10);
+    // std::pair<int, int> sp2(5, 11);
+    // std::cout << "sp1 values: " << sp1.first << " " << sp1.second << std::endl;
+    // std::cout << "sp2 values: " << sp2.first << " " << sp2.second << std::endl;
+    // std::cout << "sp1 == sp2? " << (sp1 == sp2) << std::endl;
+    // std::cout << "sp1 != sp2? " << (sp1 != sp2) << std::endl;    
+    // std::cout << "sp1 < sp2? " << (sp1 < sp2) << std::endl;   
+    // std::cout << "sp1 > sp2? " << (sp1 > sp2) << std::endl;   
+    // std::cout << "sp1 <= sp2? " << (sp1 <= sp2) << std::endl;   
+    // std::cout << "sp1 >= sp2? " << (sp1 >= sp2) << std::endl; 
     // ft::stack<int, ft::vector<int> > s0;
     // std::cout << "s0 empty? " << s0.empty() << std::endl;
     // std::cout << "s0 size? " << s0.size() << std::endl;   

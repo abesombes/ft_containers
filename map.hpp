@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:19 by abesombes         #+#    #+#             */
-/*   Updated: 2022/01/29 19:02:04 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/01/30 09:52:29 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ template <class Key, class T, class Compare = less<Key>, class Alloc = allocator
 class map {
 
     public:
-                typedef pair<const Key, T> value_type;
+                typedef ft::pair<const Key, T> value_type;
                 typedef Key key_type;
                 typedef T   mapped_type;
                 typedef Compare key_compare;
