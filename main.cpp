@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/31 10:05:21 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/01/31 15:57:13 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "stack.hpp"
 #include "utils/pair.hpp"
 #include "utils/binary_search_tree.hpp"
+#include "utils/red_black_tree.hpp"
 #include <iostream>
 #include <vector>
 #include <list>
@@ -99,16 +100,24 @@ int main()
     
     // TESTS POUR MAP
     
-    ft::BST b, *root = NULL;
-    root = b.Insert(root, 50);
-    b.Insert(root, 30);
-    b.Insert(root, 80);
-    b.Insert(root, 40);
-    b.Insert(root, 70);
-    b.Insert(root, 1000);
-    b.Insert(root, 10);
+    ft::RBTree<std::string, std::string> RedBlackT;
+    RedBlackT.insertNode("Besombes", "Alexandre");
+    RedBlackT.insertNode("Wayne", "Clark");
+    RedBlackT.insertNode("Longoria", "Eva");
+    RedBlackT.insertNode("Lane", "Lois");
+    RedBlackT.insertNode("Alphabet", "Google");
+    RedBlackT.printRBT();
+    
+    // ft::BST b, *root = NULL;
+    // root = b.Insert(root, 50);
+    // b.Insert(root, 30);
+    // b.Insert(root, 80);
+    // b.Insert(root, 40);
+    // b.Insert(root, 70);
+    // b.Insert(root, 1000);
+    // b.Insert(root, 10);
 
-    b.Inorder(root);
+    // b.Inorder(root);
 
     
     // BINARY SEARCH TREE - BASIC NODE
