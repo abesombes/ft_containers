@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/30 10:10:39 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/01/31 10:05:21 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "vector.hpp"
 #include "stack.hpp"
 #include "utils/pair.hpp"
+#include "utils/binary_search_tree.hpp"
 #include <iostream>
 #include <vector>
 #include <list>
@@ -97,17 +98,48 @@ int main()
 	// ft::vector<int>::const_iterator it = vct.begin(); // <-- error expected
     
     // TESTS POUR MAP
-    std::map<int, int> smap1;
-    std::cout << "\n=================== SMAP1: ===================\n" << std::endl;
-    smap1.insert(std::pair<int, int> (6, 50));
-    smap1.insert(std::pair<int, int> (17, -3));
-    std::map<int,int>::iterator sit;
-    std::cout << '\t' << "KEY" << '\t' << "VALUE" << std::endl; 
-    for (sit = smap1.begin(); sit != smap1.end(); ++sit)
-    {
-        std::cout << '\t' << sit->first << '\t' << sit->second << std::endl; 
-    }
-    std::cout << "\n==============================================\n" << std::endl;
+    
+    ft::BST b, *root = NULL;
+    root = b.Insert(root, 50);
+    b.Insert(root, 30);
+    b.Insert(root, 80);
+    b.Insert(root, 40);
+    b.Insert(root, 70);
+    b.Insert(root, 1000);
+    b.Insert(root, 10);
+
+    b.Inorder(root);
+
+    
+    // BINARY SEARCH TREE - BASIC NODE
+    // ft::Node BST;
+    // BST.data = 0;
+    // BST.left = NULL;
+    // BST.right = NULL;
+    // std::cout << "BST size: " << ft::size(&BST) << std::endl;
+    // BST.left = ft::newNode(-10);
+    // // ft::insert(&BST, 10);
+    // std::cout << "BST size: " << ft::size(&BST) << std::endl;
+    // BST.right = ft::newNode(10);
+    // std::cout << "BST size: " << ft::size(&BST) << std::endl;
+    // // std::cout << "\t";
+    // (BST.left)->left = ft::newNode(-15);
+    // (BST.left)->right = ft::newNode(-5);
+    // ft::print_BST(&BST);
+
+
+    
+    // std::map<int, int> smap1;
+    // std::cout << "\n=================== SMAP1: ===================\n" << std::endl;
+    // smap1.insert(std::pair<int, int> (6, 50));
+    // smap1.insert(std::pair<int, int> (17, -3));
+    // std::map<int,int>::iterator sit;
+    // std::cout << '\t' << "KEY" << '\t' << "VALUE" << std::endl; 
+    // for (sit = smap1.begin(); sit != smap1.end(); ++sit)
+    // {
+    //     std::cout << '\t' << sit->first << '\t' << sit->second << std::endl; 
+    // }
+    // std::cout << "\n==============================================\n" << std::endl;
     // ft::pair<int, int> p1(5, 10);
     // ft::pair<int, int> p2 (5, 11);
     // std::cout << "p1 values: " << p1.first << " " << p1.second << std::endl;
