@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:30:34 by abesombes         #+#    #+#             */
-/*   Updated: 2022/02/01 16:03:11 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/02/01 16:14:37 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,76 +74,70 @@ class random_access_iterator
 
 //enables implicit conversion from const to non_const
 
-template<typename T>
-    bool operator!=(random_access_iterator<T, false> lhs, const random_access_iterator<T, true> rhs)
+template <class T>
+bool operator==(const random_access_iterator<T, false>& lhs, const random_access_iterator<T, true>& rhs)
 {
-    return (lhs.getVal() != rhs.getVal());
+    return (lhs.getVal() == rhs.getVal());
 }
-
-template<typename T>
-bool operator!=(random_access_iterator<T, true> lhs, const random_access_iterator<T, false> rhs)
-{
-    return (lhs.getVal() != rhs.getVal());
-}
-
-template<typename T>
-    bool operator==(random_access_iterator<T, false> lhs, const random_access_iterator<T, true> rhs)
+template <class T>
+bool operator==(const random_access_iterator<T, true>& lhs, const random_access_iterator<T, false>& rhs)
 {
     return (lhs.getVal() == rhs.getVal());
 }
 
-template<typename T>
-bool operator==(random_access_iterator<T, true> lhs, const random_access_iterator<T, false> rhs)
+template <class T>
+bool operator!=(const random_access_iterator<T, false>& lhs, const random_access_iterator<T, true>& rhs)
 {
-    return (lhs.getVal() == rhs.getVal());
+    return (lhs.getVal() != rhs.getVal());
+}
+template <class T>
+bool operator!=(const random_access_iterator<T, true>& lhs, const random_access_iterator<T, false>& rhs)
+{
+    return (lhs.getVal() != rhs.getVal());
 }
 
-template<typename T>
-    bool operator<(random_access_iterator<T, false> lhs, const random_access_iterator<T, true> rhs)
+template <class T>
+bool operator<(const random_access_iterator<T, false>& lhs, const random_access_iterator<T, true>& rhs)
 {
-    return (lhs.getVal() < rhs.getVal());
+    return !(lhs.getVal() >= rhs.getVal());
+}
+template <class T>
+bool operator<(const random_access_iterator<T, true>& lhs, const random_access_iterator<T, false>& rhs)
+{
+    return !(lhs.getVal() >= rhs.getVal());
 }
 
-template<typename T>
-bool operator<(random_access_iterator<T, true> lhs, const random_access_iterator<T, false> rhs)
+template <class T>
+bool operator<=(const random_access_iterator<T, false>& lhs, const random_access_iterator<T, true>& rhs)
 {
-    return (lhs.getVal() < rhs.getVal());
+    return !(lhs.getVal() > rhs.getVal());
+}
+template <class T>
+bool operator<=(const random_access_iterator<T, true>& lhs, const random_access_iterator<T, false>& rhs)
+{
+    return !(lhs.getVal() > rhs.getVal());
 }
 
-template<typename T>
-    bool operator<=(random_access_iterator<T, false> lhs, const random_access_iterator<T, true> rhs)
+template <class T>
+bool operator>(const random_access_iterator<T, false>& lhs, const random_access_iterator<T, true>& rhs)
 {
-    return (lhs.getVal() <= rhs.getVal());
+    return !(lhs.getVal() <= rhs.getVal());
+}
+template <class T>
+bool operator>(const random_access_iterator<T, true>& lhs, const random_access_iterator<T, false>& rhs)
+{
+    return !(lhs.getVal() <= rhs.getVal());
 }
 
-template<typename T>
-bool operator<=(random_access_iterator<T, true> lhs, const random_access_iterator<T, false> rhs)
+template <class T>
+bool operator>=(const random_access_iterator<T, false>& lhs, const random_access_iterator<T, true>& rhs)
 {
-    return (lhs.getVal() <= rhs.getVal());
+    return !(lhs.getVal() < rhs.getVal());
 }
-
-template<typename T>
-    bool operator>(random_access_iterator<T, false> lhs, const random_access_iterator<T, true> rhs)
+template <class T>
+bool operator>=(const random_access_iterator<T, true>& lhs, const random_access_iterator<T, false>& rhs)
 {
-    return (lhs.getVal() > rhs.getVal());
-}
-
-template<typename T>
-bool operator>(random_access_iterator<T, true> lhs, const random_access_iterator<T, false> rhs)
-{
-    return (lhs.getVal() > rhs.getVal());
-}
-
-template<typename T>
-    bool operator>=(random_access_iterator<T, false> lhs, const random_access_iterator<T, true> rhs)
-{
-    return (lhs.getVal() >= rhs.getVal());
-}
-
-template<typename T>
-bool operator>=(random_access_iterator<T, true> lhs, const random_access_iterator<T, false> rhs)
-{
-    return (lhs.getVal() >= rhs.getVal());
+    return !(lhs.getVal() < rhs.getVal());
 }
 
 template <typename T, bool B>
