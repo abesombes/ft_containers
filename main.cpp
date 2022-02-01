@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/31 15:57:13 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/01/31 19:09:25 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,8 @@ int main()
     RedBlackT.insertNode("Longoria", "Eva");
     RedBlackT.insertNode("Lane", "Lois");
     RedBlackT.insertNode("Alphabet", "Google");
+    RedBlackT.printRBT();
+    setRoot(RedBlackT, deleteNode(RedBlackT.getRoot(), "Longoria"));
     RedBlackT.printRBT();
     
     // ft::BST b, *root = NULL;
