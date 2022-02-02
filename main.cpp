@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/02/02 14:11:33 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/02/02 14:20:15 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,12 +110,12 @@ int main()
     // setRoot(RedBlackT, deleteNode(RedBlackT.getRoot(), "Longoria"));
     // RedBlackT.printRBT();
 
-    // ft::vector<int> v1(5, 100);
-    // ft::vector<int>::iterator it1 = v1.begin() + 2;
-    // std::cout << *it1 << " " << &(*it1) << std::endl;    
-    // it1 = 1 - it1;
-    // v1.printVec();
-    // std::cout << *it1 << " " << &(*it1) << std::endl;
+    ft::vector<int> v1(5, 100);
+    ft::vector<int>::iterator it1 = v1.begin() + 2;
+    std::cout << *it1 << " " << &(*it1) << std::endl;    
+    it1 = 1 - it1;
+    v1.printVec();
+    std::cout << *it1 << " " << &(*it1) << std::endl;
     
     // std::vector<int> v1(5, 100);
     // std::vector<int>::iterator it1(465, 4564) = v1.begin() + 2;

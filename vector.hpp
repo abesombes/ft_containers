@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/02/02 14:16:35 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/02/02 14:19:59 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ namespace ft{
 #include "utils/enable_if.hpp"
 #include "utils/is_integral.hpp"
 #include "utils/const_or_not.hpp"
+#include "utils/lexicographical_compare.hpp"
 
     template <class T, class Alloc = std::allocator<T> >
     class vector {
