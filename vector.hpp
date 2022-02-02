@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/29 18:28:59 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/02/02 14:16:35 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -664,7 +664,7 @@ namespace ft{
                     */
 
                     friend bool operator<(const vector& lhs, const vector &rhs)
-                    { return std::lexicographical_compare(lhs.begin(), lhs.end(),
+                    { return ft::lexicographical_compare(lhs.begin(), lhs.end(),
                                     rhs.begin(), rhs.end()); }
 
                     /// Based on operator==

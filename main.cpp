@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/31 19:09:25 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/02/02 14:11:33 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void print_STLVec(std::vector<T> &v)
     std::cout << "---- STL VECTOR PRINTING (" << v.size() << "/" << v.capacity() << ") -----" << std::endl;
     std::cout << "-----------------------------------------" << std::endl; 
     for (size_t i = 0; i < v.size() ; i++)
-    std::cout << "v[" << i << "]: " << v[i] << std::endl;
+    std::cout << "v[" << i << "]: " << v[i] << " - addr = "  << &v[i] << std::endl;
     std::cout << "-----------------------------------------" << std::endl; 
     std::cout << "-----------------------------------------\n" << std::endl; 
 }
@@ -100,16 +100,30 @@ int main()
     
     // TESTS POUR MAP
     
-    ft::RBTree<std::string, std::string> RedBlackT;
-    RedBlackT.insertNode("Besombes", "Alexandre");
-    RedBlackT.insertNode("Wayne", "Clark");
-    RedBlackT.insertNode("Longoria", "Eva");
-    RedBlackT.insertNode("Lane", "Lois");
-    RedBlackT.insertNode("Alphabet", "Google");
-    RedBlackT.printRBT();
-    setRoot(RedBlackT, deleteNode(RedBlackT.getRoot(), "Longoria"));
-    RedBlackT.printRBT();
+    // ft::RBTree<std::string, std::string> RedBlackT;
+    // RedBlackT.insertNode("Besombes", "Alexandre");
+    // RedBlackT.insertNode("Wayne", "Clark");
+    // RedBlackT.insertNode("Longoria", "Eva");
+    // RedBlackT.insertNode("Lane", "Lois");
+    // RedBlackT.insertNode("Alphabet", "Google");
+    // RedBlackT.printRBT();
+    // setRoot(RedBlackT, deleteNode(RedBlackT.getRoot(), "Longoria"));
+    // RedBlackT.printRBT();
+
+    // ft::vector<int> v1(5, 100);
+    // ft::vector<int>::iterator it1 = v1.begin() + 2;
+    // std::cout << *it1 << " " << &(*it1) << std::endl;    
+    // it1 = 1 - it1;
+    // v1.printVec();
+    // std::cout << *it1 << " " << &(*it1) << std::endl;
     
+    // std::vector<int> v1(5, 100);
+    // std::vector<int>::iterator it1(465, 4564) = v1.begin() + 2;
+    // std::cout << *it1 << " " << &(*it1) << std::endl;    
+    // it1 = it1 / 0;
+    // print_STLVec(v1);
+    // std::cout << *it1 << " " << &(*it1) << std::endl;
+
     // ft::BST b, *root = NULL;
     // root = b.Insert(root, 50);
     // b.Insert(root, 30);
