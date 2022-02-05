@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   red_black_tree.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/02/05 10:34:42 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/02/05 15:21:41 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,50 +190,53 @@ class RBTree {
                 {
                     
                     Node<Key, T>* NodeToDelete = searchNode(node, key);
-                    Node<Key, T>* NodeParent = NodeToDelete->parent;
-                    if (!NodeToDelete->right && !NodeToDelete->left)
+                    if (NodeToDelete)
                     {
-                        if (NodeToDelete->parent->left == NodeToDelete)
-                            NodeToDelete->parent->left = NULL;
-                        else if (NodeToDelete->parent->right == NodeToDelete)
-                            NodeToDelete->parent->right = NULL;
-                        delete(NodeToDelete);
-                        return (NodeParent);
-                    }
-                    if (!NodeToDelete->right || !NodeToDelete->left)
-                    {
-                        Node<Key, T>* NodeSurvivor= (!NodeToDelete->right ? NodeToDelete->left: NodeToDelete->right);
-                        if (NodeToDelete->parent->left == NodeToDelete)
+                        Node<Key, T>* NodeParent = NodeToDelete->parent;
+                        if (!NodeToDelete->right && !NodeToDelete->left)
                         {
-                            NodeSurvivor->parent = NodeToDelete->parent;
-                            NodeToDelete->parent->left = NodeSurvivor;
+                            if (NodeToDelete->parent->left == NodeToDelete)
+                                NodeToDelete->parent->left = NULL;
+                            else if (NodeToDelete->parent->right == NodeToDelete)
+                                NodeToDelete->parent->right = NULL;
+                            delete(NodeToDelete);
+                            return (NodeParent);
                         }
-                        else if (NodeToDelete->parent->right == NodeToDelete)
+                        if (!NodeToDelete->right || !NodeToDelete->left)
                         {
-                            NodeSurvivor->parent = NodeToDelete->parent;
-                            NodeToDelete->parent->right = NodeSurvivor;
+                            Node<Key, T>* NodeSurvivor= (!NodeToDelete->right ? NodeToDelete->left: NodeToDelete->right);
+                            if (NodeToDelete->parent->left == NodeToDelete)
+                            {
+                                NodeSurvivor->parent = NodeToDelete->parent;
+                                NodeToDelete->parent->left = NodeSurvivor;
+                            }
+                            else if (NodeToDelete->parent->right == NodeToDelete)
+                            {
+                                NodeSurvivor->parent = NodeToDelete->parent;
+                                NodeToDelete->parent->right = NodeSurvivor;
+                            }
+                            delete(NodeToDelete);
+                            return (NodeParent);
                         }
-                        delete(NodeToDelete);
-                        return (NodeParent);
-                    }
-                    if (NodeToDelete->right && NodeToDelete->left)
-                    {
-                        // std::cout << "NodeToDelete: " << NodeToDelete->data << std::endl;
-                        Node<Key, T>* IOSuccessor = getIOSuccessor(NodeToDelete);
-                        // std::cout << "successor: " << InOrderSuccessor->data << std::endl;
-                        NodeToDelete->data = IOSuccessor->data;
-                        NodeToDelete->value = IOSuccessor->value;               
-                        // Update a faire des liens de l'ancien InOrderSuccessor qui va etre detruit. On branche ses childrens avec son parent.
-                        if (IOSuccessor->parent)
+                        if (NodeToDelete->right && NodeToDelete->left)
                         {
-                            Node<Key, T>* IOSParent = IOSuccessor->parent;
-                            if (IOSuccessor->right)
-                                IOSParent->left = IOSuccessor->right;
+                            // std::cout << "NodeToDelete: " << NodeToDelete->data << std::endl;
+                            Node<Key, T>* IOSuccessor = getIOSuccessor(NodeToDelete);
+                            // std::cout << "successor: " << InOrderSuccessor->data << std::endl;
+                            NodeToDelete->data = IOSuccessor->data;
+                            NodeToDelete->value = IOSuccessor->value;               
+                            // Update a faire des liens de l'ancien InOrderSuccessor qui va etre detruit. On branche ses childrens avec son parent.
+                            if (IOSuccessor->parent)
+                            {
+                                Node<Key, T>* IOSParent = IOSuccessor->parent;
+                                if (IOSuccessor->right)
+                                    IOSParent->left = IOSuccessor->right;
+                            }
+                            delete(IOSuccessor);
+                            return (NodeToDelete);
                         }
-                        delete(IOSuccessor);
-                        return (NodeToDelete);
                     }
-                    return (NodeParent);
+                    return (NodeToDelete ? NodeToDelete : NULL);
                 }
 
                 // Node<Key, T>*getNodeToDeletePosition(Node<Key, T>* root, Key key)

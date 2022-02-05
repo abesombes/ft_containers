@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/02/05 10:37:01 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/02/05 15:19:33 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,21 +122,25 @@ int main()
     // RedBlackT.insertNode("Abcdef", "Ghijklnop");
     // RedBlackT.insertNode("Aaaaaaa", "BBBBBBB");
     ft::RBTree<int, std::string> RedBlackT;
-    RedBlackT.insertNode(50, "Paris");
-    RedBlackT.insertNode(30, "Madrid");
-    RedBlackT.insertNode(100, "London");
-    RedBlackT.insertNode(20, "Copenhagen");
-    RedBlackT.insertNode(40, "Berlin");
-    RedBlackT.insertNode(80, "Rome");
-    RedBlackT.insertNode(120, "Barcelona");
-    RedBlackT.insertNode(15, "Milan");
-    RedBlackT.insertNode(25, "Nice");
-    RedBlackT.insertNode(23, "Mougins");
-    RedBlackT.insertNode(24, "Sorbonne");
-    RedBlackT.insertNode(26, "Monaco");
-    RedBlackT.insertNode(27, "Cannes");
-    RedBlackT.insertNode(17, "Dublin");
-    RedBlackT.insertNode(18, "Tokyo");
+    RedBlackT.insertNode(8, "Paris");
+    RedBlackT.insertNode(18, "Madrid");
+    RedBlackT.insertNode(5, "London");
+    RedBlackT.insertNode(15, "Copenhagen");
+    // RedBlackT.insertNode(50, "Paris");
+    // RedBlackT.insertNode(30, "Madrid");
+    // RedBlackT.insertNode(100, "London");
+    // RedBlackT.insertNode(20, "Copenhagen");
+    // RedBlackT.insertNode(40, "Berlin");
+    // RedBlackT.insertNode(80, "Rome");
+    // RedBlackT.insertNode(120, "Barcelona");
+    // RedBlackT.insertNode(15, "Milan");
+    // RedBlackT.insertNode(25, "Nice");
+    // RedBlackT.insertNode(23, "Mougins");
+    // RedBlackT.insertNode(24, "Sorbonne");
+    // RedBlackT.insertNode(26, "Monaco");
+    // RedBlackT.insertNode(27, "Cannes");
+    // RedBlackT.insertNode(17, "Dublin");
+    // RedBlackT.insertNode(18, "Tokyo");
     RedBlackT.printRBT();
     // std::string needle = "Lane";
     // ft::Node<std::string, std::string>* needle_node = searchNode(RedBlackT.getRoot(), needle);
