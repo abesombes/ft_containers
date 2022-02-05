@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/02/05 15:19:33 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/02/05 18:31:47 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,39 +121,46 @@ int main()
     // // RedBlackT.insertNode("Amarillo", "Hello");
     // RedBlackT.insertNode("Abcdef", "Ghijklnop");
     // RedBlackT.insertNode("Aaaaaaa", "BBBBBBB");
+
+    
     ft::RBTree<int, std::string> RedBlackT;
-    RedBlackT.insertNode(8, "Paris");
-    RedBlackT.insertNode(18, "Madrid");
-    RedBlackT.insertNode(5, "London");
-    RedBlackT.insertNode(15, "Copenhagen");
-    // RedBlackT.insertNode(50, "Paris");
-    // RedBlackT.insertNode(30, "Madrid");
-    // RedBlackT.insertNode(100, "London");
-    // RedBlackT.insertNode(20, "Copenhagen");
-    // RedBlackT.insertNode(40, "Berlin");
-    // RedBlackT.insertNode(80, "Rome");
-    // RedBlackT.insertNode(120, "Barcelona");
-    // RedBlackT.insertNode(15, "Milan");
-    // RedBlackT.insertNode(25, "Nice");
-    // RedBlackT.insertNode(23, "Mougins");
-    // RedBlackT.insertNode(24, "Sorbonne");
-    // RedBlackT.insertNode(26, "Monaco");
-    // RedBlackT.insertNode(27, "Cannes");
-    // RedBlackT.insertNode(17, "Dublin");
-    // RedBlackT.insertNode(18, "Tokyo");
+    // RedBlackT.insertNode(8, "Paris");
+    // RedBlackT.insertNode(18, "Madrid");
+    // RedBlackT.insertNode(5, "London");
+    // RedBlackT.insertNode(15, "Copenhagen");
+    
+    
+    RedBlackT.insertNode(50, "Paris");
+    RedBlackT.insertNode(30, "Madrid");
+    RedBlackT.insertNode(100, "London");
+    RedBlackT.insertNode(20, "Copenhagen");
+    RedBlackT.insertNode(40, "Berlin");
+    RedBlackT.insertNode(80, "Rome");
+    RedBlackT.insertNode(120, "Barcelona");
+    RedBlackT.insertNode(15, "Milan");
+    RedBlackT.insertNode(25, "Nice");
+    RedBlackT.insertNode(23, "Mougins");
+    RedBlackT.insertNode(24, "Sorbonne");
+    RedBlackT.insertNode(26, "Monaco");
+    RedBlackT.insertNode(27, "Cannes");
+    RedBlackT.insertNode(17, "Dublin");
+    RedBlackT.insertNode(18, "Tokyo");
     RedBlackT.printRBT();
     // std::string needle = "Lane";
     // ft::Node<std::string, std::string>* needle_node = searchNode(RedBlackT.getRoot(), needle);
-    int needle = 20;
-    // ft::Node<int, std::string>* needle_node = searchNode(RedBlackT.getRoot(), needle);
+    int needle = 50;
+    ft::Node<int, std::string>* needle_node = searchNode(RedBlackT.getRoot(), needle);
     // std::cout << "Uncle: " << (RedBlackT.getUncle(needle_node) != NULL ? RedBlackT.getUncle(needle_node)->data : "None") << std::endl;
     // std::cout << "------------------ after delete -----------------" << std::endl;
     // RedBlackT.NodeDelete(RedBlackT.getRoot(), "Alphabet");
-    // std::cout << "------------------ IO SUCCESSOR -----------------" << std::endl;    
-    // std::cout << (RedBlackT.getIOSuccessor(needle_node))->data << std::endl;
-    std::cout << "------------------ after delete -----------------" << std::endl;
-    RedBlackT.NodeDelete(RedBlackT.getRoot(), needle);
-    RedBlackT.printRBT();
+    std::cout << "------------------ IO SUCCESSOR -----------------" << std::endl;    
+    std::cout << (RedBlackT.getIOSuccessor(needle_node) ? (RedBlackT.getIOSuccessor(needle_node))->data : 0) << std::endl;
+    std::cout << "------------------ IO PREDECESSOR -----------------" << std::endl;    
+    std::cout << (RedBlackT.getIOPredecessor(needle_node) ? (RedBlackT.getIOPredecessor(needle_node))->data : 0) << std::endl;
+
+    // std::cout << "------------------ after delete -----------------" << std::endl;
+    // RedBlackT.NodeDelete(RedBlackT.getRoot(), needle);
+    // RedBlackT.printRBT();
     // setRoot(RedBlackT, deleteNode(RedBlackT.getRoot(), "Longoria"));
     // RedBlackT.printRBT();
 

@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/02/05 15:21:41 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/02/05 18:51:47 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,24 @@ class Node {
             void setData (Key &data) { this->data = data; }
             T &getValue() { return (value); }
             void setValue(T value) { this->value = value; }
+            // Node<Key, T>* getGrandParent( void )
+            // {
+            //     if (*this->parent)
+            //         return (*this->parent->parent);
+            //     else
+            //         return NULL;
+            // }
+            // Node<Key, T>* getUncle( void )
+            // {
+            //     Node<Key, T> *GrandParent = getGrandParent(*this);                
+            //     if (GrandParent == NULL)
+            //         return NULL;
+            //     if (GrandParent->left == node->parent)
+            //         return (GrandParent->right);
+            //     if (GrandParent->right == node->parent)
+            //         return (GrandParent->left);
+            //     return NULL;
+            // }
             void printNode(char relative_pos)
             {
                 std::cout << (relative_pos == 'r' ? "Right" : "Left") << " - " << this->getData() << " - " << this->getValue() << " - " << (this->getColor() ? "Red" : "Black") << std::endl; 
@@ -68,7 +86,10 @@ template <class Key, class T>
 Node<Key, T>* BSTInsert(Node<Key, T>* root, Node<Key, T>* node)
 {
     if (root == NULL)
+    {
+        node->setColor(BLACK);
         return (node);
+    }
     if (root->getData() > node->getData())
     {
         root->left = BSTInsert(root->left, node);
@@ -79,6 +100,20 @@ Node<Key, T>* BSTInsert(Node<Key, T>* root, Node<Key, T>* node)
         root->right = BSTInsert(root->right, node);
         root->right->parent = root;  
     }
+    // if not root, insert by default as a RED leaf
+    node->setColor(RED);
+    // FIXING INSERTION PROBLEMS IN REGARD TO RBT RULES
+    // if RED leaf's parent is BLACK, then no problem, we should already comply to RBT standards.
+    // if RED leat's parent is RED, then we check parent's sibling (called uncle). If uncle is RED as well
+    // then we change parent and uncle's colors to BLACK.
+    
+    // Node<Key, T>* parent = node->parent;
+    // if (parent.getColor() == RED)
+    // {
+    // if (parent->parent)
+    //     Node<Key, T>* uncle = node->getUncle();
+    // if (uncle->getColor() == RED)
+    // }
     return root;
 }
 
@@ -124,12 +159,12 @@ class RBTree {
                 {
                     Node<Key, T>* newNode = new Node<Key, T>(data, value);
                     
-                    this->_root = BSTInsert(this->_root, newNode); 
+                    this->_root = BSTInsert(this->_root, newNode);
                 }
 
                 Node<Key, T>* getMaxValueNode(Node<Key, T> *root)
                 {
-                    if(root==NULL)
+                    if(root == NULL)
                         return NULL;
                     else if (root->right==NULL)
                         return root;
@@ -147,8 +182,6 @@ class RBTree {
                 
                     return current;
                 }
-
-                
                 
                 Node<Key, T>* getGrandParent(Node<Key, T>* node)
                 {
@@ -171,17 +204,39 @@ class RBTree {
                 }
                 
                 Node<Key, T>* getIOSuccessor(Node<Key, T>* node)
-                {
-                    // Node<Key, T> *IOSuccessor = getGrandParent(node);                
+                {        
                     if (node == NULL)
                         return NULL;
                     if (node->right)
                         return (getMinValueNode(node->right));
                     if (!node->right)
                     {
-                        while (node->parent && node->parent->parent && node->parent != node->parent->left)
+                        while (node->parent && node->parent->left != node)
                             node = node->parent;
-                        return (node->parent->parent);
+                        if (node->parent == _root && node->parent->left == node)
+                            return (node->parent);
+                        if (node->parent == _root && node->parent->left != node)
+                            return (NULL);
+                        return (node->parent);
+                    }
+                    return NULL;
+                }
+
+                Node<Key, T>* getIOPredecessor(Node<Key, T>* node)
+                {          
+                    if (node == NULL)
+                        return NULL;
+                    if (node->left)
+                        return (getMaxValueNode(node->left));
+                    if (!node->left)
+                    {
+                        while (node->parent && node->parent->right != node)
+                            node = node->parent;
+                        if (node->parent == _root && node->parent->right == node)
+                            return (node->parent);
+                        if (node->parent == _root)
+                            return (NULL);
+                        return (node->parent);
                     }
                     return NULL;
                 }
