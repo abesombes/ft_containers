@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/02/02 14:20:15 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/02/05 10:37:01 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,21 +101,64 @@ int main()
     // TESTS POUR MAP
     
     // ft::RBTree<std::string, std::string> RedBlackT;
-    // RedBlackT.insertNode("Besombes", "Alexandre");
+    // RedBlackT.insertNode("Chocolat", "D");
+    // RedBlackT.insertNode("Boat", "A");
+    // RedBlackT.insertNode("Aristochat", "Disney");
+    // RedBlackT.insertNode("Animal", "bB");
+    // RedBlackT.insertNode("Attachant", "bbB");
+    // RedBlackT.insertNode("Anemique", "FinCommeTout");
+    // RedBlackT.insertNode("Alibaba", "BBb");
+    // RedBlackT.insertNode("D", "C");
+    // RedBlackT.insertNode("E", "D");   
+    // RedBlackT.insertNode("F", "E");
+    // std::cout << "------------------ before delete -----------------" << std::endl;
     // RedBlackT.insertNode("Wayne", "Clark");
     // RedBlackT.insertNode("Longoria", "Eva");
+    // RedBlackT.insertNode("Melon", "Fruit");
     // RedBlackT.insertNode("Lane", "Lois");
+    // RedBlackT.insertNode("Mountain", "View");
     // RedBlackT.insertNode("Alphabet", "Google");
-    // RedBlackT.printRBT();
+    // // RedBlackT.insertNode("Amarillo", "Hello");
+    // RedBlackT.insertNode("Abcdef", "Ghijklnop");
+    // RedBlackT.insertNode("Aaaaaaa", "BBBBBBB");
+    ft::RBTree<int, std::string> RedBlackT;
+    RedBlackT.insertNode(50, "Paris");
+    RedBlackT.insertNode(30, "Madrid");
+    RedBlackT.insertNode(100, "London");
+    RedBlackT.insertNode(20, "Copenhagen");
+    RedBlackT.insertNode(40, "Berlin");
+    RedBlackT.insertNode(80, "Rome");
+    RedBlackT.insertNode(120, "Barcelona");
+    RedBlackT.insertNode(15, "Milan");
+    RedBlackT.insertNode(25, "Nice");
+    RedBlackT.insertNode(23, "Mougins");
+    RedBlackT.insertNode(24, "Sorbonne");
+    RedBlackT.insertNode(26, "Monaco");
+    RedBlackT.insertNode(27, "Cannes");
+    RedBlackT.insertNode(17, "Dublin");
+    RedBlackT.insertNode(18, "Tokyo");
+    RedBlackT.printRBT();
+    // std::string needle = "Lane";
+    // ft::Node<std::string, std::string>* needle_node = searchNode(RedBlackT.getRoot(), needle);
+    int needle = 20;
+    // ft::Node<int, std::string>* needle_node = searchNode(RedBlackT.getRoot(), needle);
+    // std::cout << "Uncle: " << (RedBlackT.getUncle(needle_node) != NULL ? RedBlackT.getUncle(needle_node)->data : "None") << std::endl;
+    // std::cout << "------------------ after delete -----------------" << std::endl;
+    // RedBlackT.NodeDelete(RedBlackT.getRoot(), "Alphabet");
+    // std::cout << "------------------ IO SUCCESSOR -----------------" << std::endl;    
+    // std::cout << (RedBlackT.getIOSuccessor(needle_node))->data << std::endl;
+    std::cout << "------------------ after delete -----------------" << std::endl;
+    RedBlackT.NodeDelete(RedBlackT.getRoot(), needle);
+    RedBlackT.printRBT();
     // setRoot(RedBlackT, deleteNode(RedBlackT.getRoot(), "Longoria"));
     // RedBlackT.printRBT();
 
-    ft::vector<int> v1(5, 100);
-    ft::vector<int>::iterator it1 = v1.begin() + 2;
-    std::cout << *it1 << " " << &(*it1) << std::endl;    
-    it1 = 1 - it1;
-    v1.printVec();
-    std::cout << *it1 << " " << &(*it1) << std::endl;
+    // ft::vector<int> v1(5, 100);
+    // ft::vector<int>::iterator it1 = v1.begin() + 2;
+    // std::cout << *it1 << " " << &(*it1) << std::endl;    
+    // it1 = 1 - it1;
+    // v1.printVec();
+    // std::cout << *it1 << " " << &(*it1) << std::endl;
     
     // std::vector<int> v1(5, 100);
     // std::vector<int>::iterator it1(465, 4564) = v1.begin() + 2;

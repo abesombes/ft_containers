@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/01/31 19:08:02 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/02/05 10:34:42 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,17 @@ Node<Key, T>* BSTInsert(Node<Key, T>* root, Node<Key, T>* node)
 }
 
 template <class Key, class T>  
+Node<Key, T>* searchNode(Node<Key, T>* node, Key key)
+{
+    if (node == NULL || key == node->data)
+        return node;
+    if (key > node->data)
+        return (searchNode(node->right, key));
+    else
+        return (searchNode(node->left, key));
+}
+
+template <class Key, class T>  
 class RBTree {
     
     private:
@@ -137,6 +148,94 @@ class RBTree {
                     return current;
                 }
 
+                
+                
+                Node<Key, T>* getGrandParent(Node<Key, T>* node)
+                {
+                    if (node && node->parent)
+                        return (node->parent->parent);
+                    else
+                        return NULL;
+                }
+
+                Node<Key, T>* getUncle(Node<Key, T>* node)
+                {
+                    Node<Key, T> *GrandParent = getGrandParent(node);                
+                    if (GrandParent == NULL)
+                        return NULL;
+                    if (GrandParent->left == node->parent)
+                        return (GrandParent->right);
+                    if (GrandParent->right == node->parent)
+                        return (GrandParent->left);
+                    return NULL;
+                }
+                
+                Node<Key, T>* getIOSuccessor(Node<Key, T>* node)
+                {
+                    // Node<Key, T> *IOSuccessor = getGrandParent(node);                
+                    if (node == NULL)
+                        return NULL;
+                    if (node->right)
+                        return (getMinValueNode(node->right));
+                    if (!node->right)
+                    {
+                        while (node->parent && node->parent->parent && node->parent != node->parent->left)
+                            node = node->parent;
+                        return (node->parent->parent);
+                    }
+                    return NULL;
+                }
+
+                Node<Key, T>* NodeDelete(Node<Key, T>* node, Key key)
+                {
+                    
+                    Node<Key, T>* NodeToDelete = searchNode(node, key);
+                    Node<Key, T>* NodeParent = NodeToDelete->parent;
+                    if (!NodeToDelete->right && !NodeToDelete->left)
+                    {
+                        if (NodeToDelete->parent->left == NodeToDelete)
+                            NodeToDelete->parent->left = NULL;
+                        else if (NodeToDelete->parent->right == NodeToDelete)
+                            NodeToDelete->parent->right = NULL;
+                        delete(NodeToDelete);
+                        return (NodeParent);
+                    }
+                    if (!NodeToDelete->right || !NodeToDelete->left)
+                    {
+                        Node<Key, T>* NodeSurvivor= (!NodeToDelete->right ? NodeToDelete->left: NodeToDelete->right);
+                        if (NodeToDelete->parent->left == NodeToDelete)
+                        {
+                            NodeSurvivor->parent = NodeToDelete->parent;
+                            NodeToDelete->parent->left = NodeSurvivor;
+                        }
+                        else if (NodeToDelete->parent->right == NodeToDelete)
+                        {
+                            NodeSurvivor->parent = NodeToDelete->parent;
+                            NodeToDelete->parent->right = NodeSurvivor;
+                        }
+                        delete(NodeToDelete);
+                        return (NodeParent);
+                    }
+                    if (NodeToDelete->right && NodeToDelete->left)
+                    {
+                        // std::cout << "NodeToDelete: " << NodeToDelete->data << std::endl;
+                        Node<Key, T>* IOSuccessor = getIOSuccessor(NodeToDelete);
+                        // std::cout << "successor: " << InOrderSuccessor->data << std::endl;
+                        NodeToDelete->data = IOSuccessor->data;
+                        NodeToDelete->value = IOSuccessor->value;               
+                        // Update a faire des liens de l'ancien InOrderSuccessor qui va etre detruit. On branche ses childrens avec son parent.
+                        if (IOSuccessor->parent)
+                        {
+                            Node<Key, T>* IOSParent = IOSuccessor->parent;
+                            if (IOSuccessor->right)
+                                IOSParent->left = IOSuccessor->right;
+                        }
+                        delete(IOSuccessor);
+                        return (NodeToDelete);
+                    }
+                    return (NodeParent);
+                }
+
                 // Node<Key, T>*getNodeToDeletePosition(Node<Key, T>* root, Key key)
                 // {
                 //     if (root == NULL)
@@ -189,71 +288,71 @@ class RBTree {
                 //     } 
                 // }
 
-                /* Given a binary search tree and a key, this function
-                    deletes the key and returns the new root */
-                Node<Key, T>* deleteNode(Node<Key, T>* root, int k)
-                {
-                    // Base case
-                    if (root == NULL)
-                        return root;
+                // /* Given a binary search tree and a key, this function
+                //     deletes the key and returns the new root */
+                // Node<Key, T>* deleteNode(Node<Key, T>* root, int k)
+                // {
+                //     // Base case
+                //     if (root == NULL)
+                //         return root;
                 
-                    // Recursive calls for ancestors of
-                    // node to be deleted
-                    if (root->key > k) {
-                        root->left = deleteNode(root->left, k);
-                        return root;
-                    }
-                    else if (root->key < k) {
-                        root->right = deleteNode(root->right, k);
-                        return root;
-                    }
+                //     // Recursive calls for ancestors of
+                //     // node to be deleted
+                //     if (root->key > k) {
+                //         root->left = deleteNode(root->left, k);
+                //         return root;
+                //     }
+                //     else if (root->key < k) {
+                //         root->right = deleteNode(root->right, k);
+                //         return root;
+                //     }
                 
-                    // We reach here when root is the node
-                    // to be deleted.
+                //     // We reach here when root is the node
+                //     // to be deleted.
                 
-                    // If one of the children is empty
-                    if (root->left == NULL) {
-                        Node<Key, T>* temp = root->right;
-                        delete root;
-                        return temp;
-                    }
-                    else if (root->right == NULL) {
-                        Node <Key, T>* temp = root->left;
-                        delete root;
-                        return temp;
-                    }
+                //     // If one of the children is empty
+                //     if (root->left == NULL) {
+                //         Node<Key, T>* temp = root->right;
+                //         delete root;
+                //         return temp;
+                //     }
+                //     else if (root->right == NULL) {
+                //         Node <Key, T>* temp = root->left;
+                //         delete root;
+                //         return temp;
+                //     }
                 
-                    // If both children exist
-                    else {
+                //     // If both children exist
+                //     else {
                 
-                        Node<Key, T>* succParent = root;
+                //         Node<Key, T>* succParent = root;
                 
-                        // Find successor
-                        Node<Key, T>* succ = root->right;
-                        while (succ->left != NULL) {
-                            succParent = succ;
-                            succ = succ->left;
-                        }
+                //         // Find successor
+                //         Node<Key, T>* succ = root->right;
+                //         while (succ->left != NULL) {
+                //             succParent = succ;
+                //             succ = succ->left;
+                //         }
                 
-                        // Delete successor.  Since successor
-                        // is always left child of its parent
-                        // we can safely make successor's right
-                        // right child as left of its parent.
-                        // If there is no succ, then assign
-                        // succ->right to succParent->right
-                        if (succParent != root)
-                            succParent->left = succ->right;
-                        else
-                            succParent->right = succ->right;
+                //         // Delete successor.  Since successor
+                //         // is always left child of its parent
+                //         // we can safely make successor's right
+                //         // right child as left of its parent.
+                //         // If there is no succ, then assign
+                //         // succ->right to succParent->right
+                //         if (succParent != root)
+                //             succParent->left = succ->right;
+                //         else
+                //             succParent->right = succ->right;
                 
-                        // Copy Successor Data to root
-                        root->key = succ->key;
+                //         // Copy Successor Data to root
+                //         root->key = succ->key;
                 
-                        // Delete Successor and return root
-                        delete succ;
-                        return root;
-                    }
-                }
+                //         // Delete Successor and return root
+                //         delete succ;
+                //         return root;
+                //     }
+                // }
 
                 void printRBT()
                 {
