@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   red_black_tree.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/02/05 18:51:47 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/02/06 23:55:48 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,24 +53,86 @@ class Node {
             void setData (Key &data) { this->data = data; }
             T &getValue() { return (value); }
             void setValue(T value) { this->value = value; }
-            // Node<Key, T>* getGrandParent( void )
-            // {
-            //     if (*this->parent)
-            //         return (*this->parent->parent);
-            //     else
-            //         return NULL;
-            // }
-            // Node<Key, T>* getUncle( void )
-            // {
-            //     Node<Key, T> *GrandParent = getGrandParent(*this);                
-            //     if (GrandParent == NULL)
-            //         return NULL;
-            //     if (GrandParent->left == node->parent)
-            //         return (GrandParent->right);
-            //     if (GrandParent->right == node->parent)
-            //         return (GrandParent->left);
-            //     return NULL;
-            // }
+            Node<Key, T>* getGrandParent( void )
+            {
+                if (this->parent)
+                    return (this->parent->parent);
+                else
+                    return NULL;
+            }
+            Node<Key, T>* getUncle( void )
+            {
+                Node<Key, T> *GrandParent = this->getGrandParent();                
+                if (GrandParent == NULL)
+                    return NULL;
+                if (GrandParent->left == this->parent)
+                    return (GrandParent->right);
+                if (GrandParent->right == this->parent)
+                    return (GrandParent->left);
+                return NULL;
+            }
+
+            int isLeftRightChild(Node<Key, T>* node)
+            {
+                // -1 not child, 0 left child, l right child
+                if (!node)
+                    return (-1);
+                if (node && node->parent && node->parent->left == node)
+                    return 0;
+                if (node && node->parent && node->parent->right == node)
+                    return 1;
+                return  (-1);
+            }
+            
+            Node<Key, T>* leftRotate(Node<Key, T>* node)
+            {
+                if (node == NULL)
+                    return (NULL);
+                Key tmp_key;
+                T   tmp_value;
+                if (node->left)
+                {
+                    tmp_key = node->left->data;
+                    node->left->data = node->data;
+                    node->data = tmp_key;
+                    tmp_value = node->left->value;
+                    node->left->value = node->value;
+                    node->value = tmp_value;
+                    node->right = node->left;
+                    node->left = NULL;
+                }
+                if (node->right)
+                {
+                    tmp_key = node->right->data;
+                    node->right->data = node->data;
+                    node->data = tmp_key;
+                    tmp_value = node->right->value;
+                    node->right->value = node->value;
+                    node->value = tmp_value;
+                    node->left = node->right;
+                    node->right = NULL;
+                }
+                return (NULL);
+            }
+
+            Node<Key, T>* rightRotate(Node<Key, T>* node)
+            {
+                if (node == NULL)
+                    return (NULL);
+                Node<Key, T> *Parent = node->parent;
+                Node<Key, T> *GrandParent = this->getGrandParent();
+                if (node->parent && GrandParent)
+                {
+                    if (isLeftRightChild(Parent) == 1) // Parent is a right child of GrandParent
+                    {
+                        GrandParent->right = node;
+                        Parent->parent = node;
+                        node->right = Parent;
+                    }
+                }
+                return (NULL);
+            }
+
             void printNode(char relative_pos)
             {
                 std::cout << (relative_pos == 'r' ? "Right" : "Left") << " - " << this->getData() << " - " << this->getValue() << " - " << (this->getColor() ? "Red" : "Black") << std::endl; 
@@ -79,6 +141,7 @@ class Node {
                 if (right)
                     right->printNode('r');    
             }
+            
 };
 
 // We consider a BST as a linked list of Nodes.
@@ -107,13 +170,25 @@ Node<Key, T>* BSTInsert(Node<Key, T>* root, Node<Key, T>* node)
     // if RED leat's parent is RED, then we check parent's sibling (called uncle). If uncle is RED as well
     // then we change parent and uncle's colors to BLACK.
     
-    // Node<Key, T>* parent = node->parent;
-    // if (parent.getColor() == RED)
-    // {
-    // if (parent->parent)
-    //     Node<Key, T>* uncle = node->getUncle();
-    // if (uncle->getColor() == RED)
-    // }
+    Node<Key, T>* Parent = node->parent;
+    if (Parent->getColor() == RED)
+    {
+        if (Parent->parent)
+        {
+            Node<Key, T>* Uncle = node->getUncle();
+            if (Uncle && Uncle->getColor() == RED)
+            {
+                Uncle->setColor(BLACK);
+                Parent->setColor(BLACK);
+                // Parent->parent->setColor(RED);
+            }
+            else if (!Uncle)
+            {
+                // Need for a Left Rotation then Right Rotation then Recoloring
+                
+            }
+        }
+    }
     return root;
 }
 
@@ -416,6 +491,7 @@ class RBTree {
                 {
                     if (this->_root)
                     {
+                        std::cout << std::endl << std::endl << std::endl;
                         std::cout << _root->getData() << " - " << _root->getValue() << " - " << (_root->getColor()? "Red" : "Black") << std::endl;
                         if (_root->left)
                             _root->left->printNode('l');
