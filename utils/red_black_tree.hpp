@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/02/07 19:03:51 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/02/07 19:17:13 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,9 @@ class Node {
                     tmp_value = node->right->value;
                     node->right->value = node->value;
                     node->value = tmp_value;
+                    tmp_color = node->right->color;
+                    node->right->color = node->color;
+                    node->color = tmp_color;
                     node->left = node->right;
                     node->right = NULL;
                 }
@@ -297,9 +300,12 @@ void fixInsertion(Node<Key, T>* root,Node<Key, T>* node)
                 {
                     std::cout << "\n==== LEFT ROTATION on " << Parent->parent->data << " ====" << std::endl;
                     Parent->leftRotate(Parent->parent);
-                    std::cout << "\n==== RECOLORING OPERATION ====" << std::endl << "NO UNCLE - INNER CHILD\n" << "Recoloring new parent to BLACK\n&& new right son to RED (RR)" << std::endl;
-                    // node->getUncle()->setColor(RED);
-                    // node->parent->setColor(BLACK);
+                    std::cout << "\n==== RECOLORING OPERATION ====" << std::endl << "NO UNCLE - OUTER CHILD\n" << "Recoloring new parent to BLACK\n&& new right son (cousin) to RED (RR)" << std::endl;
+                    std::cout << "current node: " << node->data << std::endl;
+                    std::cout << "current node->parent: " << node->parent->data << std::endl;
+                    std::cout << "current node->parent->left: " << node->parent->left->data << std::endl;
+                    node->parent->left->setColor(RED);
+                    node->parent->setColor(BLACK);
                 }
             }
         }
