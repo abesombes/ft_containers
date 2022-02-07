@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/02/06 23:50:15 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/02/07 12:40:01 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,14 +134,16 @@ int main()
     RedBlackT.printRBT();
     RedBlackT.insertNode(17, "Amsterdam");
     RedBlackT.printRBT();
-    int needle = 15;
-    ft::Node<int, std::string>* needle_node = searchNode(RedBlackT.getRoot(), needle);
-    needle_node->leftRotate(needle_node);
+    RedBlackT.insertNode(25, "New-York");
     RedBlackT.printRBT();
-    needle = 17;
-    needle_node = searchNode(RedBlackT.getRoot(), needle);
-    needle_node->rightRotate(needle_node);
-    RedBlackT.printRBT(); 
+    // int needle = 15;
+    // ft::Node<int, std::string>* needle_node = searchNode(RedBlackT.getRoot(), needle);
+    // needle_node->leftRotate(needle_node);
+    // RedBlackT.printRBT();
+    // needle = 17;
+    // needle_node = searchNode(RedBlackT.getRoot(), needle);
+    // needle_node->rightRotate(needle_node);
+    // RedBlackT.printRBT(); 
     // RedBlackT.insertNode(50, "Paris");
     // RedBlackT.insertNode(30, "Madrid");
     // RedBlackT.insertNode(100, "London");

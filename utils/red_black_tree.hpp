@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   red_black_tree.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/02/06 23:55:48 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/02/07 12:45:20 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,19 +115,53 @@ class Node {
                 return (NULL);
             }
 
+            // Node<Key, T>* leftRotate(Node<Key, T>* node)
+            // {
+            //     if (node == NULL)
+            //         return (NULL); 
+            //     Node<Key, T> *Parent = node->parent;
+            //     Node<Key, T> *GrandParent = node->getGrandParent();
+            //     if (isLeftRightChild(node) == 1)
+            //     {
+            //         std::cout << "I am in leftRotate" << std::endl;
+            //         if (isLeftRightChild(Parent) == 0) // Parent was left child of GrandParent
+            //         {
+            //             GrandParent->left = node;
+            //             std::cout << "GrandParent-> left: " << GrandParent->left->data << std::endl;
+            //         }
+            //         else if (isLeftRightChild(Parent) == 1) // Parent was right child of GrandParent
+            //         {
+            //             GrandParent->right = node;
+            //             std::cout << "GrandParent-> right: " << GrandParent->right->data << std::endl;
+            //         }
+            //         node->parent = GrandParent;
+            //         Parent->parent = node;
+            //         Parent->right = NULL;
+            //         node->left = Parent;
+                    
+            //     }
+            //     return (NULL);
+            // }
+
             Node<Key, T>* rightRotate(Node<Key, T>* node)
             {
                 if (node == NULL)
                     return (NULL);
                 Node<Key, T> *Parent = node->parent;
-                Node<Key, T> *GrandParent = this->getGrandParent();
+                Node<Key, T> *GrandParent = node->getGrandParent();
                 if (node->parent && GrandParent)
                 {
+                    
                     if (isLeftRightChild(Parent) == 1) // Parent is a right child of GrandParent
                     {
-                        GrandParent->right = node;
-                        Parent->parent = node;
+                        if (isLeftRightChild(node) == 0)
+                            Parent->left = NULL;
+                        else if (isLeftRightChild(node) == 1)
+                            Parent->right = NULL;
                         node->right = Parent;
+                        GrandParent->right = node;
+                        node->parent = GrandParent;
+                        Parent->parent = node;
                     }
                 }
                 return (NULL);
@@ -165,13 +199,50 @@ Node<Key, T>* BSTInsert(Node<Key, T>* root, Node<Key, T>* node)
     }
     // if not root, insert by default as a RED leaf
     node->setColor(RED);
+    // // FIXING INSERTION PROBLEMS IN REGARD TO RBT RULES
+    // // if RED leaf's parent is BLACK, then no problem, we should already comply to RBT standards.
+    // // if RED leat's parent is RED, then we check parent's sibling (called uncle). If uncle is RED as well
+    // // then we change parent and uncle's colors to BLACK.
+    
+    // Node<Key, T>* Parent = node->parent;
+    // if (Parent->getColor() == RED)
+    // {
+    //     if (Parent->parent)
+    //     {
+    //         Node<Key, T>* Uncle = node->getUncle();
+    //         if (Uncle && Uncle->getColor() == RED)
+    //         {
+    //             Uncle->setColor(BLACK);
+    //             Parent->setColor(BLACK);
+    //             // Parent->parent->setColor(RED);
+    //         }
+    //         else if (!Uncle)
+    //         {
+    //             // Need for a Left Rotation then Right Rotation then Recoloring
+    //             // std::cout << "current Node: " << node->data << std::endl;
+    //             // std::cout << "Launching LeftRotate" << std::endl;
+    //             Parent->leftRotate(Parent);
+    //             // std::cout << node->data << std::endl;
+    //             node->parent->rightRotate(node->parent);
+    //             node->parent->setColor(BLACK);
+    //             node->parent->right->setColor(RED);
+
+    //         }
+    //     }
+    // }
+    return root;
+}
+
+template <class Key, class T>
+void fixInsertion(Node<Key, T>* node)
+{
     // FIXING INSERTION PROBLEMS IN REGARD TO RBT RULES
     // if RED leaf's parent is BLACK, then no problem, we should already comply to RBT standards.
     // if RED leat's parent is RED, then we check parent's sibling (called uncle). If uncle is RED as well
     // then we change parent and uncle's colors to BLACK.
     
     Node<Key, T>* Parent = node->parent;
-    if (Parent->getColor() == RED)
+    if (Parent && Parent->getColor() == RED)
     {
         if (Parent->parent)
         {
@@ -185,11 +256,16 @@ Node<Key, T>* BSTInsert(Node<Key, T>* root, Node<Key, T>* node)
             else if (!Uncle)
             {
                 // Need for a Left Rotation then Right Rotation then Recoloring
-                
+                Parent->leftRotate(Parent);
+                // // std::cout << node->data << std::endl;
+                node->parent->rightRotate(node->parent);
+                std::cout << "\n==== RECOLORING OPERATION ====" << std::endl << "Recolor of new parent to BLACK\n&& new right son to RED (RR)" << std::endl;
+                node->parent->setColor(BLACK);
+                node->parent->right->setColor(RED);
+
             }
         }
     }
-    return root;
 }
 
 template <class Key, class T>  
@@ -235,6 +311,7 @@ class RBTree {
                     Node<Key, T>* newNode = new Node<Key, T>(data, value);
                     
                     this->_root = BSTInsert(this->_root, newNode);
+                    fixInsertion(newNode);
                 }
 
                 Node<Key, T>* getMaxValueNode(Node<Key, T> *root)
@@ -368,124 +445,6 @@ class RBTree {
                     }
                     return (NodeToDelete ? NodeToDelete : NULL);
                 }
-
-                // Node<Key, T>*getNodeToDeletePosition(Node<Key, T>* root, Key key)
-                // {
-                //     if (root == NULL)
-                //         return root;
-                //     if (key < root->getData()) // means key should be in the left subtree
-                //         return getNodeToDeletePosition(root->left, key);
-                //     else if (key > root->getData())
-                //         return getNodeToDeletePosition(root->right, key);
-                //     // key == root->getData() => key is the root Node;
-                //     // node has no child
-                //     if (root->left==NULL and root->right==NULL)
-                //         return NULL;
-                
-                //     // node with only one child or no child
-                //     else if (root->left == NULL) {
-                //         Node<Key, T>* temp = root->right;
-                //         delete(root);
-                //         return temp;
-                //     }
-                //     else if (root->right == NULL) {
-                //         Node<Key, T>* temp = root->left;
-                //         delete(root);
-                //         return temp;
-                //     }
-            
-                //     // node with two children: Get the inorder successor
-                //     // (smallest in the right subtree)
-                //     Node<Key, T>* temp = minValueNode(root->right);
-            
-                //     // Copy the inorder successor's content to this node
-                //     root->data = temp->data;
-            
-                //     // Delete the inorder successor
-                //     root->right = deleteNode(root->right, temp->key);
-
-                // }
-
-                // void deleteNode(Key data)
-                // {
-                //     Node<Key, T>* nodeToDelete = getNodeToDeletePosition(this->_root, data);
-                //     if (!nodeToDelete->right)
-                //     {
-                //         nodeToDelete->right = new Node<Key, T>("NIL", BLACK);
-                //         nodeToDelete->right->parent = nodeToDelete;
-                //     }
-                //     if (!nodeToDelete->left)
-                //     {
-                //         nodeToDelete->left = new Node<Key, T>("NIL", BLACK);
-                //         nodeToDelete->left->parent = nodeToDelete;
-                //     } 
-                // }
-
-                // /* Given a binary search tree and a key, this function
-                //     deletes the key and returns the new root */
-                // Node<Key, T>* deleteNode(Node<Key, T>* root, int k)
-                // {
-                //     // Base case
-                //     if (root == NULL)
-                //         return root;
-                
-                //     // Recursive calls for ancestors of
-                //     // node to be deleted
-                //     if (root->key > k) {
-                //         root->left = deleteNode(root->left, k);
-                //         return root;
-                //     }
-                //     else if (root->key < k) {
-                //         root->right = deleteNode(root->right, k);
-                //         return root;
-                //     }
-                
-                //     // We reach here when root is the node
-                //     // to be deleted.
-                
-                //     // If one of the children is empty
-                //     if (root->left == NULL) {
-                //         Node<Key, T>* temp = root->right;
-                //         delete root;
-                //         return temp;
-                //     }
-                //     else if (root->right == NULL) {
-                //         Node <Key, T>* temp = root->left;
-                //         delete root;
-                //         return temp;
-                //     }
-                
-                //     // If both children exist
-                //     else {
-                
-                //         Node<Key, T>* succParent = root;
-                
-                //         // Find successor
-                //         Node<Key, T>* succ = root->right;
-                //         while (succ->left != NULL) {
-                //             succParent = succ;
-                //             succ = succ->left;
-                //         }
-                
-                //         // Delete successor.  Since successor
-                //         // is always left child of its parent
-                //         // we can safely make successor's right
-                //         // right child as left of its parent.
-                //         // If there is no succ, then assign
-                //         // succ->right to succParent->right
-                //         if (succParent != root)
-                //             succParent->left = succ->right;
-                //         else
-                //             succParent->right = succ->right;
-                
-                //         // Copy Successor Data to root
-                //         root->key = succ->key;
-                
-                //         // Delete Successor and return root
-                //         delete succ;
-                //         return root;
-                //     }
-                // }
 
                 void printRBT()
                 {
