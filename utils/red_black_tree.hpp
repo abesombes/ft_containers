@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/02/07 12:45:20 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/02/07 12:55:20 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,7 +234,7 @@ Node<Key, T>* BSTInsert(Node<Key, T>* root, Node<Key, T>* node)
 }
 
 template <class Key, class T>
-void fixInsertion(Node<Key, T>* node)
+void fixInsertion(Node<Key, T>* root,Node<Key, T>* node)
 {
     // FIXING INSERTION PROBLEMS IN REGARD TO RBT RULES
     // if RED leaf's parent is BLACK, then no problem, we should already comply to RBT standards.
@@ -247,11 +247,19 @@ void fixInsertion(Node<Key, T>* node)
         if (Parent->parent)
         {
             Node<Key, T>* Uncle = node->getUncle();
-            if (Uncle && Uncle->getColor() == RED)
+            if (Uncle && Uncle->getColor() == RED && Parent->parent == root)
             {
+                std::cout << "\n==== RECOLORING OPERATION ====" << std::endl << "RED UNCLE & GRANDPARENT==ROOT\n" << "Recoloring Uncle to BLACK\n&& Parent to BLACK" << std::endl;
                 Uncle->setColor(BLACK);
                 Parent->setColor(BLACK);
                 // Parent->parent->setColor(RED);
+            }
+            else if (Uncle && Uncle->getColor() == RED && Parent->parent != root)
+            {
+                std::cout << "\n==== RECOLORING OPERATION ====" << std::endl << "RED UNCLE & GRANDPARENT!=ROOT\n" <<"Recoloring Uncle to BLACK\n&& Parent to BLACK" << std::endl;
+                Uncle->setColor(BLACK);
+                Parent->setColor(BLACK);
+                Parent->parent->setColor(RED);
             }
             else if (!Uncle)
             {
@@ -259,7 +267,7 @@ void fixInsertion(Node<Key, T>* node)
                 Parent->leftRotate(Parent);
                 // // std::cout << node->data << std::endl;
                 node->parent->rightRotate(node->parent);
-                std::cout << "\n==== RECOLORING OPERATION ====" << std::endl << "Recolor of new parent to BLACK\n&& new right son to RED (RR)" << std::endl;
+                std::cout << "\n==== RECOLORING OPERATION ====" << std::endl << "NO UNCLE\n" << "Recoloring new parent to BLACK\n&& new right son to RED (RR)" << std::endl;
                 node->parent->setColor(BLACK);
                 node->parent->right->setColor(RED);
 
@@ -311,7 +319,7 @@ class RBTree {
                     Node<Key, T>* newNode = new Node<Key, T>(data, value);
                     
                     this->_root = BSTInsert(this->_root, newNode);
-                    fixInsertion(newNode);
+                    fixInsertion(this->_root, newNode);
                 }
 
                 Node<Key, T>* getMaxValueNode(Node<Key, T> *root)
