@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/02/07 12:55:20 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/02/07 19:03:51 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,18 @@ class Node {
                     return 1;
                 return  (-1);
             }
+
+            int isInnerChild(Node<Key, T>* node)
+            {
+                // -1 no child, 0 outer child, 1 inner child
+                if (!node)
+                    return (-1);
+                if (node && isLeftRightChild(node) == 0 && isLeftRightChild(node->parent) == 1)
+                    return 1;
+                if (node && isLeftRightChild(node) == 1 && isLeftRightChild(node->parent) == 0)
+                    return 1;
+                return (0);
+            }
             
             Node<Key, T>* leftRotate(Node<Key, T>* node)
             {
@@ -90,6 +102,7 @@ class Node {
                     return (NULL);
                 Key tmp_key;
                 T   tmp_value;
+                int tmp_color;
                 if (node->left)
                 {
                     tmp_key = node->left->data;
@@ -98,6 +111,9 @@ class Node {
                     tmp_value = node->left->value;
                     node->left->value = node->value;
                     node->value = tmp_value;
+                    tmp_color = node->left->color;
+                    node->left->color = node->color;
+                    node->color = tmp_color;
                     node->right = node->left;
                     node->left = NULL;
                 }
@@ -263,14 +279,28 @@ void fixInsertion(Node<Key, T>* root,Node<Key, T>* node)
             }
             else if (!Uncle)
             {
-                // Need for a Left Rotation then Right Rotation then Recoloring
-                Parent->leftRotate(Parent);
-                // // std::cout << node->data << std::endl;
-                node->parent->rightRotate(node->parent);
-                std::cout << "\n==== RECOLORING OPERATION ====" << std::endl << "NO UNCLE\n" << "Recoloring new parent to BLACK\n&& new right son to RED (RR)" << std::endl;
-                node->parent->setColor(BLACK);
-                node->parent->right->setColor(RED);
-
+                // 2 different cases : inner child, outer child
+                // Inner child requires a Left Rotation then Right Rotation then Recoloring (or opposite)
+                // Outer child requires a Left Rotation and Recoloring (or opposite)
+                if (node->isInnerChild(node) == 1)
+                {
+                    std::cout << "\n==== LEFT ROTATION on " << Parent->data << " ====" << std::endl;
+                    Parent->leftRotate(Parent);
+                    // // std::cout << node->data << std::endl;
+                    std::cout << "\n==== RIGHT ROTATION on " << node->parent->data << " ====" << std::endl;
+                    node->parent->rightRotate(node->parent);
+                    std::cout << "\n==== RECOLORING OPERATION ====" << std::endl << "NO UNCLE - INNER CHILD\n" << "Recoloring new parent to BLACK\n&& new right son to RED (RR)" << std::endl;
+                    node->parent->setColor(BLACK);
+                    node->parent->right->setColor(RED);
+                }
+                else if (node->isInnerChild(node) == 0)
+                {
+                    std::cout << "\n==== LEFT ROTATION on " << Parent->parent->data << " ====" << std::endl;
+                    Parent->leftRotate(Parent->parent);
+                    std::cout << "\n==== RECOLORING OPERATION ====" << std::endl << "NO UNCLE - INNER CHILD\n" << "Recoloring new parent to BLACK\n&& new right son to RED (RR)" << std::endl;
+                    // node->getUncle()->setColor(RED);
+                    // node->parent->setColor(BLACK);
+                }
             }
         }
     }

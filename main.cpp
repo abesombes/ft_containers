@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/02/07 12:40:01 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/02/07 18:10:29 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include <stack>
 #include <utility>
 #include <map>
+#include <fstream>
     
 template <typename T>
 void autohundreds(std::vector<T> &v)
@@ -122,6 +123,19 @@ int main()
     // RedBlackT.insertNode("Abcdef", "Ghijklnop");
     // RedBlackT.insertNode("Aaaaaaa", "BBBBBBB");
 
+    // ======================== TEST SACHIN ========================== //
+    // #include <fstream>
+    // std::ifstream source("test", std::ios::binary);
+    // std::vector<char> data((std::istreambuf_iterator<char>(source)),
+    //                    std::istreambuf_iterator<char>());
+    // std::cout << data[0] << data[1] << data[2] << std::endl;
+    // source.close();
+    // std::ifstream sourceb("test", std::ios::binary);
+    // ft::vector<char> data2((std::istreambuf_iterator<char>(sourceb)),
+    //                    std::istreambuf_iterator<char>());
+    // std::cout << data2[0] << data2[1] << data2[2] << std::endl;
+    // return(0);
+    // ======================== FIN TEST SACHIN ========================== //
     
     ft::RBTree<int, std::string> RedBlackT;
     RedBlackT.insertNode(8, "Paris");
@@ -135,6 +149,10 @@ int main()
     RedBlackT.insertNode(17, "Amsterdam");
     RedBlackT.printRBT();
     RedBlackT.insertNode(25, "New-York");
+    RedBlackT.printRBT();
+    RedBlackT.insertNode(40, "Santiago");
+    RedBlackT.printRBT();
+    RedBlackT.insertNode(80, "Brasilia");
     RedBlackT.printRBT();
     // int needle = 15;
     // ft::Node<int, std::string>* needle_node = searchNode(RedBlackT.getRoot(), needle);
