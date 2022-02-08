@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/02/08 13:06:22 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/02/08 13:18:09 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,9 @@ class Node {
                 std::cout << std::endl << std::endl << std::endl;
                 std::cout << this->getData() << " - " << this->getValue() << " - " << (this->getColor()? "Red" : "Black") << std::endl;
                 if (this->left)
-                    this->left->printNode('l');
+                    this->left->printNode('l', this);
                 if (this->right)
-                    this->right->printNode('r');
+                    this->right->printNode('r', this);
             }
             
             Node<Key, T>* leftRotate(Node<Key, T>* node)
@@ -137,9 +137,11 @@ class Node {
                     std::cout << "node->right->left: " << (node->right->left? node->right->left->data : 0)<< std::endl;
                     std::cout << "node->right->right: " << (node->right->right? node->right->right->data : 0)<< std::endl;
 
-                    Node<Key, T>* Parent = &(*node->parent);                    
-                    node->parent = node->right; // je mets dans le parent de 18 le 25
-                    Parent->right = node->right; // je mets dans le right de 17 le 25
+                    Node<Key, T>* save_node = &(*node);
+                    Node<Key, T>* save_parent_node = &(*node->parent);
+                    node = node->right;                  
+                    node->parent = save_parent_node; // je mets dans le parent de 18 le 25
+                    save_node->right = node->right; // je mets dans le right de 17 le 25
                     node->parent->right->left = node; // je mets dans le left de 25 le 18
                     node->right->parent = node->parent; // je mets dans le parent de 25 le 17
                     //node->parent = node->right; // je mets dans le parent de 18 le 25
@@ -223,13 +225,13 @@ class Node {
                 return (NULL);
             }
 
-            void printNode(char relative_pos)
+            void printNode(char relative_pos, Node<Key, T>* parent)
             {
-                std::cout << (relative_pos == 'r' ? "Right" : "Left") << " - " << this->getData() << " - " << this->getValue() << " - " << (this->getColor() ? "Red" : "Black") << std::endl; 
+                std::cout << (relative_pos == 'r' ? "Right of " : "Left of ") << parent->data << " - " << this->getData() << " - " << this->getValue() << " - " << (this->getColor() ? "Red" : "Black") << std::endl; 
                 if (left)
-                    left->printNode('l');
+                    left->printNode('l', this);
                 if (right)
-                    right->printNode('r');    
+                    right->printNode('r', this);    
             }
             
 };
@@ -539,9 +541,9 @@ class RBTree {
                         std::cout << std::endl << std::endl << std::endl;
                         std::cout << _root->getData() << " - " << _root->getValue() << " - " << (_root->getColor()? "Red" : "Black") << std::endl;
                         if (_root->left)
-                            _root->left->printNode('l');
+                            _root->left->printNode('l', _root);
                         if (_root->right)
-                            _root->right->printNode('r');
+                            _root->right->printNode('r', _root);
                     }
                 }
 };
