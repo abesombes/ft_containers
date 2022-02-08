@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:19 by abesombes         #+#    #+#             */
-/*   Updated: 2022/01/30 09:52:29 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/02/08 15:19:05 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,11 @@ class map {
                 // typedef typename iterator_traits<iterator>::difference_type difference_type;
                 typedef typename ptrdiff_t difference_type;
                 typedef size_t size_type;
+
+                typedef typename Alloc::template rebind<_node>::other node_allocator;
+
+                node_allocator _mem_node_alloc;
+                Alloc          _pair_alloc;
 
                 
                 /*

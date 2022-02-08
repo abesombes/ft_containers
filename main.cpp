@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/02/08 12:25:19 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/02/08 14:35:41 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,8 @@ int main()
     RedBlackT.insertNode(25, "New-York");
     RedBlackT.printRBT();
     RedBlackT.insertNode(40, "Santiago");
+    RedBlackT.printRBT();
+    RedBlackT.insertNode(80, "Santiago");
     RedBlackT.printRBT();
     // RedBlackT.insertNode(80, "Brasilia");
     // RedBlackT.printRBT();
