@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/02/07 19:17:13 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/02/08 13:06:22 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,16 @@ class Node {
                     return 1;
                 return (0);
             }
+
+            void printNodeSubTree()
+            {
+                std::cout << std::endl << std::endl << std::endl;
+                std::cout << this->getData() << " - " << this->getValue() << " - " << (this->getColor()? "Red" : "Black") << std::endl;
+                if (this->left)
+                    this->left->printNode('l');
+                if (this->right)
+                    this->right->printNode('r');
+            }
             
             Node<Key, T>* leftRotate(Node<Key, T>* node)
             {
@@ -117,7 +127,33 @@ class Node {
                     node->right = node->left;
                     node->left = NULL;
                 }
-                if (node->right)
+                else if (node->right && node->right->right)
+                {
+                    std::cout << "swap de " << node->right->data << " vs " << node->data << std::endl;
+                    std::cout << "node->parent: " << node->parent->data << std::endl;
+                    std::cout << "node: " << node->data << std::endl;
+                    std::cout << "node->left: " << (node->left? node->left->data : 0) << std::endl;
+                    std::cout << "node->right: " << (node->right? node->right->data : 0)<< std::endl;
+                    std::cout << "node->right->left: " << (node->right->left? node->right->left->data : 0)<< std::endl;
+                    std::cout << "node->right->right: " << (node->right->right? node->right->right->data : 0)<< std::endl;
+
+                    Node<Key, T>* Parent = &(*node->parent);                    
+                    node->parent = node->right; // je mets dans le parent de 18 le 25
+                    Parent->right = node->right; // je mets dans le right de 17 le 25
+                    node->parent->right->left = node; // je mets dans le left de 25 le 18
+                    node->right->parent = node->parent; // je mets dans le parent de 25 le 17
+                    //node->parent = node->right; // je mets dans le parent de 18 le 25
+                    node->right = NULL;
+                    std::cout << "==============================================" << std::endl;
+                    std::cout << "node->parent: " << node->parent->data << std::endl;
+                    std::cout << "node: " << node->data << std::endl;
+                    std::cout << "node->left: " << (node->left? node->left->data : 0) << std::endl;
+                    std::cout << "node->right: " << (node->right? node->right->data : 0)<< std::endl;
+                    std::cout << "node->right->left: " << (node->right->left? node->right->left->data : 0)<< std::endl;
+                    std::cout << "node->right->right: " << (node->right->right? node->right->right->data : 0)<< std::endl;
+
+                }
+                else if (node->right)
                 {
                     tmp_key = node->right->data;
                     node->right->data = node->data;
@@ -128,6 +164,7 @@ class Node {
                     tmp_color = node->right->color;
                     node->right->color = node->color;
                     node->color = tmp_color;
+                    // std::cout << "node-> " << node->data << " node->right: " << (node->right? node->right->data : 0)<< " - node->left: " << (node->left? node->left->data : 0) << std::endl;
                     node->left = node->right;
                     node->right = NULL;
                 }
@@ -300,10 +337,15 @@ void fixInsertion(Node<Key, T>* root,Node<Key, T>* node)
                 {
                     std::cout << "\n==== LEFT ROTATION on " << Parent->parent->data << " ====" << std::endl;
                     Parent->leftRotate(Parent->parent);
+                    
                     std::cout << "\n==== RECOLORING OPERATION ====" << std::endl << "NO UNCLE - OUTER CHILD\n" << "Recoloring new parent to BLACK\n&& new right son (cousin) to RED (RR)" << std::endl;
                     std::cout << "current node: " << node->data << std::endl;
                     std::cout << "current node->parent: " << node->parent->data << std::endl;
-                    std::cout << "current node->parent->left: " << node->parent->left->data << std::endl;
+                    std::cout << "current node->parent->parent: " << node->parent->parent->data << std::endl;
+                    std::cout << "current node->parent->parent->parent: " << node->parent->parent->parent->data << std::endl;
+                    std::cout << "current node->parent->right: " << node->parent->right->data << std::endl;
+                    std::cout << "current node->parent->left: " << (node->parent->left? node->parent->left->data : 0) << std::endl;
+                    node->parent->parent->parent->printNodeSubTree();
                     node->parent->left->setColor(RED);
                     node->parent->setColor(BLACK);
                 }
