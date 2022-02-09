@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/02/08 14:35:41 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/02/09 10:35:54 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,22 +138,44 @@ int main()
     // ======================== FIN TEST SACHIN ========================== //
     
     ft::RBTree<int, std::string> RedBlackT;
+
+    // VANESSA EXAMPLE
+    // RedBlackT.insertNode(8, "Paris");
+    // RedBlackT.printRBT();
+    // RedBlackT.insertNode(18, "Madrid");
+    // RedBlackT.printRBT();
+    // RedBlackT.insertNode(5, "London");
+    // RedBlackT.printRBT();
+    // RedBlackT.insertNode(15, "Copenhagen");
+    // RedBlackT.printRBT();
+    // RedBlackT.insertNode(17, "Amsterdam");
+    // RedBlackT.printRBT();
+    // RedBlackT.insertNode(25, "New-York");
+    // RedBlackT.printRBT();
+    // RedBlackT.insertNode(40, "Santiago");
+    // RedBlackT.printRBT();
+    // RedBlackT.insertNode(80, "Santiago");
+    // RedBlackT.printRBT();
+    //
+
+    RedBlackT.insertNode(5, "London");
+    RedBlackT.printRBT();
+    RedBlackT.insertNode(80, "Santiago");
+    RedBlackT.printRBT();
     RedBlackT.insertNode(8, "Paris");
     RedBlackT.printRBT();
     RedBlackT.insertNode(18, "Madrid");
     RedBlackT.printRBT();
-    RedBlackT.insertNode(5, "London");
+    RedBlackT.insertNode(25, "New-York");
     RedBlackT.printRBT();
     RedBlackT.insertNode(15, "Copenhagen");
     RedBlackT.printRBT();
     RedBlackT.insertNode(17, "Amsterdam");
     RedBlackT.printRBT();
-    RedBlackT.insertNode(25, "New-York");
-    RedBlackT.printRBT();
     RedBlackT.insertNode(40, "Santiago");
     RedBlackT.printRBT();
-    RedBlackT.insertNode(80, "Santiago");
-    RedBlackT.printRBT();
+
+    
     // RedBlackT.insertNode(80, "Brasilia");
     // RedBlackT.printRBT();
     // int needle = 15;
