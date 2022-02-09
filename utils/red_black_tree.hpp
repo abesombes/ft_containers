@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/02/09 18:44:16 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/02/09 19:12:30 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -326,7 +326,7 @@ Node<Key, T>* fixInsertion(Node<Key, T>* root,Node<Key, T>* node)
                 if (node->isInnerChild(node) == 1)
                 {
                     root->printNodeSubTree();
-                    std::cout << "\n==== LEFT ROTATION 327 on " << Parent->data << " ====" << std::endl;
+                    std::cout << "\n==== LEFT ROTATION 329 on " << Parent->data << " ====" << std::endl;
                     ret = Parent->leftRotate(root, Parent);
                     if (ret != NULL)
                         root = ret;
@@ -336,8 +336,8 @@ Node<Key, T>* fixInsertion(Node<Key, T>* root,Node<Key, T>* node)
                     {
                         if (node->parent->left == node)
                         {
-                            std::cout << "\n==== RIGHT ROTATION 339 on " << node->parent->parent->data << " ====" << std::endl;
-                            node->parent->parent->rightRotate(node->parent->parent);
+                            std::cout << "\n==== RIGHT ROTATION 339 on " << node->parent->data << " ====" << std::endl;
+                            node->parent->rightRotate(node->parent);
                             // if (ret != NULL)
                             //     root = ret;
                         }
