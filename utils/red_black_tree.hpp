@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/02/09 19:12:30 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/02/10 10:49:17 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -348,10 +348,13 @@ Node<Key, T>* fixInsertion(Node<Key, T>* root,Node<Key, T>* node)
                             if (ret != NULL)
                                 root = ret;
                         }    
-                        root->printNodeSubTree();
-                        std::cout << "\n==== RECOLORING OPERATION ====" << std::endl << "NO UNCLE - INNER CHILD\n" << "Recoloring new parent to BLACK\n&& new left son to RED (RR)" << std::endl;
+                        // root->printNodeSubTree();
+                        std::cout << "\n==== RECOLORING OPERATION ====" << std::endl << "Recoloring new parent to BLACK\n&& new son to RED (RR)" << std::endl;
                         node->parent->setColor(BLACK);
-                        node->parent->left->setColor(RED); 
+                        if (node->parent->right)
+                            node->parent->right->setColor(RED);
+                        if (node->parent->left)                        
+                            node->parent->left->setColor(RED); 
                     }
                     else if (node->isInnerChild(node) == 1)
                     {
