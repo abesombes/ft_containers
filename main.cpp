@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/02/10 10:38:52 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/02/10 14:50:03 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,8 +172,33 @@ int main()
     RedBlackT.printRBT();
     RedBlackT.insertNode(17, "Amsterdam");
     RedBlackT.printRBT();
-    // RedBlackT.insertNode(40, "Santiago");
+    RedBlackT.insertNode(40, "Cordoba");
+    RedBlackT.printRBT();
+    RedBlackT.insertNode(12, "Sao Paolo");
+    RedBlackT.printRBT();
+    RedBlackT.insertNode(7, "Quito");
+    RedBlackT.printRBT();
+    RedBlackT.insertNode(19, "Medelin");
+    RedBlackT.printRBT();
+    RedBlackT.insertNode(22, "Cali");
+    RedBlackT.printRBT();
+    RedBlackT.insertNode(1, "Valdes");
+    RedBlackT.printRBT();
+    RedBlackT.insertNode(13, "Punta Arena");
+    RedBlackT.printRBT();
+    RedBlackT.insertNode(9, "Salta");
+    RedBlackT.printRBT();
+    RedBlackT.insertNode(10, "Mar Del Plata");
+    RedBlackT.printRBT();
+    RedBlackT.insertNode(14, "Mar Del Plata");
+    RedBlackT.printRBT();
+    RedBlackT.insertNode(11, "Mar Del Plata");
+    RedBlackT.printRBT();
+    // RedBlackT.insertNode(16, "Mar Del Plata");
     // RedBlackT.printRBT();
+    // RedBlackT.insertNode(10, "Mar Del Plata");
+    // RedBlackT.printRBT();
+
 
     
     // RedBlackT.insertNode(80, "Brasilia");
