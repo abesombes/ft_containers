@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/02/10 14:55:44 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/02/10 18:57:47 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ class Node {
                 Key tmp_key;
                 T   tmp_value;
                 int tmp_color;
+                std::cout<<"I AM HERE: 116"<<std::endl;
                 Node<Key, T>* save_root;
                 Node<Key, T>* save_child_left = NULL;
                 if (node == root)
@@ -131,17 +132,39 @@ class Node {
                 {
                     if (node->left)
                     {
-                        tmp_key = node->left->data;
-                        node->left->data = node->data;
-                        node->data = tmp_key;
-                        tmp_value = node->left->value;
-                        node->left->value = node->value;
-                        node->value = tmp_value;
-                        tmp_color = node->left->color;
-                        node->left->color = node->color;
-                        node->color = tmp_color;
-                        node->right = node->left;
-                        node->left = NULL;
+                        Node<Key, T>* save_node = &(*node);
+                        Node<Key, T>* save_child = &(*node->left);
+                        Node<Key, T>* save_parent_node = &(*node->parent);         
+                        // node = save_child; // je remplace 8 par 10
+                        // if (node && node->data)
+                        //     std::cout << "node: " << node->data << std::endl;
+                        // save_parent_node->left = node; // je mets 10 dans le left de 17
+                        // std::cout<<"I AM HERE: 149"<<std::endl;
+                        // if (node)
+                        //     node->left = save_node;
+                        // // node->left->left = NULL; // je mets NULL dans le right de 18
+                        // // node->left->right = NULL; // je mets NULL dans le right de 18
+                        // std::cout<<"I AM HERE: 153"<<std::endl;
+                        // node->left->parent = node;
+                        // if (save_node_right_left)
+                        //     node->left->right = save_node_right_left; // je mets a droite de 8 le 9
+                        // save_node_right_left->parent = node->left; // je mets 25 comme parent de 40            
+                        // node->parent = save_parent_node; // je mets dans le parent de 10 le 17
+
+                        
+                        // OLD CODE
+                        // tmp_key = node->left->data;
+                        // node->left->data = node->data;
+                        // node->data = tmp_key;
+                        // tmp_value = node->left->value;
+                        // node->left->value = node->value;
+                        // node->value = tmp_value;
+                        // tmp_color = node->left->color;
+                        // node->left->color = node->color;
+                        // node->color = tmp_color;
+                        // node->right = node->left;
+                        // node->left = NULL;
+                        // root->printNodeSubTree();
                     }
                     else if (node->right && node->right->right && node->parent->right == node )
                     {
