@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/02/10 18:57:47 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/02/10 19:09:15 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,9 +132,17 @@ class Node {
                 {
                     if (node->left)
                     {
-                        Node<Key, T>* save_node = &(*node);
-                        Node<Key, T>* save_child = &(*node->left);
-                        Node<Key, T>* save_parent_node = &(*node->parent);         
+                        Node<Key, T>* snode = &(*node);
+                        Node<Key, T>* left_child = &(*node->left);
+                        Node<Key, T>* parent_node = &(*node->parent);  
+                        
+                        parent_node->right = left_child;
+                        left_child->parent = parent_node->right;
+                        left_child->right = snode;
+                        snode->parent = left_child;
+                        snode->left = NULL;
+                        
+                          
                         // node = save_child; // je remplace 8 par 10
                         // if (node && node->data)
                         //     std::cout << "node: " << node->data << std::endl;
@@ -392,7 +400,7 @@ Node<Key, T>* fixInsertion(Node<Key, T>* root,Node<Key, T>* node)
                     if (ret != NULL)
                         root = ret;
                     root->printNodeSubTree();
-                    std::cout << "CRITICAL MOMENT: " << node->data << std::endl;
+                    // std::cout << "CRITICAL MOMENT: " << node->data << std::endl;
                     if (node->isInnerChild(node) == 0)
                     {
                         if (node->parent->left == node)
