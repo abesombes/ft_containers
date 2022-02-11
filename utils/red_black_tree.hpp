@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/02/11 19:48:00 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/02/11 20:10:00 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,13 +198,15 @@ class Node {
                 int flag_root = (node == root? 1 : 0);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
                 node = RLChild;
                 node->left = snode;
-                LChild->parent = node;
-                node->right = RChild;
                 snode->parent = node;
-                node->left->right = LRLChild;
-                LRLChild->parent = node->left->right;
-                node->right->left = LRRChild;
-                LRRChild->parent = node->right->left;
+                node->right = RChild;
+                RChild->parent = node;
+                node->left->right = (RLLChild? RLLChild : NULL);
+                if (RLLChild)
+                    RLLChild->parent = node->left->right;
+                node->right->left = (RLRChild ? RLRChild : NULL);
+                if (RLRChild)
+                    RLRChild->parent = node->right->left;
                 return (flag_root? node: NULL);
             }
 
@@ -252,7 +254,7 @@ Node<Key, T>* fixInsertion(Node<Key, T>* root, Node<Key, T>* node)
     // then we change parent and uncle's colors to BLACK.
     
     Node<Key, T>* Parent = node->parent;
-    Node<Key, T>* ret;
+    Node<Key, T>* ret = NULL;
     std::cout << "\nTrying to fix node " << node->data << std::endl;
     if (node->parent)
     {
@@ -265,7 +267,12 @@ Node<Key, T>* fixInsertion(Node<Key, T>* root, Node<Key, T>* node)
         {
             std::cout << "\n==== RIGHT LEFT ROTATION 240 on " << Parent->parent->data << " ====" << std::endl;
             ret = Parent->parent->rightleftRotate(root, Parent->parent);
+            std::cout << "\n==== RECOLORING on " << node->data << " ====" << std::endl;    
+            node->setColor(BLACK);
+            node->left->setColor(RED);  
         }
+        if (ret)
+            root = ret;
     }
     return (root);
 }
