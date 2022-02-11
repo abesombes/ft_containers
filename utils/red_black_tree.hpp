@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/02/11 01:01:16 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/02/11 19:48:00 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ class Node {
                     return (-1);
                 if (node && node->parent && node->getColor() == RED && node->parent->getColor() == RED)
                     return 1;
-                return 1;
+                return 0;
             }
 
             int isInnerChild(Node<Key, T>* node)
@@ -136,50 +136,78 @@ class Node {
             {
                 if (node == NULL)
                     return (NULL);
-                Node<Key, T>* save_root = &(*root);
-                Node<Key, T>* save_child_left = (node->right? &(*node->right->left) : NULL);
-                if (node == root)
-                {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-                    root = node->right;
-                    root->left = save_root;
-                    root->left->parent = root;
-                    if (node->right->left)
-                        root->left->right = save_child_left;
-                    return (root);
-                }
-                else if (node != root)
-                {
-                    node = node->right;
-                    node->left = save_root;
-                    node->left->parent = node;
-                    if (node->right->left)
-                        node->left->right = save_child_left;
-                }
-                return (NULL);
+                Node<Key, T>* snode = &(*node); // GrandParent in the chain of 3 nodes
+                Node<Key, T>* RightChild = (node->right? &(*node->right) : NULL);
+                Node<Key, T>* RightLeftChild = (node->right? &(*node->right->left) : NULL);
+                int flag_root = (node == root? 1 : 0);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                node = RightChild;
+                node->left = snode;
+                node->left->right = RightLeftChild;
+                RightLeftChild->parent = node->left->right;
+                return (flag_root? node: NULL);
             }
 
-            Node<Key, T>* rightRotate(/*Node<Key, T>* root, */Node<Key, T>* node)
+            Node<Key, T>* rightRotate(Node<Key, T>* root, Node<Key, T>* node) // Left Left Case ONLY
             {
                 if (node == NULL)
                     return (NULL);
-                Node<Key, T> *Parent = node->parent;
-                Node<Key, T> *GrandParent = node->getGrandParent();
-                if (node->parent && GrandParent)
-                {
-                    if (isLeftRightChild(node) == 0)
-                        Parent->left = node->right;
-                    else if (isLeftRightChild(node) == 1)
-                        Parent->right = NULL; // TO BE TRIPLE CHECKED - SEEMS WEIRD - SHOULD BE node->right or node->left?
-                    node->right = Parent;
-                    if (isLeftRightChild(Parent) == 1)
-                        GrandParent->right = node;
-                    else if (isLeftRightChild(Parent) == 0)
-                        GrandParent->left = node;
-                    node->parent = GrandParent;
-                    Parent->parent = node;
-                }
-                return (NULL);
+                Node<Key, T>* snode = &(*node); // GrandParent in the chain of 3 nodes
+                Node<Key, T>* LeftChild = (node->left? &(*node->left) : NULL);
+                Node<Key, T>* LeftRightChild = (node->left? &(*node->left->right) : NULL);
+                int flag_root = (node == root? 1 : 0);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                node = LeftChild;
+                node->right = snode;
+                node->right->left = LeftRightChild;
+                LeftRightChild->parent = node->right->left;
+                return (flag_root? node: NULL);
             }
+
+            Node<Key, T>* leftrightRotate(Node<Key, T>* root, Node<Key, T>* node) // Left Right Case ONLY
+            {
+                if (node == NULL)
+                    return (NULL);
+                Node<Key, T>* snode = &(*node); // GrandParent in the chain of 3 nodes
+                Node<Key, T>* LChild = (node->left? &(*node->left) : NULL);
+                Node<Key, T>* LRChild = (node->left? &(*node->left->right) : NULL);
+                Node<Key, T>* LRLChild = (node->left->right? &(*node->left->right->left) : NULL);
+                Node<Key, T>* LRRChild = (node->left->right? &(*node->left->right->right) : NULL);
+                
+                int flag_root = (node == root? 1 : 0);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                node = LRChild;
+                node->left = LChild;
+                LChild->parent = node;
+                node->right = snode;
+                snode->parent = node;
+                node->left->right = LRLChild;
+                LRLChild->parent = node->left->right;
+                node->right->left = LRRChild;
+                LRRChild->parent = node->right->left;
+                return (flag_root? node: NULL);
+            }
+
+            Node<Key, T>* rightleftRotate(Node<Key, T>* root, Node<Key, T>* node) // Right Left Case ONLY
+            {
+                if (node == NULL)
+                    return (NULL);
+                Node<Key, T>* snode = &(*node); // GrandParent in the chain of 3 nodes
+                Node<Key, T>* RChild = (node->right? &(*node->right) : NULL);
+                Node<Key, T>* RLChild = (node->right? &(*node->right->left) : NULL);
+                Node<Key, T>* RLLChild = (node->right->left? &(*node->right->left->left) : NULL);
+                Node<Key, T>* RLRChild = (node->right->left? &(*node->right->left->right) : NULL);
+                
+                int flag_root = (node == root? 1 : 0);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                node = RLChild;
+                node->left = snode;
+                LChild->parent = node;
+                node->right = RChild;
+                snode->parent = node;
+                node->left->right = LRLChild;
+                LRLChild->parent = node->left->right;
+                node->right->left = LRRChild;
+                LRRChild->parent = node->right->left;
+                return (flag_root? node: NULL);
+            }
+
 
             void printNode(char relative_pos, Node<Key, T>* parent)
             {
@@ -225,9 +253,20 @@ Node<Key, T>* fixInsertion(Node<Key, T>* root, Node<Key, T>* node)
     
     Node<Key, T>* Parent = node->parent;
     Node<Key, T>* ret;
-    if (node->doubleRed(node) && node->isInnerChild(node) == 1)
-        ret = Parent->leftRotate(root, Parent->parent);
-        
+    std::cout << "\nTrying to fix node " << node->data << std::endl;
+    if (node->parent)
+    {
+        if (node->doubleRed(node) && node->isInnerChild(node) == 0)
+        {
+            std::cout << "\n==== LEFT RIGHT ROTATION 235 on " << Parent->parent->data << " ====" << std::endl;
+            ret = Parent->parent->leftrightRotate(root, Parent->parent);
+        }   
+        else if (node->doubleRed(node) && node->isInnerChild(node) == 1)
+        {
+            std::cout << "\n==== RIGHT LEFT ROTATION 240 on " << Parent->parent->data << " ====" << std::endl;
+            ret = Parent->parent->rightleftRotate(root, Parent->parent);
+        }
+    }
     return (root);
 }
 
