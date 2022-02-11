@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   red_black_tree.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/02/10 19:09:15 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/02/11 01:01:16 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,16 @@ class Node {
                 return  (-1);
             }
 
+            int doubleRed(Node<Key, T>* node)
+            {
+                // -1 no parent, 0 no double red, l double red child-parent
+                if (!node || !node->parent)
+                    return (-1);
+                if (node && node->parent && node->getColor() == RED && node->parent->getColor() == RED)
+                    return 1;
+                return 1;
+            }
+
             int isInnerChild(Node<Key, T>* node)
             {
                 // -1 no child, 0 outer child, 1 inner child
@@ -93,6 +103,22 @@ class Node {
                     return 1;
                 if (node && isLeftRightChild(node) == 1 && isLeftRightChild(node->parent) == 0)
                     return 1;
+                return (0);
+            }
+
+            int isLeftRightCase(Node<Key, T>* node)
+            {
+                // -1 no parent or no grandparent, 0 LeftRight Case, 1 RightLeft Case, 2 LeftLeft Case, 3 RightRight Case
+                if (!node)
+                    return (-1);
+                if (node && isLeftRightChild(node) == 1 && isLeftRightChild(node->parent) == 0)
+                    return 0;
+                if (node && isLeftRightChild(node) == 0 && isLeftRightChild(node->parent) == 1)
+                    return 1;
+                if (node && isLeftRightChild(node) == 0 && isLeftRightChild(node->parent) == 0)
+                    return 2;   
+                if (node && isLeftRightChild(node) == 1 && isLeftRightChild(node->parent) == 1)
+                    return 3;
                 return (0);
             }
 
@@ -106,22 +132,15 @@ class Node {
                     this->right->printNode('r', this);
             }
             
-            Node<Key, T>* leftRotate(Node<Key, T>* root, Node<Key, T>* node)
+            Node<Key, T>* leftRotate(Node<Key, T>* root, Node<Key, T>* node) // Right Right Case ONLY
             {
                 if (node == NULL)
                     return (NULL);
-                Key tmp_key;
-                T   tmp_value;
-                int tmp_color;
-                std::cout<<"I AM HERE: 116"<<std::endl;
-                Node<Key, T>* save_root;
-                Node<Key, T>* save_child_left = NULL;
+                Node<Key, T>* save_root = &(*root);
+                Node<Key, T>* save_child_left = (node->right? &(*node->right->left) : NULL);
                 if (node == root)
-                {
-                    save_root = &(*root);
+                {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
                     root = node->right;
-                    if (node->right->left)
-                        save_child_left = &(*node->right->left);
                     root->left = save_root;
                     root->left->parent = root;
                     if (node->right->left)
@@ -130,92 +149,11 @@ class Node {
                 }
                 else if (node != root)
                 {
-                    if (node->left)
-                    {
-                        Node<Key, T>* snode = &(*node);
-                        Node<Key, T>* left_child = &(*node->left);
-                        Node<Key, T>* parent_node = &(*node->parent);  
-                        
-                        parent_node->right = left_child;
-                        left_child->parent = parent_node->right;
-                        left_child->right = snode;
-                        snode->parent = left_child;
-                        snode->left = NULL;
-                        
-                          
-                        // node = save_child; // je remplace 8 par 10
-                        // if (node && node->data)
-                        //     std::cout << "node: " << node->data << std::endl;
-                        // save_parent_node->left = node; // je mets 10 dans le left de 17
-                        // std::cout<<"I AM HERE: 149"<<std::endl;
-                        // if (node)
-                        //     node->left = save_node;
-                        // // node->left->left = NULL; // je mets NULL dans le right de 18
-                        // // node->left->right = NULL; // je mets NULL dans le right de 18
-                        // std::cout<<"I AM HERE: 153"<<std::endl;
-                        // node->left->parent = node;
-                        // if (save_node_right_left)
-                        //     node->left->right = save_node_right_left; // je mets a droite de 8 le 9
-                        // save_node_right_left->parent = node->left; // je mets 25 comme parent de 40            
-                        // node->parent = save_parent_node; // je mets dans le parent de 10 le 17
-
-                        
-                        // OLD CODE
-                        // tmp_key = node->left->data;
-                        // node->left->data = node->data;
-                        // node->data = tmp_key;
-                        // tmp_value = node->left->value;
-                        // node->left->value = node->value;
-                        // node->value = tmp_value;
-                        // tmp_color = node->left->color;
-                        // node->left->color = node->color;
-                        // node->color = tmp_color;
-                        // node->right = node->left;
-                        // node->left = NULL;
-                        // root->printNodeSubTree();
-                    }
-                    else if (node->right && node->right->right && node->parent->right == node )
-                    {
-                        Node<Key, T>* save_node = &(*node);
-                        Node<Key, T>* save_parent_node = &(*node->parent);
-                        Node<Key, T>* save_node_right_right = &(*node->right->right);                    
-                        node = node->right; // je remplace 18 par 25
-                        save_parent_node->right = node;
-                        node->left = save_node;
-                        node->left->left = NULL; // je mets NULL dans le right de 18
-                        node->left->right = NULL; // je mets NULL dans le right de 18
-                        node->right = save_node_right_right; // je mets a droite de 25 le 40
-                        save_node_right_right->parent = node; // je mets 25 comme parent de 40            
-                        node->parent = save_parent_node; // je mets dans le parent de 25 le 17
-                    }
-                    else if (node->right && node->right->right && node->parent->left == node )
-                    {
-                        Node<Key, T>* save_node = &(*node);
-                        Node<Key, T>* save_parent_node = &(*node->parent);
-                        Node<Key, T>* save_node_right_right = &(*node->right->right);                    
-                        node = node->right; // je remplace 18 par 25
-                        save_parent_node->left = node;
-                        node->left = save_node;
-                        node->left->left = NULL; // je mets NULL dans le right de 18
-                        node->left->right = NULL; // je mets NULL dans le right de 18
-                        node->right = save_node_right_right; // je mets a droite de 25 le 40
-                        save_node_right_right->parent = node; // je mets 25 comme parent de 40            
-                        node->parent = save_parent_node; // je mets dans le parent de 25 le 17
-                    }
-                    else if (node->right)
-                    {
-                        tmp_key = node->right->data;
-                        node->right->data = node->data;
-                        node->data = tmp_key;
-                        tmp_value = node->right->value;
-                        node->right->value = node->value;
-                        node->value = tmp_value;
-                        tmp_color = node->right->color;
-                        node->right->color = node->color;
-                        node->color = tmp_color;
-                        node->left = node->right;
-                        node->right = NULL;
-                    }
+                    node = node->right;
+                    node->left = save_root;
+                    node->left->parent = node;
+                    if (node->right->left)
+                        node->left->right = save_child_left;
                 }
                 return (NULL);
             }
@@ -228,7 +166,7 @@ class Node {
                 Node<Key, T> *GrandParent = node->getGrandParent();
                 if (node->parent && GrandParent)
                 {
-                    if (isLeftRightChild(node) == 0) // I remove the child from the parent who is turning after rotation to a son without child
+                    if (isLeftRightChild(node) == 0)
                         Parent->left = node->right;
                     else if (isLeftRightChild(node) == 1)
                         Parent->right = NULL; // TO BE TRIPLE CHECKED - SEEMS WEIRD - SHOULD BE node->right or node->left?
@@ -254,7 +192,6 @@ class Node {
             
 };
 
-// We consider a BST as a linked list of Nodes.
 template <class Key, class T>  
 Node<Key, T>* BSTInsert(Node<Key, T>* root, Node<Key, T>* node)
 {
@@ -275,42 +212,11 @@ Node<Key, T>* BSTInsert(Node<Key, T>* root, Node<Key, T>* node)
     }
     // if not root, insert by default as a RED leaf
     node->setColor(RED);
-    // // FIXING INSERTION PROBLEMS IN REGARD TO RBT RULES
-    // // if RED leaf's parent is BLACK, then no problem, we should already comply to RBT standards.
-    // // if RED leat's parent is RED, then we check parent's sibling (called uncle). If uncle is RED as well
-    // // then we change parent and uncle's colors to BLACK.
-    
-    // Node<Key, T>* Parent = node->parent;
-    // if (Parent->getColor() == RED)
-    // {
-    //     if (Parent->parent)
-    //     {
-    //         Node<Key, T>* Uncle = node->getUncle();
-    //         if (Uncle && Uncle->getColor() == RED)
-    //         {
-    //             Uncle->setColor(BLACK);
-    //             Parent->setColor(BLACK);
-    //             // Parent->parent->setColor(RED);
-    //         }
-    //         else if (!Uncle)
-    //         {
-    //             // Need for a Left Rotation then Right Rotation then Recoloring
-    //             // std::cout << "current Node: " << node->data << std::endl;
-    //             // std::cout << "Launching LeftRotate" << std::endl;
-    //             Parent->leftRotate(Parent);
-    //             // std::cout << node->data << std::endl;
-    //             node->parent->rightRotate(node->parent);
-    //             node->parent->setColor(BLACK);
-    //             node->parent->right->setColor(RED);
-
-    //         }
-    //     }
-    // }
     return root;
 }
 
 template <class Key, class T>
-Node<Key, T>* fixInsertion(Node<Key, T>* root,Node<Key, T>* node)
+Node<Key, T>* fixInsertion(Node<Key, T>* root, Node<Key, T>* node)
 {
     // FIXING INSERTION PROBLEMS IN REGARD TO RBT RULES
     // if RED leaf's parent is BLACK, then no problem, we should already comply to RBT standards.
@@ -319,138 +225,9 @@ Node<Key, T>* fixInsertion(Node<Key, T>* root,Node<Key, T>* node)
     
     Node<Key, T>* Parent = node->parent;
     Node<Key, T>* ret;
-    // Node<Key, T>* final_root = root;
-    if (Parent && Parent->getColor() == RED)
-    {
-        if (Parent->parent)
-        {
-            Node<Key, T>* Uncle = node->getUncle();
-            if (Uncle && Uncle->getColor() == RED && Parent->parent == root)
-            {
-                std::cout << "\n==== RECOLORING OPERATION 285 ====" << std::endl << "RED UNCLE & GRANDPARENT==ROOT\n" << "Recoloring Uncle to BLACK\n&& Parent to BLACK" << std::endl;
-                Uncle->setColor(BLACK);
-                Parent->setColor(BLACK);
-                // Parent->parent->setColor(RED);
-            }
-            else if (Uncle && Uncle->getColor() == RED && Parent->parent != root)
-            {
-                std::cout << "\n==== RECOLORING OPERATION 292 ====" << std::endl << "RED UNCLE & GRANDPARENT!=ROOT\n" <<"Recoloring Uncle to BLACK\n&& Parent to BLACK" << std::endl;
-                Uncle->setColor(BLACK);
-                Parent->setColor(BLACK);
-                Parent->parent->setColor(RED);
-                std::cout << "PPP = " << node->parent->parent->parent->data << " - PP = " << node->parent->parent->data << " - PPP->color = " << node->parent->parent->parent->getColor() << " vs PP->color = " << node->parent->parent->getColor() << std::endl;
-                if (node->parent->parent->parent->getColor() == RED && node->parent->parent->getColor() == RED)
-                {
-                    std::cout << "needs another fixing after recoloring : \nNode and parent are both red. \nNode is left child, parent is right child \n=> rotate\nroot is " << root->data << std::endl;
-                    ret = fixInsertion(root, node->parent->parent);
-                    if (ret != NULL)
-                        root = ret;
-                    // node = node->parent;
-                    // std::exit(0);
-                }
-            }
-            else if (Uncle && Uncle->getColor() == BLACK)
-            {
-                    if (node->isInnerChild(node) == 1)
-                    {
-                        std::cout << "\n==== RIGHT ROTATION 311 on " << node->data << " ====" << std::endl;
-                        ret = Parent->rightRotate(node);
-                        root->printNodeSubTree();
-                    }
-                    else 
-                    {
-                        std::cout << "\n==== LEFT ROTATION 316 on " << Parent->parent->data << " ====" << std::endl;
-                        ret = Parent->leftRotate(root, Parent->parent);
-                        root->printNodeSubTree();
-                    }
-                    
-                    if (ret != NULL)
-                    {
-                        root = ret;
-                        std::cout << "\n==== RECOLORING OPERATION 323 ====" << std::endl << "NEW ROOT TO BE COLORED IN BLACK\nCHILDREN COLORED IN RED\n"  << std::endl;
-                        root->setColor(BLACK);
-                        root->left->setColor(RED);
-                    }
-                    std::cout << "P = " << node->parent->data << " - N = " << node->data << " - RC = " << node->right->data << " - P->color = " << node->parent->getColor() << " vs N->color = " << node->getColor() << " vs RC->color = " << node->right->getColor() << std::endl;
-                    if (node->parent->parent->parent->getColor() == RED && node->parent->parent->getColor() == RED)
-                    {
-                        std::cout << "needs another fixing after recoloring : \nNode and parent are both red. \nNode is left child, parent is right child \n=> rotate\nroot is " << root->data << std::endl;
-                        ret = fixInsertion(root, node->parent->parent);
-                        if (ret != NULL)
-                            root = ret;
-                    }
-                    else if (node->getColor() == RED && node->right->getColor() == RED)
-                    {
-                        std::cout << "needs another fixing after recoloring : \nNode and Node child are both red. \n=> rotate\nroot is " << root->data << std::endl;
-                        ret = fixInsertion(root, node->right);
-                        if (ret != NULL)
-                            root = ret;
-                    } 
-            }
-            else if (!Uncle)
-            {
-                // 2 different cases : inner child, outer child
-                // Inner child requires a Left Rotation then Right Rotation then Recoloring (or opposite) ? or Left Left Rotation and Recoloring?
-                // Outer child requires a Left Rotation and Recoloring (or opposite)
-                if (node->isInnerChild(node) == 1)
-                {
-                    root->printNodeSubTree();
-                    std::cout << "\n==== LEFT ROTATION 351 on " << Parent->data << " ====" << std::endl;
-                    ret = Parent->leftRotate(root, Parent);
-                    if (ret != NULL)
-                        root = ret;
-                    root->printNodeSubTree();
-                    // std::cout << "CRITICAL MOMENT: " << node->data << std::endl;
-                    if (node->isInnerChild(node) == 0)
-                    {
-                        if (node->parent->left == node)
-                        {
-                            std::cout << "\n==== RIGHT ROTATION 361 on " << node->parent->data << " ====" << std::endl;
-                            node->parent->rightRotate(node->parent);
-                            // if (ret != NULL)
-                            //     root = ret;
-                        }
-                        else if (node->parent->right == node)
-                        {
-                            std::cout << "\n==== LEFT ROTATION 368 on " << node->parent->parent->data << " ====" << std::endl;
-                            ret = node->parent->parent->leftRotate(root, node->parent->parent);
-                            if (ret != NULL)
-                                root = ret;
-                        }    
-                        // root->printNodeSubTree();
-                        std::cout << "\n==== RECOLORING OPERATION 374 ====" << std::endl << "Recoloring new parent to BLACK\n&& new son to RED (RR)" << std::endl;
-                        node->parent->setColor(BLACK);
-                        if (node->parent->right)
-                            node->parent->right->setColor(RED);
-                        if (node->parent->left)                        
-                            node->parent->left->setColor(RED); 
-                    }
-                    else if (node->isInnerChild(node) == 1)
-                    {
-                        std::cout << "\n==== RIGHT ROTATION 383 on " << node->parent->data << " ====" << std::endl;
-                        ret = node->parent->rightRotate(node->parent);
-                        if (ret != NULL)
-                            root = ret;
-                        root->printNodeSubTree();
-                        std::cout << "\n==== RECOLORING OPERATION 388 ====" << std::endl << "NO UNCLE - INNER CHILD\n" << "Recoloring new parent to BLACK\n&& new right son to RED (RR)" << std::endl;
-                        node->parent->setColor(BLACK);
-                        node->parent->right->setColor(RED);
-                    }
-                }
-                else if (node->isInnerChild(node) == 0)
-                {
-                    std::cout << "\n==== LEFT ROTATION 395 on " << Parent->parent->data << " ====" << std::endl;
-                    ret = Parent->leftRotate(root, Parent->parent);
-                    if (ret != NULL)
-                        root = ret;
-                    root->printNodeSubTree();
-                    std::cout << "\n==== RECOLORING OPERATION 400 ====" << std::endl << "NO UNCLE - OUTER CHILD\n" << "Recoloring new parent to BLACK\n&& new right son (cousin) to RED (RR)" << std::endl;
-                    node->parent->left->setColor(RED);
-                    node->parent->setColor(BLACK);
-                }
-            }
-        }
-    }
+    if (node->doubleRed(node) && node->isInnerChild(node) == 1)
+        ret = Parent->leftRotate(root, Parent->parent);
+        
     return (root);
 }
 
