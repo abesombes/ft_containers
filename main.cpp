@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/02/11 19:33:05 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/02/12 10:21:34 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,24 +164,24 @@ int main()
     RedBlackT.printRBT();
     RedBlackT.insertNode(8, "Paris");
     RedBlackT.printRBT();
-    // RedBlackT.insertNode(18, "Madrid");
-    // RedBlackT.printRBT();
-    // RedBlackT.insertNode(25, "New-York");
-    // RedBlackT.printRBT();
-    // RedBlackT.insertNode(15, "Copenhagen");
-    // RedBlackT.printRBT();
-    // RedBlackT.insertNode(17, "Amsterdam");
-    // RedBlackT.printRBT();
-    // RedBlackT.insertNode(40, "Cordoba");
-    // RedBlackT.printRBT();
-    // RedBlackT.insertNode(12, "Sao Paolo");
-    // RedBlackT.printRBT();
-    // RedBlackT.insertNode(7, "Quito");
-    // RedBlackT.printRBT();
-    // RedBlackT.insertNode(19, "Medelin");
-    // RedBlackT.printRBT();
-    // RedBlackT.insertNode(22, "Cali");
-    // RedBlackT.printRBT();
+    RedBlackT.insertNode(18, "Madrid");
+    RedBlackT.printRBT();
+    RedBlackT.insertNode(25, "New-York");
+    RedBlackT.printRBT();
+    RedBlackT.insertNode(15, "Copenhagen");
+    RedBlackT.printRBT();
+    RedBlackT.insertNode(17, "Amsterdam");
+    RedBlackT.printRBT();
+    RedBlackT.insertNode(40, "Cordoba");
+    RedBlackT.printRBT();
+    RedBlackT.insertNode(12, "Sao Paolo");
+    RedBlackT.printRBT();
+    RedBlackT.insertNode(7, "Quito");
+    RedBlackT.printRBT();
+    RedBlackT.insertNode(19, "Medelin");
+    RedBlackT.printRBT();
+    RedBlackT.insertNode(22, "Cali");
+    RedBlackT.printRBT();
     // RedBlackT.insertNode(1, "Valdes");
     // RedBlackT.printRBT();
     // RedBlackT.insertNode(13, "Punta Arena");
