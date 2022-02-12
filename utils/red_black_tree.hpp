@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/02/12 10:17:50 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/02/12 13:07:51 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,14 +150,24 @@ class Node {
             {
                 if (node == NULL)
                     return (NULL);
+                Node<Key, T>* Parent = &(*node->parent);
+                int flag_lr = (isLeftRightChild(node) ? 1 : 0);
                 Node<Key, T>* snode = &(*node); // GrandParent in the chain of 3 nodes
                 Node<Key, T>* RightChild = (node->right? &(*node->right) : NULL);
                 Node<Key, T>* RightLeftChild = (node->right? &(*node->right->left) : NULL);
                 int flag_root = (node == root? 1 : 0);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
                 node = RightChild;
+                std::cout << "I am here 160\n";
+                if (flag_lr && !flag_root)
+                    Parent->right = node;
+                else if (!flag_root)
+                    Parent->left = node;
+                if (Parent)
+                    node->parent = Parent;
                 node->left = snode;
                 node->left->right = RightLeftChild;
-                RightLeftChild->parent = node->left->right;
+                if (RightLeftChild)
+                    RightLeftChild->parent = node->left;
                 return (flag_root? node: NULL);
             }
 
@@ -165,14 +175,23 @@ class Node {
             {
                 if (node == NULL)
                     return (NULL);
+                Node<Key, T>* Parent = &(*node->parent);
+                int flag_lr = (isLeftRightChild(node) ? 1 : 0);
                 Node<Key, T>* snode = &(*node); // GrandParent in the chain of 3 nodes
                 Node<Key, T>* LeftChild = (node->left? &(*node->left) : NULL);
                 Node<Key, T>* LeftRightChild = (node->left? &(*node->left->right) : NULL);
                 int flag_root = (node == root? 1 : 0);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
                 node = LeftChild;
+                if (flag_lr && !flag_root)
+                    Parent->right = node;
+                else if (!flag_root)
+                    Parent->left = node;
+                if (Parent)
+                    node->parent = Parent;
                 node->right = snode;
                 node->right->left = LeftRightChild;
-                LeftRightChild->parent = node->right->left;
+                if (LeftRightChild)
+                    LeftRightChild->parent = node->right;
                 return (flag_root? node: NULL);
             }
 
@@ -194,10 +213,12 @@ class Node {
                 LChild->parent = node;
                 node->right = snode;
                 snode->parent = node;
-                if (flag_lr)
+                if (flag_lr && !flag_root)
                     Parent->right = node;
-                else
+                else if (!flag_root)
                     Parent->left = node;
+                if (Parent)
+                    node->parent = Parent;
                 node->left->right = LRLChild;
                 if (LRLChild)
                     LRLChild->parent = node->left;
@@ -211,6 +232,8 @@ class Node {
             {
                 if (node == NULL)
                     return (NULL);
+                Node<Key, T>* Parent = &(*node->parent);
+                int flag_lr = (isLeftRightChild(node) ? 1 : 0);
                 Node<Key, T>* snode = &(*node); // GrandParent in the chain of 3 nodes
                 Node<Key, T>* RChild = (node->right? &(*node->right) : NULL);
                 Node<Key, T>* RLChild = (node->right? &(*node->right->left) : NULL);
@@ -219,6 +242,12 @@ class Node {
                 
                 int flag_root = (node == root? 1 : 0);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
                 node = RLChild;
+                if (flag_lr && !flag_root)
+                    Parent->right = node;
+                else if (!flag_root)
+                    Parent->left = node;
+                if (Parent)
+                    node->parent = Parent;
                 node->left = snode;
                 snode->parent = node;
                 node->right = RChild;
@@ -275,7 +304,7 @@ Node<Key, T>* fixInsertion(Node<Key, T>* root, Node<Key, T>* node)
     // if RED leaf's parent is BLACK, then no problem, we should already comply to RBT standards.
     // if RED leat's parent is RED, then we check parent's sibling (called uncle). If uncle is RED as well
     // then we change parent and uncle's colors to BLACK.
-    
+    // 0 LeftRight Case, 1 RightLeft Case, 2 LeftLeft Case, 3 RightRight Case
     Node<Key, T>* Parent = node->parent;
     // Node<Key, T>* GrandParent = node->getGrandParent();
     Node<Key, T>* Uncle = node->getUncle();
@@ -289,7 +318,7 @@ Node<Key, T>* fixInsertion(Node<Key, T>* root, Node<Key, T>* node)
             node->pushBlacknessDown(node);
         else if (node->doubleRed(node) && node->isLeftRightCase(node) == 0)
         {
-            std::cout << "\n==== LEFT RIGHT ROTATION 274 on " << Parent->parent->data << " ====" << std::endl;
+            std::cout << "\n==== LEFT RIGHT ROTATION 292 on " << Parent->parent->data << " ====" << std::endl;
             ret = Parent->parent->leftrightRotate(root, Parent->parent);
             std::cout << "\n==== RECOLORING on " << node->data << " ====" << std::endl;    
             node->setColor(BLACK);
@@ -297,7 +326,7 @@ Node<Key, T>* fixInsertion(Node<Key, T>* root, Node<Key, T>* node)
         }   
         else if (node->doubleRed(node) && node->isLeftRightCase(node) == 1)
         {
-            std::cout << "\n==== RIGHT LEFT ROTATION 279 on " << Parent->parent->data << " ====" << std::endl;
+            std::cout << "\n==== RIGHT LEFT ROTATION 300 on " << Parent->parent->data << " ====" << std::endl;
             ret = Parent->parent->rightleftRotate(root, Parent->parent);
             std::cout << "\n==== RECOLORING on " << node->data << " ====" << std::endl;    
             node->setColor(BLACK);
@@ -305,14 +334,23 @@ Node<Key, T>* fixInsertion(Node<Key, T>* root, Node<Key, T>* node)
         }
         else if (node->doubleRed(node) && node->isLeftRightCase(node) == 2)
         {
-            std::cout << "\n==== LEFT RIGHT ROTATION 287 on " << Parent->parent->data << " ====" << std::endl;
-            ret = Parent->parent->leftRotate(root, Parent->parent);
+            std::cout << "\n==== RIGHT ROTATION 308 on " << Parent->parent->data << " ====" << std::endl;
+            ret = Parent->parent->rightRotate(root, Parent->parent);
             std::cout << "\n==== RECOLORING on " << node->data << " ====" << std::endl;    
-            node->setColor(BLACK);
-            node->left->setColor(RED);  
+            node->parent->setColor(BLACK);
+            node->parent->right->setColor(RED);  
+        }
+        else if (node->doubleRed(node) && node->isLeftRightCase(node) == 3)
+        {
+            std::cout << "\n==== LEFT ROTATION 316 on " << Parent->parent->data << " ====" << std::endl;
+            ret = Parent->parent->leftRotate(root, Parent->parent);
+            std::cout << "\n==== RECOLORING on " << node->data << " ====" << std::endl; 
+            node->parent->setColor(BLACK);
+            node->parent->left->setColor(RED);
         }
         if (ret)
             root = ret;
+        root->printNodeSubTree();
     }
     std::cout << "current node: " << node->data << std::endl;
     if (node->parent && node->parent->parent && node->parent->parent != root && node->parent->parent->doubleRed(node->parent->parent))

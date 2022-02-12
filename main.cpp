@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/02/12 10:21:34 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/02/12 13:11:30 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,23 +182,32 @@ int main()
     RedBlackT.printRBT();
     RedBlackT.insertNode(22, "Cali");
     RedBlackT.printRBT();
-    // RedBlackT.insertNode(1, "Valdes");
-    // RedBlackT.printRBT();
-    // RedBlackT.insertNode(13, "Punta Arena");
-    // RedBlackT.printRBT();
-    // RedBlackT.insertNode(9, "Salta");
-    // RedBlackT.printRBT();
-    // RedBlackT.insertNode(10, "Mar Del Plata");
-    // RedBlackT.printRBT();
-    // RedBlackT.insertNode(14, "Mar Del Plata");
-    // RedBlackT.printRBT();
-    // RedBlackT.insertNode(11, "Mar Del Plata");
-    // RedBlackT.printRBT();
-    // RedBlackT.insertNode(16, "Mar Del Plata");
-    // RedBlackT.printRBT();
-    // RedBlackT.insertNode(10, "Mar Del Plata");
-    // RedBlackT.printRBT();
-
+    RedBlackT.insertNode(1, "Valdes");
+    RedBlackT.printRBT();
+    RedBlackT.insertNode(13, "Punta Arena");
+    RedBlackT.printRBT();
+    RedBlackT.insertNode(9, "Salta");
+    RedBlackT.printRBT();
+    RedBlackT.insertNode(10, "Mar Del Plata");
+    RedBlackT.printRBT();
+    RedBlackT.insertNode(14, "Chicago");
+    RedBlackT.printRBT();
+    RedBlackT.insertNode(11, "Dallas");
+    RedBlackT.printRBT();
+    RedBlackT.insertNode(16, "Philadelphia");
+    RedBlackT.printRBT();
+    RedBlackT.insertNode(2, "Boston");
+    RedBlackT.printRBT();
+    RedBlackT.insertNode(30, "Las Vegas");
+    RedBlackT.printRBT();
+    RedBlackT.insertNode(23, "Salt Lake City");
+    RedBlackT.printRBT();
+    RedBlackT.insertNode(27, "Colorado Spring");
+    RedBlackT.printRBT();
+    RedBlackT.insertNode(32, "Phoenix");
+    RedBlackT.printRBT();
+    RedBlackT.insertNode(33, "Boulder");
+    RedBlackT.printRBT();
 
     
     // RedBlackT.insertNode(80, "Brasilia");
