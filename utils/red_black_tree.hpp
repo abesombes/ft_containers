@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/02/13 17:41:21 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/02/13 19:24:38 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,7 @@ class Node {
                 if (Parent)
                     node->parent = Parent;
                 node->left = snode;
+                snode->parent = node;
                 node->left->right = RightLeftChild;
                 if (RightLeftChild)
                     RightLeftChild->parent = node->left;
@@ -186,7 +187,7 @@ class Node {
                 int flag_lr = (isLeftRightChild(node) ? 1 : 0);
                 Node<Key, T>* snode = &(*node); // GrandParent in the chain of 3 nodes
                 Node<Key, T>* LeftChild = (node->left? &(*node->left) : NULL);
-                Node<Key, T>* LeftRightChild = (node->left? &(*node->left->right) : NULL);
+                Node<Key, T>* LRChild = (node->left? &(*node->left->right) : NULL);
                 int flag_root = (node == root? 1 : 0);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
                 node = LeftChild;
                 if (flag_lr && !flag_root)
@@ -196,9 +197,10 @@ class Node {
                 if (Parent)
                     node->parent = Parent;
                 node->right = snode;
-                node->right->left = LeftRightChild;
-                if (LeftRightChild)
-                    LeftRightChild->parent = node->right;
+                snode->parent = node;
+                node->right->left = LRChild;
+                if (LRChild)
+                    LRChild->parent = node->right;
                 if (flag_root)
                     node->parent = NULL;
                 return (flag_root? node: NULL);
@@ -574,16 +576,17 @@ class RBTree {
                         }
                         else if (isLeaf(TargetNode) && TargetNode->getColor() == BLACK)
                         {
-                            std::cout << "I am here 567: " << TargetNode->data << std::endl;
-                            std::cout << "Sibling: " << getSibling(TargetNode)->data << std::endl;
+
                             TargetNode->data = Key();
                             TargetNode->value = T();
+                            std::cout << "I am here 567 - TargetNode = " << TargetNode->data << " - parent of TargetNode = " << TargetNode->parent->data <<  std::endl;
+                            std::cout << "Sibling: " << getSibling(TargetNode)->data << std::endl;
                             TargetNode->setColor(DOUBLE_BLACK);
                             
                             std::cout << "Sibling: " << getSibling(TargetNode)->data << std::endl;
                             if (getSibling(TargetNode)->getColor() == BLACK && TargetNode->parent->left == TargetNode && TargetNode->getColor() == DOUBLE_BLACK && getRightNephew(TargetNode)->getColor() == RED)
                             {
-                                std::cout << "\n==== LEFT RIGHT ROTATION 568 on " << TargetNode << " ====" << std::endl;
+                                std::cout << "\n==== LEFT RIGHT ROTATION 568 on " << TargetNode->data << " ====" << std::endl;
                                 ret = Parent->parent->leftrightRotate(_root, Parent->parent);
                                 std::cout << "\n==== RECOLORING on " << node->data << " ====" << std::endl;    
                                 node->setColor(BLACK);
