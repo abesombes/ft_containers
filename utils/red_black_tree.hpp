@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/02/13 20:00:14 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/02/13 22:38:03 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -601,6 +601,13 @@ class RBTree {
                             Node<Key, T>* Replacer = getMaxValueNode(TargetNode->left);
                             TargetNode->data = Replacer->data;
                             TargetNode->value = Replacer->value;
+                            if (Replacer->left)
+                            {
+                                TargetNode->left = Replacer->left;
+                                Replacer->left->parent = TargetNode;
+                            }
+                            if (Replacer->getColor() == BLACK)
+                                Replacer->left->setColor(BLACK);
                             removeParentLink(Replacer);
                             delete Replacer;
                         }
