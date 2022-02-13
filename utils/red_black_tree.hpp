@@ -6,14 +6,14 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/02/13 22:38:03 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/02/14 00:56:54 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RED_BLACK_TREE_HPP
 #define RED_BLACK_TREE_HPP
-#define BLACK 0
-#define RED 1
+#define RED 0
+#define BLACK 1
 #define DOUBLE_BLACK 2
 #define newline std::cout<<endl;
 #include <iostream>
@@ -43,7 +43,7 @@ class Node {
             Node *parent; // pointer to the parent
             Node *left; // pointer to left child
             Node *right; // pointer to right child
-            int color; // RED (1) -> Red, BLACK (0) -> Black
+            int color; // RED (0) -> Red, BLACK (1) -> Black, DOUBLE_BLACK (2) -> Double Black
             
             Node(Key data, T value): data(data), value(value), parent(NULL), left(NULL), right(NULL), color(RED){};
             Node(Key data, T value, int color): data(data), value(value), parent(NULL), left(NULL), right(NULL), color(color){}
@@ -53,6 +53,9 @@ class Node {
             void setData (Key &data) { this->data = data; }
             T &getValue() { return (value); }
             void setValue(T value) { this->value = value; }
+            int isRed(void) { return (getColor() == RED);}
+            int isBlack(void) { return (getColor() == BLACK);}
+            int isDBlack(void) { return (getColor() == DOUBLE_BLACK);}
             Node<Key, T>* getGrandParent( void )
             {
                 if (this->parent)
@@ -75,6 +78,29 @@ class Node {
             int hasLRChildren(Node<Key, T>* node)
             {
                 return (node && node->left && node->right? 1 : 0);
+            }
+
+            int hasNoChild(void)
+            {
+                return (!this->left && !this->right);
+            }
+            
+            int hasBlackLChild(void)
+            {
+                return ((this->left && this->left->isBlack()) || !this->left);
+            }
+
+            int hasBlackRChild(void)
+            {
+                return ((this->right && this->right->isBlack()) || !this->right);
+            }
+
+            int hasTwoBlackNephews(void)
+            {
+                Node<Key, T> *Sibling= getSibling(this);      
+                if (Sibling)
+                    return (Sibling->hasNoChild() || (Sibling->hasBlackLChild() && !Sibling->right) || (Sibling->hasBlackRChild() && !Sibling->left) || (Sibling->hasBlackLChild() && Sibling->hasBlackRChild()));
+                return (0);
             }
 
             int isLeftRightChild(Node<Key, T>* node)
@@ -130,7 +156,7 @@ class Node {
             void printNodeSubTree()
             {
                 std::cout << std::endl << std::endl << std::endl;
-                std::cout << this->getData() << " - " << this->getValue() << " - " << (this->getColor() == 1? "Red" : this->getColor() == 2? "Double Black": "Black") << std::endl;
+                std::cout << this->getData() << " - " << this->getValue() << " - " << (this->getColor() == RED? "Red" : this->getColor() == DOUBLE_BLACK? "Double Black": "Black") << std::endl;
                 if (this->left)
                     this->left->printNode('l', this);
                 if (this->right)
@@ -149,6 +175,18 @@ class Node {
                     Parent->setColor(BLACK);
                     GrandParent->setColor(RED);
                 }
+            }
+            
+            void pushBlacknessUp()
+            {
+                Node<Key, T>* Parent = parent;
+                Node<Key, T>* Sibling = getSibling(this);
+                std::cout << "\n==== PUSH THE BLACKNESS UP ====" << std::endl;
+                setColor(std::max(getColor() - 1, 0));
+                if (Parent)
+                    Parent->setColor(std::max(getColor() - 1, 0));
+                if (Sibling)
+                    Sibling->setColor(std::max(getColor() - 1, 0));                
             }
             
             Node<Key, T>* leftRotate(Node<Key, T>* root, Node<Key, T>* node) // Right Right Case ONLY
@@ -283,7 +321,7 @@ class Node {
 
             void printNode(char relative_pos, Node<Key, T>* parent)
             {
-                std::cout << (relative_pos == 'r' ? "Right of " : "Left of ") << parent->data << " - " << "Parent = " << this->parent->getData() << " - " << this->getData() << " - " << this->getValue() << " - " << (this->getColor() == 1? "Red" : this->getColor() == 2? "Double Black": "Black") << std::endl; 
+                std::cout << (relative_pos == 'r' ? "Right of " : "Left of ") << parent->data << " - " << "Parent = " << this->parent->getData() << " - " << this->getData() << " - " << this->getValue() << " - " << (this->getColor() == RED? "Red" : this->getColor() == DOUBLE_BLACK? "Double Black": "Black") << std::endl; 
                 if (left)
                     left->printNode('l', this);
                 if (right)
@@ -472,13 +510,14 @@ class RBTree {
                 void insertNode(Key data, T value)
                 {
                     Node<Key, T>* newNode = new Node<Key, T>(data, value);
-                
+                    std::cout << "newNode: " << newNode->getColor() << std::endl;
                     this->_root = BSTInsert(this->_root, newNode);
                     std::cout << "\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
                     std::cout << "+++++++++++++ ANNOUNCEMENT: NEW VALUE ADDED - " << data << " +++++++++++++" << std::endl;
                     std::cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
                     this->printRBT();
                     _root = fixInsertion(this->_root, newNode);
+                    std::cout << "_root: " << _root->getColor() << std::endl;
                     if (_root->getColor() == RED)
                         _root->setColor(BLACK);
                 }
@@ -564,6 +603,8 @@ class RBTree {
 
                 Node<Key, T>* deleteNode(Node<Key, T>* node, Key key)
                 {
+                    if (!node)
+                        return NULL;
                     std::cout << "\n==== NODE DELETE: " << key << " ====" << std::endl;
                     Node<Key, T>* TargetNode = searchNode(node, key);
                     Node<Key, T>* Parent = node->parent;
@@ -572,12 +613,13 @@ class RBTree {
                     {
                         if (isLeaf(TargetNode) && TargetNode->getColor() == RED)
                         {
+                            std::cout << "Specific Case: Red Leaf" << std::endl;
                             removeParentLink(TargetNode);
                             delete TargetNode;
                         }
                         else if (isLeaf(TargetNode) && TargetNode->getColor() == BLACK)
                         {
-
+                            std::cout << "I am here 583" << std::endl;
                             TargetNode->data = Key();
                             TargetNode->value = T();
                             TargetNode->setColor(DOUBLE_BLACK);
@@ -599,17 +641,31 @@ class RBTree {
                         else if (TargetNode->hasLRChildren(TargetNode))
                         {
                             Node<Key, T>* Replacer = getMaxValueNode(TargetNode->left);
+                            std::cout << "I am here 610: TargetNode = " << TargetNode->data << " - Replacer = " << Replacer->data << std::endl;
                             TargetNode->data = Replacer->data;
                             TargetNode->value = Replacer->value;
-                            if (Replacer->left)
+                            
+
+                            if (TargetNode && Replacer->left)
                             {
                                 TargetNode->left = Replacer->left;
                                 Replacer->left->parent = TargetNode;
                             }
-                            if (Replacer->getColor() == BLACK)
+                            if (Replacer->isBlack() && Replacer->left)
                                 Replacer->left->setColor(BLACK);
-                            removeParentLink(Replacer);
-                            delete Replacer;
+                            if (Replacer->isBlack())
+                            {
+                                Replacer->data = Key();
+                                Replacer->value = T();
+                                Replacer->setColor(DOUBLE_BLACK);
+                                if (getSibling(Replacer)->isBlack() && Replacer->hasTwoBlackNephews())
+                                    Replacer->pushBlacknessUp();
+                            }
+                            else
+                            {
+                                removeParentLink(Replacer);
+                                delete Replacer;
+                            }
                         }
                     }
                     return (TargetNode ? TargetNode : NULL);
@@ -620,7 +676,7 @@ class RBTree {
                     if (this->_root)
                     {
                         std::cout << std::endl << std::endl << std::endl;
-                        std::cout << "============= ROOT ============\nParent = " << (_root->parent? _root->parent->getData() : 0)<< " - " << _root->getData() << " - " << _root->getValue() << " - " << (_root->getColor() == 1? "Red" : _root->getColor() == 2? "Double Black": "Black") << std::endl;
+                        std::cout << "============= ROOT ============\nParent = " << (_root->parent? _root->parent->getData() : 0)<< " - " << _root->getData() << " - " << _root->getValue() << " - " << (_root->getColor() == RED? "Red" : _root->getColor() == DOUBLE_BLACK? "Double Black": "Black") << std::endl;
                         if (_root->left)
                             _root->left->printNode('l', _root);
                         if (_root->right)

@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/02/13 22:39:41 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/02/14 00:57:54 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ int main()
     // ======================== FIN TEST SACHIN ========================== //
     
     ft::RBTree<int, std::string> RedBlackT;
+    // RedBlackT.printRBT();
 
     // VANESSA EXAMPLE
     // RedBlackT.insertNode(8, "Paris");
@@ -159,6 +160,7 @@ int main()
     //
 
     RedBlackT.insertNode(5, "London");
+    std::cout << RedBlackT.getRoot()->getColor() << std::endl;
     RedBlackT.printRBT();
     RedBlackT.insertNode(80, "Santiago");
     RedBlackT.printRBT();
