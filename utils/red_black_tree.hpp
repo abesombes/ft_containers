@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/02/12 13:07:51 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/02/13 17:41:21 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,11 @@ class Node {
                 return NULL;
             }
 
+            int hasLRChildren(Node<Key, T>* node)
+            {
+                return (node && node->left && node->right? 1 : 0);
+            }
+
             int isLeftRightChild(Node<Key, T>* node)
             {
                 // -1 not child, 0 left child, l right child
@@ -125,7 +130,7 @@ class Node {
             void printNodeSubTree()
             {
                 std::cout << std::endl << std::endl << std::endl;
-                std::cout << this->getData() << " - " << this->getValue() << " - " << (this->getColor()? "Red" : "Black") << std::endl;
+                std::cout << this->getData() << " - " << this->getValue() << " - " << (this->getColor() == 1? "Red" : this->getColor() == 2? "Double Black": "Black") << std::endl;
                 if (this->left)
                     this->left->printNode('l', this);
                 if (this->right)
@@ -168,6 +173,8 @@ class Node {
                 node->left->right = RightLeftChild;
                 if (RightLeftChild)
                     RightLeftChild->parent = node->left;
+                if (flag_root)
+                    node->parent = NULL;
                 return (flag_root? node: NULL);
             }
 
@@ -192,6 +199,8 @@ class Node {
                 node->right->left = LeftRightChild;
                 if (LeftRightChild)
                     LeftRightChild->parent = node->right;
+                if (flag_root)
+                    node->parent = NULL;
                 return (flag_root? node: NULL);
             }
 
@@ -225,6 +234,8 @@ class Node {
                 node->right->left = LRRChild;
                 if (LRRChild)
                     LRRChild->parent = node->right;
+                if (flag_root)
+                    node->parent = NULL;
                 return (flag_root? node: NULL);
             }
 
@@ -232,7 +243,9 @@ class Node {
             {
                 if (node == NULL)
                     return (NULL);
-                Node<Key, T>* Parent = &(*node->parent);
+                Node<Key, T>* Parent = &(*(node->parent));
+                std::cout << "1er passage ---  node: "<< node->data << " - node->parent: " << (node->parent? node->parent->data : 0) << " - Parent: " << (Parent != NULL ? Parent->value : std::string()) << std::endl;
+
                 int flag_lr = (isLeftRightChild(node) ? 1 : 0);
                 Node<Key, T>* snode = &(*node); // GrandParent in the chain of 3 nodes
                 Node<Key, T>* RChild = (node->right? &(*node->right) : NULL);
@@ -248,23 +261,26 @@ class Node {
                     Parent->left = node;
                 if (Parent)
                     node->parent = Parent;
+                std::cout << "node 264: "<< node->data << " - node->parent: " << node->parent->data << " - Parent: " << (Parent != NULL ? Parent->value : std::string()) << std::endl;
                 node->left = snode;
                 snode->parent = node;
                 node->right = RChild;
                 RChild->parent = node;
                 node->left->right = RLLChild;
                 if (RLLChild)
-                    RLLChild->parent = node->left->right;
+                    RLLChild->parent = node->left;
                 node->right->left = RLRChild;
                 if (RLRChild)
-                    RLRChild->parent = node->right->left;
+                    RLRChild->parent = node->right;
+                if (flag_root)
+                    node->parent = NULL;
                 return (flag_root? node: NULL);
             }
 
 
             void printNode(char relative_pos, Node<Key, T>* parent)
             {
-                std::cout << (relative_pos == 'r' ? "Right of " : "Left of ") << parent->data << " - " << this->getData() << " - " << this->getValue() << " - " << (this->getColor() ? "Red" : "Black") << std::endl; 
+                std::cout << (relative_pos == 'r' ? "Right of " : "Left of ") << parent->data << " - " << "Parent = " << this->parent->getData() << " - " << this->getData() << " - " << this->getValue() << " - " << (this->getColor() == 1? "Red" : this->getColor() == 2? "Double Black": "Black") << std::endl; 
                 if (left)
                     left->printNode('l', this);
                 if (right)
@@ -272,6 +288,54 @@ class Node {
             }
             
 };
+
+template <class Key, class T>  
+void removeParentLink(Node<Key, T>* node)
+{
+    Node<Key, T> *Parent = node->parent;          
+    if (Parent && Parent->left == node)
+        Parent->left = NULL;
+    else if (Parent && Parent->right == node)
+        Parent->right = NULL;
+}
+
+template <class Key, class T>  
+int isLeaf(Node<Key, T>* node)
+{
+    return (node && node->left == NULL && node->right == NULL);
+}
+
+template <class Key, class T>  
+Node<Key, T>* getSibling(Node<Key, T>* node)
+{
+    std::cout << "node: " << node->data << " - node->parent: " << node->parent->data << std::endl;
+    if (node && node->parent && node->parent->left == node)
+        return (node->parent->right);
+    else if (node && node->parent && node->parent->right == node)
+        return (node->parent->left);
+    return (node);
+}
+
+template <class Key, class T>  
+Node<Key, T>* getLeftNephew(Node<Key, T>* node)
+{
+    if (node && node->parent && node->parent->left == node)
+        return (node->parent->right->left);
+    else if (node && node->parent && node->parent->right == node)
+        return (node->parent->left->left);
+    return (NULL);
+}
+
+template <class Key, class T>  
+Node<Key, T>* getRightNephew(Node<Key, T>* node)
+{
+    if (node && node->parent && node->parent->left == node)
+        return (node->parent->right->right);
+    else if (node && node->parent && node->parent->right == node)
+        return (node->parent->left->right);
+    return (NULL);
+}
+
 
 template <class Key, class T>  
 Node<Key, T>* BSTInsert(Node<Key, T>* root, Node<Key, T>* node)
@@ -359,6 +423,7 @@ Node<Key, T>* fixInsertion(Node<Key, T>* root, Node<Key, T>* node)
         ret = fixInsertion(root, node->parent->parent);
         if (ret)
             root = ret;
+        std::cout << "SPECIAL MESSAGE ==== node: " << node->data << " - node->parent: " << node->parent->data << std::endl;  
     }
     return (root);
 }
@@ -435,7 +500,7 @@ class RBTree {
                 
                     return current;
                 }
-                
+
                 Node<Key, T>* getGrandParent(Node<Key, T>* node)
                 {
                     if (node && node->parent)
@@ -494,57 +559,47 @@ class RBTree {
                     return NULL;
                 }
 
-                Node<Key, T>* NodeDelete(Node<Key, T>* node, Key key)
+                Node<Key, T>* deleteNode(Node<Key, T>* node, Key key)
                 {
-                    
-                    Node<Key, T>* NodeToDelete = searchNode(node, key);
-                    if (NodeToDelete)
+                    std::cout << "\n==== NODE DELETE: " << key << " ====" << std::endl;
+                    Node<Key, T>* TargetNode = searchNode(node, key);
+                    Node<Key, T>* Parent = node->parent;
+                    Node<Key, T>* ret = NULL;
+                    if (TargetNode)
                     {
-                        Node<Key, T>* NodeParent = NodeToDelete->parent;
-                        if (!NodeToDelete->right && !NodeToDelete->left)
+                        if (isLeaf(TargetNode) && TargetNode->getColor() == RED)
                         {
-                            if (NodeToDelete->parent->left == NodeToDelete)
-                                NodeToDelete->parent->left = NULL;
-                            else if (NodeToDelete->parent->right == NodeToDelete)
-                                NodeToDelete->parent->right = NULL;
-                            delete(NodeToDelete);
-                            return (NodeParent);
+                            removeParentLink(TargetNode);
+                            delete TargetNode;
                         }
-                        if (!NodeToDelete->right || !NodeToDelete->left)
+                        else if (isLeaf(TargetNode) && TargetNode->getColor() == BLACK)
                         {
-                            Node<Key, T>* NodeSurvivor= (!NodeToDelete->right ? NodeToDelete->left: NodeToDelete->right);
-                            if (NodeToDelete->parent->left == NodeToDelete)
+                            std::cout << "I am here 567: " << TargetNode->data << std::endl;
+                            std::cout << "Sibling: " << getSibling(TargetNode)->data << std::endl;
+                            TargetNode->data = Key();
+                            TargetNode->value = T();
+                            TargetNode->setColor(DOUBLE_BLACK);
+                            
+                            std::cout << "Sibling: " << getSibling(TargetNode)->data << std::endl;
+                            if (getSibling(TargetNode)->getColor() == BLACK && TargetNode->parent->left == TargetNode && TargetNode->getColor() == DOUBLE_BLACK && getRightNephew(TargetNode)->getColor() == RED)
                             {
-                                NodeSurvivor->parent = NodeToDelete->parent;
-                                NodeToDelete->parent->left = NodeSurvivor;
+                                std::cout << "\n==== LEFT RIGHT ROTATION 568 on " << TargetNode << " ====" << std::endl;
+                                ret = Parent->parent->leftrightRotate(_root, Parent->parent);
+                                std::cout << "\n==== RECOLORING on " << node->data << " ====" << std::endl;    
+                                node->setColor(BLACK);
+                                node->right->setColor(RED);
                             }
-                            else if (NodeToDelete->parent->right == NodeToDelete)
-                            {
-                                NodeSurvivor->parent = NodeToDelete->parent;
-                                NodeToDelete->parent->right = NodeSurvivor;
-                            }
-                            delete(NodeToDelete);
-                            return (NodeParent);
                         }
-                        if (NodeToDelete->right && NodeToDelete->left)
+                        else if (TargetNode->hasLRChildren(TargetNode))
                         {
-                            // std::cout << "NodeToDelete: " << NodeToDelete->data << std::endl;
-                            Node<Key, T>* IOSuccessor = getIOSuccessor(NodeToDelete);
-                            // std::cout << "successor: " << InOrderSuccessor->data << std::endl;
-                            NodeToDelete->data = IOSuccessor->data;
-                            NodeToDelete->value = IOSuccessor->value;               
-                            // Update a faire des liens de l'ancien InOrderSuccessor qui va etre detruit. On branche ses childrens avec son parent.
-                            if (IOSuccessor->parent)
-                            {
-                                Node<Key, T>* IOSParent = IOSuccessor->parent;
-                                if (IOSuccessor->right)
-                                    IOSParent->left = IOSuccessor->right;
-                            }
-                            delete(IOSuccessor);
-                            return (NodeToDelete);
+                            Node<Key, T>* Replacer = getMaxValueNode(TargetNode->left);
+                            TargetNode->data = Replacer->data;
+                            TargetNode->value = Replacer->value;
+                            removeParentLink(Replacer);
+                            delete Replacer;
                         }
                     }
-                    return (NodeToDelete ? NodeToDelete : NULL);
+                    return (TargetNode ? TargetNode : NULL);
                 }
 
                 void printRBT()
@@ -552,7 +607,7 @@ class RBTree {
                     if (this->_root)
                     {
                         std::cout << std::endl << std::endl << std::endl;
-                        std::cout << _root->getData() << " - " << _root->getValue() << " - " << (_root->getColor()? "Red" : "Black") << std::endl;
+                        std::cout << "============= ROOT ============\nParent = " << (_root->parent? _root->parent->getData() : 0)<< " - " << _root->getData() << " - " << _root->getValue() << " - " << (_root->getColor() == 1? "Red" : _root->getColor() == 2? "Double Black": "Black") << std::endl;
                         if (_root->left)
                             _root->left->printNode('l', _root);
                         if (_root->right)

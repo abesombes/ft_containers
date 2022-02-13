@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/02/12 13:11:30 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/02/13 17:39:22 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,7 @@ int main()
     RedBlackT.printRBT();
     RedBlackT.insertNode(15, "Copenhagen");
     RedBlackT.printRBT();
-    RedBlackT.insertNode(17, "Amsterdam");
+    RedBlackT.insertNode(17, "Calixte");
     RedBlackT.printRBT();
     RedBlackT.insertNode(40, "Cordoba");
     RedBlackT.printRBT();
@@ -206,8 +206,15 @@ int main()
     RedBlackT.printRBT();
     RedBlackT.insertNode(32, "Phoenix");
     RedBlackT.printRBT();
-    RedBlackT.insertNode(33, "Boulder");
+    RedBlackT.insertNode(33, "Santa Monica");
     RedBlackT.printRBT();
+    // RedBlackT.deleteNode(RedBlackT.getRoot(), 25);
+    // RedBlackT.printRBT();
+    // RedBlackT.deleteNode(RedBlackT.getRoot(), 16);
+    // RedBlackT.printRBT();
+    RedBlackT.deleteNode(RedBlackT.getRoot(), 18);
+    RedBlackT.printRBT();
+
 
     
     // RedBlackT.insertNode(80, "Brasilia");
