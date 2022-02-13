@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/02/13 19:24:38 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/02/13 20:00:14 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,6 +208,7 @@ class Node {
 
             Node<Key, T>* leftrightRotate(Node<Key, T>* root, Node<Key, T>* node) // Left Right Case ONLY
             {
+                std::cout << "I am here 156\n" << std::endl;
                 if (node == NULL)
                     return (NULL);
                 Node<Key, T>* Parent = &(*node->parent);
@@ -579,18 +580,20 @@ class RBTree {
 
                             TargetNode->data = Key();
                             TargetNode->value = T();
-                            std::cout << "I am here 567 - TargetNode = " << TargetNode->data << " - parent of TargetNode = " << TargetNode->parent->data <<  std::endl;
-                            std::cout << "Sibling: " << getSibling(TargetNode)->data << std::endl;
                             TargetNode->setColor(DOUBLE_BLACK);
-                            
                             std::cout << "Sibling: " << getSibling(TargetNode)->data << std::endl;
                             if (getSibling(TargetNode)->getColor() == BLACK && TargetNode->parent->left == TargetNode && TargetNode->getColor() == DOUBLE_BLACK && getRightNephew(TargetNode)->getColor() == RED)
                             {
-                                std::cout << "\n==== LEFT RIGHT ROTATION 568 on " << TargetNode->data << " ====" << std::endl;
-                                ret = Parent->parent->leftrightRotate(_root, Parent->parent);
-                                std::cout << "\n==== RECOLORING on " << node->data << " ====" << std::endl;    
-                                node->setColor(BLACK);
-                                node->right->setColor(RED);
+                                std::cout << "\n==== LEFT ROTATION 568 on " << TargetNode->parent->data << " ====" << std::endl;
+                                std::cout << "_root: " << _root->data << " Parent: " << (Parent? Parent->data : 0) << std::endl;
+                                ret = TargetNode->parent->leftRotate(_root, TargetNode->parent);
+                                std::cout << "\n==== RECOLORING on " << TargetNode->parent->parent->right->data << " ====" << std::endl;
+                                TargetNode->parent->parent->right->setColor(BLACK);
+                                if (TargetNode->isLeftRightChild(TargetNode) == 0)
+                                    TargetNode->parent->left = NULL;
+                                else if (TargetNode->isLeftRightChild(TargetNode) == 1)
+                                    TargetNode->parent->right = NULL;
+                                delete TargetNode;
                             }
                         }
                         else if (TargetNode->hasLRChildren(TargetNode))
