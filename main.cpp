@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/02/14 23:49:02 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/02/15 00:37:44 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,6 +233,12 @@ int main()
     RedBlackT.deleteNode(RedBlackT.getRoot(), 25);
     RedBlackT.printRBT();
     RedBlackT.deleteNode(RedBlackT.getRoot(), 30);
+    RedBlackT.printRBT();
+    RedBlackT.deleteNode(RedBlackT.getRoot(), 15);
+    RedBlackT.printRBT();
+    RedBlackT.deleteNode(RedBlackT.getRoot(), 17);
+    RedBlackT.printRBT();
+    RedBlackT.deleteNode(RedBlackT.getRoot(), 9);
     RedBlackT.printRBT();
 
 

@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/02/15 00:18:22 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/02/15 00:49:45 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -752,10 +752,18 @@ class RBTree {
                                 delete Replacer;
                             }
                             std::cout << "I am here: line 725" << std::endl;
-                            if (Replacer->isDBlack() && getSibling(Replacer) && getSibling(Replacer)->isRed())
+                            if (Replacer->isDBlack() && Replacer->isRightChild() && getSibling(Replacer) && getSibling(Replacer)->isLeftChild() && getSibling(Replacer)->isRed())
                             {
-                                std::cout << "\n==== RIGHT ROTATION 717 on " << Replacer->parent->data << " ====" << std::endl;
+                                std::cout << "\n==== RIGHT ROTATION 757 on " << Replacer->parent->data << " ====" << std::endl;
                                 ret = Replacer->parent->rightRotate(_root, Replacer->parent);
+                                std::cout << "\n==== RECOLORING on " << Replacer->parent->data << " ====" << std::endl; 
+                                Replacer->parent->setColor(RED);
+                                Replacer->parent->parent->setColor(BLACK);
+                            }
+                            else if (Replacer->isDBlack() && Replacer->isLeftChild() && getSibling(Replacer) && getSibling(Replacer)->isRightChild() && getSibling(Replacer)->isRed())
+                            {
+                                std::cout << "\n==== LEFT ROTATION 765 on " << Replacer->parent->data << " ====" << std::endl;
+                                ret = Replacer->parent->leftRotate(_root, Replacer->parent);
                                 std::cout << "\n==== RECOLORING on " << Replacer->parent->data << " ====" << std::endl; 
                                 Replacer->parent->setColor(RED);
                                 Replacer->parent->parent->setColor(BLACK);
