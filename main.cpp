@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/02/14 18:04:37 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/02/14 23:49:02 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,16 +220,20 @@ int main()
     RedBlackT.printRBT();
     RedBlackT.deleteNode(RedBlackT.getRoot(), 5);
     RedBlackT.printRBT();
-    // RedBlackT.deleteNode(RedBlackT.getRoot(), 22);
-    // RedBlackT.printRBT();
-    // RedBlackT.deleteNode(RedBlackT.getRoot(), 10);
-    // RedBlackT.printRBT();
-    // RedBlackT.deleteNode(RedBlackT.getRoot(), 1);
-    // RedBlackT.printRBT();
-    // RedBlackT.deleteNode(RedBlackT.getRoot(), 7);
-    // RedBlackT.printRBT();
-    // RedBlackT.deleteNode(RedBlackT.getRoot(), 8);
-    // RedBlackT.printRBT();
+    RedBlackT.deleteNode(RedBlackT.getRoot(), 22);
+    RedBlackT.printRBT();
+    RedBlackT.deleteNode(RedBlackT.getRoot(), 10);
+    RedBlackT.printRBT();
+    RedBlackT.deleteNode(RedBlackT.getRoot(), 1);
+    RedBlackT.printRBT();
+    RedBlackT.deleteNode(RedBlackT.getRoot(), 7);
+    RedBlackT.printRBT();
+    RedBlackT.deleteNode(RedBlackT.getRoot(), 8);
+    RedBlackT.printRBT();
+    RedBlackT.deleteNode(RedBlackT.getRoot(), 25);
+    RedBlackT.printRBT();
+    RedBlackT.deleteNode(RedBlackT.getRoot(), 30);
+    RedBlackT.printRBT();
 
 
     
