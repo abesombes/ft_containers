@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/02/15 00:37:44 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/02/15 14:41:37 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,88 +159,114 @@ int main()
     // RedBlackT.printRBT();
     //
 
-    RedBlackT.insertNode(5, "London");
-    std::cout << RedBlackT.getRoot()->getColor() << std::endl;
+
+    RedBlackT.insertNode(57, "Santiago");
     RedBlackT.printRBT();
-    RedBlackT.insertNode(80, "Santiago");
+    RedBlackT.insertNode(26, "Paris");
     RedBlackT.printRBT();
-    RedBlackT.insertNode(8, "Paris");
+    RedBlackT.insertNode(59, "London");
     RedBlackT.printRBT();
-    RedBlackT.insertNode(18, "Madrid");
+    RedBlackT.insertNode(16, "Madrid");
     RedBlackT.printRBT();
-    RedBlackT.insertNode(25, "New-York");
+    RedBlackT.insertNode(71, "New-York");
     RedBlackT.printRBT();
-    RedBlackT.insertNode(15, "Copenhagen");
+    RedBlackT.insertNode(11, "Copenhagen");
     RedBlackT.printRBT();
-    RedBlackT.insertNode(17, "Calixte");
+    RedBlackT.insertNode(69, "Calixte");
     RedBlackT.printRBT();
-    RedBlackT.insertNode(40, "Cordoba");
+    RedBlackT.insertNode(62, "Cordoba");
     RedBlackT.printRBT();
-    RedBlackT.insertNode(12, "Sao Paolo");
+    RedBlackT.insertNode(78, "Sao Paolo");
     RedBlackT.printRBT();
-    RedBlackT.insertNode(7, "Quito");
+    RedBlackT.insertNode(75, "Quito");
     RedBlackT.printRBT();
-    RedBlackT.insertNode(19, "Medelin");
+    RedBlackT.insertNode(1, "Medelin");
     RedBlackT.printRBT();
-    RedBlackT.insertNode(22, "Cali");
+    RedBlackT.insertNode(15, "Cali");
     RedBlackT.printRBT();
-    RedBlackT.insertNode(1, "Valdes");
+    RedBlackT.insertNode(2, "Valdes");
     RedBlackT.printRBT();
-    RedBlackT.insertNode(13, "Punta Arena");
+    RedBlackT.insertNode(47, "Punta Arena");
     RedBlackT.printRBT();
-    RedBlackT.insertNode(9, "Salta");
+    RedBlackT.insertNode(92, "Salta");
     RedBlackT.printRBT();
-    RedBlackT.insertNode(10, "Mar Del Plata");
+    RedBlackT.insertNode(51, "Mar Del Plata");
     RedBlackT.printRBT();
-    RedBlackT.insertNode(14, "Chicago");
+    RedBlackT.insertNode(77, "Chicago");
     RedBlackT.printRBT();
-    RedBlackT.insertNode(11, "Dallas");
+    RedBlackT.insertNode(39, "Dallas");
     RedBlackT.printRBT();
-    RedBlackT.insertNode(16, "Philadelphia");
+    RedBlackT.insertNode(20, "Philadelphia");
     RedBlackT.printRBT();
-    RedBlackT.insertNode(2, "Boston");
+    RedBlackT.insertNode(13, "Boston");
     RedBlackT.printRBT();
-    RedBlackT.insertNode(30, "Las Vegas");
+    RedBlackT.insertNode(65, "Las Vegas");
     RedBlackT.printRBT();
-    RedBlackT.insertNode(23, "Salt Lake City");
+    RedBlackT.insertNode(84, "Salt Lake City");
     RedBlackT.printRBT();
-    RedBlackT.insertNode(27, "Colorado Spring");
+    RedBlackT.insertNode(6, "Colorado Spring");
     RedBlackT.printRBT();
-    RedBlackT.insertNode(32, "Phoenix");
+    RedBlackT.insertNode(87, "Phoenix");
     RedBlackT.printRBT();
-    RedBlackT.insertNode(33, "Santa Monica");
+    RedBlackT.insertNode(4, "Santa Monica");
     RedBlackT.printRBT();
+    RedBlackT.deleteNode(RedBlackT.getRoot(), 77);
+    RedBlackT.printRBT();
+    RedBlackT.deleteNode(RedBlackT.getRoot(), 69);
+    RedBlackT.printRBT();
+    RedBlackT.deleteNode(RedBlackT.getRoot(), 13);
+    RedBlackT.printRBT();
+    // RedBlackT.deleteNode(RedBlackT.getRoot(), 6);
+    // RedBlackT.printRBT();
+    // RedBlackT.deleteNode(RedBlackT.getRoot(), 1);
+    // RedBlackT.printRBT();
+    // RedBlackT.deleteNode(RedBlackT.getRoot(), 16);
+    // RedBlackT.printRBT();
+    // RedBlackT.deleteNode(RedBlackT.getRoot(), 26);
+    // RedBlackT.printRBT();
+    // RedBlackT.deleteNode(RedBlackT.getRoot(), 2);
+    // RedBlackT.printRBT();
+    // RedBlackT.deleteNode(RedBlackT.getRoot(), 39);
+    // RedBlackT.printRBT();
+    // RedBlackT.deleteNode(RedBlackT.getRoot(), 92);
+    // RedBlackT.printRBT();
+
+
+    
     // RedBlackT.deleteNode(RedBlackT.getRoot(), 25);
     // RedBlackT.printRBT();
     // RedBlackT.deleteNode(RedBlackT.getRoot(), 16);
     // RedBlackT.printRBT();
-    RedBlackT.deleteNode(RedBlackT.getRoot(), 18);
-    RedBlackT.printRBT();
-    RedBlackT.deleteNode(RedBlackT.getRoot(), 13);
-    RedBlackT.printRBT();
-    RedBlackT.deleteNode(RedBlackT.getRoot(), 5);
-    RedBlackT.printRBT();
-    RedBlackT.deleteNode(RedBlackT.getRoot(), 22);
-    RedBlackT.printRBT();
-    RedBlackT.deleteNode(RedBlackT.getRoot(), 10);
-    RedBlackT.printRBT();
-    RedBlackT.deleteNode(RedBlackT.getRoot(), 1);
-    RedBlackT.printRBT();
-    RedBlackT.deleteNode(RedBlackT.getRoot(), 7);
-    RedBlackT.printRBT();
-    RedBlackT.deleteNode(RedBlackT.getRoot(), 8);
-    RedBlackT.printRBT();
-    RedBlackT.deleteNode(RedBlackT.getRoot(), 25);
-    RedBlackT.printRBT();
-    RedBlackT.deleteNode(RedBlackT.getRoot(), 30);
-    RedBlackT.printRBT();
-    RedBlackT.deleteNode(RedBlackT.getRoot(), 15);
-    RedBlackT.printRBT();
-    RedBlackT.deleteNode(RedBlackT.getRoot(), 17);
-    RedBlackT.printRBT();
-    RedBlackT.deleteNode(RedBlackT.getRoot(), 9);
-    RedBlackT.printRBT();
-
+    // RedBlackT.deleteNode(RedBlackT.getRoot(), 18);
+    // RedBlackT.printRBT();
+    // RedBlackT.deleteNode(RedBlackT.getRoot(), 13);
+    // RedBlackT.printRBT();
+    // RedBlackT.deleteNode(RedBlackT.getRoot(), 5);
+    // RedBlackT.printRBT();
+    // RedBlackT.deleteNode(RedBlackT.getRoot(), 22);
+    // RedBlackT.printRBT();
+    // RedBlackT.deleteNode(RedBlackT.getRoot(), 10);
+    // RedBlackT.printRBT();
+    // RedBlackT.deleteNode(RedBlackT.getRoot(), 1);
+    // RedBlackT.printRBT();
+    // RedBlackT.deleteNode(RedBlackT.getRoot(), 7);
+    // RedBlackT.printRBT();
+    // RedBlackT.deleteNode(RedBlackT.getRoot(), 8);
+    // RedBlackT.printRBT();
+    // RedBlackT.deleteNode(RedBlackT.getRoot(), 25);
+    // RedBlackT.printRBT();
+    // RedBlackT.deleteNode(RedBlackT.getRoot(), 30);
+    // RedBlackT.printRBT();
+    // RedBlackT.deleteNode(RedBlackT.getRoot(), 15);
+    // RedBlackT.printRBT();
+    // RedBlackT.deleteNode(RedBlackT.getRoot(), 17);
+    // RedBlackT.printRBT();
+    // RedBlackT.deleteNode(RedBlackT.getRoot(), 9);
+    // RedBlackT.printRBT();
+    // RedBlackT.deleteNode(RedBlackT.getRoot(), 12);
+    // RedBlackT.printRBT();
+    // RedBlackT.deleteNode(RedBlackT.getRoot(), 27);
+    // RedBlackT.printRBT();
 
     
     // RedBlackT.insertNode(80, "Brasilia");
