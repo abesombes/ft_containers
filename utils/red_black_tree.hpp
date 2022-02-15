@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/02/15 14:33:43 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/02/15 16:15:02 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,13 @@ class Node {
             int hasNoRightChild(void)
             {
                 return (!this->right);
+            }
+
+            int hasLBNephew(void)
+            {
+                if ((getLeftNephew(this) && getLeftNephew(this)->isBlack()) || !getLeftNephew(this))
+                    return (1);
+                return (0);
             }
 
             int hasTwoBlackNephews(void)
@@ -582,18 +589,6 @@ class RBTree {
                     else
                         return NULL;
                 }
-
-                Node<Key, T>* getUncle(Node<Key, T>* node)
-                {
-                    Node<Key, T> *GrandParent = getGrandParent(node);                
-                    if (GrandParent == NULL)
-                        return NULL;
-                    if (GrandParent->left == node->parent)
-                        return (GrandParent->right);
-                    if (GrandParent->right == node->parent)
-                        return (GrandParent->left);
-                    return NULL;
-                }
                 
                 Node<Key, T>* getIOSuccessor(Node<Key, T>* node)
                 {        
@@ -663,6 +658,13 @@ class RBTree {
                                 std::cout << "\n==== PUSH BLACKNESS UP on " << TargetNode->data << " level - line 660 ====" << std::endl;
                                 TargetNode->pushBlacknessUp();
                                 _root->printNodeSubTree();
+                                // Node<Key, T>* TN = TargetNode->parent;
+                                // if (TN && getSibling(TN) && getSibling(TN)->isBlack() && TN->hasTwoBlackNephews())
+                                // {
+                                //     std::cout << "\n==== PUSH BLACKNESS UP on " << TN->data << " level - line 660 ====" << std::endl;
+                                //     TN->pushBlacknessUp();
+                                //     TN = TN->parent;
+                                // }  
                                 removeParentLink(TargetNode);
                                 delete TargetNode; 
                             }
@@ -715,12 +717,23 @@ class RBTree {
                                 Replacer->left->setColor(BLACK);
                             std::cout << "I am here 681: TargetNode = " << TargetNode->data << " - Replacer = " << Replacer->data << std::endl;
                             std::cout << "Sibling of former " << Replacer->data << " (now DOUBLE BLACK NULL LEAF): " << (getSibling(Replacer) ? getSibling(Replacer)->data : -1) << std::endl;
+                            // std::cout << "replacer: " << Replacer->data << " - color: " << Replacer->color << " - parent: " << Replacer->parent->data << std::endl;
                             if (Replacer->isBlack())
                             {
                                 std::cout << "I am here: line 685" << std::endl;
                                 Replacer->data = Key();
                                 Replacer->value = T();
                                 Replacer->setColor(DOUBLE_BLACK);
+                                Sibling = getSibling(Replacer);
+                                if (Sibling && Sibling->isBlack() && Replacer->isRightChild() && Replacer->hasLBNephew())
+                                {
+                                    std::cout << "\n==== LEFT RIGHT ROTATION 723 on " << Replacer->parent->data << " ====" << std::endl;
+                                    ret = Replacer->parent->leftrightRotate(_root, Replacer->parent);
+                                    Sibling->setColor(BLACK);
+                                    Sibling->parent->setColor(BLACK);
+                                    removeParentLink(Replacer);
+                                    delete Replacer;
+                                }
                                 while (getSibling(Replacer) && getSibling(Replacer)->isBlack() && Replacer->hasTwoBlackNephews())
                                 {
                                     std::cout << "\n==== PUSH BLACKNESS UP on " << Replacer->data << " level - line 704 ====" << std::endl;
@@ -743,7 +756,7 @@ class RBTree {
                                         continue;
                                     if (TargetNode->isLeftChild() && Sibling->isBlack() && getRightNephew(TargetNode) && getRightNephew(TargetNode)->isBlack())
                                     {
-                                        std::cout << "\n==== RIGHT ROTATION 723 on " << Sibling->data << " ====" << std::endl;
+                                        std::cout << "\n==== RIGHT ROTATION 750 on " << Sibling->data << " ====" << std::endl;
                                         ret = Sibling->rightRotate(_root, Sibling);
                                         Sibling->setColor(RED);
                                         Sibling->parent->setColor(BLACK);
@@ -772,7 +785,7 @@ class RBTree {
                                 removeParentLink(Replacer);
                                 delete Replacer;
                             }
-                            std::cout << "I am here: line 725" << std::endl;
+                            
                             if (Replacer->isDBlack() && Replacer->isRightChild() && getSibling(Replacer) && getSibling(Replacer)->isLeftChild() && getSibling(Replacer)->isRed())
                             {
                                 std::cout << "\n==== RIGHT ROTATION 757 on " << Replacer->parent->data << " ====" << std::endl;
