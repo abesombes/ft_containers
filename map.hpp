@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:19 by abesombes         #+#    #+#             */
-/*   Updated: 2022/02/08 15:19:05 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/02/17 10:20:49 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,10 @@ namespace ft{
 #include "utils/enable_if.hpp"
 #include "utils/is_integral.hpp"
 #include "utils/const_or_not.hpp"
+#include "utils/less.hpp"
 
 
-template <class Key, class T, class Compare = less<Key>, class Alloc = allocator<pair<const Key,T> > 
+template <class Key, class T, class Compare = ft::less<Key>, class Alloc = std::allocator<pair<const Key,T> > 
 class map {
 
     public:
