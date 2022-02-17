@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/02/16 19:17:10 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/02/17 09:30:17 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #define RED 0
 #define BLACK 1
 #define DOUBLE_BLACK 2
-#define newline std::cout<<endl;
 #include <iostream>
 
 
@@ -719,6 +718,7 @@ class RBTree {
                             TargetNode->data = Key();
                             TargetNode->value = T();
                             TargetNode->setColor(DOUBLE_BLACK);
+                            std::cout << "TargetNode: " << TargetNode->data << std::endl;
                             std::cout << "Sibling: " << (getSibling(TargetNode)? getSibling(TargetNode)->data : -1) << std::endl;
                             std::cout << "TargetNode->hasBSibling()? " << TargetNode->hasBSibling() << std::endl;
                             std::cout << "TargetNode->isLeftChild()? " << TargetNode->isLeftChild() << std::endl;
@@ -742,13 +742,13 @@ class RBTree {
                             }
                             else if (TargetNode->isDBlack() && TargetNode->hasBSibling() && TargetNode->hasTwoBlackNephews())
                             {
-                                std::cout << "\n==== PUSH BLACKNESS UP on " << TargetNode->data << " level - line 660 ====" << std::endl;
+                                std::cout << "\n==== PUSH BLACKNESS UP on " << TargetNode->data << " level - line 745 ====" << std::endl;
                                 TargetNode->pushBlacknessUp();
                                 _root->printNodeSubTree();
                                 Node<Key, T>* TN = TargetNode->parent;
                                 if (TN && TN->isDBlack() && getSibling(TN) && getSibling(TN)->isBlack() && TN->hasTwoBlackNephews())
                                 {
-                                    std::cout << "\n==== PUSH BLACKNESS UP on " << TN->data << " level - line 660 ====" << std::endl;
+                                    std::cout << "\n==== PUSH BLACKNESS UP on " << TN->data << " level - line 751 ====" << std::endl;
                                     TN->pushBlacknessUp();
                                     TN = TN->parent;
                                 }  
@@ -806,7 +806,7 @@ class RBTree {
                                 removeParentLink(TargetNode);
                                 delete TargetNode; 
                             }
-                            else if (getSibling(TargetNode) && getSibling(TargetNode)->isBlack() && TargetNode->isRightChild() && TargetNode->isDBlack() && TargetNode->hasLRNephew())
+                            else if (TargetNode->isDBlack() && TargetNode->hasBSibling() && TargetNode->isRightChild() && TargetNode->hasLRNephew())
                             {
                                 std::cout << "\n==== RIGHT ROTATION 726 on " << TargetNode->parent->data << " ====" << std::endl;
                                 ret = TargetNode->parent->rightRotate(_root, TargetNode->parent);
