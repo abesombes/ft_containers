@@ -6,15 +6,14 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/02/17 09:17:25 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/02/18 17:45:52 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "vector.hpp"
-#include "stack.hpp"
+// #include "vector.hpp"
+// #include "stack.hpp"
 #include "utils/pair.hpp"
-#include "utils/binary_search_tree.hpp"
 #include "utils/red_black_tree.hpp"
 #include <iostream>
 #include <vector>
@@ -94,6 +93,7 @@ void print_STLVec(std::vector<T> &v)
 int main()
 {
 
+        
     /* DERNIER TEST VECTOR QUI NE PASSE PAS - IL FAUT TROUVER UNE SOLUTION */
     // const int size = 5;
 	// ft::vector<int> const vct(size);
@@ -101,7 +101,8 @@ int main()
     
     // TESTS POUR MAP
     
-    // ft::RBTree<std::string, std::string> RedBlackT;
+    ft::RBTree<int, std::string> RedBlackT;
+    ft::pair<int, std::string> p1 = ft::make_pair(5, "London");
     // RedBlackT.insertNode("Chocolat", "D");
     // RedBlackT.insertNode("Boat", "A");
     // RedBlackT.insertNode("Aristochat", "Disney");
@@ -137,7 +138,7 @@ int main()
     // return(0);
     // ======================== FIN TEST SACHIN ========================== //
     
-    ft::RBTree<int, std::string> RedBlackT;
+    // ft::RBTree<int, std::string> RedBlackT;
     // RedBlackT.printRBT();
 
     // VANESSA EXAMPLE
@@ -261,83 +262,86 @@ int main()
     // RedBlackT.deleteNode(RedBlackT.getRoot(), 84);
     // RedBlackT.printRBT();
 
-    RedBlackT.insertNode(39, "Dallas");
-    RedBlackT.printRBT();
-    RedBlackT.insertNode(11, "Copenhagen");
-    RedBlackT.printRBT();
-    RedBlackT.insertNode(26, "Paris");
-    RedBlackT.printRBT();
-    RedBlackT.insertNode(16, "Madrid");
-    RedBlackT.printRBT();
-    RedBlackT.insertNode(71, "New-York");
-    RedBlackT.printRBT();
-    RedBlackT.insertNode(69, "Calixte");
-    RedBlackT.printRBT();
-    RedBlackT.insertNode(13, "Boston");
-    RedBlackT.printRBT();
-    RedBlackT.insertNode(78, "Sao Paolo");
-    RedBlackT.printRBT();
-    RedBlackT.insertNode(75, "Quito");
-    RedBlackT.printRBT();
-    RedBlackT.insertNode(1, "Medelin");
-    RedBlackT.printRBT();
-    RedBlackT.insertNode(15, "Cali");
-    RedBlackT.printRBT();
-    RedBlackT.insertNode(2, "Valdes");
-    RedBlackT.printRBT();
-    RedBlackT.insertNode(47, "Punta Arena");
-    RedBlackT.printRBT();
-    RedBlackT.insertNode(57, "Santiago");
-    RedBlackT.printRBT();
-    RedBlackT.insertNode(62, "Cordoba");
-    RedBlackT.printRBT();
-    RedBlackT.insertNode(92, "Salta");
-    RedBlackT.printRBT();
-    RedBlackT.insertNode(4, "Santa Monica");
-    RedBlackT.printRBT();
-    RedBlackT.insertNode(51, "Mar Del Plata");
-    RedBlackT.printRBT();
-    RedBlackT.insertNode(59, "London");
-    RedBlackT.printRBT();
-    RedBlackT.insertNode(77, "Chicago");
-    RedBlackT.printRBT();
-    RedBlackT.insertNode(20, "Philadelphia");
-    RedBlackT.printRBT();
-    RedBlackT.insertNode(65, "Las Vegas");
-    RedBlackT.printRBT();
-    RedBlackT.insertNode(84, "Salt Lake City");
-    RedBlackT.printRBT();
-    RedBlackT.insertNode(6, "Colorado Spring");
-    RedBlackT.printRBT();
-    RedBlackT.insertNode(87, "Phoenix");
-    RedBlackT.printRBT();
 
-    RedBlackT.deleteNode(RedBlackT.getRoot(), 51);
-    RedBlackT.printRBT();
-    RedBlackT.deleteNode(RedBlackT.getRoot(), 77);
-    RedBlackT.printRBT();
-    RedBlackT.deleteNode(RedBlackT.getRoot(), 6);
-    RedBlackT.printRBT();
-    RedBlackT.deleteNode(RedBlackT.getRoot(), 16);
-    RedBlackT.printRBT();
-    RedBlackT.deleteNode(RedBlackT.getRoot(), 26);
-    RedBlackT.printRBT();
-    RedBlackT.deleteNode(RedBlackT.getRoot(), 2);
-    RedBlackT.printRBT();
-    RedBlackT.deleteNode(RedBlackT.getRoot(), 92);
-    RedBlackT.printRBT();
-    RedBlackT.deleteNode(RedBlackT.getRoot(), 15);
-    RedBlackT.printRBT();
-    RedBlackT.deleteNode(RedBlackT.getRoot(), 47);
-    RedBlackT.printRBT();
-    RedBlackT.deleteNode(RedBlackT.getRoot(), 84);
-    RedBlackT.printRBT();
-    RedBlackT.deleteNode(RedBlackT.getRoot(), 71);
-    RedBlackT.printRBT();
-    RedBlackT.deleteNode(RedBlackT.getRoot(), 11);
-    RedBlackT.printRBT();
-    RedBlackT.deleteNode(RedBlackT.getRoot(), 87);
-    RedBlackT.printRBT();
+//TESTS TO COMPLETE:
+
+    // RedBlackT.insertNode(39, "Dallas");
+    // RedBlackT.printRBT();
+    // RedBlackT.insertNode(11, "Copenhagen");
+    // RedBlackT.printRBT();
+    // RedBlackT.insertNode(26, "Paris");
+    // RedBlackT.printRBT();
+    // RedBlackT.insertNode(16, "Madrid");
+    // RedBlackT.printRBT();
+    // RedBlackT.insertNode(71, "New-York");
+    // RedBlackT.printRBT();
+    // RedBlackT.insertNode(69, "Calixte");
+    // RedBlackT.printRBT();
+    // RedBlackT.insertNode(13, "Boston");
+    // RedBlackT.printRBT();
+    // RedBlackT.insertNode(78, "Sao Paolo");
+    // RedBlackT.printRBT();
+    // RedBlackT.insertNode(75, "Quito");
+    // RedBlackT.printRBT();
+    // RedBlackT.insertNode(1, "Medelin");
+    // RedBlackT.printRBT();
+    // RedBlackT.insertNode(15, "Cali");
+    // RedBlackT.printRBT();
+    // RedBlackT.insertNode(2, "Valdes");
+    // RedBlackT.printRBT();
+    // RedBlackT.insertNode(47, "Punta Arena");
+    // RedBlackT.printRBT();
+    // RedBlackT.insertNode(57, "Santiago");
+    // RedBlackT.printRBT();
+    // RedBlackT.insertNode(62, "Cordoba");
+    // RedBlackT.printRBT();
+    // RedBlackT.insertNode(92, "Salta");
+    // RedBlackT.printRBT();
+    // RedBlackT.insertNode(4, "Santa Monica");
+    // RedBlackT.printRBT();
+    // RedBlackT.insertNode(51, "Mar Del Plata");
+    // RedBlackT.printRBT();
+    // RedBlackT.insertNode(59, "London");
+    // RedBlackT.printRBT();
+    // RedBlackT.insertNode(77, "Chicago");
+    // RedBlackT.printRBT();
+    // RedBlackT.insertNode(20, "Philadelphia");
+    // RedBlackT.printRBT();
+    // RedBlackT.insertNode(65, "Las Vegas");
+    // RedBlackT.printRBT();
+    // RedBlackT.insertNode(84, "Salt Lake City");
+    // RedBlackT.printRBT();
+    // RedBlackT.insertNode(6, "Colorado Spring");
+    // RedBlackT.printRBT();
+    // RedBlackT.insertNode(87, "Phoenix");
+    // RedBlackT.printRBT();
+
+    // RedBlackT.deleteNode(RedBlackT.getRoot(), 51);
+    // RedBlackT.printRBT();
+    // RedBlackT.deleteNode(RedBlackT.getRoot(), 77);
+    // RedBlackT.printRBT();
+    // RedBlackT.deleteNode(RedBlackT.getRoot(), 6);
+    // RedBlackT.printRBT();
+    // RedBlackT.deleteNode(RedBlackT.getRoot(), 16);
+    // RedBlackT.printRBT();
+    // RedBlackT.deleteNode(RedBlackT.getRoot(), 26);
+    // RedBlackT.printRBT();
+    // RedBlackT.deleteNode(RedBlackT.getRoot(), 2);
+    // RedBlackT.printRBT();
+    // RedBlackT.deleteNode(RedBlackT.getRoot(), 92);
+    // RedBlackT.printRBT();
+    // RedBlackT.deleteNode(RedBlackT.getRoot(), 15);
+    // RedBlackT.printRBT();
+    // RedBlackT.deleteNode(RedBlackT.getRoot(), 47);
+    // RedBlackT.printRBT();
+    // RedBlackT.deleteNode(RedBlackT.getRoot(), 84);
+    // RedBlackT.printRBT();
+    // RedBlackT.deleteNode(RedBlackT.getRoot(), 71);
+    // RedBlackT.printRBT();
+    // RedBlackT.deleteNode(RedBlackT.getRoot(), 11);
+    // RedBlackT.printRBT();
+    // RedBlackT.deleteNode(RedBlackT.getRoot(), 87);
+    // RedBlackT.printRBT();
     // RedBlackT.deleteNode(RedBlackT.getRoot(), 20);
     // RedBlackT.printRBT();
     // RedBlackT.deleteNode(RedBlackT.getRoot(), 59);

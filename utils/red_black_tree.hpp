@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/02/17 17:42:48 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/02/18 18:50:31 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,17 @@ Rules That Every Red-Black Tree Follows:
 
 namespace ft{
 
-template <class Key, class T, class Compare = ft::less<Key>, class Alloc = std::allocator<pair<const Key,T> > 
+template <class Key, class T, class Compare = less<Key>, class Alloc = std::allocator<pair<const Key,T> > >
 class RBTree {
     
+    public:          
+
+                typedef Node<const Key, T, Compare, Alloc>	Node;
+                typedef Key									key_type;
+                typedef T									mapped_type;
+                typedef ft::pair<const Key, T>				value_type;
+                typedef std::size_t							size_type;
+                
     private:
                 Node*                               _root;
                 Node*                               _nil;
@@ -45,13 +53,7 @@ class RBTree {
                 std::allocator<Node>                _nodeAlloc;
                 
    
-    public:          
-
-                typedef Node<const Key, T, Compare, Alloc>	Node;
-                typedef Key									key_type;
-                typedef T									mapped_type;
-                typedef ft::pair<const Key, T>				value_type;
-                typedef std::size_t							size_type;
+    public:
                 
 
                 /*
@@ -63,9 +65,9 @@ class RBTree {
                
                 RBTree(): _root(NULL), _size(0), _cmp(Compare()), _valueAlloc(Alloc()) 
                 {
-                    _nodeAlloc = std::allocator<Node>();
+                    _nodeAlloc = std::allocator<Node>(); // it builds the std::allocator for the type <Node> each time
                     initializeNil();
-                    _root = nil;
+                    _root = _nil;
                 }
 
                 /*
@@ -74,7 +76,7 @@ class RBTree {
                 ----------------------------------------------------------------------------------------------------
                 */
 
-                RBTree(const &src)
+                RBTree(const RBTree &src)
                 {
                     _root = src._root;
                     initializeNil();
@@ -84,15 +86,48 @@ class RBTree {
                     _nodeAlloc = src._nodeAlloc;
                 }
 
-                ~RBTree {
-                    
+                ~RBTree(void) {
+                    clear();
+                    nodeDelete(_nil); // destruction of the last node > nil.
+                    _nil = NULL;
+                }
+
+                void nodeDelete(Node *node)
+                {
+                    if (! node->isNil())
+                    {
+                        _valueAlloc.destroy(&node->value);
+                        _nodeAlloc.deallocate(node, 1);
+                        delete node;
+                    }
+                }
+
+                void loopDeleteNode(Node *node)
+                {
+                     if (!node->isNil())
+                    {
+                        loopDeleteNode(node->left);
+                        loopDeleteNode(node->right);
+                        nodeDelete(node);
+                        _size--;
+                    }
+                }
+                
+                void clear(void)
+                {
+                    if (!_root->isNil())
+                    {
+                        loopDeleteNode(_root->left);
+                        loopDeleteNode(_root->right);
+                    }
+                    _root = _nil;
                 }
             
-                Node<Key, T>* getRoot(){ return _root;};
+                Node* getRoot(){ return _root; }
                 
-                void setRoot(Node &node){ _root = node; };
+                void setRoot(Node &node){ _root = node; }
                 
-                void swapNodeColor(Node<Key, T> &nodeA, Node<Key, T> &nodeB)
+                void swapNodeColor(Node &nodeA, Node &nodeB)
                 {
                     int tmp_color = nodeA.color;
                     nodeA.setColor(nodeB->getColor);
@@ -103,11 +138,11 @@ class RBTree {
                 {
                     value_type  nilValue = ft::make_pair(Key(), T());
                     
-                    nil = newNode(nilValue);
-                    nil->color = BLACK;
-                    nil->parent = this->nil;
-                    nil->left = this->nil;
-                    nil->right = this->nil;
+                    _nil = newNode(nilValue);
+                    _nil->color = BLACK;
+                    _nil->parent = this->_nil;
+                    _nil->left = this->_nil;
+                    _nil->right = this->_nil;
                 }
 
                 Node* newNode(const value_type &value)
@@ -115,16 +150,16 @@ class RBTree {
                     Node *newNode = _nodeAlloc.allocate(1);
                     
                     _valueAlloc.construct(&newNode->value, value);
-                    newNode->left = nil;
-                    newNode->right = nil;
-                    newNode->parent = nil;
+                    newNode->left = _nil;
+                    newNode->right = _nil;
+                    newNode->parent = _nil;
                     newNode->color = RED;
                     return newNode;
                 }
 
                 void insertNode(Key data, T value)
                 {
-                    Node<Key, T>* newNode = new Node<Key, T>(data, value);
+                    Node* newNode = new Node(data, value);
                     std::cout << "newNode: " << newNode->getColor() << std::endl;
                     this->_root = BSTInsert(this->_root, newNode);
                     std::cout << "\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
@@ -137,7 +172,7 @@ class RBTree {
                         _root->setColor(BLACK);
                 }
 
-                Node<Key, T>* getMaxValueNode(Node<Key, T> *root)
+                Node* getMaxValueNode(Node *root)
                 {
                     if(root == NULL)
                         return NULL;
@@ -147,9 +182,9 @@ class RBTree {
                         return getMaxValueNode(root->right);
                 }
 
-                Node<Key, T>* getMinValueNode(Node<Key, T>* node)
+                Node* getMinValueNode(Node* node)
                 {
-                    Node<Key, T>* current = node;
+                    Node* current = node;
                 
                     /* loop down to find the leftmost leaf */
                     while (current && current->left != NULL)
@@ -158,7 +193,7 @@ class RBTree {
                     return current;
                 }
 
-                Node<Key, T>* getGrandParent(Node<Key, T>* node)
+                Node* getGrandParent(Node* node)
                 {
                     if (node && node->parent)
                         return (node->parent->parent);
@@ -166,7 +201,7 @@ class RBTree {
                         return NULL;
                 }
                 
-                Node<Key, T>* getIOSuccessor(Node<Key, T>* node)
+                Node* getIOSuccessor(Node* node)
                 {        
                     if (node == NULL)
                         return NULL;
@@ -179,11 +214,13 @@ class RBTree {
                         if (node->parent == _root && node->parent->left == node)
                             return (node->parent);
                         if (node->parent == _root && node->parent->left != node)
-                            return (NULL);#include "utils/less.hpp"
+                            return (NULL);
+                        return (node->parent);
+                    }
                     return NULL;
                 }
 
-                Node<Key, T>* getIOPredecessor(Node<Key, T>* node)
+                Node* getIOPredecessor(Node* node)
                 {          
                     if (node == NULL)
                         return NULL;
@@ -202,16 +239,16 @@ class RBTree {
                     return NULL;
                 }
 
-                Node<Key, T>* deleteNode(Node<Key, T>* node, Key key)
+                Node* deleteNode(Node* node, Key key)
                 {
                     if (!node)
                         return NULL;
                     std::cout << "\n==== NODE DELETE: " << key << " ====" << std::endl;
-                    Node<Key, T>* TargetNode = searchNode(node, key);
-                    Node<Key, T>* Parent = node->parent;
-                    Node<Key, T>* Parent_SubTree = NULL;
-                    Node<Key, T>* Sibling = NULL;
-                    Node<Key, T>* ret = NULL;
+                    Node* TargetNode = searchNode(node, key);
+                    Node* Parent = node->parent;
+                    Node* Parent_SubTree = NULL;
+                    Node* Sibling = NULL;
+                    Node* ret = NULL;
                     if (TargetNode)
                     {
                         if (isLeaf(TargetNode) && TargetNode->getColor() == RED)
@@ -238,7 +275,7 @@ class RBTree {
                                 if (ret)
                                     _root = ret;
                                 TargetNode->parent->swapChildParentColors();
-                                Node<Key, T>* TN = TargetNode;
+                                Node* TN = TargetNode;
                                 if (TN && TN->isDBlack() && getSibling(TN) && getSibling(TN)->isBlack() && TN->hasTwoBlackNephews())
                                 {
                                     std::cout << "\n==== PUSH BLACKNESS UP on " << TN->data << " level - line 710 ====" << std::endl;
@@ -253,7 +290,7 @@ class RBTree {
                                 std::cout << "\n==== PUSH BLACKNESS UP on " << TargetNode->data << " level - line 745 ====" << std::endl;
                                 TargetNode->pushBlacknessUp();
                                 _root->printNodeSubTree();
-                                Node<Key, T>* TN = TargetNode->parent;
+                                Node* TN = TargetNode->parent;
                                 if (TN && TN->isDBlack() && getSibling(TN) && getSibling(TN)->isBlack() && TN->hasTwoBlackNephews())
                                 {
                                     std::cout << "\n==== PUSH BLACKNESS UP on " << TN->data << " level - line 751 ====" << std::endl;
@@ -280,7 +317,7 @@ class RBTree {
                             else if (TargetNode->isDBlack() && TargetNode->hasBSibling() && TargetNode->isLeftChild() && TargetNode->hasRRNephew())
                             {
                                 getSibling(TargetNode)->swapChildParentColors();
-                                Node<Key, T>* FarNephew = TargetNode->getFarNephew();
+                                Node* FarNephew = TargetNode->getFarNephew();
                                 std::cout << "\n==== LEFT ROTATION 672 on " << TargetNode->parent->data << " ====" << std::endl;
                                 std::cout << "_root: " << _root->data << " Parent: " << (Parent? Parent->data : 0) << std::endl;
                                 ret = TargetNode->parent->leftRotate(_root, TargetNode->parent);
@@ -333,7 +370,7 @@ class RBTree {
                         else if (TargetNode->hasLRChildren(TargetNode))
                         {
                             std::cout << "\n==== TargetNode has two children line 770 ====\n" << std::endl;
-                            Node<Key, T>* Replacer = getMaxValueNode(TargetNode->left);
+                            Node* Replacer = getMaxValueNode(TargetNode->left);
                             std::cout << "I am here 772: TargetNode = " << TargetNode->data << " - Replacer (Max Value of Left Subtree) = " << Replacer->data << std::endl;
                             TargetNode->data = Replacer->data;
                             TargetNode->value = Replacer->value;
@@ -534,7 +571,7 @@ class RBTree {
                 }
 };
 
-}
+};
 
 
 #endif
