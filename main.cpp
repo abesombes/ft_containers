@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/01 19:14:51 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/01 19:23:06 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,15 +103,15 @@ int main()
     
     ft::RBTree<int, std::string> RedBlackT;
     ft::pair<int, std::string> p1 = ft::make_pair(5, "London");
-    // ft::pair<int, std::string> p2 = ft::make_pair(18, "Paris");
-    // ft::pair<int, std::string> p3 = ft::make_pair(25, "Kiev");
-    // ft::pair<int, std::string> p4 = ft::make_pair(9, "Madrid");
-    // ft::pair<int, std::string> p5 = ft::make_pair(7, "Tungunska");
+    ft::pair<int, std::string> p2 = ft::make_pair(18, "Paris");
+    ft::pair<int, std::string> p3 = ft::make_pair(25, "Kiev");
+    ft::pair<int, std::string> p4 = ft::make_pair(9, "Madrid");
+    ft::pair<int, std::string> p5 = ft::make_pair(7, "Tungunska");
     RedBlackT.insertValue(p1);
-    // RedBlackT.insertValue(p2);
-    // RedBlackT.insertValue(p3);
-    // RedBlackT.insertValue(p4);
-    // RedBlackT.insertValue(p5);
+    RedBlackT.insertValue(p2);
+    RedBlackT.insertValue(p3);
+    RedBlackT.insertValue(p4);
+    RedBlackT.insertValue(p5);
     RedBlackT.printRBT();
     // RedBlackT.insertNode("Chocolat", "D");
     // RedBlackT.insertNode("Boat", "A");
