@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/02/18 18:50:31 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/01 19:04:53 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,22 +104,20 @@ class RBTree {
 
                 void loopDeleteNode(Node *node)
                 {
-                     if (!node->isNil())
-                    {
+                    if (!node->left->isNil())
                         loopDeleteNode(node->left);
+                    if (!node->right->isNil())
                         loopDeleteNode(node->right);
-                        nodeDelete(node);
-                        _size--;
-                    }
+                    nodeDelete(node);
+                    _size--;
                 }
                 
                 void clear(void)
                 {
-                    if (!_root->isNil())
-                    {
+                    if (!_root->left->isNil())
                         loopDeleteNode(_root->left);
+                    if (!_root->right->isNil())
                         loopDeleteNode(_root->right);
-                    }
                     _root = _nil;
                 }
             
@@ -157,17 +155,39 @@ class RBTree {
                     return newNode;
                 }
 
-                void insertNode(Key data, T value)
+                Node* BSTInsert(Node* root, Node* node)
                 {
-                    Node* newNode = new Node(data, value);
-                    std::cout << "newNode: " << newNode->getColor() << std::endl;
-                    this->_root = BSTInsert(this->_root, newNode);
+                    if (root->isNil())
+                    {
+                        node->setColor(BLACK);
+                        return (node);
+                    }
+                    if (root->getKey() > node->getKey())
+                    {
+                        root->left = BSTInsert(root->left, node);
+                        root->left->parent = root;
+                    }
+                    else if (root->getKey() < node->getKey())
+                    {
+                        root->right = BSTInsert(root->right, node);
+                        root->right->parent = root;  
+                    }
+                    // if not root, insert by default as a RED leaf
+                    node->setColor(RED);
+                    return root;
+                }
+
+                void insertValue(const value_type &value)
+                {
+                    Node* new_Node = newNode(value);
+                    // std::cout << "new_Node: " << new_Node->getColor() << std::endl;
+                    this->_root = BSTInsert(this->_root, new_Node);
                     std::cout << "\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
-                    std::cout << "+++++++++++++ ANNOUNCEMENT: NEW VALUE ADDED - " << data << " +++++++++++++" << std::endl;
+                    std::cout << "+++++++++++++ ANNOUNCEMENT: NEW VALUE ADDED - " << value.first << " +++++++++++++" << std::endl;
                     std::cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
-                    this->printRBT();
-                    _root = fixInsertion(this->_root, newNode);
-                    std::cout << "_root: " << _root->getColor() << std::endl;
+                    // this->printRBT();
+                    // _root = fixInsertion(this->_root, new_Node);
+                    // std::cout << "_root: " << _root->getColor() << std::endl;
                     if (_root->getColor() == RED)
                         _root->setColor(BLACK);
                 }
@@ -562,10 +582,10 @@ class RBTree {
                     if (this->_root)
                     {
                         std::cout << std::endl << std::endl << std::endl;
-                        std::cout << "============= ROOT ============\nParent = " << (_root->parent? _root->parent->getData() : 0)<< " - " << _root->getData() << " - " << _root->getValue() << " - " << (_root->getColor() == RED? "Red" : _root->getColor() == DOUBLE_BLACK? "Double Black": "Black") << std::endl;
-                        if (_root->left)
+                        std::cout << "============= ROOT ============\nParent = " << (_root->parent? _root->parent->getKey() : 0)<< " - " << _root->getKey() << " - " << _root->getMapped() << " - " << (_root->getColor() == RED? "Red" : _root->getColor() == DOUBLE_BLACK? "Double Black": "Black") << std::endl;
+                        if (!_root->left->isNil())
                             _root->left->printNode('l', _root);
-                        if (_root->right)
+                        if (!_root->right->isNil())
                             _root->right->printNode('r', _root);
                     }
                 }

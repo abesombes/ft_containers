@@ -1,0 +1,155 @@
+
+
+Tue Mar  1 15:44:45 2022
+Command line: TestDisk
+
+TestDisk 7.1, Data Recovery Utility, July 2019
+Christophe GRENIER <grenier@cgsecurity.org>
+https://www.cgsecurity.org
+OS: Linux, kernel 5.13.0-28-generic (#31~20.04.1-Ubuntu SMP Wed Jan 19 14:08:10 UTC 2022) x86_64
+Compiler: GCC 9.2
+ext2fs lib: 1.45.5, ntfs lib: libntfs-3g, reiserfs lib: none, ewf lib: none, curses lib: ncurses 6.1
+User is not root!
+Hard disk list
+
+
+TestDisk exited normally.
+Using locale 'fr_FR.UTF-8'.
+
+
+Tue Mar  1 15:44:45 2022
+Command line: TestDisk /debug
+
+TestDisk 7.1, Data Recovery Utility, July 2019
+Christophe GRENIER <grenier@cgsecurity.org>
+https://www.cgsecurity.org
+OS: Linux, kernel 5.13.0-28-generic (#31~20.04.1-Ubuntu SMP Wed Jan 19 14:08:10 UTC 2022) x86_64
+Compiler: GCC 9.2
+ext2fs lib: 1.45.5, ntfs lib: libntfs-3g, reiserfs lib: none, ewf lib: none, curses lib: ncurses 6.1
+/dev/sda: LBA, HPA, LBA48, DCO support
+/dev/sda: size       1953525168 sectors
+/dev/sda: user_max   1953525168 sectors
+/dev/sda: native_max 1953525168 sectors
+/dev/sdb: LBA, HPA, LBA48, DCO support
+/dev/sdb: size       3907029168 sectors
+/dev/sdb: user_max   3907029168 sectors
+/dev/sdb: native_max 3907029168 sectors
+/dev/sdc: LBA, HPA, LBA48, DCO support
+/dev/sdc: size       1953525168 sectors
+/dev/sdc: user_max   1953525168 sectors
+/dev/sdc: native_max 1953525168 sectors
+Warning: can't get size for Disk /dev/mapper/control - 0 B - 0 sectors, sector size=512
+Warning: can't get size for Disk /dev/loop22 - 0 B - 0 sectors (RO), sector size=512
+Hard disk list
+Disk /dev/sda - 1000 GB / 931 GiB - CHS 121601 255 63, sector size=512 - ST1000DM010-2EP102, S/N:Z9A8MAM8, FW:CC43
+Disk /dev/sdb - 2000 GB / 1863 GiB - CHS 243201 255 63, sector size=512 - Hitachi HDS5C3020BLE630, S/N:MCE7215P0THR4R, FW:MZ4OAAB0
+Disk /dev/sdc - 1000 GB / 931 GiB - CHS 121601 255 63, sector size=512 - ST1000DM010-2EP102, S/N:Z9AHBGC7, FW:CC43
+Disk /dev/loop0 - 4096 B - 8 sectors (RO), sector size=512
+Disk /dev/loop1 - 298 MB / 285 MiB - 583776 sectors (RO), sector size=512
+Disk /dev/loop10 - 5005 KB / 4888 KiB - 9776 sectors (RO), sector size=512
+Disk /dev/loop11 - 67 MB / 64 MiB - 132440 sectors (RO), sector size=512
+Disk /dev/loop12 - 45 MB / 43 MiB - 89264 sectors (RO), sector size=512
+Disk /dev/loop13 - 118 MB / 112 MiB - 231360 sectors (RO), sector size=512
+Disk /dev/loop14 - 58 MB / 55 MiB - 113680 sectors (RO), sector size=512
+Disk /dev/loop15 - 222 MB / 212 MiB - 434448 sectors (RO), sector size=512
+Disk /dev/loop16 - 98 MB / 93 MiB - 191784 sectors (RO), sector size=512
+Disk /dev/loop17 - 64 MB / 61 MiB - 126792 sectors (RO), sector size=512
+Disk /dev/loop18 - 259 MB / 247 MiB - 507712 sectors (RO), sector size=512
+Disk /dev/loop19 - 64 MB / 61 MiB - 126592 sectors (RO), sector size=512
+Disk /dev/loop2 - 116 MB / 110 MiB - 226912 sectors (RO), sector size=512
+Disk /dev/loop20 - 143 KB / 140 KiB - 280 sectors (RO), sector size=512
+Disk /dev/loop21 - 143 MB / 136 MiB - 280040 sectors (RO), sector size=512
+Disk /dev/loop23 - 226 MB / 215 MiB - 442016 sectors (RO), sector size=512
+Disk /dev/loop24 - 172 MB / 164 MiB - 337424 sectors (RO), sector size=512
+Disk /dev/loop25 - 271 MB / 258 MiB - 529728 sectors (RO), sector size=512
+Disk /dev/loop26 - 68 MB / 65 MiB - 133552 sectors (RO), sector size=512
+Disk /dev/loop27 - 116 MB / 111 MiB - 227904 sectors (RO), sector size=512
+Disk /dev/loop28 - 56 MB / 54 MiB - 111080 sectors (RO), sector size=512
+Disk /dev/loop29 - 65 MB / 62 MiB - 127448 sectors (RO), sector size=512
+Disk /dev/loop3 - 220 MB / 210 MiB - 430312 sectors (RO), sector size=512
+Disk /dev/loop30 - 64 MB / 61 MiB - 126752 sectors (RO), sector size=512
+Disk /dev/loop4 - 58 MB / 55 MiB - 113640 sectors (RO), sector size=512
+Disk /dev/loop5 - 91 MB / 87 MiB - 179152 sectors (RO), sector size=512
+Disk /dev/loop6 - 4993 KB / 4876 KiB - 9752 sectors (RO), sector size=512
+Disk /dev/loop7 - 68 MB / 64 MiB - 132816 sectors (RO), sector size=512
+Disk /dev/loop8 - 260 MB / 248 MiB - 509456 sectors (RO), sector size=512
+Disk /dev/loop9 - 46 MB / 44 MiB - 91368 sectors (RO), sector size=512
+Disk /dev/nvme0n1 - 1000 GB / 931 GiB - CHS 953869 64 32, sector size=512
+Disk /dev/nvme1n1 - 500 GB / 465 GiB - CHS 476940 64 32, sector size=512
+
+Partition table type (auto): EFI GPT
+Disk /dev/nvme0n1 - 1000 GB / 931 GiB
+Partition table type: EFI GPT
+
+Analyse Disk /dev/nvme0n1 - 1000 GB / 931 GiB - CHS 953869 64 32
+hdr_size=92
+hdr_lba_self=1
+hdr_lba_alt=1953525167 (expected 1953525167)
+hdr_lba_start=34
+hdr_lba_end=1953525134
+hdr_lba_table=2
+hdr_entries=128
+hdr_entsz=128
+Current partition structure:
+ 1 P EFI System                  2048    1050623    1048576 [EFI System Partition]
+ 2 P Linux filesys. data      1050624 1953523711 1952473088
+
+search_part()
+Disk /dev/nvme0n1 - 1000 GB / 931 GiB - CHS 953869 64 32
+FAT32 at 1/0/1
+FAT1 : 32-1055
+FAT2 : 1056-2079
+start_rootdir : 2080 root cluster : 2
+Data : 2080-1048575
+sectors : 1048576
+cluster_size : 8
+no_of_cluster : 130812 (2 - 130813)
+fat_length 1024 calculated 1022
+set_FAT_info: name from BS used
+
+FAT32 at 1/0/1
+FAT: cluster=2(0x2), pos=4128
+     EFI System                  2048    1050623    1048576 [EFI System Partition] [NO NAME]
+     FAT32, blocksize=4096, 536 MB / 512 MiB
+
+recover_EXT2: s_block_group_nr=0/7448, s_mnt_count=30/4294967295, s_blocks_per_group=32768, s_inodes_per_group=8192
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 244059136
+recover_EXT2: part_size 1952473088
+Filesystem created: Tue Sep 21 11:32:38 2021
+Last mount time:    Tue Feb 22 10:07:17 2022
+     Linux filesys. data      1050624 1953523711 1952473088
+     ext4 blocksize=4096 Large_file Sparse_SB Recover, 999 GB / 931 GiB
+
+Results
+   P EFI System                  2048    1050623    1048576 [EFI System Partition] [NO NAME]
+     FAT32, blocksize=4096, 536 MB / 512 MiB
+   P Linux filesys. data      1050624 1953523711 1952473088
+     ext4 blocksize=4096 Large_file Sparse_SB Recover, 999 GB / 931 GiB
+
+Hint for advanced users: dmsetup may be used if you prefer to avoid rewriting the partition table for the moment:
+echo "0 1048576 linear /dev/nvme0n1 2048" | dmsetup create test0
+echo "0 1952473088 linear /dev/nvme0n1 1050624" | dmsetup create test1
+
+interface_write()
+ 1 P EFI System                  2048    1050623    1048576 [EFI System Partition] [NO NAME]
+ 2 P Linux filesys. data      1050624 1953523711 1952473088
+
+interface_write()
+ 1 P EFI System                  2048    1050623    1048576 [EFI System Partition] [NO NAME]
+ 2 P Linux filesys. data      1050624 1953523711 1952473088
+simulate write!
+
+Interface Advanced
+hdr_size=92
+hdr_lba_self=1
+hdr_lba_alt=1953525167 (expected 1953525167)
+hdr_lba_start=34
+hdr_lba_end=1953525134
+hdr_lba_table=2
+hdr_entries=128
+hdr_entsz=128
+ 1 P EFI System                  2048    1050623    1048576 [EFI System Partition]
+ 2 P Linux filesys. data      1050624 1953523711 1952473088
+
+TestDisk exited normally.

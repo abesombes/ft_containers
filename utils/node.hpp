@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 10:34:35 by abesombes         #+#    #+#             */
-/*   Updated: 2022/02/18 17:46:50 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/01 18:55:50 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,14 @@ class Node {
                 }
             }
             /* ----------------------------------------------------------- */
-            
+            void printNode(char relative_pos, Node* parent)
+            {
+                std::cout << (relative_pos == 'r' ? "Right of " : "Left of ") << parent->getKey() << " - " << "Parent = " << this->parent->getKey() << " - " << this->getKey() << " - " << this->getMapped() << " - " << (this->getColor() == RED? "Red" : this->getColor() == DOUBLE_BLACK? "Double Black": "Black") << std::endl; 
+                if (!left->isNil())
+                    left->printNode('l', this);
+                if (!right->isNil())
+                    right->printNode('r', this);    
+            }
             
 //             Node<Key, T>* getGrandParent( void )
 //             {
