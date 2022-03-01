@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/01 19:04:53 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/01 19:22:16 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,8 @@ class RBTree {
 
                 void nodeDelete(Node *node)
                 {
-                    if (! node->isNil())
-                    {
-                        _valueAlloc.destroy(&node->value);
-                        _nodeAlloc.deallocate(node, 1);
-                        delete node;
-                    }
+                    _valueAlloc.destroy(&node->value);
+                    _nodeAlloc.deallocate(node, 1);
                 }
 
                 void loopDeleteNode(Node *node)
@@ -118,7 +114,12 @@ class RBTree {
                         loopDeleteNode(_root->left);
                     if (!_root->right->isNil())
                         loopDeleteNode(_root->right);
-                    _root = _nil;
+                    if (!_root->isNil())
+                    {
+                        nodeDelete(_root);
+                        _size--;
+                        _root = _nil;
+                    }
                 }
             
                 Node* getRoot(){ return _root; }
