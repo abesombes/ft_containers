@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/01 19:22:16 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/02 19:56:44 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ class RBTree {
 
                 ~RBTree(void) {
                     clear();
-                    nodeDelete(_nil); // destruction of the last node > nil.
+                    nodeDelete(_nil);
                     _nil = NULL;
                 }
 
@@ -187,7 +187,7 @@ class RBTree {
                     std::cout << "+++++++++++++ ANNOUNCEMENT: NEW VALUE ADDED - " << value.first << " +++++++++++++" << std::endl;
                     std::cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
                     // this->printRBT();
-                    // _root = fixInsertion(this->_root, new_Node);
+                    _root = fixInsertion(this->_root, new_Node);
                     // std::cout << "_root: " << _root->getColor() << std::endl;
                     if (_root->getColor() == RED)
                         _root->setColor(BLACK);
@@ -219,9 +219,163 @@ class RBTree {
                     if (node && node->parent)
                         return (node->parent->parent);
                     else
-                        return NULL;
+                        return _nil;
+                }
+
+                /* -------------------- PushBlackness Functions ---------------------- */
+
+                void pushBlacknessDown(Node* node)
+                {
+                    Node* Parent = node->parent;
+                    Node* GrandParent = node->getGrandParent(_nil);
+                    Node* Uncle = node->getUncle(_nil);
+                    std::cout << "\n==== PUSH THE BLACKNESS DOWN FROM GP ====" << std::endl;
+                    if (GrandParent->getColor() == BLACK)
+                    {
+                        Uncle->setColor(BLACK);
+                        Parent->setColor(BLACK);
+                        GrandParent->setColor(RED);
+                    }
                 }
                 
+                void pushBlacknessUp(Node* node)
+                {
+                    Node* Parent = node->parent;
+                    Node* Sibling = getSibling(node);
+                    std::cout << "\n==== PUSH THE BLACKNESS UP: " << this->data << " - " << Parent->data << " - " << Sibling->data << " ====" << std::endl;
+                    setColor(std::max(node->getColor() - 1, 0));
+                    if (Parent)
+                        Parent->setColor(Parent->getColor() + 1);
+                    if (Sibling)
+                        Sibling->setColor(std::max(Sibling->getColor() - 1, 0));                
+                }
+
+                /* ----------------------------------------------------------- */
+
+                Node* leftRotate(Node* root, Node* node) // Right Right Case ONLY
+                {
+                    if (node == NULL)
+                        return (NULL);
+                    Node* Parent = &(*node->parent);
+                    int flag_lr = (node->isLeftRightChild() ? 1 : 0);
+                    // Node* snode = &(*node); // GrandParent in the chain of 3 nodes
+                    Node* RightChild = (node->right? &(*node->right) : NULL);
+                    // Node* RightLeftChild = (node->right? &(*node->right->left) : NULL);
+                    int flag_root = (node == root? 1 : 0);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                    node = RightChild;
+                    std::cout << "I am here 160\n";
+                    if (flag_lr && !flag_root)
+                        Parent->right = node;
+                    else if (!flag_root)
+                        Parent->left = node;
+                    if (Parent)
+                        node->parent = Parent;
+                    else    
+                        node->parent = NULL;
+                    return (flag_root? node: NULL);
+                }
+
+                Node* rightRotate(Node* root, Node* node) // Left Left Case ONLY
+                {
+                    if (node == NULL)
+                        return (NULL);
+                    Node* Parent = &(*node->parent);
+                    int flag_lr = (node->isLeftRightChild() ? 1 : 0);
+                    Node* snode = &(*node); // GrandParent in the chain of 3 nodes
+                    Node* LeftChild = (node->left? &(*node->left) : NULL);
+                    Node* LRChild = (node->left? &(*node->left->right) : NULL);
+                    int flag_root = (node == root? 1 : 0);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                    node = LeftChild;
+                    if (flag_lr && !flag_root)
+                        Parent->right = node;
+                    else if (!flag_root)
+                        Parent->left = node;
+                    if (Parent)
+                        node->parent = Parent;
+                    node->right = snode;
+                    snode->parent = node;
+                    node->right->left = LRChild;
+                    if (LRChild)
+                        LRChild->parent = node->right;
+                    if (flag_root)
+                        node->parent = NULL;
+                    return (flag_root? node: NULL);
+                }
+
+                Node* leftrightRotate(Node* root, Node* node) // Left Right Case ONLY
+                {
+                    std::cout << "I am here 156\n" << std::endl;
+                    if (node == NULL)
+                        return (NULL);
+                    Node* Parent = &(*node->parent);
+                    int flag_lr = (node->isLeftRightChild() ? 1 : 0);
+                    Node* snode = &(*node); // GrandParent in the chain of 3 nodes
+                    Node* LChild = (node->left? &(*node->left) : NULL);
+                    Node* LRChild = (node->left? &(*node->left->right) : NULL);
+                    Node* LRLChild = (node->left->right? &(*node->left->right->left) : NULL);
+                    Node* LRRChild = (node->left->right? &(*node->left->right->right) : NULL);
+                    
+                    int flag_root = (node == root? 1 : 0);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                    node = LRChild;
+                    node->left = LChild;
+                    LChild->parent = node;
+                    node->right = snode;
+                    snode->parent = node;
+                    if (flag_lr && !flag_root)
+                        Parent->right = node;
+                    else if (!flag_root)
+                        Parent->left = node;
+                    if (Parent)
+                        node->parent = Parent;
+                    node->left->right = LRLChild;
+                    if (LRLChild)
+                        LRLChild->parent = node->left;
+                    node->right->left = LRRChild;
+                    if (LRRChild)
+                        LRRChild->parent = node->right;
+                    if (flag_root)
+                        node->parent = NULL;
+                    return (flag_root? node: NULL);
+                }
+
+                Node* rightleftRotate(Node* root, Node* node) // Right Left Case ONLY
+                {
+                    if (node == NULL)
+                        return (NULL);
+                    Node* Parent = &(*(node->parent));
+                    // std::cout << "1er passage ---  node: "<< node->data << " - node->parent: " << (node->parent? node->parent->data : 0) << " - Parent: " << (Parent != NULL ? Parent->value : std::string()) << std::endl;
+                    int flag_lr = (node->isLeftRightChild() ? 1 : 0);
+                    Node* snode = &(*node); // GrandParent in the chain of 3 nodes
+                    Node* RChild = (node->right? &(*node->right) : NULL);
+                    Node* RLChild = (node->right? &(*node->right->left) : NULL);
+                    Node* RLLChild = (node->right->left? &(*node->right->left->left) : NULL);
+                    Node* RLRChild = (node->right->left? &(*node->right->left->right) : NULL);
+                    int flag_root = (node == root? 1 : 0);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                    node = RLChild;
+                    if (flag_lr && !flag_root)
+                        Parent->right = node;
+                    else if (!flag_root)
+                        Parent->left = node;
+                    if (Parent)
+                        node->parent = Parent;
+                    // std::cout << "node 264: "<< node->data << " - node->parent: " << node->parent->data << " - Parent: " << (Parent != NULL ? Parent->value : std::string()) << std::endl;
+                    node->left = snode;
+                    snode->parent = node;
+                    node->right = RChild;
+                    RChild->parent = node;
+                    node->left->right = RLLChild;
+                    if (RLLChild)
+                        RLLChild->parent = node->left;
+                    node->right->left = RLRChild;
+                    if (RLRChild)
+                        RLRChild->parent = node->right;
+                    if (flag_root)
+                        node->parent = NULL;
+                    return (flag_root? node: NULL);
+                }
+                
+            /* ----------------------------------------------------------- */
+
                 Node* getIOSuccessor(Node* node)
                 {        
                     if (node == NULL)
@@ -258,6 +412,78 @@ class RBTree {
                         return (node->parent);
                     }
                     return NULL;
+                }
+
+                // FIXING INSERTION PROBLEMS IN REGARD TO RBT RULES
+                // if RED leaf's parent is BLACK, then no problem, we should already comply to RBT standards.
+                // if RED leat's parent is RED, then we check parent's sibling (called uncle). If uncle is RED as well
+                // then we change parent and uncle's colors to BLACK.
+                // 0 LeftRight Case, 1 RightLeft Case, 2 LeftLeft Case, 3 RightRight Case
+
+                Node* fixInsertion(Node* root, Node* node)
+                {
+
+                    Node* Parent = node->parent;
+                    Node* Uncle = node->getUncle(_nil);
+                    Node* ret = NULL;
+                    std::cout << "\nTrying to fix node " << node->getKey() << std::endl;
+                    if (node->parent)
+                    {
+                        std::cout << "Node Shape: " << node->isLeftRightCase() << std::endl;
+                        std::cout << "0 = LeftRight Case\n1 = RightLeft Case\n2 = LeftLeft Case\n3 = RightRight Case" << std::endl;
+                        if (node->doubleRed() && Uncle && Uncle->getColor() == RED)
+                        {            
+                            pushBlacknessDown(node);
+                            ret = fixInsertion(root, node->parent->parent);
+                        }
+                        else if (node->doubleRed() && node->isLeftRightCase() == 0)
+                        {
+                            std::cout << "\n==== LEFT RIGHT ROTATION 292 on " << Parent->parent->getKey() << " ====" << std::endl;
+                            ret = leftrightRotate(root, Parent->parent);
+                            std::cout << "\n==== RECOLORING on " << node->getKey() << " ====" << std::endl;
+                            node->setColor(BLACK);
+                            node->right->setColor(RED);
+                        }   
+                        else if (node->doubleRed() && node->isLeftRightCase() == 1)
+                        {
+                            std::cout << "\n==== RIGHT LEFT ROTATION 300 on " << Parent->parent->getKey() << " ====" << std::endl;
+                            ret = rightleftRotate(root, Parent->parent);
+                            std::cout << "\n==== RECOLORING on " << node->getKey() << " ====" << std::endl;    
+                            node->setColor(BLACK);
+                            node->left->setColor(RED);  
+                        }
+                        else if (node->doubleRed() && node->isLeftRightCase() == 2)
+                        {
+                            std::cout << "\n==== RIGHT ROTATION 308 on " << Parent->parent->getKey() << " ====" << std::endl;
+                            ret = rightRotate(root, Parent->parent);
+                            std::cout << "\n==== RECOLORING on " << node->getKey() << " ====" << std::endl;    
+                            node->parent->setColor(BLACK);
+                            node->parent->right->setColor(RED);  
+                        }
+                        else if (node->doubleRed() && node->isLeftRightCase() == 3)
+                        {
+                            std::cout << "\n==== LEFT ROTATION 316 on " << Parent->parent->getKey() << " ====" << std::endl;
+                            ret = leftRotate(root, Parent->parent);
+                            root->printNodeSubTree();
+                            std::cout << "\n==== RECOLORING on " << node->getKey() << " ====" << std::endl; 
+                            node->parent->setColor(BLACK);
+                            node->parent->left->setColor(RED);
+                            root->printNodeSubTree();
+                        }
+                        if (ret)
+                            root = ret;
+                        root->printNodeSubTree();
+                    }
+                    std::cout << "current node: " << node->getKey() << std::endl;
+                    if (node->parent && node->parent->parent && node->parent->parent != root && node->parent->parent->doubleRed())
+                    {
+                        std::cout << "ALERT : DOUBLE RED AFTER FIX REQUIRES ANOTHER FIX" << std::endl;
+                        ret = fixInsertion(root, node->parent->parent);
+                        if (ret)
+                            root = ret;
+                        std::cout << "SPECIAL MESSAGE ==== node: " << node->getKey() << " - node->parent: " << node->parent->getKey() << std::endl;  
+                    }
+                    return (root);
                 }
 
                 Node* deleteNode(Node* node, Key key)
@@ -300,7 +526,7 @@ class RBTree {
                                 if (TN && TN->isDBlack() && getSibling(TN) && getSibling(TN)->isBlack() && TN->hasTwoBlackNephews())
                                 {
                                     std::cout << "\n==== PUSH BLACKNESS UP on " << TN->data << " level - line 710 ====" << std::endl;
-                                    TN->pushBlacknessUp();
+                                    pushBlacknessUp(TN);
                                     TN = TN->parent;
                                 }  
                                 removeParentLink(TargetNode);
@@ -309,13 +535,13 @@ class RBTree {
                             else if (TargetNode->isDBlack() && TargetNode->hasBSibling() && TargetNode->hasTwoBlackNephews())
                             {
                                 std::cout << "\n==== PUSH BLACKNESS UP on " << TargetNode->data << " level - line 745 ====" << std::endl;
-                                TargetNode->pushBlacknessUp();
+                                pushBlacknessUp(TargetNode);
                                 _root->printNodeSubTree();
                                 Node* TN = TargetNode->parent;
                                 if (TN && TN->isDBlack() && getSibling(TN) && getSibling(TN)->isBlack() && TN->hasTwoBlackNephews())
                                 {
                                     std::cout << "\n==== PUSH BLACKNESS UP on " << TN->data << " level - line 751 ====" << std::endl;
-                                    TN->pushBlacknessUp();
+                                    pushBlacknessUp(TN);
                                     TN = TN->parent;
                                 }  
                                 removeParentLink(TargetNode);
@@ -430,7 +656,7 @@ class RBTree {
                                     if (ret)
                                         _root = ret;
                                     std::cout << "REPLACERRRRRRR line 809: " << Replacer->data << std::endl;
-                                    Replacer->pushBlacknessDown(Replacer);
+                                    pushBlacknessDown(Replacer);
                                     // Sibling->setColor(BLACK);
                                     // Sibling->parent->setColor(BLACK);
                                     // std::cout << "Sibling: " << Sibling->data << std::endl;
@@ -442,7 +668,7 @@ class RBTree {
                                 while (getSibling(Replacer) && getSibling(Replacer)->isBlack() && Replacer->hasTwoBlackNephews())
                                 {
                                     std::cout << "\n==== PUSH BLACKNESS UP on " << Replacer->data << " level - line 704 ====" << std::endl;
-                                    Replacer->pushBlacknessUp();
+                                    pushBlacknessUp(Replacer);
                                     _root->printNodeSubTree();
                                     std::cout << "TargetNode: " << TargetNode->data << " - color = " << TargetNode->getColor() << std::endl;
                                     Sibling = getSibling(TargetNode);
@@ -451,7 +677,7 @@ class RBTree {
                                     while (TargetNode->isDBlack() && TargetNode->hasBSibling() && TargetNode->hasTwoBlackNephews())
                                     {
                                         std::cout << "\n==== PUSH BLACKNESS UP on " << TargetNode->data << " level - line 712 ====" << std::endl;
-                                        TargetNode->pushBlacknessUp();
+                                        pushBlacknessUp(TargetNode);
                                         _root->printNodeSubTree();
                                         std::cout << "TargetNode: " << TargetNode->data << " - color = " << TargetNode->getColor() << std::endl;
                                         TargetNode = TargetNode->parent;
@@ -533,7 +759,7 @@ class RBTree {
                             if (Replacer->isDBlack() && Replacer->hasTwoBlackNephews())
                             {
                                 std::cout << "\n==== PUSH BLACKNESS UP on " << Replacer->data << " level ====" << std::endl;
-                                getSibling(Replacer)->pushBlacknessUp();
+                                pushBlacknessUp(getSibling(Replacer));
                                 Parent_SubTree = Replacer->parent;
                                 removeParentLink(Replacer);
                                 delete Replacer;
@@ -550,7 +776,7 @@ class RBTree {
                                 ret = Replacer->parent->leftRotate(_root, Replacer->parent);
                                 if (ret)
                                     _root = ret;
-                                Replacer->pushBlacknessDown(Replacer);
+                                pushBlacknessDown(Replacer);
                                 removeParentLink(Replacer);
                                 delete Replacer;
                             }
@@ -560,7 +786,7 @@ class RBTree {
                             if (Parent_SubTree && Parent_SubTree != _root && Parent_SubTree->isDBlack() && getSibling(Parent_SubTree) && getSibling(Parent_SubTree)->isBlack() && Parent_SubTree->hasTwoBlackNephews())
                             {
                                 std::cout << "\n==== PUSH BLACKNESS UP on " << Parent_SubTree->data << " level - line 783 ====" << std::endl;
-                                Parent_SubTree->pushBlacknessUp();
+                                pushBlacknessUp(Parent_SubTree);
                                 _root->printNodeSubTree();
                             }
                         }

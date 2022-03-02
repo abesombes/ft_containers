@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 10:34:35 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/01 18:55:50 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/02 19:51:07 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,16 @@ class Node {
             int isBlack(void) { return (getColor() == BLACK);}
             int isDBlack(void) { return (getColor() == DOUBLE_BLACK);}
             
+            int doubleRed(void)
+            {
+                // -1 no parent, 0 no double red, l double red child-parent
+                if (!parent)
+                    return (-1);
+                if (parent && getColor() == RED && this->parent->getColor() == RED)
+                    return 1;
+                return 0;
+            }
+            
             void swapChildParentColors(void)
             {
                 if (this->parent)
@@ -87,7 +97,75 @@ class Node {
                     this->setColor(parent_color);
                 }
             }
+            
+
+
+            /* -------------------- Family Members Getters ---------------------- */
+
+            Node* getGrandParent( Node* nil )
+            {
+                if (this->parent)
+                    return (this->parent->parent);
+                else
+                    return nil;
+            }
+
+            Node* getUncle( Node* nil )
+            {
+                Node* GrandParent = this->getGrandParent(nil);                
+                if (GrandParent->isNil())
+                    return (nil);
+                if (GrandParent->left == this->parent)
+                    return (GrandParent->right);
+                if (GrandParent->right == this->parent)
+                    return (GrandParent->left);
+                return nil;
+            }
+
+            /* -------------------- Node Structures ---------------------- */
+
+            int isLeftRightChild(void)
+            {
+                // -1 not child, 0 left child, l right child
+                if (this->parent && this->parent->left == this)
+                    return 0;
+                if (this->parent && this->parent->right == this)
+                    return 1;
+                return  (-1);
+            }
+            
+            int isLeftChild(void)
+            {
+                // 1 Left Child, 0 no parent or Right Child
+                if (this->parent && this->parent->left == this)
+                    return 1;
+                return  (0);
+            }
+
+            int isRightChild(void)
+            {
+                // 1 Right Child, 0 no parent or Left Child
+                if (this->parent && this->parent->right == this)
+                    return 1;
+                return  (0);
+            }
+
+            int isLeftRightCase(void)
+            {
+                // -1 no parent (root) or no grandparent, 0 LeftRight Case, 1 RightLeft Case, 2 LeftLeft Case, 3 RightRight Case
+                if (this->isLeftRightChild() == 1 && this->parent->isLeftRightChild() == 0)
+                    return 0;
+                if (this->isLeftRightChild() == 0 && this->parent->isLeftRightChild() == 1)
+                    return 1;
+                if (this->isLeftRightChild() == 0 && this->parent->isLeftRightChild() == 0)
+                    return 2;   
+                if (this->isLeftRightChild() == 1 && this->parent->isLeftRightChild() == 1)
+                    return 3;
+                return (-1);
+            }
+            
             /* ----------------------------------------------------------- */
+            
             void printNode(char relative_pos, Node* parent)
             {
                 std::cout << (relative_pos == 'r' ? "Right of " : "Left of ") << parent->getKey() << " - " << "Parent = " << this->parent->getKey() << " - " << this->getKey() << " - " << this->getMapped() << " - " << (this->getColor() == RED? "Red" : this->getColor() == DOUBLE_BLACK? "Double Black": "Black") << std::endl; 
@@ -95,6 +173,16 @@ class Node {
                     left->printNode('l', this);
                 if (!right->isNil())
                     right->printNode('r', this);    
+            }
+
+            void printNodeSubTree()
+            {
+                std::cout << std::endl << std::endl << std::endl;
+                std::cout << this->getKey() << " - " << this->getMapped() << " - " << (this->getColor() == RED? "Red" : this->getColor() == DOUBLE_BLACK? "Double Black": "Black") << std::endl;
+                if (!this->left->isNil())
+                    this->left->printNode('l', this);
+                if (!this->right->isNil())
+                    this->right->printNode('r', this);
             }
             
 //             Node<Key, T>* getGrandParent( void )
@@ -104,17 +192,7 @@ class Node {
 //                 else
 //                     return NULL;
 //             }
-//             Node<Key, T>* getUncle( void )
-//             {
-//                 Node<Key, T> *GrandParent = this->getGrandParent();                
-//                 if (GrandParent == NULL)
-//                     return NULL;
-//                 if (GrandParent->left == this->parent)
-//                     return (GrandParent->right);
-//                 if (GrandParent->right == this->parent)
-//                     return (GrandParent->left);
-//                 return NULL;
-//             }
+
 
 //             Node<Key, T>* getFarNephew(void)
 //             {
@@ -299,31 +377,7 @@ class Node {
 //                     this->right->printNode('r', this);
 //             }
             
-//             void pushBlacknessDown(Node<Key, T>* node)
-//             {
-//                 Node<Key, T>* Parent = node->parent;
-//                 Node<Key, T>* GrandParent = node->getGrandParent();
-//                 Node<Key, T>* Uncle = node->getUncle();
-//                 std::cout << "\n==== PUSH THE BLACKNESS DOWN FROM GP ====" << std::endl;
-//                 if (GrandParent->getColor() == BLACK)
-//                 {
-//                     Uncle->setColor(BLACK);
-//                     Parent->setColor(BLACK);
-//                     GrandParent->setColor(RED);
-//                 }
-//             }
-            
-//             void pushBlacknessUp(void)
-//             {
-//                 Node<Key, T>* Parent = parent;
-//                 Node<Key, T>* Sibling = getSibling(this);
-//                 std::cout << "\n==== PUSH THE BLACKNESS UP: " << this->data << " - " << Parent->data << " - " << Sibling->data << " ====" << std::endl;
-//                 setColor(std::max(getColor() - 1, 0));
-//                 if (Parent)
-//                     Parent->setColor(Parent->getColor() + 1);
-//                 if (Sibling)
-//                     Sibling->setColor(std::max(Sibling->getColor() - 1, 0));                
-//             }
+
             
 //             Node<Key, T>* leftRotate(Node<Key, T>* root, Node<Key, T>* node) // Right Right Case ONLY
 //             {
