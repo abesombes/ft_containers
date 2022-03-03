@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/01 19:23:06 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/03 18:21:57 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,11 +107,21 @@ int main()
     ft::pair<int, std::string> p3 = ft::make_pair(25, "Kiev");
     ft::pair<int, std::string> p4 = ft::make_pair(9, "Madrid");
     ft::pair<int, std::string> p5 = ft::make_pair(7, "Tungunska");
+    ft::pair<int, std::string> p6 = ft::make_pair(1, "Porto Vecchio");
+    ft::pair<int, std::string> p7 = ft::make_pair(6, "Salamanca");
+    ft::pair<int, std::string> p8 = ft::make_pair(50, "Dubrovnic");
+    ft::pair<int, std::string> p9 = ft::make_pair(90, "Santiago");
+    ft::pair<int, std::string> p10 = ft::make_pair(15, "NYC");
     RedBlackT.insertValue(p1);
     RedBlackT.insertValue(p2);
     RedBlackT.insertValue(p3);
     RedBlackT.insertValue(p4);
     RedBlackT.insertValue(p5);
+    RedBlackT.insertValue(p6);
+    RedBlackT.insertValue(p7);
+    RedBlackT.insertValue(p8);
+    RedBlackT.insertValue(p9);
+    RedBlackT.insertValue(p10);
     RedBlackT.printRBT();
     // RedBlackT.insertNode("Chocolat", "D");
     // RedBlackT.insertNode("Boat", "A");

@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/02 19:56:44 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/03 18:19:29 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,24 +254,33 @@ class RBTree {
 
                 Node* leftRotate(Node* root, Node* node) // Right Right Case ONLY
                 {
-                    if (node == NULL)
-                        return (NULL);
-                    Node* Parent = &(*node->parent);
+                    // if (node->isNil())
+                    //     return (node);
+                    Node* Parent = &(*node->parent); // Parent here means the node above the considered trio of nodes
                     int flag_lr = (node->isLeftRightChild() ? 1 : 0);
-                    // Node* snode = &(*node); // GrandParent in the chain of 3 nodes
-                    Node* RightChild = (node->right? &(*node->right) : NULL);
-                    // Node* RightLeftChild = (node->right? &(*node->right->left) : NULL);
+                    Node* snode = &(*node); // GrandParent in the chain of 3 nodes
+                    Node* RightChild = (!node->right->isNil()? &(*node->right) : _nil);
+                    Node* RLChild = (!node->right->isNil()? &(*node->right->left) : _nil);
                     int flag_root = (node == root? 1 : 0);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
                     node = RightChild;
-                    std::cout << "I am here 160\n";
+                    std::cout << "I am here: flag_lr = " << flag_lr << " - flag_root: " << flag_root << "\n";
                     if (flag_lr && !flag_root)
                         Parent->right = node;
                     else if (!flag_root)
                         Parent->left = node;
-                    if (Parent)
+                    if (!Parent->isNil())
                         node->parent = Parent;
-                    else    
-                        node->parent = NULL;
+                    node->left = snode;
+                    snode->parent = node;
+                    node->left->right = RLChild;
+                    if (!RLChild->isNil())
+                    {
+                        RLChild->parent = node->left;
+                        RLChild->left = _nil;
+                        RLChild->right = _nil;
+                    }
+                    if (flag_root)
+                        node->parent = _nil;
                     return (flag_root? node: NULL);
                 }
 
@@ -340,16 +349,16 @@ class RBTree {
 
                 Node* rightleftRotate(Node* root, Node* node) // Right Left Case ONLY
                 {
-                    if (node == NULL)
-                        return (NULL);
+                    // if (node == NULL)
+                    //     return (NULL);
                     Node* Parent = &(*(node->parent));
                     // std::cout << "1er passage ---  node: "<< node->data << " - node->parent: " << (node->parent? node->parent->data : 0) << " - Parent: " << (Parent != NULL ? Parent->value : std::string()) << std::endl;
                     int flag_lr = (node->isLeftRightChild() ? 1 : 0);
                     Node* snode = &(*node); // GrandParent in the chain of 3 nodes
-                    Node* RChild = (node->right? &(*node->right) : NULL);
-                    Node* RLChild = (node->right? &(*node->right->left) : NULL);
-                    Node* RLLChild = (node->right->left? &(*node->right->left->left) : NULL);
-                    Node* RLRChild = (node->right->left? &(*node->right->left->right) : NULL);
+                    Node* RChild = (!node->right->isNil()? &(*node->right) : _nil);
+                    Node* RLChild = (!node->right->isNil()? &(*node->right->left) : _nil);
+                    Node* RLLChild = (!node->right->left->isNil()? &(*node->right->left->left) : _nil);
+                    Node* RLRChild = (!node->right->left->isNil()? &(*node->right->left->right) : _nil);
                     int flag_root = (node == root? 1 : 0);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
                     node = RLChild;
                     if (flag_lr && !flag_root)
@@ -364,13 +373,13 @@ class RBTree {
                     node->right = RChild;
                     RChild->parent = node;
                     node->left->right = RLLChild;
-                    if (RLLChild)
+                    if (!RLLChild->isNil())
                         RLLChild->parent = node->left;
                     node->right->left = RLRChild;
-                    if (RLRChild)
+                    if (!RLRChild->isNil())
                         RLRChild->parent = node->right;
                     if (flag_root)
-                        node->parent = NULL;
+                        node->parent = _nil;
                     return (flag_root? node: NULL);
                 }
                 
@@ -426,11 +435,13 @@ class RBTree {
                     Node* Parent = node->parent;
                     Node* Uncle = node->getUncle(_nil);
                     Node* ret = NULL;
+                    root->printNodeSubTree();
                     std::cout << "\nTrying to fix node " << node->getKey() << std::endl;
                     if (node->parent)
                     {
                         std::cout << "Node Shape: " << node->isLeftRightCase() << std::endl;
                         std::cout << "0 = LeftRight Case\n1 = RightLeft Case\n2 = LeftLeft Case\n3 = RightRight Case" << std::endl;
+                        // root->printNodeSubTree();
                         if (node->doubleRed() && Uncle && Uncle->getColor() == RED)
                         {            
                             pushBlacknessDown(node);
@@ -464,18 +475,21 @@ class RBTree {
                         {
                             std::cout << "\n==== LEFT ROTATION 316 on " << Parent->parent->getKey() << " ====" << std::endl;
                             ret = leftRotate(root, Parent->parent);
-                            root->printNodeSubTree();
                             std::cout << "\n==== RECOLORING on " << node->getKey() << " ====" << std::endl; 
                             node->parent->setColor(BLACK);
                             node->parent->left->setColor(RED);
-                            root->printNodeSubTree();
                         }
                         if (ret)
+                        {
+                            std::cout<<"Root updated" << std::endl;
                             root = ret;
+                        }
                         root->printNodeSubTree();
                     }
                     std::cout << "current node: " << node->getKey() << std::endl;
-                    if (node->parent && node->parent->parent && node->parent->parent != root && node->parent->parent->doubleRed())
+                    std::cout << "parent node: " << node->parent->getKey() << std::endl;
+                    std::cout << "GP node: " << node->parent->parent->getKey() << std::endl;
+                    if (!node->parent->isNil() && !node->parent->parent->isNil() && node->parent->parent != root && node->parent->parent->doubleRed() == 1)
                     {
                         std::cout << "ALERT : DOUBLE RED AFTER FIX REQUIRES ANOTHER FIX" << std::endl;
                         ret = fixInsertion(root, node->parent->parent);
