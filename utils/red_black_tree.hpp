@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/04 15:37:15 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/04 23:48:55 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,23 +252,33 @@ class RBTree {
 
                 /* -------------------- Link 2 Nodes --------------------------------------- */           
 
-                void link(Node *nodeParent, Node* nodeChild)
+                void link(Node *nodeParent, Node* nodeChild, int side)
                 {
-                    if (nodeChild->getKey() < nodeParent->getKey())
+                    if (side == 1)
                         nodeParent->left = nodeChild;
-                    else
+                    else if (side == 2)
                         nodeParent->right = nodeChild;
                     if (!nodeChild->isNil())
                         nodeChild->parent = nodeParent;
                }
 
-                void dlink(Node** targetNode, Node** nodeChild)
-                {
-                    Node *Parent = (*targetNode)->parent;
-                    *targetNode = &(*(*nodeChild));
-                    if (!(*nodeChild)->isNil())
-                        (*nodeChild)->parent = Parent;
-               }
+            //     void link(Node *nodeParent, Node* nodeChild)
+            //     {
+            //         if (nodeChild->getKey() < nodeParent->getKey())
+            //             nodeParent->left = nodeChild;
+            //         else
+            //             nodeParent->right = nodeChild;
+            //         if (!nodeChild->isNil())
+            //             nodeChild->parent = nodeParent;
+            //    }
+
+            //     void dlink(Node** targetNode, Node** nodeChild)
+            //     {
+            //         Node *Parent = (*targetNode)->parent;
+            //         *targetNode = &(*(*nodeChild));
+            //         if (!(*nodeChild)->isNil())
+            //             (*nodeChild)->parent = Parent;
+            //    }
 
                 /* -------------------- Node Rotations --------------------------------------- */
 
@@ -299,17 +309,25 @@ class RBTree {
                         Seed->left = node;                        
                     if (!Seed->isNil())
                         node->parent = Seed;
-
-                    link(node, Head);
+                    link(node, Head, (r == 1 || r == 4 ? 1: 2));
+                    if (r == 3)
+                        link(node, LChild, 1);
+                    if (r == 4)
+                        link(node, RChild, 2);
                     if (r == 1)
-                        dlink(&node->left->right, &RLChild);
+                        link(node->left, RLChild, 2);
                     else if (r == 2)
-                        dlink(&node->right->left, &LRChild);
-                    if (r == 3 || r == 4)
+                        link(node->right, LRChild, 1);
+                    if (r == 3)
                     {
-                        link(node->left->right, (r == 3 ? LRLChild : RLLChild));
-                        link(node->right->left, (r == 3 ? LRRChild : RLRChild));                        
-                    }                    
+                        link(node->left, LRLChild, 2);
+                        link(node->right, LRRChild, 1);  
+                    }
+                    if (r == 4)
+                    {
+                        link(node->left, RLLChild, 2);
+                        link(node->right, RLRChild, 1);  
+                    }                 
                     if (flag_root)
                         node->parent = _nil;
                     return (flag_root? node: NULL);
@@ -333,7 +351,7 @@ class RBTree {
                         Parent->left = node;
                     if (!Parent->isNil())
                         node->parent = Parent;
-                    node->left = snode;
+                    node->left = snode; 
                     snode->parent = node;
                     node->left->right = RLChild;
                     if (!RLChild->isNil())

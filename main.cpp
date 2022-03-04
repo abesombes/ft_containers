@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/03 18:21:57 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/04 23:46:38 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,16 @@ int main()
     ft::pair<int, std::string> p8 = ft::make_pair(50, "Dubrovnic");
     ft::pair<int, std::string> p9 = ft::make_pair(90, "Santiago");
     ft::pair<int, std::string> p10 = ft::make_pair(15, "NYC");
+    ft::pair<int, std::string> p11 = ft::make_pair(2, "Stockholm");
+    ft::pair<int, std::string> p12 = ft::make_pair(40, "Alger");
+    ft::pair<int, std::string> p13 = ft::make_pair(22, "Washington DC");
+    ft::pair<int, std::string> p14 = ft::make_pair(26, "Seattle");
+    ft::pair<int, std::string> p15 = ft::make_pair(55, "Atlanta");
+    ft::pair<int, std::string> p16 = ft::make_pair(10, "Dallas");
+    ft::pair<int, std::string> p17 = ft::make_pair(66, "St Louis");
+    ft::pair<int, std::string> p18 = ft::make_pair(75, "Chicago");
+    ft::pair<int, std::string> p19 = ft::make_pair(8, "Vancouver");
+    ft::pair<int, std::string> p20 = ft::make_pair(150, "Calgary");
     RedBlackT.insertValue(p1);
     RedBlackT.insertValue(p2);
     RedBlackT.insertValue(p3);
@@ -122,6 +132,16 @@ int main()
     RedBlackT.insertValue(p8);
     RedBlackT.insertValue(p9);
     RedBlackT.insertValue(p10);
+    RedBlackT.insertValue(p11);
+    RedBlackT.insertValue(p12);
+    RedBlackT.insertValue(p13);
+    RedBlackT.insertValue(p14);
+    RedBlackT.insertValue(p15);
+    RedBlackT.insertValue(p16);
+    RedBlackT.insertValue(p17);
+    RedBlackT.insertValue(p18);
+    RedBlackT.insertValue(p19);
+    RedBlackT.insertValue(p20);
     RedBlackT.printRBT();
     // RedBlackT.insertNode("Chocolat", "D");
     // RedBlackT.insertNode("Boat", "A");
