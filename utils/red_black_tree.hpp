@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/04 23:48:55 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/04 23:57:14 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,29 +262,10 @@ class RBTree {
                         nodeChild->parent = nodeParent;
                }
 
-            //     void link(Node *nodeParent, Node* nodeChild)
-            //     {
-            //         if (nodeChild->getKey() < nodeParent->getKey())
-            //             nodeParent->left = nodeChild;
-            //         else
-            //             nodeParent->right = nodeChild;
-            //         if (!nodeChild->isNil())
-            //             nodeChild->parent = nodeParent;
-            //    }
-
-            //     void dlink(Node** targetNode, Node** nodeChild)
-            //     {
-            //         Node *Parent = (*targetNode)->parent;
-            //         *targetNode = &(*(*nodeChild));
-            //         if (!(*nodeChild)->isNil())
-            //             (*nodeChild)->parent = Parent;
-            //    }
 
                 /* -------------------- Node Rotations --------------------------------------- */
 
                 // leftRotate = 1, rightRotate = 2 , leftrightRotate = 3, rightleftRotate = 4
-
-
 
                 Node* rotate(Node *root, Node* node, int r)
                 {
@@ -316,7 +297,7 @@ class RBTree {
                         link(node, RChild, 2);
                     if (r == 1)
                         link(node->left, RLChild, 2);
-                    else if (r == 2)
+                    if (r == 2)
                         link(node->right, LRChild, 1);
                     if (r == 3)
                     {
@@ -333,136 +314,7 @@ class RBTree {
                     return (flag_root? node: NULL);
                 }
 
-                Node* leftRotate(Node* root, Node* node) // Right Right Case ONLY
-                {
-                    // if (node->isNil())
-                    //     return (node);
-                    Node* Parent = &(*node->parent); // Parent here means the node above the considered trio of nodes
-                    int flag_lr = (node->isLeftRightChild() ? 1 : 0);
-                    Node* snode = &(*node); // GrandParent in the chain of 3 nodes
-                    Node* RightChild = (!node->right->isNil()? &(*node->right) : _nil);
-                    Node* RLChild = (!node->right->isNil()? &(*node->right->left) : _nil);
-                    int flag_root = (node == root? 1 : 0);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
-                    node = RightChild;
-                    std::cout << "I am here: flag_lr = " << flag_lr << " - flag_root: " << flag_root << "\n";
-                    if (flag_lr && !flag_root)
-                        Parent->right = node;
-                    else if (!flag_root)
-                        Parent->left = node;
-                    if (!Parent->isNil())
-                        node->parent = Parent;
-                    node->left = snode; 
-                    snode->parent = node;
-                    node->left->right = RLChild;
-                    if (!RLChild->isNil())
-                    {
-                        RLChild->parent = node->left;
-                        RLChild->left = _nil;
-                        RLChild->right = _nil;
-                    }
-                    if (flag_root)
-                        node->parent = _nil;
-                    return (flag_root? node: NULL);
-                }
-
-                Node* rightRotate(Node* root, Node* node) // Left Left Case ONLY
-                {
-                    if (node == NULL)
-                        return (NULL);
-                    Node* Parent = &(*node->parent);
-                    int flag_lr = (node->isLeftRightChild() ? 1 : 0);
-                    Node* snode = &(*node); // GrandParent in the chain of 3 nodes
-                    Node* LeftChild = (node->left? &(*node->left) : NULL);
-                    Node* LRChild = (node->left? &(*node->left->right) : NULL);
-                    int flag_root = (node == root? 1 : 0);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
-                    node = LeftChild;
-                    if (flag_lr && !flag_root)
-                        Parent->right = node;
-                    else if (!flag_root)
-                        Parent->left = node;
-                    if (Parent)
-                        node->parent = Parent;
-                    node->right = snode;
-                    snode->parent = node;
-                    node->right->left = LRChild;
-                    if (LRChild)
-                        LRChild->parent = node->right;
-                    if (flag_root)
-                        node->parent = NULL;
-                    return (flag_root? node: NULL);
-                }
-
-                Node* leftrightRotate(Node* root, Node* node) // Left Right Case ONLY
-                {
-                    std::cout << "I am here 156\n" << std::endl;
-                    if (node == NULL)
-                        return (NULL);
-                    Node* Parent = &(*node->parent);
-                    int flag_lr = (node->isLeftRightChild() ? 1 : 0);
-                    Node* snode = &(*node); // GrandParent in the chain of 3 nodes
-                    Node* LChild = (node->left? &(*node->left) : NULL);
-                    Node* LRChild = (node->left? &(*node->left->right) : NULL);
-                    Node* LRLChild = (node->left->right? &(*node->left->right->left) : NULL);
-                    Node* LRRChild = (node->left->right? &(*node->left->right->right) : NULL);
-                    
-                    int flag_root = (node == root? 1 : 0);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
-                    node = LRChild;
-                    node->left = LChild;
-                    LChild->parent = node;
-                    node->right = snode;
-                    snode->parent = node;
-                    if (flag_lr && !flag_root)
-                        Parent->right = node;
-                    else if (!flag_root)
-                        Parent->left = node;
-                    if (Parent)
-                        node->parent = Parent;
-                    node->left->right = LRLChild;
-                    if (LRLChild)
-                        LRLChild->parent = node->left;
-                    node->right->left = LRRChild;
-                    if (LRRChild)
-                        LRRChild->parent = node->right;
-                    if (flag_root)
-                        node->parent = NULL;
-                    return (flag_root? node: NULL);
-                }
-
-                Node* rightleftRotate(Node* root, Node* node) // Right Left Case ONLY
-                {
-                    // if (node == NULL)
-                    //     return (NULL);
-                    Node* Parent = &(*(node->parent));
-                    // std::cout << "1er passage ---  node: "<< node->data << " - node->parent: " << (node->parent? node->parent->data : 0) << " - Parent: " << (Parent != NULL ? Parent->value : std::string()) << std::endl;
-                    int flag_lr = (node->isLeftRightChild() ? 1 : 0);
-                    Node* snode = &(*node); // GrandParent in the chain of 3 nodes
-                    Node* RChild = (!node->right->isNil()? &(*node->right) : _nil);
-                    Node* RLChild = (!node->right->isNil()? &(*node->right->left) : _nil);
-                    Node* RLLChild = (!node->right->left->isNil()? &(*node->right->left->left) : _nil);
-                    Node* RLRChild = (!node->right->left->isNil()? &(*node->right->left->right) : _nil);
-                    int flag_root = (node == root? 1 : 0);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
-                    node = RLChild;
-                    if (flag_lr && !flag_root)
-                        Parent->right = node;
-                    else if (!flag_root)
-                        Parent->left = node;
-                    if (Parent)
-                        node->parent = Parent;
-                    // std::cout << "node 264: "<< node->data << " - node->parent: " << node->parent->data << " - Parent: " << (Parent != NULL ? Parent->value : std::string()) << std::endl;
-                    node->left = snode;
-                    snode->parent = node;
-                    node->right = RChild;
-                    RChild->parent = node;
-                    node->left->right = RLLChild;
-                    if (!RLLChild->isNil())
-                        RLLChild->parent = node->left;
-                    node->right->left = RLRChild;
-                    if (!RLRChild->isNil())
-                        RLRChild->parent = node->right;
-                    if (flag_root)
-                        node->parent = _nil;
-                    return (flag_root? node: NULL);
-                }
+                
                 
             /* ----------------------------------------------------------- */
 
