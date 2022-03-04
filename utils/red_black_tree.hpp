@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/03 18:19:29 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/04 15:37:15 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,7 +250,70 @@ class RBTree {
                         Sibling->setColor(std::max(Sibling->getColor() - 1, 0));                
                 }
 
-                /* ----------------------------------------------------------- */
+                /* -------------------- Link 2 Nodes --------------------------------------- */           
+
+                void link(Node *nodeParent, Node* nodeChild)
+                {
+                    if (nodeChild->getKey() < nodeParent->getKey())
+                        nodeParent->left = nodeChild;
+                    else
+                        nodeParent->right = nodeChild;
+                    if (!nodeChild->isNil())
+                        nodeChild->parent = nodeParent;
+               }
+
+                void dlink(Node** targetNode, Node** nodeChild)
+                {
+                    Node *Parent = (*targetNode)->parent;
+                    *targetNode = &(*(*nodeChild));
+                    if (!(*nodeChild)->isNil())
+                        (*nodeChild)->parent = Parent;
+               }
+
+                /* -------------------- Node Rotations --------------------------------------- */
+
+                // leftRotate = 1, rightRotate = 2 , leftrightRotate = 3, rightleftRotate = 4
+
+
+
+                Node* rotate(Node *root, Node* node, int r)
+                {
+                    Node* Seed = &(*node->parent); // Seed is the node above the considered trio of nodes
+                    int flag_lr = (node->isLeftRightChild() ? 1 : 0);
+                    Node* Head = &(*node); // GrandParent in the chain of 3 nodes
+                    Node* RChild = &(*node->right);
+                    Node* LChild = &(*node->left);
+                    Node* RLChild = &(*node->right->left);
+                    Node* LRChild = &(*node->left->right);
+                    Node* RLRChild = &(*node->right->left->right);
+                    Node* RLLChild = &(*node->right->left->left);
+                    Node* LRRChild = &(*node->left->right->right);
+                    Node* LRLChild = &(*node->left->right->left);                    
+                    int flag_root = (node == root? 1 : 0);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+                    node = (r == 1 ? RChild : (r == 2 ? LChild : (r == 3 ? LRChild : (r == 4 ? RLChild : node))));
+                    
+                    if (flag_lr && !flag_root)
+                        Seed->right = node;
+                    else if (!flag_root)
+                        Seed->left = node;                        
+                    if (!Seed->isNil())
+                        node->parent = Seed;
+
+                    link(node, Head);
+                    if (r == 1)
+                        dlink(&node->left->right, &RLChild);
+                    else if (r == 2)
+                        dlink(&node->right->left, &LRChild);
+                    if (r == 3 || r == 4)
+                    {
+                        link(node->left->right, (r == 3 ? LRLChild : RLLChild));
+                        link(node->right->left, (r == 3 ? LRRChild : RLRChild));                        
+                    }                    
+                    if (flag_root)
+                        node->parent = _nil;
+                    return (flag_root? node: NULL);
+                }
 
                 Node* leftRotate(Node* root, Node* node) // Right Right Case ONLY
                 {
@@ -437,12 +500,13 @@ class RBTree {
                     Node* ret = NULL;
                     root->printNodeSubTree();
                     std::cout << "\nTrying to fix node " << node->getKey() << std::endl;
-                    if (node->parent)
+                    if (!node->parent->isNil())
                     {
                         std::cout << "Node Shape: " << node->isLeftRightCase() << std::endl;
                         std::cout << "0 = LeftRight Case\n1 = RightLeft Case\n2 = LeftLeft Case\n3 = RightRight Case" << std::endl;
                         // root->printNodeSubTree();
-                        if (node->doubleRed() && Uncle && Uncle->getColor() == RED)
+                        std::cout << "Uncle: " << Uncle->isRed() << std::endl;
+                        if (node->doubleRed() && Uncle->isRed())
                         {            
                             pushBlacknessDown(node);
                             ret = fixInsertion(root, node->parent->parent);
@@ -450,7 +514,7 @@ class RBTree {
                         else if (node->doubleRed() && node->isLeftRightCase() == 0)
                         {
                             std::cout << "\n==== LEFT RIGHT ROTATION 292 on " << Parent->parent->getKey() << " ====" << std::endl;
-                            ret = leftrightRotate(root, Parent->parent);
+                            ret = rotate(root, Parent->parent, 3);
                             std::cout << "\n==== RECOLORING on " << node->getKey() << " ====" << std::endl;
                             node->setColor(BLACK);
                             node->right->setColor(RED);
@@ -458,7 +522,7 @@ class RBTree {
                         else if (node->doubleRed() && node->isLeftRightCase() == 1)
                         {
                             std::cout << "\n==== RIGHT LEFT ROTATION 300 on " << Parent->parent->getKey() << " ====" << std::endl;
-                            ret = rightleftRotate(root, Parent->parent);
+                            ret = rotate(root, Parent->parent, 4);
                             std::cout << "\n==== RECOLORING on " << node->getKey() << " ====" << std::endl;    
                             node->setColor(BLACK);
                             node->left->setColor(RED);  
@@ -466,7 +530,7 @@ class RBTree {
                         else if (node->doubleRed() && node->isLeftRightCase() == 2)
                         {
                             std::cout << "\n==== RIGHT ROTATION 308 on " << Parent->parent->getKey() << " ====" << std::endl;
-                            ret = rightRotate(root, Parent->parent);
+                            ret = rotate(root, Parent->parent, 2);
                             std::cout << "\n==== RECOLORING on " << node->getKey() << " ====" << std::endl;    
                             node->parent->setColor(BLACK);
                             node->parent->right->setColor(RED);  
@@ -474,7 +538,8 @@ class RBTree {
                         else if (node->doubleRed() && node->isLeftRightCase() == 3)
                         {
                             std::cout << "\n==== LEFT ROTATION 316 on " << Parent->parent->getKey() << " ====" << std::endl;
-                            ret = leftRotate(root, Parent->parent);
+                            // ret = leftRotate(root, Parent->parent);
+                            ret = rotate(root, Parent->parent, 1);
                             std::cout << "\n==== RECOLORING on " << node->getKey() << " ====" << std::endl; 
                             node->parent->setColor(BLACK);
                             node->parent->left->setColor(RED);
