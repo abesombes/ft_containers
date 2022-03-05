@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/04 23:57:14 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/05 09:42:08 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,12 +163,12 @@ class RBTree {
                         node->setColor(BLACK);
                         return (node);
                     }
-                    if (root->getKey() > node->getKey())
+                    if (!_cmp(root->getKey(), node->getKey()))
                     {
                         root->left = BSTInsert(root->left, node);
                         root->left->parent = root;
                     }
-                    else if (root->getKey() < node->getKey())
+                    else if (_cmp(root->getKey(), node->getKey()))
                     {
                         root->right = BSTInsert(root->right, node);
                         root->right->parent = root;  
