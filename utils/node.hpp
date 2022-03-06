@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 10:34:35 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/06 11:40:31 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/06 15:17:30 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,24 +102,24 @@ class Node {
 
             /* -------------------- Family Members Getters ---------------------- */
 
-            Node* getGrandParent( Node* nil )
+            Node* getGrandParent( void )
             {
-                if (this->parent)
-                    return (this->parent->parent);
+                if (parent)
+                    return (parent->parent);
                 else
-                    return nil;
+                    return this;
             }
 
-            Node* getUncle( Node* nil )
+            Node* getUncle( void )
             {
-                Node* GrandParent = this->getGrandParent(nil);                
+                Node* GrandParent = this->getGrandParent();                
                 if (GrandParent->isNil())
-                    return (nil);
+                    return (this);
                 if (GrandParent->left == this->parent)
                     return (GrandParent->right);
                 if (GrandParent->right == this->parent)
                     return (GrandParent->left);
-                return nil;
+                return this;
             }
 
             Node* getSibling( void )
@@ -131,7 +131,7 @@ class Node {
                 return (this);
             }
 
-            Node* getLeftNephew( void )
+            Node* getLNephew( void )
             {
                 if (parent && parent->left == this)
                     return (parent->right->left);
@@ -140,7 +140,7 @@ class Node {
                 return (this);
             }
 
-            Node* getRightNephew( void )
+            Node* getRNephew( void )
             {
                 if (parent && parent->left == this)
                     return (parent->right->right);
@@ -173,7 +173,10 @@ class Node {
                     return 1;
                 return (-1);
             }
+            int hasNoChild(void) { return (left->isNil() && right->isNil()); }
             
+            int hasLRChildren(void) { return (!left->isNil() && !right->isNil()); }
+
             int isLChild(void) { return (!parent->isNil() && parent->left == this); }
 
             int isRChild(void) { return (!parent->isNil() && parent->right == this); }
@@ -182,15 +185,15 @@ class Node {
 
             int hasRSibling(void) { return (getSibling() != this && getSibling()->isRed()); }
 
-            int hasLBNephew(void) { return (getLeftNephew() != this && getLeftNephew()->isBlack()); }
+            int hasLBNephew(void) { return (getLNephew() != this && getLNephew()->isBlack()); }
             
-            int hasRBNephew(void) { return (getRightNephew() != this && getRightNephew()->isBlack()); }
+            int hasRBNephew(void) { return (getRNephew() != this && getRNephew()->isBlack()); }
 
             int hasBNephews(void) { return (hasRBNephew() && hasLBNephew()); }
 
-            int hasLRNephew(void) { return (getLeftNephew() != this && getLeftNephew()->isRed()); }
+            int hasLRNephew(void) { return (getLNephew() != this && getLNephew()->isRed()); }
 
-            int hasRRNephew(void) { return (getRightNephew() != this && getRightNephew()->isRed()); }
+            int hasRRNephew(void) { return (getRNephew() != this && getRNephew()->isRed()); }
 
             int isLeftRightCase(void)
             {

@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/06 11:40:00 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/06 15:14:26 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,21 +214,21 @@ class RBTree {
                     return current;
                 }
 
-                Node* getGrandParent(Node* node)
-                {
-                    if (node && node->parent)
-                        return (node->parent->parent);
-                    else
-                        return _nil;
-                }
+                // Node* getGrandParent(Node* node)
+                // {
+                //     if (node && node->parent)
+                //         return (node->parent->parent);
+                //     else
+                //         return _nil;
+                // }
 
                 /* -------------------- PushBlackness Functions ---------------------- */
 
                 void pushBlacknessDown(Node* node)
                 {
                     Node* Parent = node->parent;
-                    Node* GrandParent = node->getGrandParent(_nil);
-                    Node* Uncle = node->getUncle(_nil);
+                    Node* GrandParent = node->getGrandParent();
+                    Node* Uncle = node->getUncle();
                     std::cout << "\n==== PUSH THE BLACKNESS DOWN FROM GP ====" << std::endl;
                     if (GrandParent->getColor() == BLACK)
                     {
@@ -375,7 +375,7 @@ class RBTree {
                 {
 
                     Node* Parent = node->parent;
-                    Node* Uncle = node->getUncle(_nil);
+                    Node* Uncle = node->getUncle();
                     Node* ret = NULL;
                     root->printNodeSubTree();
                     std::cout << "\nTrying to fix node " << node->getKey() << std::endl;
@@ -385,7 +385,7 @@ class RBTree {
                         std::cout << "0 = LeftRight Case\n1 = RightLeft Case\n2 = LeftLeft Case\n3 = RightRight Case" << std::endl;
                         // root->printNodeSubTree();
                         std::cout << "Uncle: " << Uncle->isRed() << std::endl;
-                        if (node->doubleRed() && Uncle->isRed())
+                        if (node->doubleRed() && Uncle != node && Uncle->isRed())
                         {            
                             pushBlacknessDown(node);
                             ret = fixInsertion(root, node->parent->parent);
@@ -454,6 +454,33 @@ class RBTree {
                         return (searchNode(node->left, key));
                 }
 
+                void fixDB(Node *TN)
+                {
+                    Node* ret = NULL;
+                    std::cout << "TN: " << TN->getKey() << " - hasBSibling? " << TN->hasBSibling() << " - hasBNephews? " << TN->hasBNephews() << std::endl;
+                    if (!TN->isNil() && TN->isDBlack())
+                    {
+                        if (TN->hasBSibling())
+                        {
+                            if (TN->hasBNephews())
+                            {
+                                std::cout << "\n==== PUSH BLACKNESS UP on " << TN->getKey() << " level - line 751 ====" << std::endl;
+                                pushBlacknessUp(TN);
+                            }
+                            else if (TN->isLChild() && TN->hasRRNephew())
+                            {
+                                std::cout << "\n==== LEFT ROTATION 471 on " << TN->parent->getKey() << " ====" << std::endl;
+                                ret = rotate(_root, TN->parent, 1);
+                                TN->setColor(BLACK);
+                                TN->getUncle()->setColor(BLACK);
+                                if (ret)
+                                    _root = ret;
+                            }
+                            fixDB(TN->parent);
+                        }
+                    }
+                }
+
                 Node* removeNode(Node* node, Key key)
                 {
                     std::cout << "\n==== KEY OF THE NODE TO REMOVE: " << key << " ====" << std::endl;
@@ -488,13 +515,7 @@ class RBTree {
                                         std::cout << "\n==== PUSH BLACKNESS UP on " << TargetNode->getKey() << " level - line 745 ====" << std::endl;
                                         pushBlacknessUp(TargetNode);
                                         _root->printNodeSubTree();
-                                        Node* TN = TargetNode->parent;
-                                        if (TN && TN->isDBlack() && (TN->getSibling())->isBlack() && TN->hasBNephews())
-                                        {
-                                            std::cout << "\n==== PUSH BLACKNESS UP on " << TN->getKey() << " level - line 751 ====" << std::endl;
-                                            pushBlacknessUp(TN);
-                                            TN = TN->parent;
-                                        }  
+                                        fixDB(TargetNode->parent);
                                     }
                                     else if (TargetNode->hasLBNephew())
                                     {
@@ -530,6 +551,18 @@ class RBTree {
                                 }
                             }
                             
+                        }
+                        else if (TargetNode->hasBothChildren())
+                        {
+                            
+                        }
+                        else if (TargetNode->hasNoRightChild())
+                        {
+                            TargetNode->parent->right = TargetNode->left;
+                            TargetNode->left->parent = TargetNode->parent;
+                            TargetNode->left->setColor(TargetNode->getColor());
+                            removeParentLink(TargetNode);
+                            delete TargetNode;
                         }
                     }
                     if (!_root->isBlack())
