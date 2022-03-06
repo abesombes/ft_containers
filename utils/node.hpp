@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 10:34:35 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/06 15:17:30 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/06 15:20:40 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,8 +174,10 @@ class Node {
                 return (-1);
             }
             int hasNoChild(void) { return (left->isNil() && right->isNil()); }
+
+            int hasNoRChild(void) { return (right->isNil()); }
             
-            int hasLRChildren(void) { return (!left->isNil() && !right->isNil()); }
+            int hasChildren(void) { return (!left->isNil() && !right->isNil()); }
 
             int isLChild(void) { return (!parent->isNil() && parent->left == this); }
 

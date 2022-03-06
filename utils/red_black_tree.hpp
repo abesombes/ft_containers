@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/06 15:14:26 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/06 18:03:30 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,17 +195,17 @@ class RBTree {
 
                 Node* getMaxValueNode(Node *root)
                 {
-                    if(root == NULL)
-                        return NULL;
-                    else if (root->right==NULL)
+                    if(root->isNil())
+                        return _nil;
+                    else if (root->right->isNil())
                         return root;
                     else
                         return getMaxValueNode(root->right);
                 }
 
-                Node* getMinValueNode(Node* node)
+                Node* getMinValueNode(Node* root)
                 {
-                    Node* current = node;
+                    Node* current = root;
                 
                     /* loop down to find the leftmost leaf */
                     while (current && current->left != NULL)
@@ -487,7 +487,7 @@ class RBTree {
                     Node* TargetNode = searchNode(node, key);
                     std::cout << "Node Color : " << TargetNode->getColor() << std::endl;
                     std::cout << "Leaf? " << TargetNode->isLeaf() << std::endl;
-                    Node* Parent = node->parent;
+                    Node* Parent = TargetNode->parent;
                     // Node* Parent_SubTree = NULL;
                     Node* Sibling = NULL;
                     Node* ret = NULL;
@@ -505,13 +505,16 @@ class RBTree {
                             TargetNode->setColor(DOUBLE_BLACK);
                             std::cout << "TargetNode: " << TargetNode->getKey() << std::endl;
                             if (TargetNode->hasRSibling())
-                            {}
+                            {
+                                                            std::cout << "==== TargetNode is a Red Sibling ====" << std::endl;
+                            }
                             else if (TargetNode->hasBSibling())
                             {
                                 if (TargetNode->isRChild())
                                 {
                                     if (TargetNode->hasBNephews())
                                     {
+                                        std::cout << "==== Right Child TargetNode has 2 Black Nephews ====" << std::endl;
                                         std::cout << "\n==== PUSH BLACKNESS UP on " << TargetNode->getKey() << " level - line 745 ====" << std::endl;
                                         pushBlacknessUp(TargetNode);
                                         _root->printNodeSubTree();
@@ -519,6 +522,7 @@ class RBTree {
                                     }
                                     else if (TargetNode->hasLBNephew())
                                     {
+                                        std::cout << "==== TargetNode has a left Black Nephew ====" << std::endl;
                                         std::cout << "\n==== LEFT RIGHT ROTATION 706 on " << TargetNode->parent->getKey() << " ====" << std::endl;
                                         ret = rotate(_root, TargetNode->parent, 3);
                                         if (ret)
@@ -534,8 +538,19 @@ class RBTree {
                                 }
                                 else if (TargetNode->isLChild())
                                 {
-                                    if (TargetNode->hasRRNephew())
+                                    if (TargetNode->hasBNephews())
                                     {
+                                        std::cout << "==== Left Child TargetNode has 2 Black Nephews ====" << std::endl;
+                                        std::cout << "\n==== PUSH BLACKNESS2 UP on " << TargetNode->getKey() << " level - line 745 ====" << std::endl;
+                                        pushBlacknessUp(TargetNode);
+                                        _root->printNodeSubTree();
+                                        fixDB(TargetNode->parent);
+                                        removeParentLink(TargetNode);
+                                        deleteNode(TargetNode);
+                                    }
+                                    else if (TargetNode->hasRRNephew())
+                                    {
+                                        std::cout << "==== Left Child TargetNode has a Red Right Nephew ====" << std::endl;
                                         TargetNode->getSibling()->swapChildParentColors();
                                         Node* FarNephew = TargetNode->getFarNephew();
                                         std::cout << "\n==== LEFT ROTATION 672 on " << TargetNode->parent->getKey() << " ====" << std::endl;
@@ -552,17 +567,35 @@ class RBTree {
                             }
                             
                         }
-                        else if (TargetNode->hasBothChildren())
+                        else if (TargetNode->hasChildren())
                         {
-                            
+                            std::cout << "\n==== TargetNode has 2 Children ====\n" << std::endl;
+                            Node* Replacer = getMaxValueNode(TargetNode->left);
+                            std::cout << "I am here 772: TargetNode = " << TargetNode->getKey() << " - Replacer (Max Value of Left Subtree) = " << Replacer->getKey() << std::endl;
+                            if (!Parent->isNil())
+                            {
+                                int tn_side = TargetNode->isLeftRightChild();
+                                // int rp_side = Replacer->isLeftRightChild();
+                                Node* Replacer_Parent = Replacer->parent;
+                                link(Parent, Replacer, tn_side + 1); // replugging the Replacer to the seed Parent (higher plug)
+                                link(Replacer, TargetNode->right, 2); // lower right plug
+                                link(Replacer, Replacer_Parent, 1); // lower left plug
+                                // Replacer_Parent->right = _nil;
+                                Replacer->left->setColor(BLACK);
+                                Replacer->right->setColor(BLACK);                                
+                                removeParentLink(TargetNode);
+                                deleteNode(TargetNode);
+                            }
                         }
-                        else if (TargetNode->hasNoRightChild())
+                        else if (TargetNode->hasNoRChild())
                         {
-                            TargetNode->parent->right = TargetNode->left;
-                            TargetNode->left->parent = TargetNode->parent;
+                            std::cout << "==== TargetNode " << TargetNode->getKey() << " has No Right Child ====" << std::endl;
+                            link(TargetNode->parent, TargetNode->left, TargetNode->isRChild() + 1);
+                            // TargetNode->parent->right = TargetNode->left;
+                            // TargetNode->left->parent = TargetNode->parent;
                             TargetNode->left->setColor(TargetNode->getColor());
                             removeParentLink(TargetNode);
-                            delete TargetNode;
+                            deleteNode(TargetNode);
                         }
                     }
                     if (!_root->isBlack())
