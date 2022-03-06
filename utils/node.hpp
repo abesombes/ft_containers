@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 10:34:35 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/02 19:51:07 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/06 11:40:31 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,46 @@ class Node {
                 return nil;
             }
 
+            Node* getSibling( void )
+            {
+                if (!parent->isNil() && parent->left == this)
+                    return (parent->right);
+                else if (!parent->isNil() && parent->right == this)
+                    return (parent->left);
+                return (this);
+            }
+
+            Node* getLeftNephew( void )
+            {
+                if (parent && parent->left == this)
+                    return (parent->right->left);
+                else if (parent && parent->right == this)
+                    return (parent->left->left);
+                return (this);
+            }
+
+            Node* getRightNephew( void )
+            {
+                if (parent && parent->left == this)
+                    return (parent->right->right);
+                else if (parent && parent->right == this)
+                    return (parent->left->right);
+                return (this);
+            }
+
+            Node* getFarNephew(void)
+            {
+                Node* Sibling = getSibling();
+                if (Sibling != this)
+                {
+                    if (isLChild())
+                        return (Sibling->right);
+                    else if (isRChild())
+                        return (Sibling->left);
+                }
+                return (this);
+            }
+
             /* -------------------- Node Structures ---------------------- */
 
             int isLeftRightChild(void)
@@ -131,24 +171,26 @@ class Node {
                     return 0;
                 if (this->parent && this->parent->right == this)
                     return 1;
-                return  (-1);
+                return (-1);
             }
             
-            int isLeftChild(void)
-            {
-                // 1 Left Child, 0 no parent or Right Child
-                if (this->parent && this->parent->left == this)
-                    return 1;
-                return  (0);
-            }
+            int isLChild(void) { return (!parent->isNil() && parent->left == this); }
 
-            int isRightChild(void)
-            {
-                // 1 Right Child, 0 no parent or Left Child
-                if (this->parent && this->parent->right == this)
-                    return 1;
-                return  (0);
-            }
+            int isRChild(void) { return (!parent->isNil() && parent->right == this); }
+
+            int hasBSibling(void) { return (getSibling() != this && getSibling()->isBlack()); }
+
+            int hasRSibling(void) { return (getSibling() != this && getSibling()->isRed()); }
+
+            int hasLBNephew(void) { return (getLeftNephew() != this && getLeftNephew()->isBlack()); }
+            
+            int hasRBNephew(void) { return (getRightNephew() != this && getRightNephew()->isBlack()); }
+
+            int hasBNephews(void) { return (hasRBNephew() && hasLBNephew()); }
+
+            int hasLRNephew(void) { return (getLeftNephew() != this && getLeftNephew()->isRed()); }
+
+            int hasRRNephew(void) { return (getRightNephew() != this && getRightNephew()->isRed()); }
 
             int isLeftRightCase(void)
             {
@@ -165,6 +207,12 @@ class Node {
             }
             
             /* ----------------------------------------------------------- */
+
+            bool isLeaf(void) { return (!isNil() && left->isNil() && right->isNil()); }
+
+            bool isRedLeaf(void) { return (!isNil() && left->isNil() && right->isNil() && isRed());}
+
+            bool isBlackLeaf(void) { return (!isNil() && left->isNil() && right->isNil() && isBlack()); }
             
             void printNode(char relative_pos, Node* parent)
             {
