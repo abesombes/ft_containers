@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/06 18:03:30 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/06 18:44:41 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -476,6 +476,16 @@ class RBTree {
                                 if (ret)
                                     _root = ret;
                             }
+                            else if (TN->isRChild() && TN->hasLBNephew())
+                            {
+                                std::cout << "\n==== LEFT RIGHT ROTATION 481 on " << TN->parent->getKey() << " ====" << std::endl;
+                                ret = rotate(_root, TN->parent, 3);
+                                TN->setColor(BLACK);
+                                TN->parent->setColor(BLACK);
+                                TN->getUncle()->setColor(BLACK);
+                                if (ret)
+                                    _root = ret;
+                            }
                             fixDB(TN->parent);
                         }
                     }
@@ -570,19 +580,29 @@ class RBTree {
                         else if (TargetNode->hasChildren())
                         {
                             std::cout << "\n==== TargetNode has 2 Children ====\n" << std::endl;
-                            Node* Replacer = getMaxValueNode(TargetNode->left);
-                            std::cout << "I am here 772: TargetNode = " << TargetNode->getKey() << " - Replacer (Max Value of Left Subtree) = " << Replacer->getKey() << std::endl;
+                            Node* Replacer = getMaxValueNode(TargetNode->left); // warning: 2 cases - Replacer is Red or Black - if Replacer is Black, we replace it by a DBlack
+                            std::cout << "I am here 584: TargetNode = " << TargetNode->getKey() << " - Replacer (Max Value of Left Subtree) = " << Replacer->getKey() << std::endl;
                             if (!Parent->isNil())
                             {
+                                std::cout << "I am in 587" << std::endl;
                                 int tn_side = TargetNode->isLeftRightChild();
-                                // int rp_side = Replacer->isLeftRightChild();
+                                int rp_side = Replacer->isLeftRightChild();
+                                int save_tn_color = TargetNode->getColor();
                                 Node* Replacer_Parent = Replacer->parent;
                                 link(Parent, Replacer, tn_side + 1); // replugging the Replacer to the seed Parent (higher plug)
+                                Replacer->setColor(save_tn_color);
                                 link(Replacer, TargetNode->right, 2); // lower right plug
                                 link(Replacer, Replacer_Parent, 1); // lower left plug
                                 // Replacer_Parent->right = _nil;
-                                Replacer->left->setColor(BLACK);
-                                Replacer->right->setColor(BLACK);                                
+                                // On swappe le TargetNode pour le mettre a la place du Replacer en format DBlack si le Replacer etait Black
+                                if (save_tn_color == BLACK)
+                                {
+                                    link(Replacer_Parent, TargetNode, rp_side + 1);
+                                    TargetNode->setColor(DOUBLE_BLACK);
+                                    fixDB(TargetNode);
+                                }
+                                // Replacer->left->setColor(BLACK);
+                                // Replacer->right->setColor(BLACK);
                                 removeParentLink(TargetNode);
                                 deleteNode(TargetNode);
                             }
