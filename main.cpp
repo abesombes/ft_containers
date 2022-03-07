@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/08 00:55:18 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/08 00:57:06 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,13 +198,13 @@ int main()
     RedBlackT.removeNode(RedBlackT.getRoot(), 11);
     RedBlackT.removeNode(RedBlackT.getRoot(), 55);
     RedBlackT.removeNode(RedBlackT.getRoot(), 81);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 150);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 2);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 80);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 5);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 40);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 150);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 2);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 80);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 5);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 40);
     RedBlackT.removeNode(RedBlackT.getRoot(), 48);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 26);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 26);
     // RedBlackT.removeNode(RedBlackT.getRoot(), 17);
     RedBlackT.printRBT();
     // RedBlackT.insertNode("Chocolat", "D");
