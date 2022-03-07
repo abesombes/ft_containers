@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/06 18:44:41 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/07 01:27:09 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -464,7 +464,7 @@ class RBTree {
                         {
                             if (TN->hasBNephews())
                             {
-                                std::cout << "\n==== PUSH BLACKNESS UP on " << TN->getKey() << " level - line 751 ====" << std::endl;
+                                std::cout << "\n==== PUSH BLACKNESS UP 467 on " << TN->getKey() << " level - line 751 ====" << std::endl;
                                 pushBlacknessUp(TN);
                             }
                             else if (TN->isLChild() && TN->hasRRNephew())
@@ -588,21 +588,23 @@ class RBTree {
                                 int tn_side = TargetNode->isLeftRightChild();
                                 int rp_side = Replacer->isLeftRightChild();
                                 int save_tn_color = TargetNode->getColor();
+                                int save_rp_color = Replacer->getColor();
                                 Node* Replacer_Parent = Replacer->parent;
                                 link(Parent, Replacer, tn_side + 1); // replugging the Replacer to the seed Parent (higher plug)
                                 Replacer->setColor(save_tn_color);
                                 link(Replacer, TargetNode->right, 2); // lower right plug
-                                link(Replacer, Replacer_Parent, 1); // lower left plug
+                                link(Replacer, Replacer_Parent, 1); // lower left plug???
                                 // Replacer_Parent->right = _nil;
                                 // On swappe le TargetNode pour le mettre a la place du Replacer en format DBlack si le Replacer etait Black
-                                if (save_tn_color == BLACK)
+                                std::cout << "save_rp_color: " << save_rp_color << std::endl;
+                                if (save_rp_color == BLACK)
                                 {
                                     link(Replacer_Parent, TargetNode, rp_side + 1);
                                     TargetNode->setColor(DOUBLE_BLACK);
+                                    std::cout << "I am in 602" << std::endl;
                                     fixDB(TargetNode);
                                 }
-                                // Replacer->left->setColor(BLACK);
-                                // Replacer->right->setColor(BLACK);
+                                std::cout << "I am in 607: TargetNode = " << TargetNode->getKey() << std::endl;
                                 removeParentLink(TargetNode);
                                 deleteNode(TargetNode);
                             }
