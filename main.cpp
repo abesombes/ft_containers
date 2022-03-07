@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/06 18:31:29 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/07 17:49:43 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,9 +129,9 @@ int main()
     ft::pair<int, std::string> p25 = ft::make_pair(22, "Gstaad");
     ft::pair<int, std::string> p26 = ft::make_pair(72, "Zermatt");
     ft::pair<int, std::string> p27 = ft::make_pair(97, "Courchevel");
-    // ft::pair<int, std::string> p28 = ft::make_pair(48, "Megeve");
-    // ft::pair<int, std::string> p29 = ft::make_pair(81, "Val Thorens");
-    // ft::pair<int, std::string> p30 = ft::make_pair(12, "La Plagne");
+    ft::pair<int, std::string> p28 = ft::make_pair(48, "Megeve");
+    ft::pair<int, std::string> p29 = ft::make_pair(81, "Val Thorens");
+    ft::pair<int, std::string> p30 = ft::make_pair(12, "La Plagne");
     // ft::pair<int, std::string> p31 = ft::make_pair(51, "Flaine");
     // ft::pair<int, std::string> p32 = ft::make_pair(34, "Tignes");
     // ft::pair<int, std::string> p33 = ft::make_pair(46, "Meribel");
@@ -169,9 +169,9 @@ int main()
     RedBlackT.insertValue(p25);
     RedBlackT.insertValue(p26);
     RedBlackT.insertValue(p27);
-    // RedBlackT.insertValue(p28);
-    // RedBlackT.insertValue(p29);
-    // RedBlackT.insertValue(p30);
+    RedBlackT.insertValue(p28);
+    RedBlackT.insertValue(p29);
+    RedBlackT.insertValue(p30);
     // RedBlackT.insertValue(p31);
     // RedBlackT.insertValue(p32);
     // RedBlackT.insertValue(p33);
@@ -184,9 +184,22 @@ int main()
     // RedBlackT.insertValue(p40);
     RedBlackT.printRBT();
 
-    RedBlackT.removeNode(RedBlackT.getRoot(), 11);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 40);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 80);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 4);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 66);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 3);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 8);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 55);
     RedBlackT.removeNode(RedBlackT.getRoot(), 75);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 50);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 22);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 10);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 17);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 150);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 26);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 11);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 72);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 97);
     // RedBlackT.removeNode(RedBlackT.getRoot(), 25);
     // RedBlackT.removeNode(RedBlackT.getRoot(), 9);
     // RedBlackT.removeNode(RedBlackT.getRoot(), 6);

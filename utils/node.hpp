@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   node.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 10:34:35 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/06 15:20:40 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/07 14:57:33 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,8 @@ class Node {
             }
             int hasNoChild(void) { return (left->isNil() && right->isNil()); }
 
+            int hasNoLChild(void) { return (left->isNil()); }            
+            
             int hasNoRChild(void) { return (right->isNil()); }
             
             int hasChildren(void) { return (!left->isNil() && !right->isNil()); }
