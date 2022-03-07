@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   red_black_tree.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/07 01:27:09 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/07 10:54:46 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -584,7 +584,6 @@ class RBTree {
                             std::cout << "I am here 584: TargetNode = " << TargetNode->getKey() << " - Replacer (Max Value of Left Subtree) = " << Replacer->getKey() << std::endl;
                             if (!Parent->isNil())
                             {
-                                std::cout << "I am in 587" << std::endl;
                                 int tn_side = TargetNode->isLeftRightChild();
                                 int rp_side = Replacer->isLeftRightChild();
                                 int save_tn_color = TargetNode->getColor();
@@ -594,8 +593,7 @@ class RBTree {
                                 Replacer->setColor(save_tn_color);
                                 link(Replacer, TargetNode->right, 2); // lower right plug
                                 link(Replacer, Replacer_Parent, 1); // lower left plug???
-                                // Replacer_Parent->right = _nil;
-                                // On swappe le TargetNode pour le mettre a la place du Replacer en format DBlack si le Replacer etait Black
+                                // TargetNode is replaced by Replacer and Replacer is replaced by TargetNode in the tree (position swap)
                                 std::cout << "save_rp_color: " << save_rp_color << std::endl;
                                 if (save_rp_color == BLACK)
                                 {
@@ -604,7 +602,8 @@ class RBTree {
                                     std::cout << "I am in 602" << std::endl;
                                     fixDB(TargetNode);
                                 }
-                                std::cout << "I am in 607: TargetNode = " << TargetNode->getKey() << std::endl;
+                                else if (save_rp_color == RED)
+                                    link(Replacer_Parent, TargetNode, 2);
                                 removeParentLink(TargetNode);
                                 deleteNode(TargetNode);
                             }
