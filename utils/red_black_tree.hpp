@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/08 23:18:52 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/09 00:27:11 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -474,16 +474,28 @@ class RBTree {
                             {
                                 std::cout << "\n==== RIGHT LEFT ROTATION 475 on " << TN->parent->getKey() << " ====" << std::endl;
                                 ret = rotate(_root, TN->parent, 4);
-                                std::cout << "TN: " << TN->getKey() << std::endl;
-                                TN->setColor(BLACK);
-                                TN->parent->parent->setColor(BLACK);
-                                TN->getUncle()->setColor(BLACK);
+                                std::cout << "TN: " << TN->getKey() << " - TN->parent: " << TN->parent->getKey() << " - color = " << TN->parent->getColor() << " - TN->parent->parent: " << TN->parent->parent->getKey() << " - color = " << TN->parent->parent->getColor() << std::endl;
+                                if (TN->parent->isRed() && TN->parent->parent->isBlack() && TN->getUncle()->isRed())
+                                {
+                                    std::cout << "here in 480 \n";
+                                    TN->parent->setColor(BLACK);
+                                    TN->parent->parent->setColor(RED);
+                                    TN->getUncle()->setColor(BLACK);
+                                    TN->setColor(BLACK);
+                                }
+                                else
+                                {
+                                    std::cout << "here in 488 \n";
+                                    TN->setColor(BLACK);
+                                    TN->parent->parent->setColor(BLACK);
+                                    TN->getUncle()->setColor(BLACK);
+                                }
                                 if (ret)
                                     _root = ret;
                             }
                             else if (TN->isLChild() && TN->hasRRNephew())
                             {
-                                std::cout << "\n==== LEFT ROTATION 471 on " << TN->parent->getKey() << " ====" << std::endl;
+                                std::cout << "\n==== LEFT ROTATION 496 on " << TN->parent->getKey() << " ====" << std::endl;
                                 ret = rotate(_root, TN->parent, 1);
                                 std::cout << "TN: " << TN->getKey() << " - TN->parent: " << TN->parent->getKey() << std::endl;
                                 TN->setColor(BLACK);
@@ -529,13 +541,33 @@ class RBTree {
                         }
                         else if (TN->hasRSibling())
                         {
+                            // std::cout << "\n==== LEFT RIGHT ROTATION 532 on " << TN->parent->getKey() << " ====" << std::endl;
+                            // ret = rotate(_root, TN->parent, 3);
+                            // std::cout << "TN: " << TN->getKey() << std::endl;
+                            // if (TN->parent->isRed() && TN->getUncle()->isRed() && TN->parent->parent->isBlack())
+                            // {
+                            //     TN->parent->parent->setColor(RED);
+                            //     TN->parent->setColor(BLACK);
+                            //     TN->getUncle()->setColor(BLACK);
+                            // }
+                            // if (ret)
+                            //     _root = ret;
                             std::cout << "\n==== LEFT ROTATION 508 on " << TN->parent->getKey() << " ====" << std::endl;
                             ret = rotate(_root, TN->parent, 1);
                             std::cout << "TN: " << TN->getKey() << std::endl;
-                            TN->getSibling()->setColor(RED);
-                            TN->parent->parent->setColor(BLACK);
+                            if (TN->isDBlack() && TN->parent->isBlack() && TN->parent->parent->isRed())
+                            {
+                                TN->parent->setColor(RED);
+                                TN->parent->parent->setColor(BLACK);
+                            }
+                            else
+                            {
+                                TN->getSibling()->setColor(RED);
+                                TN->parent->parent->setColor(BLACK);
+                            }
                             if (ret)
                                 _root = ret;
+                            fixDB(TN);
                         }
                     }
                 }
