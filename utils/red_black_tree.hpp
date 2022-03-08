@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/08 10:38:22 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/08 11:00:02 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -668,6 +668,7 @@ class RBTree {
                             int save_rp_color = Replacer->getColor();
                             Node* Replacer_Parent = Replacer->parent;
                             Node* Replacer_Left = Replacer->left;
+                            int check_RP_equal_TN = (Replacer_Parent == TargetNode);
                             if (TargetNode != _root)
                             {
                                 link(Parent, Replacer, tn_side + 1); // replugging the Replacer to the seed Parent (higher plug)
@@ -690,7 +691,10 @@ class RBTree {
                             if (!Replacer_Left->isNil() && !Replacer_Parent->isNil())
                             {
                                 std::cout << "Coming here 677" << std::endl;
-                                link(Replacer_Parent, Replacer_Left, rp_side + 1);
+                                if (!check_RP_equal_TN)
+                                    link(Replacer_Parent, Replacer_Left, rp_side + 1);
+                                else
+                                    link(Replacer, Replacer_Left, rp_side + 1);
                                 Replacer_Left->setColor(BLACK);
                             }
                             else
