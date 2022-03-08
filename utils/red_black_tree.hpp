@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/07 19:28:10 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/08 10:38:22 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -667,12 +667,14 @@ class RBTree {
                             int save_tn_color = TargetNode->getColor();
                             int save_rp_color = Replacer->getColor();
                             Node* Replacer_Parent = Replacer->parent;
+                            Node* Replacer_Left = Replacer->left;
                             if (TargetNode != _root)
                             {
                                 link(Parent, Replacer, tn_side + 1); // replugging the Replacer to the seed Parent (higher plug)
                                 Replacer->setColor(save_tn_color);
                                 link(Replacer, TargetNode->right, 2); // lower right plug
                                 link(Replacer, Replacer_Parent, 1); // lower left plug???
+
                             }
                             else 
                             {
@@ -683,28 +685,46 @@ class RBTree {
                             }
                             // TargetNode is replaced by Replacer and Replacer is replaced by TargetNode in the tree (position swap)
                             std::cout << "save_rp_color: " << save_rp_color << std::endl;
-                            if (save_rp_color == BLACK)
+                            // if the Replacer has a left Child, it is important to replug this left Child to Replacer Parent
+                            std::cout << "Replacer_Parent: " << Replacer_Parent->getKey() << " - Replacer_Left: " << Replacer_Left->getKey() << std::endl;
+                            if (!Replacer_Left->isNil() && !Replacer_Parent->isNil())
                             {
-                                if (Replacer_Parent != TargetNode)
-                                    link(Replacer_Parent, TargetNode, rp_side + 1);
-                                else
-                                    link(Replacer, TargetNode, rp_side + 1);
-                                TargetNode->setColor(DOUBLE_BLACK);
-                                std::cout << "Creation du NULL LEAF DOUBLE BLACK" << std::endl;
-                                fixDB(TargetNode);
+                                std::cout << "Coming here 677" << std::endl;
+                                link(Replacer_Parent, Replacer_Left, rp_side + 1);
+                                Replacer_Left->setColor(BLACK);
                             }
-                            else if (save_rp_color == RED)
-                                link(Replacer_Parent, TargetNode, 2);
+                            else
+                            {
+                                if (save_rp_color == BLACK)
+                                {
+                                    // 2 cases here: either the Replacer has a Child or no. If yes, we add +1 to the color of this Child (thus maybe creating a DB)
+                                    if (Replacer_Parent != TargetNode)
+                                        link(Replacer_Parent, TargetNode, rp_side + 1);
+                                    else
+                                        link(Replacer, TargetNode, rp_side + 1);
+                                    TargetNode->setColor(DOUBLE_BLACK);
+                                    std::cout << "Creation du NULL LEAF DOUBLE BLACK" << std::endl;
+                                    fixDB(TargetNode);
+                                }
+                                else if (save_rp_color == RED)
+                                    link(Replacer_Parent, TargetNode, 2);
+                            }
                             removeParentLink(TargetNode);
                             deleteNode(TargetNode);
                         }
                         else if (TargetNode->hasNoRChild())
                         {
                             std::cout << "==== TargetNode " << TargetNode->getKey() << " has No Right Child ====" << std::endl;
-                            link(TargetNode->parent, TargetNode->left, TargetNode->isRChild() + 1);
-                            // TargetNode->parent->right = TargetNode->left;
-                            // TargetNode->left->parent = TargetNode->parent;
-                            TargetNode->left->setColor(TargetNode->getColor());
+                            if (TargetNode == _root)
+                            {
+                                _root = TargetNode->left;
+                                _root->parent = _nil;
+                            }
+                            else
+                            {
+                                link(TargetNode->parent, TargetNode->left, TargetNode->isRChild() + 1);
+                                TargetNode->left->setColor(TargetNode->getColor());
+                            }
                             removeParentLink(TargetNode);
                             deleteNode(TargetNode);
                         }
