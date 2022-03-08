@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/08 11:00:02 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/08 12:27:50 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -460,7 +460,7 @@ class RBTree {
                 void fixDB(Node *TN)
                 {
                     Node* ret = NULL;
-                    std::cout << "TN: " << TN->getKey() << " - TN->parent: " << TN->parent->getKey() << " - Sibling manuel: " << TN->parent->right->getKey() << " - color = " << TN->parent->right->getColor() << " - hasBSibling? " << TN->hasBSibling() << " - hasBNephews? " << TN->hasBNephews() << std::endl;
+                    std::cout << "TN: " << TN->getKey() << " - TN->parent: " << TN->parent->getKey() << " - LNephew: " << TN->parent->right->left->getKey()<< " - RNephew: " << TN->parent->right->right->getKey() << " - Sibling manuel: " << TN->parent->right->getKey() << " - color = " << TN->parent->right->getColor() << " - hasBSibling? " << TN->hasBSibling() << " - hasBNephews? " << TN->hasBNephews() << std::endl;
                     if (!TN->isNil() && TN->isDBlack())
                     {
                         if (TN->hasBSibling())
@@ -561,7 +561,7 @@ class RBTree {
                                 std::cout << "TargetNode: " << TargetNode->getKey() << std::endl;
                                 if (TargetNode->hasRSibling())
                                 {
-                                    std::cout << "==== TargetNode is a Red Sibling ====" << std::endl;
+                                    std::cout << "==== TargetNode has a Red Sibling ====" << std::endl;
                                     TargetNode->setColor(DOUBLE_BLACK);
                                     std::cout << "Creation du NULL LEAF DOUBLE BLACK" << std::endl;
                                     fixDB(TargetNode);
@@ -664,7 +664,7 @@ class RBTree {
                             std::cout << "I am here 584: TargetNode = " << TargetNode->getKey() << " - Replacer (Max Value of Left Subtree) = " << Replacer->getKey() << std::endl;
                             int tn_side = TargetNode->isLeftRightChild();
                             int rp_side = Replacer->isLeftRightChild();
-                            int save_tn_color = TargetNode->getColor();
+                            // int save_tn_color = TargetNode->getColor(); ??? TO BE RECHECKED
                             int save_rp_color = Replacer->getColor();
                             Node* Replacer_Parent = Replacer->parent;
                             Node* Replacer_Left = Replacer->left;
@@ -672,7 +672,7 @@ class RBTree {
                             if (TargetNode != _root)
                             {
                                 link(Parent, Replacer, tn_side + 1); // replugging the Replacer to the seed Parent (higher plug)
-                                Replacer->setColor(save_tn_color);
+                                // Replacer->setColor(save_tn_color);
                                 link(Replacer, TargetNode->right, 2); // lower right plug
                                 link(Replacer, Replacer_Parent, 1); // lower left plug???
 

@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 10:34:35 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/07 14:57:33 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/08 11:38:38 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,18 +133,18 @@ class Node {
 
             Node* getLNephew( void )
             {
-                if (parent && parent->left == this)
+                if (!parent->isNil() && parent->left == this)
                     return (parent->right->left);
-                else if (parent && parent->right == this)
+                else if (!parent->isNil() && parent->right == this)
                     return (parent->left->left);
                 return (this);
             }
 
             Node* getRNephew( void )
             {
-                if (parent && parent->left == this)
+                if (!parent->isNil() && parent->left == this)
                     return (parent->right->right);
-                else if (parent && parent->right == this)
+                else if (!parent->isNil() && parent->right == this)
                     return (parent->left->right);
                 return (this);
             }
