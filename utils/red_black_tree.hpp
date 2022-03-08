@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   red_black_tree.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/08 12:27:50 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/08 23:18:52 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -485,8 +485,16 @@ class RBTree {
                             {
                                 std::cout << "\n==== LEFT ROTATION 471 on " << TN->parent->getKey() << " ====" << std::endl;
                                 ret = rotate(_root, TN->parent, 1);
+                                std::cout << "TN: " << TN->getKey() << " - TN->parent: " << TN->parent->getKey() << std::endl;
                                 TN->setColor(BLACK);
-                                TN->getUncle()->setColor(BLACK);
+                                if (TN->parent->isRed() && TN->parent->parent->isBlack() && TN->getUncle()->isRed())
+                                {
+                                    TN->parent->setColor(BLACK);
+                                    TN->parent->parent->setColor(RED);
+                                    TN->getUncle()->setColor(BLACK);
+                                }
+                                else if (TN->parent->isBlack() && TN->parent->parent->isBlack())
+                                    TN->getUncle()->setColor(BLACK);
                                 if (ret)
                                     _root = ret;
                             }
@@ -505,9 +513,14 @@ class RBTree {
                                 std::cout << "\n==== RIGHT ROTATION 494 on " << TN->parent->getKey() << " ====" << std::endl;
                                 ret = rotate(_root, TN->parent, 2);
 
-                                TN->parent->parent->setColor(RED);
-                                TN->parent->setColor(BLACK);
-                                TN->getUncle()->setColor(BLACK);
+                                if (TN->parent->isRed() && TN->parent->parent->isBlack() && TN->getUncle()->isRed())
+                                {
+                                    TN->parent->parent->setColor(RED);
+                                    TN->parent->setColor(BLACK);
+                                    TN->getUncle()->setColor(BLACK);
+                                }
+                                else if (TN->parent->isBlack() && TN->parent->parent->isBlack())
+                                    TN->getUncle()->setColor(BLACK);
                                 std::cout << "TN: " << TN->getKey() << " - Color = " << TN->getColor() << " - TN->parent: " << TN->parent->getKey() << " - Color = " << TN->parent->getColor() << std::endl;
                                 if (ret)
                                     _root = ret;
@@ -664,7 +677,7 @@ class RBTree {
                             std::cout << "I am here 584: TargetNode = " << TargetNode->getKey() << " - Replacer (Max Value of Left Subtree) = " << Replacer->getKey() << std::endl;
                             int tn_side = TargetNode->isLeftRightChild();
                             int rp_side = Replacer->isLeftRightChild();
-                            // int save_tn_color = TargetNode->getColor(); ??? TO BE RECHECKED
+                            int save_tn_color = TargetNode->getColor(); //??? TO BE RECHECKED
                             int save_rp_color = Replacer->getColor();
                             Node* Replacer_Parent = Replacer->parent;
                             Node* Replacer_Left = Replacer->left;
@@ -672,7 +685,7 @@ class RBTree {
                             if (TargetNode != _root)
                             {
                                 link(Parent, Replacer, tn_side + 1); // replugging the Replacer to the seed Parent (higher plug)
-                                // Replacer->setColor(save_tn_color);
+                                Replacer->setColor(save_tn_color);
                                 link(Replacer, TargetNode->right, 2); // lower right plug
                                 link(Replacer, Replacer_Parent, 1); // lower left plug???
 
@@ -751,6 +764,7 @@ class RBTree {
                     }
                     if (!_root->isBlack())
                         _root->setColor(BLACK);
+                    printRBT();
                     return TargetNode;
                     // return (!TargetNode->isNil() ? TargetNode : _nil);
                 }
