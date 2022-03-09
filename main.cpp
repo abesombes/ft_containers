@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/09 17:33:56 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/09 18:50:01 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,16 +102,16 @@ int main()
     // TESTS POUR MAP
     
     ft::RBTree<int, std::string> RedBlackT;
-    // ft::pair<int, std::string> p1 = ft::make_pair(5, "London");
-    // ft::pair<int, std::string> p2 = ft::make_pair(18, "Paris");
-    // ft::pair<int, std::string> p3 = ft::make_pair(25, "Kiev");
-    // ft::pair<int, std::string> p4 = ft::make_pair(9, "Madrid");
-    // ft::pair<int, std::string> p5 = ft::make_pair(7, "Tungunska");
-    // ft::pair<int, std::string> p6 = ft::make_pair(1, "Porto Vecchio");
-    // ft::pair<int, std::string> p7 = ft::make_pair(6, "Salamanca");
-    // ft::pair<int, std::string> p8 = ft::make_pair(50, "Dubrovnic");
-    // ft::pair<int, std::string> p9 = ft::make_pair(90, "Santiago");
-    // ft::pair<int, std::string> p10 = ft::make_pair(15, "NYC");
+    ft::pair<int, std::string> p1 = ft::make_pair(5, "London");
+    ft::pair<int, std::string> p2 = ft::make_pair(18, "Paris");
+    ft::pair<int, std::string> p3 = ft::make_pair(25, "Kiev");
+    ft::pair<int, std::string> p4 = ft::make_pair(9, "Madrid");
+    ft::pair<int, std::string> p5 = ft::make_pair(7, "Tungunska");
+    ft::pair<int, std::string> p6 = ft::make_pair(1, "Porto Vecchio");
+    ft::pair<int, std::string> p7 = ft::make_pair(6, "Salamanca");
+    ft::pair<int, std::string> p8 = ft::make_pair(50, "Dubrovnic");
+    ft::pair<int, std::string> p9 = ft::make_pair(90, "Santiago");
+    ft::pair<int, std::string> p10 = ft::make_pair(15, "NYC");
     ft::pair<int, std::string> p11 = ft::make_pair(2, "Stockholm");
     ft::pair<int, std::string> p12 = ft::make_pair(40, "Alger");
     ft::pair<int, std::string> p13 = ft::make_pair(3, "Washington DC");
@@ -133,25 +133,25 @@ int main()
     ft::pair<int, std::string> p29 = ft::make_pair(81, "Val Thorens");
     ft::pair<int, std::string> p30 = ft::make_pair(12, "La Plagne");
     ft::pair<int, std::string> p31 = ft::make_pair(51, "Flaine");
-    // ft::pair<int, std::string> p32 = ft::make_pair(34, "Tignes");
-    // ft::pair<int, std::string> p33 = ft::make_pair(46, "Meribel");
-    // ft::pair<int, std::string> p34 = ft::make_pair(61, "Isola2000");
-    // ft::pair<int, std::string> p35 = ft::make_pair(63, "St Moritz");
-    // ft::pair<int, std::string> p36 = ft::make_pair(69, "Sant Anton");
-    // ft::pair<int, std::string> p37 = ft::make_pair(19, "Davos");
-    // ft::pair<int, std::string> p38 = ft::make_pair(62, "San Remo");
-    // ft::pair<int, std::string> p39 = ft::make_pair(98, "San Francisco");
-    // ft::pair<int, std::string> p40 = ft::make_pair(44, "San Jose");
-    // RedBlackT.insertValue(p1);
-    // RedBlackT.insertValue(p2);
-    // RedBlackT.insertValue(p3);
-    // RedBlackT.insertValue(p4);
-    // RedBlackT.insertValue(p5);
-    // RedBlackT.insertValue(p6);
-    // RedBlackT.insertValue(p7);
-    // RedBlackT.insertValue(p8);
-    // RedBlackT.insertValue(p9);
-    // RedBlackT.insertValue(p10);
+    ft::pair<int, std::string> p32 = ft::make_pair(34, "Tignes");
+    ft::pair<int, std::string> p33 = ft::make_pair(46, "Meribel");
+    ft::pair<int, std::string> p34 = ft::make_pair(61, "Isola2000");
+    ft::pair<int, std::string> p35 = ft::make_pair(63, "St Moritz");
+    ft::pair<int, std::string> p36 = ft::make_pair(69, "Sant Anton");
+    ft::pair<int, std::string> p37 = ft::make_pair(19, "Davos");
+    ft::pair<int, std::string> p38 = ft::make_pair(62, "San Remo");
+    ft::pair<int, std::string> p39 = ft::make_pair(98, "San Francisco");
+    ft::pair<int, std::string> p40 = ft::make_pair(44, "San Jose");
+    RedBlackT.insertValue(p1);
+    RedBlackT.insertValue(p2);
+    RedBlackT.insertValue(p3);
+    RedBlackT.insertValue(p4);
+    RedBlackT.insertValue(p5);
+    RedBlackT.insertValue(p6);
+    RedBlackT.insertValue(p7);
+    RedBlackT.insertValue(p8);
+    RedBlackT.insertValue(p9);
+    RedBlackT.insertValue(p10);
     RedBlackT.insertValue(p11);
     RedBlackT.insertValue(p12);
     RedBlackT.insertValue(p13);
@@ -173,16 +173,39 @@ int main()
     RedBlackT.insertValue(p29);
     RedBlackT.insertValue(p30);
     RedBlackT.insertValue(p31);
-    // RedBlackT.insertValue(p32);
-    // RedBlackT.insertValue(p33);
-    // RedBlackT.insertValue(p34);
-    // RedBlackT.insertValue(p35);
-    // RedBlackT.insertValue(p36);
-    // RedBlackT.insertValue(p37);
-    // RedBlackT.insertValue(p38);
-    // RedBlackT.insertValue(p39);
-    // RedBlackT.insertValue(p40);
+    RedBlackT.insertValue(p32);
+    RedBlackT.insertValue(p33);
+    RedBlackT.insertValue(p34);
+    RedBlackT.insertValue(p35);
+    RedBlackT.insertValue(p36);
+    RedBlackT.insertValue(p37);
+    RedBlackT.insertValue(p38);
+    RedBlackT.insertValue(p39);
+    RedBlackT.insertValue(p40);
     RedBlackT.printRBT();
+
+    // CODE POUR TESTS PACKS 1 A 8
+    // ft::pair<int, std::string> p11 = ft::make_pair(2, "Stockholm");
+    // ft::pair<int, std::string> p12 = ft::make_pair(40, "Alger");
+    // ft::pair<int, std::string> p13 = ft::make_pair(3, "Washington DC");
+    // ft::pair<int, std::string> p14 = ft::make_pair(26, "Seattle");
+    // ft::pair<int, std::string> p15 = ft::make_pair(55, "Atlanta");
+    // ft::pair<int, std::string> p16 = ft::make_pair(10, "Dallas");
+    // ft::pair<int, std::string> p17 = ft::make_pair(66, "St Louis");
+    // ft::pair<int, std::string> p18 = ft::make_pair(75, "Chicago");
+    // ft::pair<int, std::string> p19 = ft::make_pair(8, "Vancouver");
+    // ft::pair<int, std::string> p20 = ft::make_pair(150, "Calgary");
+    // ft::pair<int, std::string> p21 = ft::make_pair(80, "Rome");
+    // ft::pair<int, std::string> p22 = ft::make_pair(17, "Geneva");
+    // ft::pair<int, std::string> p23 = ft::make_pair(4, "Lausanne");
+    // ft::pair<int, std::string> p24 = ft::make_pair(11, "Montreux");
+    // ft::pair<int, std::string> p25 = ft::make_pair(22, "Gstaad");
+    // ft::pair<int, std::string> p26 = ft::make_pair(72, "Zermatt");
+    // ft::pair<int, std::string> p27 = ft::make_pair(97, "Courchevel");
+    // ft::pair<int, std::string> p28 = ft::make_pair(48, "Megeve");
+    // ft::pair<int, std::string> p29 = ft::make_pair(81, "Val Thorens");
+    // ft::pair<int, std::string> p30 = ft::make_pair(12, "La Plagne");
+    // ft::pair<int, std::string> p31 = ft::make_pair(51, "Flaine");
 
     // PACK 1
     // RedBlackT.removeNode(RedBlackT.getRoot(), 22);
@@ -300,27 +323,27 @@ int main()
     // RedBlackT.removeNode(RedBlackT.getRoot(), 80);
 
     // PACK 6 - good
-    RedBlackT.removeNode(RedBlackT.getRoot(), 17);
-    RedBlackT.removeNode(RedBlackT.getRoot(), 12);
-    RedBlackT.removeNode(RedBlackT.getRoot(), 40);
-    RedBlackT.removeNode(RedBlackT.getRoot(), 2);
-    RedBlackT.removeNode(RedBlackT.getRoot(), 51);
-    RedBlackT.removeNode(RedBlackT.getRoot(), 66);
-    RedBlackT.removeNode(RedBlackT.getRoot(), 55);
-    RedBlackT.removeNode(RedBlackT.getRoot(), 72);
-    RedBlackT.removeNode(RedBlackT.getRoot(), 150);
-    RedBlackT.removeNode(RedBlackT.getRoot(), 97);
-    RedBlackT.removeNode(RedBlackT.getRoot(), 26);
-    RedBlackT.removeNode(RedBlackT.getRoot(), 11);
-    RedBlackT.removeNode(RedBlackT.getRoot(), 4);
-    RedBlackT.removeNode(RedBlackT.getRoot(), 3);
-    RedBlackT.removeNode(RedBlackT.getRoot(), 10);
-    RedBlackT.removeNode(RedBlackT.getRoot(), 22);
-    RedBlackT.removeNode(RedBlackT.getRoot(), 75);
-    RedBlackT.removeNode(RedBlackT.getRoot(), 8);
-    RedBlackT.removeNode(RedBlackT.getRoot(), 48);
-    RedBlackT.removeNode(RedBlackT.getRoot(), 80);
-    RedBlackT.removeNode(RedBlackT.getRoot(), 81);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 17);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 12);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 40);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 2);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 51);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 66);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 55);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 72);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 150);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 97);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 26);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 11);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 4);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 3);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 10);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 22);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 75);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 8);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 48);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 80);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 81);
 
     // PACK 7 - good
     // RedBlackT.removeNode(RedBlackT.getRoot(), 3);
@@ -367,7 +390,90 @@ int main()
     // RedBlackT.removeNode(RedBlackT.getRoot(), 11);
     // RedBlackT.removeNode(RedBlackT.getRoot(), 2);
     // RedBlackT.removeNode(RedBlackT.getRoot(), 55);
-    
+
+    // PACK 9 - extended to 40 values - good
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 8);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 6);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 5);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 9);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 81);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 90);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 3);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 62);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 17);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 75);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 18);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 12);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 69);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 11);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 55);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 19);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 2);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 46);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 22);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 26);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 1);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 48);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 7);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 25);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 98);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 34);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 4);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 61);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 97);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 40);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 51);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 15);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 63);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 50);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 10);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 72);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 66);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 44);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 150);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 80);
+
+    // PACK 10
+    RedBlackT.removeNode(RedBlackT.getRoot(), 97);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 40);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 25);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 12);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 9);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 11);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 18);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 7);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 17);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 4);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 98);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 150);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 26);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 10);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 55);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 8);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 44);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 90);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 2);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 22);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 62);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 19);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 51);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 3);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 48);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 50);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 80);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 75);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 72);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 6);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 61);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 5);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 81);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 15);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 46);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 63);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 66);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 1);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 34);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 69);
     RedBlackT.printRBT();
     // RedBlackT.insertNode("Chocolat", "D");
     // RedBlackT.insertNode("Boat", "A");
