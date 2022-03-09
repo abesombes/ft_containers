@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/09 17:30:00 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/09 19:38:41 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -549,7 +549,10 @@ class RBTree {
                                     TN->getUncle()->setColor(BLACK);
                                 }
                                 else if (TN->parent->isBlack() && TN->parent->parent->isBlack())
+                                {
                                     TN->getUncle()->setColor(BLACK);
+                                    TN->setColor(BLACK);
+                                }
                                 std::cout << "TN: " << TN->getKey() << " - Color = " << TN->getColor() << " - TN->parent: " << TN->parent->getKey() << " - Color = " << TN->parent->getColor() << std::endl;
                                 if (ret)
                                     _root = ret;
@@ -676,6 +679,9 @@ class RBTree {
                                         {
                                             std::cout << "==== TargetNode has a left Black Nephew ====" << std::endl;
                                             std::cout << "\n==== LEFT RIGHT ROTATION 706 on " << TargetNode->parent->getKey() << " ====" << std::endl;
+                                            std::cout << "RNephew: " << TargetNode->getRNephew()->getKey() << " - color = " << TargetNode->getRNephew()->getColor() << " - has RRNephew? " << TargetNode->hasRRNephew() << "\n";
+                                            if (TargetNode->hasRRNephew())
+                                                TargetNode->getRNephew()->setColor(BLACK);  
                                             ret = rotate(_root, TargetNode->parent, 3);
                                             if (ret)
                                                 _root = ret;
@@ -683,7 +689,6 @@ class RBTree {
                                             std::cout << "\n==== RECOLORING on " << TargetNode->parent->parent->getKey() << " ====" << std::endl;
                                             Sibling = TargetNode->parent;
                                             Sibling->setColor(BLACK);
-                                            TargetNode->parent->parent->setColor(RED);
                                         }
                                         else if (TargetNode->hasLRNephew())
                                         {
