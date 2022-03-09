@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/09 16:20:26 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/09 17:30:00 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -588,6 +588,11 @@ class RBTree {
                             else if (TN->isRChild())
                             {
                                 std::cout << "\n==== RIGHT ROTATION 571 on " << TN->parent->getKey() << " ====" << std::endl;
+                                if (TN->getSibling()->isRed())
+                                {
+                                    TN->parent->setColor(RED);
+                                    TN->getSibling()->setColor(BLACK);
+                                }
                                 ret = rotate(_root, TN->parent, 2);
 
                                 if (TN->parent->isRed() && TN->parent->parent->isBlack() && TN->getUncle()->isRed())
@@ -612,7 +617,11 @@ class RBTree {
 
                 Node* removeNode(Node* node, Key key)
                 {
-                    std::cout << "\n==== KEY OF THE NODE TO REMOVE: " << key << " ====" << std::endl;
+                    std::cout << "\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n";
+                    std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n";
+                    std::cout << " !!!!!! KEY OF THE NODE TO REMOVE: " << key << " !!!!!!!!" << std::endl;
+                    std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n";
+                    std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n";
                     Node* TargetNode = searchNode(node, key);
                     std::cout << "Node Color : " << TargetNode->getColor() << std::endl;
                     std::cout << "Leaf? " << TargetNode->isLeaf() << std::endl;
