@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   red_black_tree.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/09 19:38:41 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/10 00:18:43 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -696,6 +696,8 @@ class RBTree {
                                             std::cout << "\n==== RIGHT ROTATION 599 on " << TargetNode->parent->getKey() << " ====" << std::endl;
                                             if (TargetNode->parent->isRed())
                                                 TargetNode->parent->setColor(BLACK);
+                                            if (TargetNode->getSibling()->isBlack())
+                                                TargetNode->getSibling()->setColor(RED);
                                             ret = rotate(_root, TargetNode->parent, 2);
                                             if (ret)
                                                 _root = ret;
@@ -703,6 +705,7 @@ class RBTree {
                                             std::cout << "\n==== RECOLORING on " << TargetNode->parent->parent->getKey() << " ====" << std::endl;
                                             // Sibling = TargetNode->parent;
                                             // Sibling->setColor(BLACK);
+                                            
                                             TargetNode->getUncle()->setColor(BLACK);
                                             //TargetNode->parent->parent->setColor(RED);
                                             TargetNode->setColor(BLACK);
