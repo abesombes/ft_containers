@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   red_black_tree.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/09 00:33:01 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/09 16:20:26 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -460,7 +460,7 @@ class RBTree {
                 void fixDB(Node *TN)
                 {
                     Node* ret = NULL;
-                    std::cout << "TN: " << TN->getKey() << " - TN->parent: " << TN->parent->getKey() << " - LNephew: " << TN->parent->right->left->getKey()<< " - RNephew: " << TN->parent->right->right->getKey() << " - Sibling manuel: " << TN->parent->right->getKey() << " - color = " << TN->parent->right->getColor() << " - hasBSibling? " << TN->hasBSibling() << " - hasBNephews? " << TN->hasBNephews() << std::endl;
+                    std::cout << "TN: " << TN->getKey() << " - color: " << TN->getColor() << " - TN->parent: " << TN->parent->getKey() << " - LNephew: " << TN->parent->right->left->getKey()<< " - RNephew: " << TN->parent->right->right->getKey() << " - Sibling manuel: " << TN->parent->right->getKey() << " - color = " << TN->parent->right->getColor() << " - hasBSibling? " << TN->hasBSibling() << " - hasBNephews? " << TN->hasBNephews() << std::endl;
                     if (!TN->isNil() && TN->isDBlack())
                     {
                         if (TN->hasBSibling())
@@ -510,13 +510,32 @@ class RBTree {
                             }
                             else if (TN->isRChild() && TN->hasLBNephew())
                             {
+                                if (TN->parent->isBlack())
+                                    TN->getRNephew()->setColor(BLACK);
                                 std::cout << "\n==== LEFT RIGHT ROTATION 481 on " << TN->parent->getKey() << " ====" << std::endl;
                                 ret = rotate(_root, TN->parent, 3);
                                 TN->setColor(BLACK);
                                 TN->parent->setColor(BLACK);
                                 TN->getUncle()->setColor(BLACK);
+
+                                std::cout << "TN->parent->parent: " << TN->parent->parent->getKey() << "color = " << TN->parent->parent->getColor() << "\n";
                                 if (ret)
                                     _root = ret;
+                                // std::cout << "\n==== LEFT ROTATION 521 on " << TN->parent->getKey() << " ====" << std::endl;
+                                // ret = rotate(_root, TN->parent, 1);
+                                // std::cout << "TN: " << TN->getKey() << " - TN->parent: " << TN->parent->getKey() << std::endl;
+                                // TN->setColor(BLACK);
+                                // if (TN->parent->isRed() && TN->parent->parent->isBlack() && TN->getUncle()->isRed())
+                                // {
+                                //     TN->parent->setColor(BLACK);
+                                //     TN->parent->parent->setColor(RED);
+                                //     TN->getUncle()->setColor(BLACK);
+                                // }
+                                // else if (TN->parent->isBlack() && TN->parent->parent->isBlack())
+                                //     TN->getUncle()->setColor(BLACK);
+                                // if (ret)
+                                //     _root = ret;
+                                // fixDB(TN);
                             }
                             else if (TN->isRChild() && TN->hasLRNephew())
                             {
@@ -550,18 +569,39 @@ class RBTree {
                             // }
                             // if (ret)
                             //     _root = ret;
-                            std::cout << "\n==== LEFT ROTATION 508 on " << TN->parent->getKey() << " ====" << std::endl;
-                            ret = rotate(_root, TN->parent, 1);
-                            std::cout << "TN: " << TN->getKey() << std::endl;
-                            if (TN->isDBlack() && TN->parent->isBlack() && TN->parent->parent->isRed())
+                            if (TN->isLChild())
                             {
-                                TN->parent->setColor(RED);
-                                TN->parent->parent->setColor(BLACK);
+                                std::cout << "\n==== LEFT ROTATION 508 on " << TN->parent->getKey() << " ====" << std::endl;
+                                ret = rotate(_root, TN->parent, 1);
+                                std::cout << "TN: " << TN->getKey() << std::endl;
+                                if (TN->isDBlack() && TN->parent->isBlack() && TN->parent->parent->isRed())
+                                {
+                                    TN->parent->setColor(RED);
+                                    TN->parent->parent->setColor(BLACK);
+                                }
+                                else
+                                {
+                                    TN->getSibling()->setColor(RED);
+                                    TN->parent->parent->setColor(BLACK);
+                                }
                             }
-                            else
+                            else if (TN->isRChild())
                             {
-                                TN->getSibling()->setColor(RED);
-                                TN->parent->parent->setColor(BLACK);
+                                std::cout << "\n==== RIGHT ROTATION 571 on " << TN->parent->getKey() << " ====" << std::endl;
+                                ret = rotate(_root, TN->parent, 2);
+
+                                if (TN->parent->isRed() && TN->parent->parent->isBlack() && TN->getUncle()->isRed())
+                                {
+                                    TN->parent->parent->setColor(RED);
+                                    TN->parent->setColor(BLACK);
+                                    TN->getUncle()->setColor(BLACK);
+                                }
+                                else if (TN->parent->isBlack() && TN->parent->parent->isBlack())
+                                    TN->getUncle()->setColor(BLACK);
+                                else if (TN->parent->isBlack() && TN->parent->parent->isRed())
+                                {
+                                    TN->parent->setColor(RED);
+                                }
                             }
                             if (ret)
                                 _root = ret;
@@ -600,13 +640,13 @@ class RBTree {
                             else
                             {
                                 TargetNode->setColor(DOUBLE_BLACK);
-                                std::cout << "Creation du NULL LEAF DOUBLE BLACK" << std::endl;
+                                std::cout << "Creation du NULL LEAF DOUBLE BLACK 603" << std::endl;
                                 std::cout << "TargetNode: " << TargetNode->getKey() << std::endl;
                                 if (TargetNode->hasRSibling())
                                 {
                                     std::cout << "==== TargetNode has a Red Sibling ====" << std::endl;
-                                    TargetNode->setColor(DOUBLE_BLACK);
-                                    std::cout << "Creation du NULL LEAF DOUBLE BLACK" << std::endl;
+                                    // TargetNode->setColor(DOUBLE_BLACK);
+                                    // std::cout << "Creation du NULL LEAF DOUBLE BLACK 609" << std::endl;
                                     fixDB(TargetNode);
                                     removeParentLink(TargetNode);
                                     deleteNode(TargetNode);
@@ -640,15 +680,18 @@ class RBTree {
                                         {
                                             std::cout << "==== TargetNode has a left Red Nephew ====" << std::endl;
                                             std::cout << "\n==== RIGHT ROTATION 599 on " << TargetNode->parent->getKey() << " ====" << std::endl;
+                                            if (TargetNode->parent->isRed())
+                                                TargetNode->parent->setColor(BLACK);
                                             ret = rotate(_root, TargetNode->parent, 2);
                                             if (ret)
                                                 _root = ret;
                                             std::cout << "TargetNode->parent: " << TargetNode->parent->getKey() << std::endl;
                                             std::cout << "\n==== RECOLORING on " << TargetNode->parent->parent->getKey() << " ====" << std::endl;
-                                            Sibling = TargetNode->parent;
-                                            Sibling->setColor(BLACK);
+                                            // Sibling = TargetNode->parent;
+                                            // Sibling->setColor(BLACK);
                                             TargetNode->getUncle()->setColor(BLACK);
-                                            TargetNode->parent->parent->setColor(RED);
+                                            //TargetNode->parent->parent->setColor(RED);
+                                            TargetNode->setColor(BLACK);
                                         }
                                         removeParentLink(TargetNode);
                                         deleteNode(TargetNode);
