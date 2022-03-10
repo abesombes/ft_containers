@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/10 15:49:50 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/10 15:58:34 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,21 @@ int main()
     
     // TESTS POUR MAP
     
-    ft::RBTree<int, std::string> RedBlackT;
-    ft::bidirectional_iterator<int, std::string, > it;
+    // ft::RBTree<int, std::string> RedBlackT;
+    // ft::bidirectional_iterator<int, std::string, > it;
+
+    std::map<char,int> first;
+  
+    //initializing
+    first['a']=10;
+    first['b']=20;
+    first['c']=30;
+    first['d']=40;
+    
+    map<char, int>::iterator it;
+    for(it=first.begin(); it!=first.end(); ++it){
+        cout << it->first << " => " << it->second << '\n';
+    }
 // ft::pair<int, std::string> p1 = ft::make_pair(445, "Hong Kong");
 // ft::pair<int, std::string> p2 = ft::make_pair(125, "Bangkok");
 // ft::pair<int, std::string> p3 = ft::make_pair(484, "London");

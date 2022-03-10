@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 16:00:43 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/10 13:59:12 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/10 16:08:29 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,6 @@
 #define ITERATOR_TRAITS_HPP
 
 namespace ft{
-
-#include "random_access_iterator.hpp"
-
-// struct bidirectional_iterator_tag : forward_iterator_tag {};
-// struct random_access_iterator_tag : bidirectional_iterator_tag {};
 
 struct input_iterator_tag {};
 struct output_iterator_tag {};

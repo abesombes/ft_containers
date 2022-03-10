@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:30:34 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/10 15:47:13 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/10 16:33:28 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ class bidirectional_iterator
             typedef ptrdiff_t                                       difference_type;
             typedef T*                                              elem_pointer;
 
-            typedef Node<const Key, T, B, Compare>	                Node;
+            typedef Node<const Key, T, Compare>	                    Node;
             typedef Node*                                           NodePtr;
             typedef Key									            key_type;
             typedef Compare                                         key_compare;
@@ -47,10 +47,10 @@ class bidirectional_iterator
             bool    _is_end;
             
     public:        
-            bidirectional_iterator( node *node = NULL, bool is_end = false ): _node(node), _is_end(is_end){};
+            bidirectional_iterator( Node* node = NULL, bool is_end = false ): _node(node), _is_end(is_end){};
             bidirectional_iterator( bidirectional_iterator<Key, T, Compare, B> const &src ): _node(src.getNode()), _is_end(src._is_end){};
-            random_access_iterator &operator=(random_access_iterator const &rhs){ this->_val = rhs._val; return (*this); };
-            virtual ~random_access_iterator(){};
+            bidirectional_iterator &operator=(bidirectional_iterator const &rhs){ this->_node = rhs._node; this->_is_end = rhs._is_end; return (*this); };
+            virtual ~bidirectional_iterator(){};
             Node *getNode( void ) { return _node;}
             self_type &operator++(){ _val++; return (*this);};
             self_type operator++(int){ self_type tmp = *this; ++(*this); return tmp; };
@@ -63,7 +63,7 @@ class bidirectional_iterator
             bool operator!=(self_type const & rhs) const { 
                 return !(*this == rhs); 
             };
-            reference operator*() const { return (*_val); };
+            reference operator*() const { return (this->getValue); };
             pointer operator->() const { return (_val); };
             self_type operator+(difference_type offset) const { return static_cast<self_type>(_val + offset); };
             self_type operator-(difference_type offset) const { return static_cast<self_type>(_val - offset); };
