@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/10 09:26:28 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/10 09:57:54 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -691,44 +691,44 @@ ft::pair<int, std::string> p50 = ft::make_pair(311, "Florence");
     RedBlackT.removeNode(RedBlackT.getRoot(), 230);
     RedBlackT.removeNode(RedBlackT.getRoot(), 153);
     RedBlackT.removeNode(RedBlackT.getRoot(), 16);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 120);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 186);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 66);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 437);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 245);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 475);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 312);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 156);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 450);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 177);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 111);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 169);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 163);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 110);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 311);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 484);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 445);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 206);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 448);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 400);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 248);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 464);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 340);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 215);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 358);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 497);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 370);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 262);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 166);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 301);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 252);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 91);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 221);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 84);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 38);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 100);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 286);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 316);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 120);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 186);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 66);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 437);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 245);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 475);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 312);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 156);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 450);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 177);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 111);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 169);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 163);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 110);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 311);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 484);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 445);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 206);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 448);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 400);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 248);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 464);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 340);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 215);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 358);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 497);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 370);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 262);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 166);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 301);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 252);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 91);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 221);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 84);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 38);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 100);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 286);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 316);
 
     
     // RedBlackT.removeNode(RedBlackT.getRoot(), 186);

@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/10 09:39:05 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/10 09:56:19 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -547,6 +547,7 @@ class RBTree {
                                     TN->parent->parent->setColor(RED);
                                     TN->parent->setColor(BLACK);
                                     TN->getUncle()->setColor(BLACK);
+                                    TN->setColor(BLACK);
                                 }
                                 else if (TN->parent->isBlack() && TN->parent->parent->isBlack())
                                 {
