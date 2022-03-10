@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:19 by abesombes         #+#    #+#             */
-/*   Updated: 2022/02/17 10:20:49 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/10 15:52:40 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 #include <cstddef>
 #include <limits>
 #include <algorithm>
-#include "iterators/random_access_iterator.hpp"
-#include "iterators/rev_random_access_iterator.hpp"
+#include "iterators/bidirectional_iterator.hpp"
+// #include "iterators/rev_bidirectional_iterator.hpp"
 
 namespace ft{
     
