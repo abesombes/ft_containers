@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:30:34 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/10 16:33:28 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/10 17:45:10 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,109 +52,55 @@ class bidirectional_iterator
             bidirectional_iterator &operator=(bidirectional_iterator const &rhs){ this->_node = rhs._node; this->_is_end = rhs._is_end; return (*this); };
             virtual ~bidirectional_iterator(){};
             Node *getNode( void ) { return _node;}
-            self_type &operator++(){ _val++; return (*this);};
-            self_type operator++(int){ self_type tmp = *this; ++(*this); return tmp; };
-            self_type &operator--(){ _val--; return (*this);};
-            self_type operator--(int){ self_type tmp = *this; --*this; return tmp; };
+            
+            self_type &operator++()
+            { 
+                Node *tmp = _node->getSuccessor();
+                if (!tmp)
+                    _is_end = true;
+                else
+                    _node = tmp;
+                return (*this);
+            };
+            
+            self_type operator++(int)
+            { 
+                self_type tmp_it(*this);
+                
+                ++(*this);
+                return (*tmp_it);
+            };
+
+            self_type &operator--()
+            { 
+                Node *tmp = _node->getPredecessor();
+                if (!tmp)
+                    _is_end = true;
+                else
+                    _node = tmp;
+                return (*this);
+            };
+            
+            self_type operator--(int)
+            { 
+                self_type tmp_it(*this);
+                
+                --(*this);
+                return (*tmp_it);
+            };
+
             bool operator==(self_type const & rhs) const { 
-                // if (compatible(rhs))
                     return _val == rhs._val; 
             };
             bool operator!=(self_type const & rhs) const { 
                 return !(*this == rhs); 
             };
-            reference operator*() const { return (this->getValue); };
-            pointer operator->() const { return (_val); };
-            self_type operator+(difference_type offset) const { return static_cast<self_type>(_val + offset); };
-            self_type operator-(difference_type offset) const { return static_cast<self_type>(_val - offset); };
-            difference_type operator-(self_type const &rhs) const { return (_val - rhs._val); };
-            bool operator<(self_type const &rhs) const {                 
-                // if (compatible(rhs))
-                    return (_val < rhs._val);  
-            };  
-            bool operator>(self_type const &rhs) const { return (rhs < *this); };  
-            bool operator<=(self_type const & rhs) const { return !(rhs < *this); };
-            bool operator>=(self_type const & rhs) const { return !(*this < rhs); };
-            self_type & operator+=( difference_type const offset) { _val += offset; return (*this); };
-            self_type & operator-=( difference_type const offset) { _val -= offset; return (*this); };
-            value_type & operator[]( difference_type const offset ) { return (*(*this + offset)); };
-            value_type const & operator[]( difference_type const offset ) const { return (*(*this + offset)); };
+            reference operator*() const { return (this->_node->getValue()); };
+            pointer operator->() const { return (&this->_node->getValue()); };
+        
     
 };
 
-//enables implicit conversion from const to non_const
-
-template <class T>
-bool operator==(const random_access_iterator<T, false>& lhs, const random_access_iterator<T, true>& rhs)
-{
-    return (lhs.getVal() == rhs.getVal());
-}
-template <class T>
-bool operator==(const random_access_iterator<T, true>& lhs, const random_access_iterator<T, false>& rhs)
-{
-    return (lhs.getVal() == rhs.getVal());
-}
-
-template <class T>
-bool operator!=(const random_access_iterator<T, false>& lhs, const random_access_iterator<T, true>& rhs)
-{
-    return (lhs.getVal() != rhs.getVal());
-}
-template <class T>
-bool operator!=(const random_access_iterator<T, true>& lhs, const random_access_iterator<T, false>& rhs)
-{
-    return (lhs.getVal() != rhs.getVal());
-}
-
-template <class T>
-bool operator<(const random_access_iterator<T, false>& lhs, const random_access_iterator<T, true>& rhs)
-{
-    return !(lhs.getVal() >= rhs.getVal());
-}
-template <class T>
-bool operator<(const random_access_iterator<T, true>& lhs, const random_access_iterator<T, false>& rhs)
-{
-    return !(lhs.getVal() >= rhs.getVal());
-}
-
-template <class T>
-bool operator<=(const random_access_iterator<T, false>& lhs, const random_access_iterator<T, true>& rhs)
-{
-    return !(lhs.getVal() > rhs.getVal());
-}
-template <class T>
-bool operator<=(const random_access_iterator<T, true>& lhs, const random_access_iterator<T, false>& rhs)
-{
-    return !(lhs.getVal() > rhs.getVal());
-}
-
-template <class T>
-bool operator>(const random_access_iterator<T, false>& lhs, const random_access_iterator<T, true>& rhs)
-{
-    return !(lhs.getVal() <= rhs.getVal());
-}
-template <class T>
-bool operator>(const random_access_iterator<T, true>& lhs, const random_access_iterator<T, false>& rhs)
-{
-    return !(lhs.getVal() <= rhs.getVal());
-}
-
-template <class T>
-bool operator>=(const random_access_iterator<T, false>& lhs, const random_access_iterator<T, true>& rhs)
-{
-    return !(lhs.getVal() < rhs.getVal());
-}
-template <class T>
-bool operator>=(const random_access_iterator<T, true>& lhs, const random_access_iterator<T, false>& rhs)
-{
-    return !(lhs.getVal() < rhs.getVal());
-}
-
-template <typename T, bool B>
-random_access_iterator<T, B> operator+(ptrdiff_t offset, random_access_iterator<T, B> it) { return static_cast<random_access_iterator<T, B> >(it.getVal() + offset); };
-
-template <typename T, bool B>
-random_access_iterator<T, B> operator-(ptrdiff_t offset, random_access_iterator<T, B> it) { return static_cast<random_access_iterator<T, B> >(it.getVal() - offset); };
 
 }
 

@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 10:34:35 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/10 14:09:03 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/10 17:46:15 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,6 +213,61 @@ class Node {
                 return (-1);
             }
             
+
+            Node* getSuccessor( void )
+            {        
+                Node* Successor = this;
+                if (!right->isNil())
+                    return (getMinTree(right));
+                if (right->isNil())
+                {
+                    while (!Successor->parent->isNil() && Successor->isLChild())
+                        Successor = Successor->parent;
+                    if (Successor->parent->isNil())
+                        return (NULL);
+                    return (Successor->parent);
+                }
+                return NULL;
+            }
+
+            Node* getPredecessor( void )
+            {
+                Node* Predecessor = this;
+                
+                if (!left->isNil())
+                    return (getMaxValueNode(node->left));
+                if (!node->left)
+                {
+                    while (node->parent && node->parent->right != node)
+                        node = node->parent;
+                    if (node->parent == _root && node->parent->right == node)
+                        return (node->parent);
+                    if (node->parent == _root)
+                        return (NULL);
+                    return (node->parent);
+                }
+                return NULL;
+            }
+
+            Node* getTreeMax( void )
+            {
+                Node* TreeMax = this; 
+                
+                while (!tmp->right->isNil())
+                    tmp = tmp->right;
+                return (TreeMax);
+            }
+
+            Node* getTreeMin( void )
+            {
+                Node* TreeMin = this;
+            
+                while (!TreeMin->left->isNil())
+                    TreeMin = TreeMin->left;
+            
+                return (TreeMin);
+            }
+        
             /* ----------------------------------------------------------- */
 
             bool isLeaf(void) { return (!isNil() && left->isNil() && right->isNil()); }

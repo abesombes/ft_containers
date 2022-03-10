@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:19 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/10 15:52:40 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/10 16:42:46 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@
 #include <algorithm>
 #include "iterators/bidirectional_iterator.hpp"
 // #include "iterators/rev_bidirectional_iterator.hpp"
-
-namespace ft{
-    
 #include <cstddef>
 #include <stdexcept>
 #include "utils/enable_if.hpp"
@@ -29,6 +26,7 @@ namespace ft{
 #include "utils/const_or_not.hpp"
 #include "utils/less.hpp"
 
+namespace ft{
 
 template <class Key, class T, class Compare = ft::less<Key>, class Alloc = std::allocator<pair<const Key,T> > 
 class map {

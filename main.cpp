@@ -6,14 +6,14 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/10 15:58:34 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/10 16:43:31 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 // #include "vector.hpp"
 // #include "stack.hpp"
-#include "map.hpp"
+// #include "map.hpp"
 #include "utils/pair.hpp"
 #include "utils/red_black_tree.hpp"
 #include <iostream>
@@ -105,18 +105,25 @@ int main()
     // ft::RBTree<int, std::string> RedBlackT;
     // ft::bidirectional_iterator<int, std::string, > it;
 
-    std::map<char,int> first;
+    std::map<char,int> map1;
   
     //initializing
-    first['a']=10;
-    first['b']=20;
-    first['c']=30;
-    first['d']=40;
+    map1['a']=10;
+    map1['b']=20;
+    map1['c']=30;
+    map1['d']=40;
     
-    map<char, int>::iterator it;
-    for(it=first.begin(); it!=first.end(); ++it){
-        cout << it->first << " => " << it->second << '\n';
+    std::map<char, int>::iterator it;
+    it = map1.begin();
+    std::cout << "(*it).first: " << (*it).first << std::endl;
+    std::cout << "(*it).second: " << (*it).second << std::endl;
+    std::cout << "it->first: " << it->first << std::endl;
+    std::cout << "it->second: " << it->second << std::endl;
+    for(it=map1.begin(); it!=map1.end(); ++it){
+        std::cout << it->first << " => " << it->second << '\n';
     }
+
+
 // ft::pair<int, std::string> p1 = ft::make_pair(445, "Hong Kong");
 // ft::pair<int, std::string> p2 = ft::make_pair(125, "Bangkok");
 // ft::pair<int, std::string> p3 = ft::make_pair(484, "London");
