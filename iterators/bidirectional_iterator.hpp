@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bidirectional_iterator.hpp                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:30:34 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/10 17:45:10 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/10 23:07:08 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,10 @@ class bidirectional_iterator
             };
 
             bool operator==(self_type const & rhs) const { 
-                    return _val == rhs._val; 
+                    return (_node == rhs.getNode()); 
             };
             bool operator!=(self_type const & rhs) const { 
-                return !(*this == rhs); 
+                    return !(_node == rhs.getNode()); 
             };
             reference operator*() const { return (this->_node->getValue()); };
             pointer operator->() const { return (&this->_node->getValue()); };
