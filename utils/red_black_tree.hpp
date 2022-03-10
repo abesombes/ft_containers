@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   red_black_tree.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/10 09:56:19 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/10 12:38:20 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -681,24 +681,36 @@ class RBTree {
                                             std::cout << "==== TargetNode has a left Black Nephew ====" << std::endl;
                                             std::cout << "\n==== LEFT RIGHT ROTATION 706 on " << TargetNode->parent->getKey() << " ====" << std::endl;
                                             std::cout << "RNephew: " << TargetNode->getRNephew()->getKey() << " - color = " << TargetNode->getRNephew()->getColor() << " - has RRNephew? " << TargetNode->hasRRNephew() << "\n";
-                                            if (TargetNode->hasRRNephew())
-                                                TargetNode->getRNephew()->setColor(BLACK);  
+                                            if (TargetNode->parent->isRed() && TargetNode->getSibling()->isBlack() && TargetNode->getRNephew()->isRed())
+                                                TargetNode->parent->setColor(BLACK);                                             
+                                            else
+                                                if (TargetNode->hasRRNephew())
+                                                    TargetNode->getRNephew()->setColor(BLACK);
+                                            TargetNode->setColor(BLACK);
                                             ret = rotate(_root, TargetNode->parent, 3);
                                             if (ret)
                                                 _root = ret;
-                                            std::cout << "TargetNode->parent: " << TargetNode->parent->getKey() << std::endl;
-                                            std::cout << "\n==== RECOLORING on " << TargetNode->parent->parent->getKey() << " ====" << std::endl;
+                                            // std::cout << "TargetNode->parent: " << TargetNode->parent->getKey() << std::endl;
+                                            // std::cout << "\n==== RECOLORING on " << TargetNode->parent->parent->getKey() << " ====" << std::endl;
                                             Sibling = TargetNode->parent;
-                                            Sibling->setColor(BLACK);
+                                            // Sibling->setColor(BLACK);
                                         }
                                         else if (TargetNode->hasLRNephew())
                                         {
                                             std::cout << "==== TargetNode has a left Red Nephew ====" << std::endl;
                                             std::cout << "\n==== RIGHT ROTATION 599 on " << TargetNode->parent->getKey() << " ====" << std::endl;
-                                            if (TargetNode->parent->isRed())
-                                                TargetNode->parent->setColor(BLACK);
-                                            if (TargetNode->getSibling()->isBlack())
-                                                TargetNode->getSibling()->setColor(RED);
+                                            if (TargetNode->parent->isBlack() && TargetNode->getSibling()->isBlack() && TargetNode->hasLRNephew())
+                                            {
+                                                TargetNode->setColor(BLACK);
+                                                TargetNode->getLNephew()->setColor(BLACK);
+                                            }
+                                            else
+                                            {
+                                                if (TargetNode->parent->isRed())
+                                                    TargetNode->parent->setColor(BLACK);
+                                                if (TargetNode->getSibling()->isBlack())
+                                                    TargetNode->getSibling()->setColor(RED);
+                                            }
                                             ret = rotate(_root, TargetNode->parent, 2);
                                             if (ret)
                                                 _root = ret;
