@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/10 00:18:43 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/10 01:05:00 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -777,8 +777,8 @@ class RBTree {
                                 link(Parent, Replacer, tn_side + 1); // replugging the Replacer to the seed Parent (higher plug)
                                 Replacer->setColor(save_tn_color);
                                 link(Replacer, TargetNode->right, 2); // lower right plug
-                                link(Replacer, Replacer_Parent, 1); // lower left plug???
-
+                                // link(Replacer, Replacer_Parent, 1); // lower left plug???
+                                link(Replacer, TargetNode->left, 1);
                             }
                             else 
                             {
