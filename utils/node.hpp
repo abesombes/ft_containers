@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   node.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 10:34:35 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/10 17:46:15 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/10 22:31:36 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,7 +227,6 @@ class Node {
                         return (NULL);
                     return (Successor->parent);
                 }
-                return NULL;
             }
 
             Node* getPredecessor( void )
@@ -235,26 +234,23 @@ class Node {
                 Node* Predecessor = this;
                 
                 if (!left->isNil())
-                    return (getMaxValueNode(node->left));
-                if (!node->left)
+                    return (getTreeMax(left));
+                if (left->isNil())
                 {
-                    while (node->parent && node->parent->right != node)
-                        node = node->parent;
-                    if (node->parent == _root && node->parent->right == node)
-                        return (node->parent);
-                    if (node->parent == _root)
+                    while (!Predecessor->parent->isNil() && Predecessor->isRChild())
+                        Predecessor = Predecessor->parent;
+                    if (Predecessor->parent->isNil())
                         return (NULL);
-                    return (node->parent);
+                    return (Predecessor->parent);
                 }
-                return NULL;
             }
 
             Node* getTreeMax( void )
             {
                 Node* TreeMax = this; 
                 
-                while (!tmp->right->isNil())
-                    tmp = tmp->right;
+                while (!TreeMax->right->isNil())
+                    TreeMax = TreeMax->right;
                 return (TreeMax);
             }
 

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/10 16:43:31 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/10 22:31:55 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 // #include "vector.hpp"
 // #include "stack.hpp"
-// #include "map.hpp"
+#include "map.hpp"
 #include "utils/pair.hpp"
 #include "utils/red_black_tree.hpp"
 #include <iostream>
