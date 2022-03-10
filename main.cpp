@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/10 02:00:21 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/10 09:26:28 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -690,7 +690,7 @@ ft::pair<int, std::string> p50 = ft::make_pair(311, "Florence");
     RedBlackT.removeNode(RedBlackT.getRoot(), 202);
     RedBlackT.removeNode(RedBlackT.getRoot(), 230);
     RedBlackT.removeNode(RedBlackT.getRoot(), 153);
-    // RedBlackT.removeNode(RedBlackT.getRoot(), 16);
+    RedBlackT.removeNode(RedBlackT.getRoot(), 16);
     // RedBlackT.removeNode(RedBlackT.getRoot(), 120);
     // RedBlackT.removeNode(RedBlackT.getRoot(), 186);
     // RedBlackT.removeNode(RedBlackT.getRoot(), 66);

@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/10 01:05:00 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/10 09:39:05 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -743,7 +743,12 @@ class RBTree {
                                         else if (TargetNode->hasRBNephew())
                                         {
                                             std::cout << "==== Left Child TargetNode has a Black Right Nephew ====" << std::endl;
-                                            TargetNode->getSibling()->swapChildParentColors();
+                                            if (TargetNode->hasLRNephew())
+                                            {
+                                                TargetNode->getLNephew()->setColor(BLACK);
+                                                TargetNode->getSibling()->setColor(RED);
+                                            }
+                                            //TargetNode->getSibling()->swapChildParentColors();
                                             Node* FarNephew = TargetNode->getFarNephew();
                                             std::cout << "\n==== RIGHT LEFT ROTATION 581 on " << TargetNode->parent->getKey() << " ====" << std::endl;
                                             std::cout << "_root: " << _root->getKey() << " Parent: " << (Parent? Parent->getKey() : 0) << std::endl;
@@ -751,8 +756,19 @@ class RBTree {
                                             if (ret)
                                                 _root = ret;
                                             std::cout << "\n==== RECOLORING on " << TargetNode->parent->parent->right->getKey() << " ====" << std::endl;
-                                            TargetNode->parent->parent->right->setColor(BLACK);
-                                            FarNephew->setColor(BLACK);
+                                            if (TargetNode->parent->isRed() && TargetNode->getUncle()->isRed() && TargetNode->parent->parent->isBlack())
+                                            {
+                                                std::cout << ">>> I am here 761 <<<\n";
+                                                TargetNode->setColor(BLACK);
+                                                TargetNode->parent->setColor(BLACK);
+                                                TargetNode->getUncle()->setColor(BLACK);
+                                                TargetNode->parent->parent->setColor(RED);
+                                            }
+                                            else
+                                            {
+                                                TargetNode->parent->parent->right->setColor(BLACK);
+                                                FarNephew->setColor(BLACK);
+                                            }
                                             removeParentLink(TargetNode);
                                             deleteNode(TargetNode);
                                         }
