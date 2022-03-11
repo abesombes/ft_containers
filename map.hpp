@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:19 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/11 18:52:19 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/11 22:59:16 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ namespace ft{
 					Alloc          	_pair_alloc;
 					RBTree			_RBTree;
 
+		public:
 					// typedef typename iterator_traits<iterator>::difference_type difference_type;
 					/*
 					----------------------------------------------------------------------------------------------------
@@ -203,8 +204,8 @@ namespace ft{
 					dereferenced.
                     */
 
-					iterator begin() { return (iterator(_RBTree->_sentinel->left)); };
-					const_iterator begin() const { return (iterator(_RBTree->_sentinel->left)); };
+					iterator begin() { return (iterator(_RBTree.getSentinel()->left)); };
+					const_iterator begin() const { return (iterator(_RBTree.getSentinel()->left)); };
 
 				   	/*
                     ----------------------------------------------------------------------------------------------------
@@ -219,8 +220,8 @@ namespace ft{
 					map::begin.
                     */
 
-					iterator end() { return (iterator(_RBTree->_sentinel->right)); };
-					const_iterator end() const { return (iterator(_RBTree->_sentinel->right)); };
+					iterator end() { return (iterator(_RBTree.getSentinel()->right)); };
+					const_iterator end() const { return (iterator(_RBTree.getSentinel()->right)); };
 
 				   	/*
                     ----------------------------------------------------------------------------------------------------
@@ -231,8 +232,8 @@ namespace ft{
 					the container. rbegin points to the element preceding the one that would be pointed to by member end.
                     */
 
-					reverse_iterator rbegin() { return (reverse_iterator(_RBTree->_sentinel->right)); };
-					const_reverse_iterator rbegin() const { return (reverse_iterator(_RBTree->_sentinel->right)); };
+					reverse_iterator rbegin() { return (reverse_iterator(_RBTree.getSentinel()->right)); };
+					const_reverse_iterator rbegin() const { return (reverse_iterator(_RBTree.getSentinel()->right)); };
 
 				    /*
                     ----------------------------------------------------------------------------------------------------
@@ -242,8 +243,8 @@ namespace ft{
 					map container (which is considered its reverse end). The range between map::rbegin and map::rend 
 					contains all the elements of the container (in reverse order).
                     */
-				   	reverse_iterator rend() { return (reverse_iterator(_RBTree->_sentinel)); };
-					const_reverse_iterator rend() const { return (reverse_iterator(_RBTree->_sentinel)); };
+				   	reverse_iterator rend() { return (reverse_iterator(_RBTree.getSentinel())); };
+					const_reverse_iterator rend() const { return (reverse_iterator(_RBTree.getSentinel())); };
 
 	   				   				
                     /*
@@ -300,7 +301,7 @@ namespace ft{
 					ft::pair<iterator,bool> insert (const value_type& val)
 					{
 						bool 			wasInserted = false;
-						iterator		inserted = _RBTree->insertValue(val, wasInserted);
+						iterator		inserted = _RBTree.insertValue(val, wasInserted);
 
 						return (ft::make_pair(iterator(inserted), wasInserted));
 					}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/11 18:45:09 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/11 22:57:33 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int main()
     
     // TESTS POUR MAP
     
-    ft::RBTree<int, std::string> RedBlackT;
+    // ft::RBTree<int, std::string> RedBlackT;
     // ft::bidirectional_iterator<int, std::string, > it;
 
     // std::map<char,int> map1;
@@ -131,6 +131,9 @@ int main()
     ft::pair<int, std::string> p1 = ft::make_pair(445, "Hong Kong");
     ft::map<int, std::string> map1;
     map1.insert(p1);
+    ft::bidirectional_iterator<int, std::string> it;
+    it = map1.begin();
+    
 
     // std::cout << "*it: " << (*it).second << std::endl;
     // std::map<char, int>::iterator base_rit;

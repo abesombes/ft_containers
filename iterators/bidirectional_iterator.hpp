@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bidirectional_iterator.hpp                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:30:34 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/11 16:32:48 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/11 22:54:21 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ class bidirectional_iterator
             
     public:        
             bidirectional_iterator( Node* node = NULL): _node(node){};
-            bidirectional_iterator( bidirectional_iterator<Key, T, Compare, B> const &src ): _node(src.getNode()){};
+            bidirectional_iterator( bidirectional_iterator<Key, T, Compare, B> const &src ): _node(src.getNode()) {};
             bidirectional_iterator &operator=(bidirectional_iterator const &rhs){ this->_node = rhs._node; return (*this); };
             virtual ~bidirectional_iterator(){};
-            Node *getNode( void ) { return _node;}
+            Node *getNode( void ) const { return _node;}
             
             self_type &operator++()
             { 

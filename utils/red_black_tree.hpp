@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   red_black_tree.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/11 17:05:10 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/11 22:55:07 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ class RBTree {
                 typedef T									mapped_type;
                 typedef ft::pair<const Key, T>				value_type;
                 typedef std::size_t							size_type;
+                typedef bidirectional_iterator<const Key, T, Compare>				iterator;
                 
     private:
                 Node*                               _root;
@@ -211,25 +212,33 @@ class RBTree {
                         _sentinel->right = node;
                         node->right = _sentinel; 
                     }
+                    else
+                        return (_nil);
+                        
                     // if not root, insert by default as a RED leaf
                     node->setColor(RED);
                     _size++;
                     return root;
                 }
 
-                void insertValue(const value_type &value)
+                iterator insertValue(const value_type &value, bool &wasInserted)
                 {
                     Node* new_Node = newNode(value);
-                    // std::cout << "new_Node: " << new_Node->getColor() << std::endl;
-                    this->_root = BSTInsert(this->_root, new_Node);
+                    Node *ret_Node = BSTInsert(this->_root, new_Node);
+                    if (ret_Node->isNil())
+                        wasInserted = false;
+                    else
+                    {
+                        wasInserted = true;
+                        _root = ret_Node;
+                    }
                     std::cout << "\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
                     std::cout << "+++++++++++++ ANNOUNCEMENT: NEW VALUE ADDED - " << value.first << " +++++++++++++" << std::endl;
                     std::cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
-                    // this->printRBT();
                     _root = fixInsertion(this->_root, new_Node);
-                    // std::cout << "_root: " << _root->getColor() << std::endl;
                     if (_root->getColor() == RED)
                         _root->setColor(BLACK);
+                    return (iterator(new_Node));
                 }
 
                 Node* getMaxValueNode(Node *root)
@@ -420,11 +429,11 @@ class RBTree {
                     Node* Uncle = node->getUncle();
                     Node* ret = NULL;
                     root->printNodeSubTree();
-                    std::cout << "\nTrying to fix node " << node->getKey() << std::endl;
+                    // std::cout << "\nTrying to fix node " << node->getKey() << std::endl;
                     if (!node->parent->isNil())
                     {
-                        std::cout << "Node Shape: " << node->isLeftRightCase() << std::endl;
-                        std::cout << "0 = LeftRight Case\n1 = RightLeft Case\n2 = LeftLeft Case\n3 = RightRight Case" << std::endl;
+                        // std::cout << "Node Shape: " << node->isLeftRightCase() << std::endl;
+                        // std::cout << "0 = LeftRight Case\n1 = RightLeft Case\n2 = LeftLeft Case\n3 = RightRight Case" << std::endl;
                         // root->printNodeSubTree();
                         std::cout << "Uncle: " << Uncle->isRed() << std::endl;
                         if (node->doubleRed() && Uncle != node && Uncle->isRed())
@@ -472,9 +481,9 @@ class RBTree {
                         }
                         root->printNodeSubTree();
                     }
-                    std::cout << "current node: " << node->getKey() << std::endl;
-                    std::cout << "parent node: " << node->parent->getKey() << std::endl;
-                    std::cout << "GP node: " << node->parent->parent->getKey() << std::endl;
+                    // std::cout << "current node: " << node->getKey() << std::endl;
+                    // std::cout << "parent node: " << node->parent->getKey() << std::endl;
+                    // std::cout << "GP node: " << node->parent->parent->getKey() << std::endl;
                     if (!node->parent->isNil() && !node->parent->parent->isNil() && node->parent->parent != root && node->parent->parent->doubleRed() == 1)
                     {
                         std::cout << "ALERT : DOUBLE RED AFTER FIX REQUIRES ANOTHER FIX" << std::endl;
