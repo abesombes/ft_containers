@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:19 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/11 17:01:03 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/11 17:17:28 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ namespace ft{
 					typedef T														mapped_type;
 					typedef Compare													key_compare;
 					typedef Alloc                   								allocator_type;
-					typedef Node<const Key, T, Compare, Alloc>							node_type;
+					typedef Node<const Key, T, Compare, Alloc>						node_type;
 					typedef typename allocator_type::reference 						reference;
 					typedef typename allocator_type::const_reference 				const_reference;
 					typedef typename allocator_type::pointer 						pointer;
@@ -150,6 +150,8 @@ namespace ft{
 					dereferenced.
                     */
 
+					iterator begin() { return (iterator(_RBTree->_sentinel->left)); };
+					const_iterator begin() const { return (iterator(_RBTree->_sentinel->left)); };
 
 				   	/*
                     ----------------------------------------------------------------------------------------------------
@@ -164,17 +166,37 @@ namespace ft{
 					map::begin.
                     */
 
+					iterator end() { return (iterator(_RBTree->_sentinel->right)); };
+					const_iterator end() const { return (iterator(_RBTree->_sentinel->right)); };
 
+				   	/*
+                    ----------------------------------------------------------------------------------------------------
+                    RBEGIN - Return reverse iterator to reverse beginning
+                    ----------------------------------------------------------------------------------------------------
+					Returns a reverse iterator pointing to the last element in the container (i.e., its reverse 
+					beginning). Reverse iterators iterate backwards: increasing them moves them towards the beginning of
+					the container. rbegin points to the element preceding the one that would be pointed to by member end.
+                    */
 
-				    iterator begin();
-					const_iterator begin() const;
-					iterator end();
-					const_iterator end() const;
-					begin - Return iterator to beginning (public member function )
-					end - Return iterator to end (public member function )
-					rbegin - Return reverse iterator to reverse beginning (public member function )
-					rend - Return reverse iterator to reverse end (public member function )
-				   
+					reverse_iterator rbegin() { return (reverse_iterator(_RBTree->_sentinel->right)); };
+					const_reverse_iterator rbegin() const { return (reverse_iterator(_RBTree->_sentinel->right)); };
+
+				    /*
+                    ----------------------------------------------------------------------------------------------------
+                    REND - Return reverse iterator to reverse end
+                    ----------------------------------------------------------------------------------------------------
+					Returns a reverse iterator pointing to the theoretical element right before the first element in the
+					map container (which is considered its reverse end). The range between map::rbegin and map::rend 
+					contains all the elements of the container (in reverse order).
+                    */
+
+					// reverse_iterator rbegin();
+					// const_reverse_iterator rbegin() const;
+					// const_iterator begin() const;
+					// iterator end();
+					// const_iterator end() const;
+				    // reverse_iterator rend();
+					// const_reverse_iterator rend() const;
 				   				   				
                     /*
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -193,7 +215,7 @@ namespace ft{
                     Returns the number of elements in the map container.
                     */
 		
-				   	size_type size() const { return _size; };
+				   	size_type size() const { return (_RBTree->getSize()); };
 
 		
 	};

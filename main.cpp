@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/11 15:19:40 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/11 17:13:05 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,26 +107,27 @@ int main()
 
     std::map<char,int> map1;
   
-    //initializing
-    // map1['a']=10;
-    // map1['b']=20;
-    // map1['c']=30;
-    // map1['d']=40;
+    // initializing
+    map1['a']=10;
+    map1['b']=20;
+    map1['c']=30;
+    map1['d']=40;
     
-    // std::map<char, int>::iterator it;
-    // std::map<char, int>::reverse_iterator rit;
-    // rit = map1.rbegin();
-    // rit++;
-    // it = map1.begin();
-    // std::cout << "(*it).first: " << (*it).first << std::endl;
-    // std::cout << "(*it).second: " << (*it).second << std::endl;
-    // std::cout << "it->first: " << it->first << std::endl;
-    // std::cout << "it->second: " << it->second << std::endl;
-    // for(it=map1.begin(); it!=map1.end(); ++it){
-    //     std::cout << it->first << " => " << it->second << '\n';
-    // }
-    // it = map1.end();
-    // std::cout << "*rit: " << (*rit).second << std::endl;
+    std::map<char, int>::iterator it;
+    std::map<char, int>::reverse_iterator rit;
+    rit = map1.rbegin();
+    std::cout << "*rit: " << (*rit).second << std::endl;
+    rit++;
+    it = map1.begin();
+    std::cout << "(*it).first: " << (*it).first << std::endl;
+    std::cout << "(*it).second: " << (*it).second << std::endl;
+    std::cout << "it->first: " << it->first << std::endl;
+    std::cout << "it->second: " << it->second << std::endl;
+    for(it=map1.begin(); it!=map1.end(); ++it){
+        std::cout << it->first << " => " << it->second << '\n';
+    }
+    it = map1.end();
+
     // std::cout << "*it: " << (*it).second << std::endl;
     // std::map<char, int>::iterator base_rit;
     // base_rit = rit.base();
@@ -303,29 +304,29 @@ ft::pair<int, std::string> p15 = ft::make_pair(290, "Phuket");
     // ft::pair<int, std::string> p38 = ft::make_pair(62, "San Remo");
     // ft::pair<int, std::string> p39 = ft::make_pair(98, "San Francisco");
     // ft::pair<int, std::string> p40 = ft::make_pair(44, "San Jose");
-    RedBlackT.insertValue(p1);
-    RedBlackT.insertValue(p2);
-    RedBlackT.insertValue(p3);
-    RedBlackT.insertValue(p4);
-    RedBlackT.insertValue(p5);
-    RedBlackT.insertValue(p6);
-    RedBlackT.insertValue(p7);
-    RedBlackT.insertValue(p8);
-    RedBlackT.insertValue(p9);
-    RedBlackT.insertValue(p10);
-    std::cout << "sentinel->left: " << RedBlackT.getSentinel()->left->getKey() << " - sentinel->right: " << RedBlackT.getSentinel()->right->getKey() << std::endl;
-    RedBlackT.insertValue(p11);
-    RedBlackT.insertValue(p12);
-    RedBlackT.insertValue(p13);
-    RedBlackT.insertValue(p14);
-    RedBlackT.insertValue(p15);
-    std::cout << "sentinel->left: " << RedBlackT.getSentinel()->left->getKey() << " - sentinel->right: " << RedBlackT.getSentinel()->right->getKey() << std::endl;
-    RedBlackT.removeNode(RedBlackT.getRoot(), 16);
-    RedBlackT.removeNode(RedBlackT.getRoot(), 84);
-    RedBlackT.removeNode(RedBlackT.getRoot(), 34);
-    RedBlackT.removeNode(RedBlackT.getRoot(), 484);
-    std::cout << "sentinel->left: " << RedBlackT.getSentinel()->left->getKey() << " - sentinel->right: " << RedBlackT.getSentinel()->right->getKey() << std::endl;
-    // RedBlackT.insertValue(p16);
+    // RedBlackT.insertValue(p1);
+    // RedBlackT.insertValue(p2);
+    // RedBlackT.insertValue(p3);
+    // RedBlackT.insertValue(p4);
+    // RedBlackT.insertValue(p5);
+    // RedBlackT.insertValue(p6);
+    // RedBlackT.insertValue(p7);
+    // RedBlackT.insertValue(p8);
+    // RedBlackT.insertValue(p9);
+    // RedBlackT.insertValue(p10);
+    // std::cout << "sentinel->left: " << RedBlackT.getSentinel()->left->getKey() << " - sentinel->right: " << RedBlackT.getSentinel()->right->getKey() << std::endl;
+    // RedBlackT.insertValue(p11);
+    // RedBlackT.insertValue(p12);
+    // RedBlackT.insertValue(p13);
+    // RedBlackT.insertValue(p14);
+    // RedBlackT.insertValue(p15);
+    // std::cout << "sentinel->left: " << RedBlackT.getSentinel()->left->getKey() << " - sentinel->right: " << RedBlackT.getSentinel()->right->getKey() << std::endl;
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 16);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 84);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 34);
+    // RedBlackT.removeNode(RedBlackT.getRoot(), 484);
+    // std::cout << "sentinel->left: " << RedBlackT.getSentinel()->left->getKey() << " - sentinel->right: " << RedBlackT.getSentinel()->right->getKey() << std::endl;
+    // // RedBlackT.insertValue(p16);
     // RedBlackT.insertValue(p17);
     // RedBlackT.insertValue(p18);
     // RedBlackT.insertValue(p19);
