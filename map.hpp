@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:19 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/11 17:23:54 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/11 18:15:37 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,14 +135,22 @@ namespace ft{
                     ----------------------------------------------------------------------------------------------------
 					Constructs an empty container, with no elements.
                     */
-
-				   	/*
+				   	
+					explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()): _cmp(comp), _pair_alloc(alloc) {}
+				   	
+					/*
                     ----------------------------------------------------------------------------------------------------
                     Map: Range Constructor
                     ----------------------------------------------------------------------------------------------------
 					Constructs a container with as many elements as the range [first,last), with each element 
 					constructed from its corresponding element in that range.
                     */
+
+					template <class InputIterator>
+					map (InputIterator first, InputIterator last,
+						const key_compare& comp = key_compare(),
+						const allocator_type& alloc = allocator_type()): _cmp(comp), _pair_alloc(alloc) { this->insert(first, last); };
+
 
 				   	/*
                     ----------------------------------------------------------------------------------------------------
@@ -151,6 +159,30 @@ namespace ft{
 					Constructs a container with a copy of each of the elements in x.
                     */
 				   
+					map (const map& x);
+
+
+                    /*
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    Map: Destructor
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    */
+
+				   	/*
+                    ----------------------------------------------------------------------------------------------------
+                    Map: Destructor
+                    ----------------------------------------------------------------------------------------------------
+					Destroys the container object.
+					This destroys all container elements, and deallocates all the storage capacity allocated by the map 
+					container using its allocator.
+                    */		
+
+					~map(){};
+				   		   
                     /*
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
