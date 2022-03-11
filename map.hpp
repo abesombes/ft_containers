@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:19 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/11 16:35:36 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/11 17:01:03 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 #include "utils/const_or_not.hpp"
 #include "utils/less.hpp"
 #include "utils/node.hpp"
+#include "utils/red_black_tree.hpp"
 
 namespace ft{
 
@@ -38,7 +39,7 @@ namespace ft{
 					typedef T														mapped_type;
 					typedef Compare													key_compare;
 					typedef Alloc                   								allocator_type;
-					typedef Node<Key, T, Compare, Alloc>							node_type;
+					typedef Node<const Key, T, Compare, Alloc>							node_type;
 					typedef typename allocator_type::reference 						reference;
 					typedef typename allocator_type::const_reference 				const_reference;
 					typedef typename allocator_type::pointer 						pointer;
@@ -50,9 +51,14 @@ namespace ft{
 					typedef ptrdiff_t 												difference_type;
 					typedef size_t 													size_type;
 					typedef typename Alloc::template rebind<node_type>::other 		node_allocator;
-
-					node_allocator _mem_node_alloc;
-					Alloc          _pair_alloc;
+					typedef	RBTree<const Key, T, Compare, Alloc> 					RBTree;
+					
+					
+		private:
+					key_compare 	_cmp;
+					node_allocator 	_mem_node_alloc;
+					Alloc          	_pair_alloc;
+					RBTree			_RBTree;
 
 					// typedef typename iterator_traits<iterator>::difference_type difference_type;
 					/*
@@ -113,8 +119,82 @@ namespace ft{
 					
 					*/
 
-		// private:
+                    /*
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    Map: Constructors
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    */
+
+				   
+                    /*
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    Map: Iterators
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    */
+
+				   	/*
+                    ----------------------------------------------------------------------------------------------------
+                    BEGIN - Return iterator to beginning
+                    ----------------------------------------------------------------------------------------------------
+                    Returns an iterator referring to the first element in the map container. Because map containers keep
+					their elements ordered at all times, begin points to the element that goes first following the 
+					container's sorting criterion. If the container is empty, the returned iterator value shall not be 
+					dereferenced.
+                    */
+
+
+				   	/*
+                    ----------------------------------------------------------------------------------------------------
+                    END - Return iterator to end
+                    ----------------------------------------------------------------------------------------------------
+                    Returns an iterator referring to the past-the-end element in the map container.
+					The past-the-end element is the theoretical element that would follow the last element in the map 
+					container. It does not point to any element, and thus shall not be dereferenced. Because the ranges 
+					used by functions of the standard library do not include the element pointed by their closing 
+					iterator, this function is often used in combination with map::begin to specify a range including 
+					all the elements in the container. If the container is empty, this function returns the same as 
+					map::begin.
+                    */
+
+
+
+				    iterator begin();
+					const_iterator begin() const;
+					iterator end();
+					const_iterator end() const;
+					begin - Return iterator to beginning (public member function )
+					end - Return iterator to end (public member function )
+					rbegin - Return reverse iterator to reverse beginning (public member function )
+					rend - Return reverse iterator to reverse end (public member function )
+				   
+				   				   				
+                    /*
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    Map: Capacity Functions
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    */
+
+				   	/*
+                    ----------------------------------------------------------------------------------------------------
+                    SIZE - Change Return container size
+                    ----------------------------------------------------------------------------------------------------
+                    Returns the number of elements in the map container.
+                    */
 		
+				   	size_type size() const { return _size; };
+
 		
 	};
 
