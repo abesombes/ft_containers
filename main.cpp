@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/11 17:20:29 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/11 18:45:09 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,29 +105,32 @@ int main()
     ft::RBTree<int, std::string> RedBlackT;
     // ft::bidirectional_iterator<int, std::string, > it;
 
-    std::map<char,int> map1;
+    // std::map<char,int> map1;
   
-    // initializing
-    map1['a']=10;
-    map1['b']=20;
-    map1['c']=30;
-    map1['d']=40;
+    // // initializing
+    // map1['a']=10;
+    // map1['b']=20;
+    // map1['c']=30;
+    // map1['d']=40;
     
-    std::map<char, int>::iterator it;
-    std::map<char, int>::reverse_iterator rit;
-    rit = map1.rend();
-    // --rit;
-    std::cout << "*rit: " << (*rit).second << std::endl;
-    rit++;
-    it = map1.begin();
-    std::cout << "(*it).first: " << (*it).first << std::endl;
-    std::cout << "(*it).second: " << (*it).second << std::endl;
-    std::cout << "it->first: " << it->first << std::endl;
-    std::cout << "it->second: " << it->second << std::endl;
-    for(it=map1.begin(); it!=map1.end(); ++it){
-        std::cout << it->first << " => " << it->second << '\n';
-    }
-    it = map1.end();
+    // std::map<char, int>::iterator it;
+    // std::map<char, int>::reverse_iterator rit;
+    // rit = map1.rend();
+    // // --rit;
+    // std::cout << "*rit: " << (*rit).second << std::endl;
+    // rit++;
+    // it = map1.begin();
+    // std::cout << "(*it).first: " << (*it).first << std::endl;
+    // std::cout << "(*it).second: " << (*it).second << std::endl;
+    // std::cout << "it->first: " << it->first << std::endl;
+    // std::cout << "it->second: " << it->second << std::endl;
+    // for(it=map1.begin(); it!=map1.end(); ++it){
+    //     std::cout << it->first << " => " << it->second << '\n';
+    // }
+    // it = map1.end();
+    ft::pair<int, std::string> p1 = ft::make_pair(445, "Hong Kong");
+    ft::map<int, std::string> map1;
+    map1.insert(p1);
 
     // std::cout << "*it: " << (*it).second << std::endl;
     // std::map<char, int>::iterator base_rit;
@@ -165,7 +168,7 @@ int main()
     // std::cout << "*it: " << (*it).second << std::endl;
     
 
-ft::pair<int, std::string> p1 = ft::make_pair(445, "Hong Kong");
+// ft::pair<int, std::string> p1 = ft::make_pair(445, "Hong Kong");
 ft::pair<int, std::string> p2 = ft::make_pair(125, "Bangkok");
 ft::pair<int, std::string> p3 = ft::make_pair(484, "London");
 ft::pair<int, std::string> p4 = ft::make_pair(221, "Lahore");
