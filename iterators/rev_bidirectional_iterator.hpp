@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 09:58:22 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/11 16:34:54 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/11 16:36:52 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ class rev_bidirectional_iterator
             NodePtr _node;
             
     public:        
-            rev_bidirectional_iterator( Node* node = NULL, bool is_end = false ): _node(node), _is_end(is_end){};
-            rev_bidirectional_iterator( rev_bidirectional_iterator<Key, T, Compare, B> const &src ): _node(src.getNode()), _is_end(src._is_end){};
-            rev_bidirectional_iterator &operator=(rev_bidirectional_iterator const &rhs){ this->_node = rhs._node; this->_is_end = rhs._is_end; return (*this); };
+            rev_bidirectional_iterator( Node* node = NULL): _node(node){};
+            rev_bidirectional_iterator( rev_bidirectional_iterator<Key, T, Compare, B> const &src ): _node(src.getNode()){};
+            rev_bidirectional_iterator &operator=(rev_bidirectional_iterator const &rhs){ this->_node = rhs._node; return (*this); };
             virtual ~rev_bidirectional_iterator(){};
             Node *getNode( void ) { return _node;}
 
@@ -58,7 +58,7 @@ class rev_bidirectional_iterator
                 rev_bidirectional_iterator tmp(*this); // on cree un tmp rev iterator pour ne pas bouger le rev_iterator initial
 
                 --tmp;
-                return (Iterator(tmp.getNode(), tmp._is_end));
+                return (Iterator(tmp.getNode()));
             }
             
             self_type &operator++()
@@ -96,10 +96,10 @@ class rev_bidirectional_iterator
             };
 
             bool operator==(self_type const & rhs) const { 
-                    return _val == rhs._val; 
+                    return (_node == rhs.getNode()); 
             };
             bool operator!=(self_type const & rhs) const { 
-                return !(*this == rhs); 
+                    return !(_node == rhs.getNode()); 
             };
             reference operator*() const { return (this->_node->getValue()); };
             pointer operator->() const { return (&this->_node->getValue()); };

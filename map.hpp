@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:19 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/10 23:44:39 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/11 16:35:36 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <limits>
 #include <algorithm>
 #include "iterators/bidirectional_iterator.hpp"
-// #include "iterators/rev_bidirectional_iterator.hpp"
+#include "iterators/rev_bidirectional_iterator.hpp"
 #include <cstddef>
 #include <stdexcept>
 #include "utils/enable_if.hpp"
