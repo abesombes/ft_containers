@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/11 17:13:05 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/11 17:20:29 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,8 @@ int main()
     
     std::map<char, int>::iterator it;
     std::map<char, int>::reverse_iterator rit;
-    rit = map1.rbegin();
+    rit = map1.rend();
+    // --rit;
     std::cout << "*rit: " << (*rit).second << std::endl;
     rit++;
     it = map1.begin();

@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:19 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/11 17:17:28 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/11 17:23:54 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,27 @@ namespace ft{
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                     */
 
+				   	/*
+                    ----------------------------------------------------------------------------------------------------
+                    Map: Default Constructor
+                    ----------------------------------------------------------------------------------------------------
+					Constructs an empty container, with no elements.
+                    */
+
+				   	/*
+                    ----------------------------------------------------------------------------------------------------
+                    Map: Range Constructor
+                    ----------------------------------------------------------------------------------------------------
+					Constructs a container with as many elements as the range [first,last), with each element 
+					constructed from its corresponding element in that range.
+                    */
+
+				   	/*
+                    ----------------------------------------------------------------------------------------------------
+                    Map: Copy Constructor
+                    ----------------------------------------------------------------------------------------------------
+					Constructs a container with a copy of each of the elements in x.
+                    */
 				   
                     /*
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -189,15 +210,10 @@ namespace ft{
 					map container (which is considered its reverse end). The range between map::rbegin and map::rend 
 					contains all the elements of the container (in reverse order).
                     */
+				   	reverse_iterator rend() { return (reverse_iterator(_RBTree->_sentinel)); };
+					const_reverse_iterator rend() const { return (reverse_iterator(_RBTree->_sentinel)); };
 
-					// reverse_iterator rbegin();
-					// const_reverse_iterator rbegin() const;
-					// const_iterator begin() const;
-					// iterator end();
-					// const_iterator end() const;
-				    // reverse_iterator rend();
-					// const_reverse_iterator rend() const;
-				   				   				
+	   				   				
                     /*
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
