@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:30:34 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/11 22:54:21 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/11 23:20:15 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,21 @@ class bidirectional_iterator
 {
 
     public:
-            typedef bidirectional_iterator                          self_type;
-            typedef typename const_or_not<B, const T&, T&>::type    reference;
-            typedef typename const_or_not<B, const T*, T*>::type    pointer;
-            typedef ft::bidirectional_iterator_tag                  iterator_category;
-            typedef ptrdiff_t                                       difference_type;
-            typedef T*                                              elem_pointer;
+            typedef ft::pair<const Key, T>												value_type;
+            typedef bidirectional_iterator												self_type;
+			typedef bidirectional_iterator												iterator;
+            typedef typename const_or_not<B, const value_type&, value_type&>::type		reference;
+            typedef typename const_or_not<B, const value_type*, value_type*>::type		pointer;
+            typedef ft::bidirectional_iterator_tag										iterator_category;
+            typedef ptrdiff_t															difference_type;
+            typedef T*																	elem_pointer;
 
-            typedef Node<const Key, T, Compare>	                    Node;
-            typedef Node*                                           NodePtr;
-            typedef Key									            key_type;
-            typedef Compare                                         key_compare;
-            typedef T									            mapped_type;
-            typedef ft::pair<const Key, T>				            value_type;
-            typedef std::size_t							            size_type;
+            typedef Node<const Key, T, Compare>											Node;
+            typedef Node*																NodePtr;
+            typedef Key																	key_type;
+            typedef Compare																key_compare;
+            typedef T																	mapped_type;
+            typedef std::size_t															size_type;
                 
     private:
 
