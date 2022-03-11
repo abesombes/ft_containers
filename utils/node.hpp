@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   node.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 10:34:35 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/10 22:31:36 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/11 12:00:30 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,8 +223,6 @@ class Node {
                 {
                     while (!Successor->parent->isNil() && Successor->isLChild())
                         Successor = Successor->parent;
-                    if (Successor->parent->isNil())
-                        return (NULL);
                     return (Successor->parent);
                 }
             }
@@ -239,8 +237,6 @@ class Node {
                 {
                     while (!Predecessor->parent->isNil() && Predecessor->isRChild())
                         Predecessor = Predecessor->parent;
-                    if (Predecessor->parent->isNil())
-                        return (NULL);
                     return (Predecessor->parent);
                 }
             }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bidirectional_iterator.hpp                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:30:34 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/10 23:07:08 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/11 12:01:20 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ class bidirectional_iterator
             self_type &operator++()
             { 
                 Node *tmp = _node->getSuccessor();
-                if (!tmp)
+                if (tmp->isNil())
                     _is_end = true;
                 else
                     _node = tmp;
@@ -74,7 +74,7 @@ class bidirectional_iterator
             self_type &operator--()
             { 
                 Node *tmp = _node->getPredecessor();
-                if (!tmp)
+                if (tmp->isNil())
                     _is_end = true;
                 else
                     _node = tmp;
