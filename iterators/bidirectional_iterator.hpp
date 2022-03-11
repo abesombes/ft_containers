@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:30:34 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/11 12:01:20 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/11 16:32:48 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,21 +44,19 @@ class bidirectional_iterator
     private:
 
             NodePtr _node;
-            bool    _is_end;
             
     public:        
-            bidirectional_iterator( Node* node = NULL, bool is_end = false ): _node(node), _is_end(is_end){};
-            bidirectional_iterator( bidirectional_iterator<Key, T, Compare, B> const &src ): _node(src.getNode()), _is_end(src._is_end){};
-            bidirectional_iterator &operator=(bidirectional_iterator const &rhs){ this->_node = rhs._node; this->_is_end = rhs._is_end; return (*this); };
+            bidirectional_iterator( Node* node = NULL): _node(node){};
+            bidirectional_iterator( bidirectional_iterator<Key, T, Compare, B> const &src ): _node(src.getNode()){};
+            bidirectional_iterator &operator=(bidirectional_iterator const &rhs){ this->_node = rhs._node; return (*this); };
             virtual ~bidirectional_iterator(){};
             Node *getNode( void ) { return _node;}
             
             self_type &operator++()
             { 
                 Node *tmp = _node->getSuccessor();
-                if (tmp->isNil())
-                    _is_end = true;
-                else
+                
+                if (tmp->isSentinel())
                     _node = tmp;
                 return (*this);
             };
@@ -74,9 +72,8 @@ class bidirectional_iterator
             self_type &operator--()
             { 
                 Node *tmp = _node->getPredecessor();
-                if (tmp->isNil())
-                    _is_end = true;
-                else
+                
+                if (!tmp->isSentinel())
                     _node = tmp;
                 return (*this);
             };

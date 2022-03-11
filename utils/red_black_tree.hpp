@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/10 12:38:20 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/11 15:17:41 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #define RED 0
 #define BLACK 1
 #define DOUBLE_BLACK 2
+#define SENTINEL 3
 #include <iostream>
 #include "less.hpp"
 #include "node.hpp"
@@ -47,6 +48,7 @@ class RBTree {
     private:
                 Node*                               _root;
                 Node*                               _nil;
+                Node*                               _sentinel;
                 size_t                              _size;
                 Compare                             _cmp;
                 Alloc                               _valueAlloc;
@@ -67,6 +69,7 @@ class RBTree {
                 {
                     _nodeAlloc = std::allocator<Node>(); // it builds the std::allocator for the type <Node> each time
                     initializeNil();
+                    initializeSentinel();
                     _root = _nil;
                 }
 
@@ -80,6 +83,7 @@ class RBTree {
                 {
                     _root = src._root;
                     initializeNil();
+                    initializeSentinel();
                     _size = src._size;
                     _cmp = src._cmp;
                     _valueAlloc = src._valueAlloc;
@@ -89,7 +93,9 @@ class RBTree {
                 ~RBTree(void) {
                     clear();
                     deleteNode(_nil);
+                    deleteNode(_sentinel);
                     _nil = NULL;
+                    _sentinel = NULL;
                 }
 
                 void deleteNode(Node *node)
@@ -123,6 +129,8 @@ class RBTree {
                 }
             
                 Node* getRoot(){ return _root; }
+
+                Node* getSentinel(){ return _sentinel; }
                 
                 void setRoot(Node &node){ _root = node; }
                 
@@ -143,6 +151,17 @@ class RBTree {
                     _nil->left = this->_nil;
                     _nil->right = this->_nil;
                 }
+                
+                void initializeSentinel(void)
+                {
+                    value_type  nilValue = ft::make_pair(Key(), T());
+                    
+                    _sentinel = newNode(nilValue);
+                    _sentinel->color = SENTINEL;
+                    _sentinel->parent = this->_nil;
+                    _sentinel->left = this->_nil;
+                    _sentinel->right = this->_nil;
+                }
 
                 Node* newNode(const value_type &value)
                 {
@@ -158,6 +177,13 @@ class RBTree {
 
                 Node* BSTInsert(Node* root, Node* node)
                 {
+                    if (_size == 0)
+                    {
+                        _sentinel->left = node;
+                        _sentinel->right = node;
+                        node->left = _sentinel;
+                        node->right = _sentinel;
+                    }
                     if (root->isNil())
                     {
                         node->setColor(BLACK);
@@ -173,8 +199,19 @@ class RBTree {
                         root->right = BSTInsert(root->right, node);
                         root->right->parent = root;  
                     }
+                    if (_cmp(node->getValue().first, _sentinel->left->getValue().first))
+                    {
+                        _sentinel->left = node;
+                        node->left = _sentinel;
+                    }
+                    else if (_cmp(_sentinel->right->getValue().first, node->getValue().first))
+                    {
+                        _sentinel->right = node;
+                        node->right = _sentinel; 
+                    }
                     // if not root, insert by default as a RED leaf
                     node->setColor(RED);
+                    _size++;
                     return root;
                 }
 
@@ -208,7 +245,7 @@ class RBTree {
                     Node* current = root;
                 
                     /* loop down to find the leftmost leaf */
-                    while (current && current->left != NULL)
+                    while (current && !current->left->isNil())
                         current = current->left;
                 
                     return current;
@@ -626,7 +663,15 @@ class RBTree {
                     std::cout << " !!!!!! KEY OF THE NODE TO REMOVE: " << key << " !!!!!!!!" << std::endl;
                     std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n";
                     std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n";
+                    int flag_lsentinel = 0;
+                    int flag_rsentinel = 0;
                     Node* TargetNode = searchNode(node, key);
+                    if (!TargetNode->isNil())
+                        _size--;
+                    if (TargetNode == _sentinel->left)
+                        flag_lsentinel = 1;
+                    else if (TargetNode == _sentinel->right)
+                        flag_rsentinel = 1;
                     std::cout << "Node Color : " << TargetNode->getColor() << std::endl;
                     std::cout << "Leaf? " << TargetNode->isLeaf() << std::endl;
                     Node* Parent = TargetNode->parent;
@@ -884,6 +929,18 @@ class RBTree {
                     if (!_root->isBlack())
                         _root->setColor(BLACK);
                     printRBT();
+                    if (flag_lsentinel)
+                    {
+                        Node *tmp_min = getMinValueNode(_root);
+                        _sentinel->left = tmp_min;
+                        tmp_min->left = _sentinel;
+                    }
+                    if (flag_rsentinel)
+                    {
+                        Node *tmp_max = getMaxValueNode(_root);
+                        _sentinel->right = tmp_max;
+                        tmp_max->right = _sentinel;
+                    }
                     return TargetNode;
                     // return (!TargetNode->isNil() ? TargetNode : _nil);
                 }

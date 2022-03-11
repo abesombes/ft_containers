@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 10:34:35 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/11 12:00:30 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/11 16:29:19 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #define RED 0
 #define BLACK 1
 #define DOUBLE_BLACK 2
+#define SENTINEL 3
 
 namespace ft{
 
@@ -57,7 +58,11 @@ class Node {
             }
 
             bool isNil(void) const{
-                return (parent == this);
+                return (parent == this || getColor() == SENTINEL);
+            }
+
+            bool isSentinel(void) const{
+                return (getColor() == SENTINEL);
             }
             
             /* -------------------- Basic Getters ---------------------- */
@@ -72,7 +77,7 @@ class Node {
 
             void setColor(int color) { this->color = color;}
             
-            int getColor() { return (color);}
+            int getColor() const { return (color);}
 
             int isRed(void) { return (getColor() == RED);}
             int isBlack(void) { return (getColor() == BLACK);}
@@ -221,6 +226,8 @@ class Node {
                     return (getMinTree(right));
                 if (right->isNil())
                 {
+                    if (right->isSentinel())
+                        return (Successor->right);
                     while (!Successor->parent->isNil() && Successor->isLChild())
                         Successor = Successor->parent;
                     return (Successor->parent);
@@ -235,6 +242,8 @@ class Node {
                     return (getTreeMax(left));
                 if (left->isNil())
                 {
+                    if (left->isSentinel())
+                        return (Predecessor->left);
                     while (!Predecessor->parent->isNil() && Predecessor->isRChild())
                         Predecessor = Predecessor->parent;
                     return (Predecessor->parent);
