@@ -178,7 +178,7 @@ class RBTree {
                     return newNode;
                 }
 
-                Node* BSTInsert(Node* root, Node* node)
+                Node* BSTInsert(Node* root, Node* node, bool &duplicate)
                 {
                     if (_size == 0)
                     {
@@ -186,58 +186,85 @@ class RBTree {
                         _sentinel->right = node;
                         node->left = _sentinel;
                         node->right = _sentinel;
-                    }
-                    if (root->isNil())
-                    {
+                        _size++;
                         node->setColor(BLACK);
                         return (node);
                     }
-                    if (!_cmp(root->getKey(), node->getKey()))
-                    {
-                        root->left = BSTInsert(root->left, node);
-                        root->left->parent = root;
-                    }
-                    else if (_cmp(root->getKey(), node->getKey()))
-                    {
-                        root->right = BSTInsert(root->right, node);
-                        root->right->parent = root;  
-                    }
-                    if (_cmp(node->getValue().first, _sentinel->left->getValue().first))
-                    {
-                        _sentinel->left = node;
-                        node->left = _sentinel;
-                    }
-                    else if (_cmp(_sentinel->right->getValue().first, node->getValue().first))
-                    {
-                        _sentinel->right = node;
-                        node->right = _sentinel; 
-                    }
                     else
-                        return (_nil);
+                    {
+                        if (root->isNil() && duplicate == false)
+                        {
+                            node->setColor(RED);
+                            _size++;
+                            return (node);
+                        }
+                        if (duplicate == false)
+                        {
+                            if (_cmp(node->getKey(), root->getKey()))
+                            {
+                                Node *tmp = BSTInsert(root->left, node, duplicate);
+                                if (!tmp->isNil())
+                                {
+                                    root->left = tmp;
+                                    root->left->parent = root;
+                                }
+                            }
+                            else if (_cmp(root->getKey(), node->getKey()))
+                            {
+                                root->right = BSTInsert(root->right, node, duplicate);
+                                root->right->parent = root;  
+                            }
+                            else
+                            {
+                                std::cout << "Duplicate value - already in the tree" << std::endl;
+                                duplicate = true;
+                                return (_nil);
+                            }
+                            
+                            if (_cmp(node->getValue().first, _sentinel->left->getValue().first))
+                            {
+                                _sentinel->left = node;
+                                node->left = _sentinel;
+                                std::cout << "update sentinel->left - " << _sentinel->left->getKey() << std::endl; 
+                            }
+                            else if (_cmp(_sentinel->right->getValue().first, node->getValue().first))
+                            {
+                                _sentinel->right = node;
+                                node->right = _sentinel; 
+                                std::cout << "update sentinel->right - " << _sentinel->right->getKey() << std::endl; 
+                            }
+                        }
+                        // if not root, insert by default as a RED leaf
                         
-                    // if not root, insert by default as a RED leaf
-                    node->setColor(RED);
-                    _size++;
+
+                    }
                     return root;
                 }
 
                 iterator insertValue(const value_type &value, bool &wasInserted)
                 {
                     Node* new_Node = newNode(value);
-                    Node *ret_Node = BSTInsert(this->_root, new_Node);
-                    if (ret_Node->isNil())
+                    Node *ret_Node = BSTInsert(this->_root, new_Node, wasInserted);
+                    std::cout << "ret_Node: " << ret_Node->getKey() << std::endl;
+                    if (wasInserted)
                         wasInserted = false;
                     else
                     {
                         wasInserted = true;
                         _root = ret_Node;
                     }
+
+                    // std::cout << "_root: " << _root->getKey() << std::endl;   
                     std::cout << "\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
                     std::cout << "+++++++++++++ ANNOUNCEMENT: NEW VALUE ADDED - " << value.first << " +++++++++++++" << std::endl;
                     std::cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
+                    
+                    std::cout << "_root: " << _root->getKey() << std::endl;
+                    std::cout << "wasInserted? " << wasInserted << std::endl;
+                    std::cout << "size: " << getSize() << std::endl;
                     _root = fixInsertion(this->_root, new_Node);
-                    if (_root->getColor() == RED)
-                        _root->setColor(BLACK);
+                    if (_root->isRed())
+                        _root->setBlack();
                     return (iterator(new_Node));
                 }
 
@@ -435,7 +462,7 @@ class RBTree {
                         // std::cout << "Node Shape: " << node->isLeftRightCase() << std::endl;
                         // std::cout << "0 = LeftRight Case\n1 = RightLeft Case\n2 = LeftLeft Case\n3 = RightRight Case" << std::endl;
                         // root->printNodeSubTree();
-                        std::cout << "Uncle: " << Uncle->isRed() << std::endl;
+                        // std::cout << "Uncle: " << Uncle->isRed() << std::endl;
                         if (node->doubleRed() && Uncle != node && Uncle->isRed())
                         {            
                             pushBlacknessDown(node);
@@ -476,7 +503,8 @@ class RBTree {
                         }
                         if (ret)
                         {
-                            std::cout<<"Root updated" << std::endl;
+                            std::cout<< "Root updated" << std::endl;
+                            ret->setBlack();
                             root = ret;
                         }
                         root->printNodeSubTree();

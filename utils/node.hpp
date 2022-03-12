@@ -76,6 +76,9 @@ class Node {
             /* -------------------- Color Functions ---------------------- */
 
             void setColor(int color) { this->color = color;}
+            void setRed(void) { this->color = RED;}
+            void setBlack(void) { this->color = BLACK;}
+            void setDBlack(void) { this->color = DOUBLE_BLACK;}            
             
             int getColor() const { return (color);}
 
@@ -223,7 +226,7 @@ class Node {
             {        
                 Node* Successor = this;
                 if (!right->isNil())
-                    return (getTreeMin(right));
+                    return (right->getTreeMin());
                 if (right->isNil())
                 {
                     if (right->isSentinel())
@@ -232,6 +235,7 @@ class Node {
                         Successor = Successor->parent;
                     return (Successor->parent);
                 }
+                return (Successor->parent);
             }
 
             Node* getPredecessor( void )
@@ -239,7 +243,7 @@ class Node {
                 Node* Predecessor = this;
                 
                 if (!left->isNil())
-                    return (getTreeMax(left));
+                    return (left->getTreeMax());
                 if (left->isNil())
                 {
                     if (left->isSentinel())
