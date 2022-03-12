@@ -223,7 +223,7 @@ class Node {
             {        
                 Node* Successor = this;
                 if (!right->isNil())
-                    return (getMinTree(right));
+                    return (getTreeMin(right));
                 if (right->isNil())
                 {
                     if (right->isSentinel())

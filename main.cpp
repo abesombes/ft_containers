@@ -133,8 +133,13 @@ int main()
     map1.insert(p1);
     ft::bidirectional_iterator<int, std::string> it;
     it = map1.begin();
-    
-
+    std::cout << "*it: " << (*it).first << std::endl;
+    it++;
+    std::cout << "*it: " << (*it).first << std::endl;
+    it++;
+    std::cout << "*it: " << (*it).first << std::endl;
+    it++;
+    std::cout << "*it: " << (*it).first << std::endl;
     // std::cout << "*it: " << (*it).second << std::endl;
     // std::map<char, int>::iterator base_rit;
     // base_rit = rit.base();

@@ -27,7 +27,6 @@ class bidirectional_iterator
 
     public:
             typedef ft::pair<const Key, T>												value_type;
-            typedef bidirectional_iterator												self_type;
 			typedef bidirectional_iterator												iterator;
             typedef typename const_or_not<B, const value_type&, value_type&>::type		reference;
             typedef typename const_or_not<B, const value_type*, value_type*>::type		pointer;
@@ -53,7 +52,7 @@ class bidirectional_iterator
             virtual ~bidirectional_iterator(){};
             Node *getNode( void ) const { return _node;}
             
-            self_type &operator++()
+            iterator &operator++()
             { 
                 Node *tmp = _node->getSuccessor();
                 
@@ -62,15 +61,15 @@ class bidirectional_iterator
                 return (*this);
             };
             
-            self_type operator++(int)
+            iterator operator++(int)
             { 
-                self_type tmp_it(*this);
+                iterator tmp_it(*this);
                 
                 ++(*this);
-                return (*tmp_it);
+                return (tmp_it);
             };
 
-            self_type &operator--()
+            iterator &operator--()
             { 
                 Node *tmp = _node->getPredecessor();
                 
@@ -79,18 +78,18 @@ class bidirectional_iterator
                 return (*this);
             };
             
-            self_type operator--(int)
+            iterator operator--(int)
             { 
-                self_type tmp_it(*this);
+                iterator tmp_it(*this);
                 
                 --(*this);
-                return (*tmp_it);
+                return (tmp_it);
             };
 
-            bool operator==(self_type const & rhs) const { 
+            bool operator==(iterator const & rhs) const { 
                     return (_node == rhs.getNode()); 
             };
-            bool operator!=(self_type const & rhs) const { 
+            bool operator!=(iterator const & rhs) const { 
                     return !(_node == rhs.getNode()); 
             };
             reference operator*() const { return (this->_node->getValue()); };
