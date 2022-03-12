@@ -178,83 +178,56 @@ class RBTree {
                     return newNode;
                 }
 
-                Node* BSTInsert(Node* root, Node* node, bool &duplicate)
+
+                void BSTInsert(Node* node, bool &successful_insertion)
                 {
+                    Node *tmp = _root;
                     if (_size == 0)
                     {
-                        _sentinel->left = node;
-                        _sentinel->right = node;
-                        node->left = _sentinel;
-                        node->right = _sentinel;
+                        link(_sentinel, node, 1);
+                        link(_sentinel, node, 2);
                         _size++;
-                        node->setColor(BLACK);
-                        return (node);
+                        node->setBlack();
+                        successful_insertion = true;
+                        _root = node;
                     }
                     else
                     {
-                        if (root->isNil() && duplicate == false)
+                        while (!tmp->isNil())
                         {
-                            node->setColor(RED);
-                            _size++;
-                            return (node);
-                        }
-                        if (duplicate == false)
-                        {
-                            if (_cmp(node->getKey(), root->getKey()))
-                            {
-                                Node *tmp = BSTInsert(root->left, node, duplicate);
-                                if (!tmp->isNil())
-                                {
-                                    root->left = tmp;
-                                    root->left->parent = root;
-                                }
-                            }
-                            else if (_cmp(root->getKey(), node->getKey()))
-                            {
-                                root->right = BSTInsert(root->right, node, duplicate);
-                                root->right->parent = root;  
-                            }
+                            if (_cmp(node->getKey(), tmp->getKey()))
+                                tmp = tmp->left;
+                            else if (_cmp(tmp->getKey(), node->getKey()))
+                                tmp = tmp->right;
                             else
-                            {
-                                std::cout << "Duplicate value - already in the tree" << std::endl;
-                                duplicate = true;
-                                return (_nil);
-                            }
-                            
+                                return;
+                        }
+                        if (tmp->isNil())
+                        {
+                            Node* Parent = tmp->parent;
+                            node->setRed();
+                            _size++;
+                            link(Parent, node, tmp->isLChild() ? 1 : 2);
+                            successful_insertion = true;
                             if (_cmp(node->getValue().first, _sentinel->left->getValue().first))
                             {
                                 _sentinel->left = node;
                                 node->left = _sentinel;
-                                std::cout << "update sentinel->left - " << _sentinel->left->getKey() << std::endl; 
                             }
                             else if (_cmp(_sentinel->right->getValue().first, node->getValue().first))
                             {
                                 _sentinel->right = node;
                                 node->right = _sentinel; 
-                                std::cout << "update sentinel->right - " << _sentinel->right->getKey() << std::endl; 
                             }
                         }
-                        // if not root, insert by default as a RED leaf
-                        
-
                     }
-                    return root;
                 }
 
                 iterator insertValue(const value_type &value, bool &wasInserted)
                 {
                     Node* new_Node = newNode(value);
-                    Node *ret_Node = BSTInsert(this->_root, new_Node, wasInserted);
-                    std::cout << "ret_Node: " << ret_Node->getKey() << std::endl;
-                    if (wasInserted)
-                        wasInserted = false;
-                    else
-                    {
-                        wasInserted = true;
-                        _root = ret_Node;
-                    }
-
-                    // std::cout << "_root: " << _root->getKey() << std::endl;   
+                    BSTInsert(new_Node, wasInserted);
+ 
                     std::cout << "\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
                     std::cout << "+++++++++++++ ANNOUNCEMENT: NEW VALUE ADDED - " << value.first << " +++++++++++++" << std::endl;
                     std::cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
