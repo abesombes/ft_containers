@@ -89,9 +89,9 @@ class Node {
             int doubleRed(void)
             {
                 // -1 no parent, 0 no double red, l double red child-parent
-                if (!parent)
+                if (parent->isNil())
                     return (-1);
-                if (parent && getColor() == RED && this->parent->getColor() == RED)
+                if (!parent->isNil() && isRed() && parent->isRed())
                     return 1;
                 return 0;
             }

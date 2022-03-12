@@ -182,6 +182,7 @@ class RBTree {
                 void BSTInsert(Node* node, bool &successful_insertion)
                 {
                     Node *tmp = _root;
+                    Node *Parent = _root;
                     if (_size == 0)
                     {
                         link(_sentinel, node, 1);
@@ -195,6 +196,7 @@ class RBTree {
                     {
                         while (!tmp->isNil())
                         {
+                            Parent = tmp;
                             if (_cmp(node->getKey(), tmp->getKey()))
                                 tmp = tmp->left;
                             else if (_cmp(tmp->getKey(), node->getKey()))
@@ -204,10 +206,9 @@ class RBTree {
                         }
                         if (tmp->isNil())
                         {
-                            Node* Parent = tmp->parent;
                             node->setRed();
                             _size++;
-                            link(Parent, node, tmp->isLChild() ? 1 : 2);
+                            link(Parent, node, Parent->left == tmp ? 1 : 2);
                             successful_insertion = true;
                             if (_cmp(node->getValue().first, _sentinel->left->getValue().first))
                             {
@@ -433,8 +434,10 @@ class RBTree {
                     if (!node->parent->isNil())
                     {
                         // std::cout << "Node Shape: " << node->isLeftRightCase() << std::endl;
+                        // std::cout << "node->isRed? " << node->isRed() << std::endl;
+                        // std::cout << "node->parent->isRed? " << node->parent->isRed() << std::endl;
                         // std::cout << "0 = LeftRight Case\n1 = RightLeft Case\n2 = LeftLeft Case\n3 = RightRight Case" << std::endl;
-                        // root->printNodeSubTree();
+                        root->printNodeSubTree();
                         // std::cout << "Uncle: " << Uncle->isRed() << std::endl;
                         if (node->doubleRed() && Uncle != node && Uncle->isRed())
                         {            
