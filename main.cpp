@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/14 19:21:41 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/14 19:31:43 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,6 +253,30 @@ int main()
     std::cout << "begin++ => (*it).first: " << (*it).first << std::endl;
     it = map1.begin();
     std::cout << "\n\n\n****************************************\n\n\nbegin=> (*it).first: " << (*it).first << std::endl;
+    it--;
+    std::cout << "begin-- => (*it).first: " << (*it).first << std::endl;
+    it--;
+    std::cout << "begin-- => (*it).first: " << (*it).first << std::endl;
+    it--;
+    std::cout << "begin-- => (*it).first: " << (*it).first << std::endl;
+    it--;
+    std::cout << "begin-- => (*it).first: " << (*it).first << std::endl;
+    it--;
+    std::cout << "begin-- => (*it).first: " << (*it).first << std::endl;
+    it--;
+    std::cout << "begin-- => (*it).first: " << (*it).first << std::endl;
+    it--;
+    std::cout << "begin-- => (*it).first: " << (*it).first << std::endl;
+    it--;
+    std::cout << "begin-- => (*it).first: " << (*it).first << std::endl;
+    it--;
+    std::cout << "begin-- => (*it).first: " << (*it).first << std::endl;
+    it--;
+    std::cout << "begin-- => (*it).first: " << (*it).first << std::endl;
+    it--;
+    std::cout << "begin-- => (*it).first: " << (*it).first << std::endl;
+    it--;
+    std::cout << "begin-- => (*it).first: " << (*it).first << std::endl;
     it--;
     std::cout << "begin-- => (*it).first: " << (*it).first << std::endl;
     it--;

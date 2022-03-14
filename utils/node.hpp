@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 10:34:35 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/14 19:26:08 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/14 19:31:16 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,18 +248,19 @@ class Node {
                 Node* Predecessor = this;
                 
                 if (this->isSentinel())
-                {
-                    std::cout << "this: " << this->getKey() << std::endl;
                     return(right);
-                }
                 if (!left->isNil())
                     return (left->getTreeMax());
                 if (left->isNil())
                 {
                     if (left->isSentinel())
                         return (Predecessor->left);
-                    while (!Predecessor->parent->isNil() && Predecessor->isRChild())
+                    while (!Predecessor->isNil())
+                    {
+                        if (Predecessor->isRChild())
+                            return (Predecessor->parent);
                         Predecessor = Predecessor->parent;
+                    }
                     return (Predecessor->parent);
                 }
                 return (Predecessor->parent);
