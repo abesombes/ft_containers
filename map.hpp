@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:19 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/11 22:59:16 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/14 15:47:17 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,8 +220,8 @@ namespace ft{
 					map::begin.
                     */
 
-					iterator end() { return (iterator(_RBTree.getSentinel()->right)); };
-					const_iterator end() const { return (iterator(_RBTree.getSentinel()->right)); };
+					iterator end() { return (iterator(_RBTree.getSentinel())); };
+					const_iterator end() const { return (iterator(_RBTree.getSentinel())); };
 
 				   	/*
                     ----------------------------------------------------------------------------------------------------
@@ -274,6 +274,21 @@ namespace ft{
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                     */
 
+				   	/*
+                    ----------------------------------------------------------------------------------------------------
+                    Operator[] Overload - Access element
+                    ----------------------------------------------------------------------------------------------------
+                    If k matches the key of an element in the container, the function returns a reference to its mapped 
+					value. If k does not match the key of any element in the container, the function inserts a new 
+					element with that key and returns a reference to its mapped value. Notice that this always increases
+					the container size by one, even if no mapped value is assigned to the element (the element is 
+					constructed using its default constructor). A similar member function, map::at, has the same 
+					behavior when an element with the key exists, but throws an exception when it does not.
+                    */
+
+					mapped_type& operator[] (const key_type& key) { return((*((this->insert(ft::make_pair(key,mapped_type()))).first)).second); };
+					
+
 				    /*
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -305,6 +320,18 @@ namespace ft{
 
 						return (ft::make_pair(iterator(inserted), wasInserted));
 					}
+
+
+					// iterator insert (iterator position, const value_type& val)
+					// {
+						
+					// }
+					
+					// template <class InputIterator>
+					// void insert (InputIterator first, InputIterator last)
+					// {
+						
+					// }
 
 				    /*
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

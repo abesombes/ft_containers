@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/14 12:50:28 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/14 18:48:37 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,47 @@ int main()
     // map1['c']=30;
     // map1['d']=40;
     
-    // std::map<int, std::string> map1;
-    // std::pair<int, std::string> p1 = std::make_pair(445, "Hong Kong");
-    
-
+    std::map<int, std::string> smap1;
+    std::pair<int, std::string> sp1 = std::make_pair(445, "Hong Kong");
+    std::pair<int, std::string> sp2 = std::make_pair(30, "Marrakech");
+    std::pair<int, std::string> sp3 = std::make_pair(60, "Dubai");
+    smap1.insert(sp1);
+    smap1.insert(sp2);
+    smap1.insert(sp3);
+    std::map<int, std::string>::iterator it1 = smap1.begin();
+    std::cout << "begin: " << (*it1).first << std::endl;
+    --it1;
+    std::cout << "--begin: " << (*it1).first << std::endl;
+    --it1;
+    std::cout << "--begin: " << (*it1).first << std::endl;
+    --it1;
+    std::cout << "--begin: " << (*it1).first << std::endl;
+    --it1;
+    std::cout << "--begin: " << (*it1).first << std::endl;
+    --it1;
+    std::cout << "--begin: " << (*it1).first << std::endl;
+    --it1;
+    std::cout << "--begin: " << (*it1).first << std::endl;
+    it1 = smap1.begin();
+    std::cout << "\n---------------------------\nbegin: " << (*it1).first << std::endl;
+    ++it1;
+    std::cout << "++begin: " << (*it1).first << std::endl;
+    ++it1;
+    std::cout << "++begin: " << (*it1).first << std::endl;    
+    ++it1;
+    std::cout << "++begin: " << (*it1).first << std::endl;    
+    ++it1;
+    std::cout << "++begin: " << (*it1).first << std::endl;
+    ++it1;
+    std::cout << "++begin: " << (*it1).first << std::endl;    
+    ++it1;
+    std::cout << "++begin: " << (*it1).first << std::endl;    
+    ++it1;
+    std::cout << "++begin: " << (*it1).first << std::endl;    
+    // it1 = smap1.end();
+    // std::cout << "end: " << (*it1).first << std::endl; 
+    // it1--;
+    // std::cout << "end--: " << (*it1).first << std::endl; 
     // std::pair<std::map<int, std::string>::iterator, bool> ret;
     // ret = map1.insert(p1);
     // std::cout << "wasInserted? " << ret.second << std::endl;
@@ -140,8 +177,12 @@ int main()
     // }
     // it = map1.end();
     ft::pair<int, std::string> p1 = ft::make_pair(445, "Hong Kong");
-    // ft::pair<int, std::string> p2 = ft::make_pair(125, "Bangkok");
-    // ft::pair<int, std::string> p3 = ft::make_pair(484, "London");
+    ft::pair<int, std::string> p2 = ft::make_pair(125, "Bangkok");
+    ft::pair<int, std::string> p3 = ft::make_pair(484, "London");
+    ft::pair<int, std::string> p4 = ft::make_pair(40, "Moscow");
+    ft::pair<int, std::string> p5 = ft::make_pair(60, "NYC");
+    ft::pair<int, std::string> p6 = ft::make_pair(20, "Madrid");
+    ft::pair<int, std::string> p7 = ft::make_pair(30, "Los Angeles");
     // ft::pair<int, std::string> p4 = ft::make_pair(10, "Paris");
     // // ft::pair<int, std::string> p4 = ft::make_pair(221, "Lahore");
     // ft::pair<int, std::string> p5 = ft::make_pair(5, "Singapore");
@@ -149,9 +190,67 @@ int main()
     ft::map<int, std::string> map1;
     ft::pair<ft::map<int, std::string>::iterator, bool> ret;
     ret = map1.insert(p1);
-    std::cout << "wasInserted? " << ret.second<< std::endl;
-    ret = map1.insert(p1);
-    std::cout << "wasInserted? " << ret.second<< std::endl;
+    // std::cout << "wasInserted? " << ret.second<< std::endl;
+    // ret = map1.insert(p1);
+    // std::cout << "wasInserted? " << ret.second << "Mapped Value: " << ret.first->second<< std::endl;
+    map1.insert(p1);
+    map1.insert(p2);
+    map1.insert(p3);
+    map1.insert(p4);
+    map1.insert(p5);
+    map1.insert(p6);
+    map1.insert(p7);
+    // map1[30] = "City of the World";
+    ft::map<int, std::string>::iterator it = map1.begin();
+    std::cout << "\n\n\n****************************************\n\n\nbegin=> (*it).first: " << (*it).first << std::endl;
+    it++;
+    it++;
+    std::cout << "begin + 2 => (*it).first: " << (*it).first << std::endl;
+    it++;
+    std::cout << "begin++ => (*it).first: " << (*it).first << std::endl;
+    it++;
+    std::cout << "begin++ => (*it).first: " << (*it).first << std::endl;
+    it++;
+    std::cout << "begin++ => (*it).first: " << (*it).first << std::endl;
+    it++;
+    std::cout << "begin++ => (*it).first: " << (*it).first << std::endl;
+    it++;
+    std::cout << "begin++ => (*it).first: " << (*it).first << std::endl;
+    it++;
+    std::cout << "begin++ => (*it).first: " << (*it).first << std::endl;
+    it++;
+    std::cout << "begin++ => (*it).first: " << (*it).first << std::endl;
+    // it--;
+    // std::cout << "--begin => (*it).first: " << (*it).first << std::endl;
+    // it--;
+    // std::cout << "--begin => (*it).first: " << (*it).first << std::endl;
+    // it--;
+    // std::cout << "--begin => (*it).first: " << (*it).first << std::endl;
+    // it--;
+    // std::cout << "--begin => (*it).first: " << (*it).first << std::endl;
+
+    // it = map1.begin();
+    // std::cout << "\n-----------------------------------------\nbegin => (*it).first: " << (*it).first << std::endl;
+    // it++;
+    // std::cout << "++begin => (*it).first: " << (*it).first << std::endl;
+    // it++;
+    // std::cout << "++begin => (*it).first: " << (*it).first << std::endl;
+    // it++;
+    // std::cout << "++begin => (*it).first: " << (*it).first << std::endl;
+    // it++;
+    // std::cout << "++begin => (*it).first: " << (*it).first << std::endl;
+    // it++;
+    // std::cout << "++begin => (*it).first: " << (*it).first << std::endl;
+    // it++;
+    // std::cout << "++begin => (*it).first: " << (*it).first << std::endl;
+    // it = map1.end();
+    // std::cout << "end => (*it).first: " << (*it).first << std::endl;
+    // --it;
+    // std::cout << "--end => (*it).first: " << (*it).first << std::endl;
+    // for (ft::map<int, std::string>::iterator it = map1.begin(); it != map1.end(); ++it)
+    // {
+    //     std::cout << it->first << " => " << it->second << '\n';
+    // }
     // map1.insert(p2);
     // map1.insert(p3);
     // map1.insert(p4);

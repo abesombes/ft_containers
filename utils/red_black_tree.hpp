@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   red_black_tree.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/11 22:55:07 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/14 18:59:49 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ class RBTree {
                 }
 
 
-                void BSTInsert(Node* node, bool &successful_insertion)
+                Node* BSTInsert(Node* node, bool &successful_insertion)
                 {
                     Node *tmp = _root;
                     Node *Parent = _root;
@@ -202,7 +202,7 @@ class RBTree {
                             else if (_cmp(tmp->getKey(), node->getKey()))
                                 tmp = tmp->right;
                             else
-                                return;
+                                return (tmp);
                         }
                         if (tmp->isNil())
                         {
@@ -222,23 +222,29 @@ class RBTree {
                             }
                         }
                     }
+                    return (tmp);
                 }
 
                 iterator insertValue(const value_type &value, bool &wasInserted)
                 {
                     Node* new_Node = newNode(value);
-                    BSTInsert(new_Node, wasInserted);
+                    Node *ret = BSTInsert(new_Node, wasInserted);
  
-                    std::cout << "\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
-                    std::cout << "+++++++++++++ ANNOUNCEMENT: NEW VALUE ADDED - " << value.first << " +++++++++++++" << std::endl;
-                    std::cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
+                    // std::cout << "\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
+                    // std::cout << "+++++++++++++ ANNOUNCEMENT: NEW VALUE ADDED - " << value.first << " +++++++++++++" << std::endl;
+                    // std::cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
                     
-                    std::cout << "_root: " << _root->getKey() << std::endl;
-                    std::cout << "wasInserted? " << wasInserted << std::endl;
-                    std::cout << "size: " << getSize() << std::endl;
+                    // std::cout << "_root: " << _root->getKey() << std::endl;
+                    // std::cout << "wasInserted? " << wasInserted << std::endl;
+                    // std::cout << "size: " << getSize() << std::endl;
                     _root = fixInsertion(this->_root, new_Node);
                     if (_root->isRed())
                         _root->setBlack();
+                    if (!wasInserted)
+                    {
+                        deleteNode(new_Node);
+                        return (iterator(ret));
+                    }
                     return (iterator(new_Node));
                 }
 
@@ -429,7 +435,7 @@ class RBTree {
                     Node* Parent = node->parent;
                     Node* Uncle = node->getUncle();
                     Node* ret = NULL;
-                    root->printNodeSubTree();
+                    // root->printNodeSubTree();
                     // std::cout << "\nTrying to fix node " << node->getKey() << std::endl;
                     if (!node->parent->isNil())
                     {
@@ -437,7 +443,7 @@ class RBTree {
                         // std::cout << "node->isRed? " << node->isRed() << std::endl;
                         // std::cout << "node->parent->isRed? " << node->parent->isRed() << std::endl;
                         // std::cout << "0 = LeftRight Case\n1 = RightLeft Case\n2 = LeftLeft Case\n3 = RightRight Case" << std::endl;
-                        root->printNodeSubTree();
+                        // root->printNodeSubTree();
                         // std::cout << "Uncle: " << Uncle->isRed() << std::endl;
                         if (node->doubleRed() && Uncle != node && Uncle->isRed())
                         {            
@@ -483,7 +489,7 @@ class RBTree {
                             ret->setBlack();
                             root = ret;
                         }
-                        root->printNodeSubTree();
+                        // root->printNodeSubTree();
                     }
                     // std::cout << "current node: " << node->getKey() << std::endl;
                     // std::cout << "parent node: " << node->parent->getKey() << std::endl;
@@ -733,7 +739,7 @@ class RBTree {
                                             std::cout << "==== Right Child TargetNode has 2 Black Nephews ====" << std::endl;
                                             std::cout << "\n==== PUSH BLACKNESS UP on " << TargetNode->getKey() << " level - line 745 ====" << std::endl;
                                             pushBlacknessUp(TargetNode);
-                                            _root->printNodeSubTree();
+                                            // _root->printNodeSubTree();
                                             fixDB(TargetNode->parent);
                                         }
                                         else if (TargetNode->hasLBNephew())
@@ -793,7 +799,7 @@ class RBTree {
                                             std::cout << "==== Left Child TargetNode has 2 Black Nephews ====" << std::endl;
                                             std::cout << "\n==== PUSH BLACKNESS2 UP on " << TargetNode->getKey() << " level - line 745 ====" << std::endl;
                                             pushBlacknessUp(TargetNode);
-                                            _root->printNodeSubTree();
+                                            // _root->printNodeSubTree();
                                             fixDB(TargetNode->parent);
                                             removeParentLink(TargetNode);
                                             deleteNode(TargetNode);
@@ -943,7 +949,7 @@ class RBTree {
                     }
                     if (!_root->isBlack())
                         _root->setColor(BLACK);
-                    printRBT();
+                    // printRBT();
                     if (flag_lsentinel)
                     {
                         Node *tmp_min = getMinValueNode(_root);
