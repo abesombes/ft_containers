@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:30:34 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/14 18:41:29 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/14 19:22:10 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,7 @@ class bidirectional_iterator
             { 
                 Node *tmp = _node->getSuccessor();
                 
-                // if (tmp->isSentinel())
-                    _node = tmp;
+                _node = tmp;
                 return (*this);
             };
             
@@ -73,8 +72,7 @@ class bidirectional_iterator
             { 
                 Node *tmp = _node->getPredecessor();
                 
-                if (!tmp->isSentinel())
-                    _node = tmp;
+                _node = tmp;
                 return (*this);
             };
             
