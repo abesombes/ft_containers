@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/11 23:57:50 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/14 12:50:28 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,19 @@ int main()
     // map1['c']=30;
     // map1['d']=40;
     
+    // std::map<int, std::string> map1;
+    // std::pair<int, std::string> p1 = std::make_pair(445, "Hong Kong");
+    
+
+    // std::pair<std::map<int, std::string>::iterator, bool> ret;
+    // ret = map1.insert(p1);
+    // std::cout << "wasInserted? " << ret.second << std::endl;
+    // ret = map1.insert(p1);
+    // std::cout << "wasInserted? " << ret.second << std::endl;
+    
     // std::map<char, int>::iterator it;
     // std::map<char, int>::reverse_iterator rit;
+    // map1.insert
     // rit = map1.rend();
     // // --rit;
     // std::cout << "*rit: " << (*rit).second << std::endl;
@@ -129,20 +140,24 @@ int main()
     // }
     // it = map1.end();
     ft::pair<int, std::string> p1 = ft::make_pair(445, "Hong Kong");
-    ft::pair<int, std::string> p2 = ft::make_pair(125, "Bangkok");
-    ft::pair<int, std::string> p3 = ft::make_pair(484, "London");
-    ft::pair<int, std::string> p4 = ft::make_pair(10, "Paris");
-    // ft::pair<int, std::string> p4 = ft::make_pair(221, "Lahore");
-    ft::pair<int, std::string> p5 = ft::make_pair(5, "Singapore");
-    ft::pair<int, std::string> p6 = ft::make_pair(2, "Madrid");
+    // ft::pair<int, std::string> p2 = ft::make_pair(125, "Bangkok");
+    // ft::pair<int, std::string> p3 = ft::make_pair(484, "London");
+    // ft::pair<int, std::string> p4 = ft::make_pair(10, "Paris");
+    // // ft::pair<int, std::string> p4 = ft::make_pair(221, "Lahore");
+    // ft::pair<int, std::string> p5 = ft::make_pair(5, "Singapore");
+    // ft::pair<int, std::string> p6 = ft::make_pair(2, "Madrid");
     ft::map<int, std::string> map1;
-    map1.insert(p1);
-    map1.insert(p2);
-    map1.insert(p3);
-    map1.insert(p4);
+    ft::pair<ft::map<int, std::string>::iterator, bool> ret;
+    ret = map1.insert(p1);
+    std::cout << "wasInserted? " << ret.second<< std::endl;
+    ret = map1.insert(p1);
+    std::cout << "wasInserted? " << ret.second<< std::endl;
+    // map1.insert(p2);
+    // map1.insert(p3);
     // map1.insert(p4);
-    map1.insert(p5);
-    map1.insert(p5);
+    // // map1.insert(p4);
+    // map1.insert(p5);
+    // map1.insert(p5);
     // ft::bidirectional_iterator<int, std::string> it;
     // it = map1.begin();
     // std::cout << "*it: " << (*it).first << std::endl;
