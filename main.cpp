@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/15 09:59:22 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/15 12:05:06 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,58 +128,60 @@ int main()
     smap1.insert(sp5);
     smap1.insert(sp6);
     smap1.insert(sp7);
-    std::map<int, std::string>::iterator it1 = smap1.begin();
-    std::cout << "begin: " << (*it1).first << std::endl;
-    --it1;
-    std::cout << "--begin: " << (*it1).first << std::endl;
-    --it1;
-    std::cout << "--begin: " << (*it1).first << std::endl;
-    --it1;
-    std::cout << "--begin: " << (*it1).first << std::endl;
-    --it1;
-    std::cout << "--begin: " << (*it1).first << std::endl;
-    --it1;
-    std::cout << "--begin: " << (*it1).first << std::endl;
-    --it1;
-    std::cout << "--begin: " << (*it1).first << std::endl;
-    --it1;
-    std::cout << "--begin: " << (*it1).first << std::endl;
-    --it1;
-    std::cout << "--begin: " << (*it1).first << std::endl;
-    --it1;
-    std::cout << "--begin: " << (*it1).first << std::endl;
-    --it1;
-    std::cout << "--begin: " << (*it1).first << std::endl;
-    --it1;
-    std::cout << "--begin: " << (*it1).first << std::endl;
-    --it1;
-    std::cout << "--begin: " << (*it1).first << std::endl;
-    it1 = smap1.begin();
-    std::cout << "\n---------------------------\nbegin: " << (*it1).first << std::endl;
-    ++it1;
-    std::cout << "++begin: " << (*it1).first << std::endl;
-    ++it1;
-    std::cout << "++begin: " << (*it1).first << std::endl;    
-    ++it1;
-    std::cout << "++begin: " << (*it1).first << std::endl;    
-    ++it1;
-    std::cout << "++begin: " << (*it1).first << std::endl;
-    ++it1;
-    std::cout << "++begin: " << (*it1).first << std::endl;    
-    ++it1;
-    std::cout << "++begin: " << (*it1).first << std::endl;    
-    ++it1;
-    std::cout << "++begin: " << (*it1).first << std::endl;    
-    ++it1;
-    std::cout << "++begin: " << (*it1).first << std::endl;    
-    ++it1;
-    std::cout << "++begin: " << (*it1).first << std::endl;    
-    ++it1;
-    std::cout << "++begin: " << (*it1).first << std::endl;    
-    // it1 = smap1.end();
-    // std::cout << "end: " << (*it1).first << std::endl; 
-    // it1--;
-    // std::cout << "end--: " << (*it1).first << std::endl; 
+    std::map<int, std::string>::reverse_iterator rit1 = smap1.rbegin();
+    std::cout << "begin: " << (*rit1).first << std::endl;
+    --rit1;
+    std::cout << "--begin: " << (*rit1).first << std::endl;
+    --rit1;
+    std::cout << "--begin: " << (*rit1).first << std::endl;
+    --rit1;
+    std::cout << "--begin: " << (*rit1).first << std::endl;
+    --rit1;
+    std::cout << "--begin: " << (*rit1).first << std::endl;
+    --rit1;
+    std::cout << "--begin: " << (*rit1).first << std::endl;
+    --rit1;
+    std::cout << "--begin: " << (*rit1).first << std::endl;
+    --rit1;
+    std::cout << "--begin: " << (*rit1).first << std::endl;
+    --rit1;
+    std::cout << "--begin: " << (*rit1).first << std::endl;
+    --rit1;
+    std::cout << "--begin: " << (*rit1).first << std::endl;
+    --rit1;
+    std::cout << "--begin: " << (*rit1).first << std::endl;
+    --rit1;
+    std::cout << "--begin: " << (*rit1).first << std::endl;
+    --rit1;
+    std::cout << "--begin: " << (*rit1).first << std::endl;
+    rit1 = smap1.rbegin();
+    std::cout << "\n---------------------------\nbegin: " << (*rit1).first << std::endl;
+    ++rit1;
+    std::cout << "++begin: " << (*rit1).first << std::endl;
+    ++rit1;
+    std::cout << "++begin: " << (*rit1).first << std::endl;    
+    ++rit1;
+    std::cout << "++begin: " << (*rit1).first << std::endl;    
+    ++rit1;
+    std::cout << "++begin: " << (*rit1).first << std::endl;
+    ++rit1;
+    std::cout << "++begin: " << (*rit1).first << std::endl;    
+    ++rit1;
+    std::cout << "++begin: " << (*rit1).first << std::endl;    
+    ++rit1;
+    std::cout << "++begin: " << (*rit1).first << std::endl;    
+    ++rit1;
+    std::cout << "++begin: " << (*rit1).first << std::endl;    
+    ++rit1;
+    std::cout << "++begin: " << (*rit1).first << std::endl;    
+    ++rit1;
+    std::cout << "++begin: " << (*rit1).first << std::endl;    
+    ++rit1;
+    std::cout << "++begin: " << (*rit1).first << std::endl; 
+    // rit1 = smap1.end();
+    // std::cout << "end: " << (*rit1).first << std::endl; 
+    // rit1--;
+    // std::cout << "end--: " << (*rit1).first << std::endl; 
     // std::pair<std::map<int, std::string>::iterator, bool> ret;
     // ret = map1.insert(p1);
     // std::cout << "wasInserted? " << ret.second << std::endl;
@@ -228,30 +230,9 @@ int main()
     map1.insert(p7);
     // map1[30] = "City of the World";
     ft::map<int, std::string>::reverse_iterator rit = map1.rbegin();
-    std::cout << "\n\n\n****************************************\n\n\nbegin=> (*it).first: " << (*rit).first << std::endl;
-    rit++;
-    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
-    rit++;
-    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
-    rit++;
-    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
-    rit++;
-    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
-    rit++;
-    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
-    rit++;
-    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
-    rit++;
-    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
-    rit++;
-    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
-    rit++;
-    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
-    rit++;
-    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
-    rit++;
-    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
-    rit = map1.rbegin();
+    // ft::pair<int, std::string> rpair = *rit;
+    // std::cout << rpair.first << std::endl;
+
     std::cout << "\n\n\n****************************************\n\n\nbegin=> (*rit).first: " << (*rit).first << std::endl;
     rit--;
     std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
@@ -284,7 +265,32 @@ int main()
     rit--;
     std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
     rit--;
-    std::cout << "begin-- => (*rit).first: " << (*it).first << std::endl;
+    std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
+    
+    rit = map1.rbegin();
+    std::cout << "\n\n\n****************************************\n\n\nbegin=> (*rit).first: " << (*rit).first << std::endl;
+    rit++;
+    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
+    rit++;
+    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
+    rit++;
+    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
+    rit++;
+    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
+    rit++;
+    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
+    rit++;
+    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
+    rit++;
+    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
+    rit++;
+    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
+    rit++;
+    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
+    rit++;
+    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
+    rit++;
+    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
 
     // it = map1.begin();
     // std::cout << "\n-----------------------------------------\nbegin => (*it).first: " << (*it).first << std::endl;
@@ -304,10 +310,10 @@ int main()
     // std::cout << "end => (*it).first: " << (*it).first << std::endl;
     // --it;
     // std::cout << "--end => (*it).first: " << (*it).first << std::endl;
-    // for (ft::map<int, std::string>::iterator it = map1.begin(); it != map1.end(); ++it)
-    // {
-    //     std::cout << it->first << " => " << it->second << '\n';
-    // }
+    for (ft::map<int, std::string>::iterator it = map1.begin(); it != map1.end(); ++it)
+    {
+        std::cout << it->first << " => " << it->second << '\n';
+    }
     // map1.insert(p2);
     // map1.insert(p3);
     // map1.insert(p4);
@@ -1849,7 +1855,7 @@ int main()
     // RedBlackT.printRBT();
 
     // ft::vector<int> v1(5, 100);
-    // ft::vector<int>::iterator it1 = v1.begin() + 2;
+    // ft::vector<int>::iterator rit1 = v1.begin() + 2;
     // std::cout << *it1 << " " << &(*it1) << std::endl;    
     // it1 = 1 - it1;
     // v1.printVec();

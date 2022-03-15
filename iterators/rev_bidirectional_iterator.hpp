@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 09:58:22 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/15 09:53:15 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/15 12:08:36 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,21 @@ class rev_bidirectional_iterator
 {
 
     public:
-            typedef rev_bidirectional_iterator                          self_type;
-            typedef typename const_or_not<B, const T&, T&>::type        reference;
-            typedef typename const_or_not<B, const T*, T*>::type        pointer;
-            typedef ft::bidirectional_iterator_tag                      iterator_category;
-            typedef ptrdiff_t                                           difference_type;
-            typedef T*                                                  elem_pointer;
-            typedef bidirectional_iterator<const Key, T, Compare, B>    iterator;
+            typedef ft::pair<const Key, T>				                                value_type;
+            typedef rev_bidirectional_iterator                                          self_type;
+            typedef rev_bidirectional_iterator                                          reverse_iterator;
+            typedef typename const_or_not<B, const value_type&, value_type&>::type		reference;
+            typedef typename const_or_not<B, const value_type*, value_type*>::type		pointer;
+            typedef ft::bidirectional_iterator_tag                                      iterator_category;
+            typedef ptrdiff_t                                                           difference_type;
+            typedef T*                                                                  elem_pointer;
+            typedef bidirectional_iterator<const Key, T, Compare, B>                    iterator;
 
             typedef Node<const Key, T, Compare>	                        Node;
             typedef Node*                                               NodePtr;
             typedef Key									                key_type;
             typedef Compare                                             key_compare;
             typedef T									                mapped_type;
-            typedef ft::pair<const Key, T>				                value_type;
             typedef std::size_t							                size_type;
                 
     private:
@@ -48,10 +49,10 @@ class rev_bidirectional_iterator
             
     public:        
             rev_bidirectional_iterator( Node* node = NULL): _node(node){};
-            rev_bidirectional_iterator( rev_bidirectional_iterator<Key, T, Compare, B> const &src ): _node(src.getNode()){};
-            rev_bidirectional_iterator &operator=(rev_bidirectional_iterator const &rhs){ this->_node = rhs._node; return (*this); };
+            rev_bidirectional_iterator( rev_bidirectional_iterator<Key, T, Compare, B> const &src ): _node(src.getNode()) {};
+            reverse_iterator &operator=(rev_bidirectional_iterator const &rhs){ this->_node = rhs._node; return (*this); };
             virtual ~rev_bidirectional_iterator(){};
-            Node *getNode( void ) { return _node;}
+            Node *getNode( void ) const { return _node;}
 
             iterator base( void ) const
             {
@@ -60,6 +61,15 @@ class rev_bidirectional_iterator
                 --tmp;
                 return (iterator(tmp.getNode()));
             }
+
+            reverse_iterator &operator++()
+            { 
+                Node *tmp = _node->getPredecessor();
+                
+                _node = tmp;
+                return (*this);
+            };
+            
             
             self_type operator++(int)
             { 
@@ -73,6 +83,11 @@ class rev_bidirectional_iterator
             { 
                 Node *tmp = _node->getSuccessor();
                 
+                if (tmp->isNil())
+                {
+                    _node = tmp->getPredecessor()->getPredecessor();
+                    return (*this);
+                }
                 _node = tmp;
                 return (*this);
             };
@@ -91,6 +106,7 @@ class rev_bidirectional_iterator
             bool operator!=(self_type const & rhs) const { 
                     return !(_node == rhs.getNode()); 
             };
+            
             reference operator*() const { return (this->_node->getValue()); };
             pointer operator->() const { return (&this->_node->getValue()); };
         
