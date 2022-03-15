@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 09:58:22 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/15 12:08:36 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/15 12:33:22 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,13 @@ class rev_bidirectional_iterator
             { 
                 Node *tmp = _node->getSuccessor();
                 
-                if (tmp->isNil())
+                // if (tmp->isNil())
+                if (_node->isSentinel())
+                {
+                    _node = _node->left;
+                    return (*this);
+                }
+                if (tmp->isSentinel())
                 {
                     _node = tmp->getPredecessor()->getPredecessor();
                     return (*this);
