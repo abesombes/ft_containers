@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 10:34:35 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/14 19:31:16 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/15 14:29:40 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,20 +227,29 @@ class Node {
                 Node* Successor = this;
                 
                 if (!right->isNil())
-                    return (right->getTreeMin());
-
-                if (right->isNil())
                 {
-                    if (right->isSentinel())
-                        return (Successor->right);
+                    std::cout << "line 231" << std::endl;
+                    return (right->getTreeMin());
+                }
+                else if (right->isNil())
+                {
+                    if (right->isSentinel()){
+                       std::cout << "line 235" << std::endl;
+                       return (Successor->right);
+                    }
+
                     while (!Successor->isNil())
                     {
-                        if (Successor->isLChild())
+                        std::cout << "line 238" << std::endl;
+                        if (Successor->isLChild()){
+                            std::cout << "line 247" << std::endl;
                             return (Successor->parent);
+                        }
                         Successor = Successor->parent;
                     }
                 }
-                return (Successor->parent);
+                std::cout << "line 252" << std::endl;
+                return (NULL);
             }
 
             Node* getPredecessor( void )

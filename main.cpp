@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/15 12:34:32 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/15 13:52:23 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,18 +116,22 @@ int main()
     std::map<int, std::string> smap1;
     std::pair<int, std::string> sp1 = std::make_pair(445, "Hong Kong");
     std::pair<int, std::string> sp2 = std::make_pair(125, "Bangkok");
-    std::pair<int, std::string> sp3 = std::make_pair(484, "London");
-    std::pair<int, std::string> sp4 = std::make_pair(40, "Moscow");
-    std::pair<int, std::string> sp5 = std::make_pair(60, "NYC");
-    std::pair<int, std::string> sp6 = std::make_pair(20, "Madrid");
-    std::pair<int, std::string> sp7 = std::make_pair(30, "Los Angeles");
+    // std::pair<int, std::string> sp3 = std::make_pair(484, "London");
+    // std::pair<int, std::string> sp4 = std::make_pair(40, "Moscow");
+    // std::pair<int, std::string> sp5 = std::make_pair(60, "NYC");
+    // std::pair<int, std::string> sp6 = std::make_pair(20, "Madrid");
+    // std::pair<int, std::string> sp7 = std::make_pair(30, "Los Angeles");
     smap1.insert(sp1);
     smap1.insert(sp2);
-    smap1.insert(sp3);
-    smap1.insert(sp4);
-    smap1.insert(sp5);
-    smap1.insert(sp6);
-    smap1.insert(sp7);
+    // smap1.insert(sp3);
+    // smap1.insert(sp4);
+    // smap1.insert(sp5);
+    // smap1.insert(sp6);
+    // smap1.insert(sp7);
+    for (std::map<int, std::string>::iterator it2 = smap1.begin(); it2 != smap1.end(); ++it2)
+    {
+        std::cout << it2->first << " => " << it2->second << '\n';
+    }
     std::map<int, std::string>::reverse_iterator rit1 = smap1.rbegin();
     std::cout << "begin: " << (*rit1).first << std::endl;
     --rit1;
@@ -217,17 +221,24 @@ int main()
     // ft::pair<int, std::string> p6 = ft::make_pair(2, "Madrid");
     ft::map<int, std::string> map1;
     ft::pair<ft::map<int, std::string>::iterator, bool> ret;
-    ret = map1.insert(p1);
+    // ret = map1.insert(p1);
     // std::cout << "wasInserted? " << ret.second<< std::endl;
     // ret = map1.insert(p1);
     // std::cout << "wasInserted? " << ret.second << "Mapped Value: " << ret.first->second<< std::endl;
-    map1.insert(p1);
-    map1.insert(p2);
-    map1.insert(p3);
-    map1.insert(p4);
-    map1.insert(p5);
-    map1.insert(p6);
-    map1.insert(p7);
+    map1[445] = "Hong Kong";
+    map1[125] = "Bangkok";
+    // map1[484] = "London";
+    // map1[40] = "Moscow";
+    // map1[60] = "NYC";
+    // map1[20] = "Madrid";
+    // map1[30] = "Los Angeles";
+    // map1.insert(p1);
+    // map1.insert(p2);
+    // map1.insert(p3);
+    // map1.insert(p4);
+    // map1.insert(p5);
+    // map1.insert(p6);
+    // map1.insert(p7);
     // map1[30] = "City of the World";
     ft::map<int, std::string>::reverse_iterator rit = map1.rbegin();
     // ft::pair<int, std::string> rpair = *rit;
@@ -310,10 +321,33 @@ int main()
     // std::cout << "end => (*it).first: " << (*it).first << std::endl;
     // --it;
     // std::cout << "--end => (*it).first: " << (*it).first << std::endl;
+    // std::cout << "map1.end: " << map1.end()->first << map1.end()->second << std::endl;
     for (ft::map<int, std::string>::iterator it = map1.begin(); it != map1.end(); ++it)
     {
         std::cout << it->first << " => " << it->second << '\n';
     }
+    // ft::map<int, std::string>::iterator it = map1.begin();
+    // std::cout << it->first << " => " << it->second << '\n';
+    // it++;
+    // std::cout << it->first << " => " << it->second << '\n';
+    // it++;
+    // std::cout << it->first << " => " << it->second << '\n';
+    // it++;
+    // std::cout << it->first << " => " << it->second << '\n';
+    // it++;
+    // std::cout << it->first << " => " << it->second << '\n';
+    // it++;
+    // std::cout << it->first << " => " << it->second << '\n';
+    // it++;
+    // std::cout << it->first << " => " << it->second << '\n';
+    // it++;
+    // std::cout << it->first << " => " << it->second << '\n';
+    // it++;
+    // std::cout << it->first << " => " << it->second << '\n';
+    // it++;
+    // std::cout << it->first << " => " << it->second << '\n';
+    // it++;
+    // std::cout << it->first << " => " << it->second << '\n';
     // map1.insert(p2);
     // map1.insert(p3);
     // map1.insert(p4);
