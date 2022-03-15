@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/14 19:31:43 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/15 09:59:22 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,7 @@ int main()
     // rit = map1.rend();
     // // --rit;
     // std::cout << "*rit: " << (*rit).second << std::endl;
-    // rit++;
+    // rrit++;
     // it = map1.begin();
     // std::cout << "(*it).first: " << (*it).first << std::endl;
     // std::cout << "(*it).second: " << (*it).second << std::endl;
@@ -227,78 +227,78 @@ int main()
     map1.insert(p6);
     map1.insert(p7);
     // map1[30] = "City of the World";
-    ft::map<int, std::string>::iterator it = map1.begin();
-    std::cout << "\n\n\n****************************************\n\n\nbegin=> (*it).first: " << (*it).first << std::endl;
-    it++;
-    std::cout << "begin++ => (*it).first: " << (*it).first << std::endl;
-    it++;
-    std::cout << "begin++ => (*it).first: " << (*it).first << std::endl;
-    it++;
-    std::cout << "begin++ => (*it).first: " << (*it).first << std::endl;
-    it++;
-    std::cout << "begin++ => (*it).first: " << (*it).first << std::endl;
-    it++;
-    std::cout << "begin++ => (*it).first: " << (*it).first << std::endl;
-    it++;
-    std::cout << "begin++ => (*it).first: " << (*it).first << std::endl;
-    it++;
-    std::cout << "begin++ => (*it).first: " << (*it).first << std::endl;
-    it++;
-    std::cout << "begin++ => (*it).first: " << (*it).first << std::endl;
-    it++;
-    std::cout << "begin++ => (*it).first: " << (*it).first << std::endl;
-    it++;
-    std::cout << "begin++ => (*it).first: " << (*it).first << std::endl;
-    it++;
-    std::cout << "begin++ => (*it).first: " << (*it).first << std::endl;
-    it = map1.begin();
-    std::cout << "\n\n\n****************************************\n\n\nbegin=> (*it).first: " << (*it).first << std::endl;
-    it--;
-    std::cout << "begin-- => (*it).first: " << (*it).first << std::endl;
-    it--;
-    std::cout << "begin-- => (*it).first: " << (*it).first << std::endl;
-    it--;
-    std::cout << "begin-- => (*it).first: " << (*it).first << std::endl;
-    it--;
-    std::cout << "begin-- => (*it).first: " << (*it).first << std::endl;
-    it--;
-    std::cout << "begin-- => (*it).first: " << (*it).first << std::endl;
-    it--;
-    std::cout << "begin-- => (*it).first: " << (*it).first << std::endl;
-    it--;
-    std::cout << "begin-- => (*it).first: " << (*it).first << std::endl;
-    it--;
-    std::cout << "begin-- => (*it).first: " << (*it).first << std::endl;
-    it--;
-    std::cout << "begin-- => (*it).first: " << (*it).first << std::endl;
-    it--;
-    std::cout << "begin-- => (*it).first: " << (*it).first << std::endl;
-    it--;
-    std::cout << "begin-- => (*it).first: " << (*it).first << std::endl;
-    it--;
-    std::cout << "begin-- => (*it).first: " << (*it).first << std::endl;
-    it--;
-    std::cout << "begin-- => (*it).first: " << (*it).first << std::endl;
-    it--;
-    std::cout << "begin-- => (*it).first: " << (*it).first << std::endl;
-    it--;
-    std::cout << "begin-- => (*it).first: " << (*it).first << std::endl;
-    it--;
-    std::cout << "begin-- => (*it).first: " << (*it).first << std::endl;
+    ft::map<int, std::string>::reverse_iterator rit = map1.rbegin();
+    std::cout << "\n\n\n****************************************\n\n\nbegin=> (*it).first: " << (*rit).first << std::endl;
+    rit++;
+    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
+    rit++;
+    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
+    rit++;
+    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
+    rit++;
+    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
+    rit++;
+    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
+    rit++;
+    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
+    rit++;
+    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
+    rit++;
+    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
+    rit++;
+    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
+    rit++;
+    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
+    rit++;
+    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
+    rit = map1.rbegin();
+    std::cout << "\n\n\n****************************************\n\n\nbegin=> (*rit).first: " << (*rit).first << std::endl;
+    rit--;
+    std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
+    rit--;
+    std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
+    rit--;
+    std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
+    rit--;
+    std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
+    rit--;
+    std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
+    rit--;
+    std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
+    rit--;
+    std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
+    rit--;
+    std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
+    rit--;
+    std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
+    rit--;
+    std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
+    rit--;
+    std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
+    rit--;
+    std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
+    rit--;
+    std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
+    rit--;
+    std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
+    rit--;
+    std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
+    rit--;
+    std::cout << "begin-- => (*rit).first: " << (*it).first << std::endl;
 
     // it = map1.begin();
     // std::cout << "\n-----------------------------------------\nbegin => (*it).first: " << (*it).first << std::endl;
-    // it++;
+    // rit++;
     // std::cout << "++begin => (*it).first: " << (*it).first << std::endl;
-    // it++;
+    // rit++;
     // std::cout << "++begin => (*it).first: " << (*it).first << std::endl;
-    // it++;
+    // rit++;
     // std::cout << "++begin => (*it).first: " << (*it).first << std::endl;
-    // it++;
+    // rit++;
     // std::cout << "++begin => (*it).first: " << (*it).first << std::endl;
-    // it++;
+    // rit++;
     // std::cout << "++begin => (*it).first: " << (*it).first << std::endl;
-    // it++;
+    // rit++;
     // std::cout << "++begin => (*it).first: " << (*it).first << std::endl;
     // it = map1.end();
     // std::cout << "end => (*it).first: " << (*it).first << std::endl;
@@ -317,25 +317,25 @@ int main()
     // ft::bidirectional_iterator<int, std::string> it;
     // it = map1.begin();
     // std::cout << "*it: " << (*it).first << std::endl;
-    // it++;
+    // rit++;
     // std::cout << "*it: " << (*it).first << std::endl;
-    // it++;
+    // rit++;
     // std::cout << "*it: " << (*it).first << std::endl;
-    // it++;
+    // rit++;
     // std::cout << "*it: " << (*it).first << std::endl;
     // std::cout << "*it: " << (*it).second << std::endl;
     // std::map<char, int>::iterator base_rit;
     // base_rit = rit.base();
     // std::cout << "*base_rit: " << (*base_rit).second << std::endl;    
-    // it++;
+    // rit++;
     // std::cout << "*it: " << (*it).second << std::endl;
-    // it++;
+    // rit++;
     // std::cout << "*it: " << (*it).second << std::endl;
-    // it++;
+    // rit++;
     // std::cout << "*it: " << (*it).second << std::endl;
-    // it++;
+    // rit++;
     // std::cout << "*it: " << (*it).second << std::endl;
-    // it++;
+    // rit++;
     // std::cout << "*it: " << (*it).second << std::endl;
     // it--;
     // std::cout << "*it: " << (*it).second << std::endl;
@@ -2023,29 +2023,29 @@ int main()
 	// ft::vector<foo<int> >::const_reverse_iterator ite(vct.rend());
 
     // *it = 7;
-    // it++;
+    // rit++;
     // vct.printVec();
     
     // *it = 14;
     // std::cout << &*it << std::endl;
-    // it++;
+    // rit++;
     // vct.printVec();
 
     // *it = 21;
-    // it++;
+    // rit++;
     // vct.printVec();
     
     // *it = 28;
-    // it++;
+    // rit++;
     // vct.printVec();
     
     // *it = 35;
-    // it++;
+    // rit++;
     // vct.printVec();
 	// for (int i = 1; it != ite; ++i)
     // {
 	// 	*it = (i * 7);
-    //     it++;
+    //     rit++;
     // }
 	// vct.printVec();
 
@@ -2061,8 +2061,8 @@ int main()
 	// ite->m();
 
 	// std::cout << *(++it) << std::endl;
-	// std::cout << *(it++) << std::endl;
-	// std::cout << *it++ << std::endl;
+	// std::cout << *(rit++) << std::endl;
+	// std::cout << *rit++ << std::endl;
 	// std::cout << *++it << std::endl;
 
 	// std::cout << *(--ite) << std::endl;

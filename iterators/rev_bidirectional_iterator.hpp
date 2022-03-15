@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 09:58:22 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/11 17:20:39 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/15 09:53:15 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ class rev_bidirectional_iterator
             typedef ft::bidirectional_iterator_tag                      iterator_category;
             typedef ptrdiff_t                                           difference_type;
             typedef T*                                                  elem_pointer;
-            typedef bidirectional_iterator<const Key, T, Compare, B>    Iterator;
+            typedef bidirectional_iterator<const Key, T, Compare, B>    iterator;
 
             typedef Node<const Key, T, Compare>	                        Node;
             typedef Node*                                               NodePtr;
@@ -53,48 +53,38 @@ class rev_bidirectional_iterator
             virtual ~rev_bidirectional_iterator(){};
             Node *getNode( void ) { return _node;}
 
-            Iterator base( void ) const
+            iterator base( void ) const
             {
                 rev_bidirectional_iterator tmp(*this); // on cree un tmp rev iterator pour ne pas bouger le rev_iterator initial
 
                 --tmp;
-                return (Iterator(tmp.getNode()));
+                return (iterator(tmp.getNode()));
             }
-            
-            self_type &operator++()
-            { 
-                Node *tmp = _node->getPredecessor();
-                
-                if (!tmp->isSentinel())
-                    _node = tmp;
-                return (*this);
-            };
             
             self_type operator++(int)
             { 
                 self_type tmp_it(*this);
                 
                 ++(*this);
-                return (*tmp_it);
+                return (tmp_it);
             };
 
             self_type &operator--()
             { 
                 Node *tmp = _node->getSuccessor();
                 
-                if (!tmp->isSentinel())
-                    _node = tmp;
+                _node = tmp;
                 return (*this);
             };
             
             self_type operator--(int)
-            {
+            { 
                 self_type tmp_it(*this);
                 
                 --(*this);
-                return (*tmp_it);
+                return (tmp_it);
             };
-
+            
             bool operator==(self_type const & rhs) const { 
                     return (_node == rhs.getNode()); 
             };
