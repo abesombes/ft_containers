@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 10:34:35 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/15 14:29:40 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/15 15:59:27 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,29 +227,20 @@ class Node {
                 Node* Successor = this;
                 
                 if (!right->isNil())
-                {
-                    std::cout << "line 231" << std::endl;
                     return (right->getTreeMin());
-                }
                 else if (right->isNil())
                 {
-                    if (right->isSentinel()){
-                       std::cout << "line 235" << std::endl;
+                    if (right->isSentinel())
                        return (Successor->right);
-                    }
 
                     while (!Successor->isNil())
                     {
-                        std::cout << "line 238" << std::endl;
-                        if (Successor->isLChild()){
-                            std::cout << "line 247" << std::endl;
+                        if (Successor->isLChild())
                             return (Successor->parent);
-                        }
                         Successor = Successor->parent;
                     }
                 }
-                std::cout << "line 252" << std::endl;
-                return (NULL);
+                return (Successor);
             }
 
             Node* getPredecessor( void )
@@ -273,6 +264,18 @@ class Node {
                     return (Predecessor->parent);
                 }
                 return (Predecessor->parent);
+            }
+
+            int RBT_size()
+            {
+                int size = 1;
+                Node *tmp = this->getSuccessor();
+                while (tmp != this && !tmp->isNil())
+                {
+                    size++;
+                    tmp = tmp->getSuccessor();
+                }
+                return (size);
             }
 
             Node* getTreeMax( void )

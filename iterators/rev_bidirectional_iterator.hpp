@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 09:58:22 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/15 12:33:22 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/15 15:58:33 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,9 @@ class rev_bidirectional_iterator
             self_type operator--(int)
             { 
                 self_type tmp_it(*this);
-                
-                --(*this);
+                std::cout << "size: " << _node->RBT_size() << std::endl;
+                if (_node->RBT_size() != 1)
+                    --(*this);
                 return (tmp_it);
             };
             
