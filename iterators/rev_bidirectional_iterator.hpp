@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 09:58:22 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/17 16:37:36 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/17 17:07:21 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,34 +84,26 @@ class rev_bidirectional_iterator
             { 
                 Node *tmp = _node->getSuccessor();
                 
-                std::cout << "isOrphan? " << _node->isOrphan() << std::endl;
-                // std::cout << "_node before: " << _node->getKey() << std::endl;
-                // std::cout << "The Tree has only 2 Elem? " << _node->isTwoElemTree() << std::endl;
+                // std::cout << "isOrphan? " << _node->isOrphan() << std::endl;
                 if (!_node->isOrphan())
                 {
                     if (_node->isSentinel())
                     {
-                        std::cout << "line 94\n";
                         _node = _node->left;
                         return (*this);
                     }
                     if (_node->isTwoElemTree() && tmp->isSentinel())
                     {
-                        std::cout << "line 99" << std::endl;
                         _node = tmp;
                         return (*this);
                     }
                     if (tmp->isSentinel())
                     {
-                        std::cout << "line 106\n";
                         _node = tmp->getPredecessor()->getPredecessor();
                         return (*this);
                     }
-                    std::cout << "line 110\n";
                     _node = tmp;
                 }
-                std::cout << "line 112\n";
-                // std::cout << "_node after: " << _node->getKey() << std::endl;
                 return (*this);
             };
             

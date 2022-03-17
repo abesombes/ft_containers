@@ -172,29 +172,17 @@ end: 7
 =============================== FT - Checking reverse iterator with 1 element starting from rbegin() ==================================
 
 rbegin: 445
-The Tree has only 2 Elem? 0
 --rbegin: 445
-The Tree has only 2 Elem? 0
 --rbegin: 445
-The Tree has only 2 Elem? 0
 --rbegin: 445
-The Tree has only 2 Elem? 0
 --rbegin: 445
-The Tree has only 2 Elem? 0
 --rbegin: 445
-The Tree has only 2 Elem? 0
 --rbegin: 445
-The Tree has only 2 Elem? 0
 --rbegin: 445
-The Tree has only 2 Elem? 0
 --rbegin: 445
-The Tree has only 2 Elem? 0
 --rbegin: 445
-The Tree has only 2 Elem? 0
 --rbegin: 445
-The Tree has only 2 Elem? 0
 --rbegin: 445
-The Tree has only 2 Elem? 0
 --rbegin: 445
 
 ---------------------------
@@ -219,29 +207,17 @@ rbegin: 445
 =============================== FT - Checking reverse iterator with 2 elements starting from rbegin() ==================================
 
 rbegin: 445
-The Tree has only 2 Elem? 1
 --rbegin: 0
-The Tree has only 2 Elem? 1
 --rbegin: 125
-The Tree has only 2 Elem? 1
 --rbegin: 445
-The Tree has only 2 Elem? 1
 --rbegin: 0
-The Tree has only 2 Elem? 1
 --rbegin: 125
-The Tree has only 2 Elem? 1
 --rbegin: 445
-The Tree has only 2 Elem? 1
 --rbegin: 0
-The Tree has only 2 Elem? 1
 --rbegin: 125
-The Tree has only 2 Elem? 1
 --rbegin: 445
-The Tree has only 2 Elem? 1
 --rbegin: 0
-The Tree has only 2 Elem? 1
 --rbegin: 125
-The Tree has only 2 Elem? 1
 --rbegin: 445
 
 ---------------------------
@@ -284,43 +260,31 @@ Root updated
 =============================== FT - Checking reverse iterator with 7 elements starting from rend() ==================================
 
 rend: 0
-The Tree has only 2 Elem? 0
 --rend: 20
-The Tree has only 2 Elem? 0
 --rend: 30
-The Tree has only 2 Elem? 0
 --rend: 40
-The Tree has only 2 Elem? 0
---rend: 40
-The Tree has only 2 Elem? 0
---rend: 40
-The Tree has only 2 Elem? 0
---rend: 40
-The Tree has only 2 Elem? 0
---rend: 40
-The Tree has only 2 Elem? 0
---rend: 40
-The Tree has only 2 Elem? 0
---rend: 40
-The Tree has only 2 Elem? 0
---rend: 40
-The Tree has only 2 Elem? 0
---rend: 40
-The Tree has only 2 Elem? 0
---rend: 40
+--rend: 60
+--rend: 125
+--rend: 445
+--rend: 484
+--rend: 445
+--rend: 484
+--rend: 445
+--rend: 484
+--rend: 445
 
 ---------------------------
 rend: 0
 ++rend: 484
 ++rend: 445
 ++rend: 125
-++rend: 125
-++rend: 125
-++rend: 125
-++rend: 125
-++rend: 125
-++rend: 125
-++rend: 125
+++rend: 60
+++rend: 40
+++rend: 30
+++rend: 20
+++rend: 0
+++rend: 484
+++rend: 445
 ++rend: 125
 
 =============================== FT - Checking normal iterator from begin() ==================================

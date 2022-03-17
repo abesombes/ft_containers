@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 10:34:35 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/17 16:41:09 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/17 17:07:04 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,21 +281,14 @@ class Node {
 
             bool isOrphan()
             {
-                    std::cout << "left: " << left->getKey() << " - address = " << left << " - right: " << right->getKey() << " - address = " << right << std::endl;
-                    return (left == right);
+                    // std::cout << "node: " << getKey() << " left: " << left->getKey() << " - address = " << left << " - right: " << right->getKey() << " - address = " << right << std::endl;
+                    // || (left->isNil() && !left->isSentinel())) || !left->isNil());
+                    return ((left == right && left->isSentinel()) || (left == right && !left->isNil()) || (left == right && parent->isNil()));
             }
             
             bool isTwoElemTree()
             {
-                // std::cout << "this: " << this->getKey() << std::endl;
-                // std::cout << "this->getSuccessor(): " << this->getSuccessor()->getKey() << " - this->getSuccessor()->getSuccessor(): " << this->getSuccessor()->getSuccessor()->getKey() << std::endl;
-                // std::cout << "this->getPredecessor(): " << this->getPredecessor()->getKey() << " - this->getPredecessor()->getPredecessor(): " << this->getPredecessor()->getPredecessor()->getKey() << std::endl;                   
-                //this->getSuccessor()->getSuccessor() == this && 
-                // IDEE A CREUSER > tester si _sentinel->left = _sentinel->right; si oui > orphan sinon non.
-                // if (isSentinel())
                     return (this->getPredecessor()->getPredecessor() == this->getSuccessor() || this->getPredecessor() == this->getSuccessor()->getSuccessor());
-                // else
-                //     return (this->getPredecessor()->getPredecessor() == this || this->getSuccessor()->getSuccessor() == this );
             }
 
             Node* getTreeMax( void )
