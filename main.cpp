@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/17 10:22:43 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/17 11:38:21 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,19 +122,70 @@ int main()
     std::pair<int, std::string> sp6 = std::make_pair(20, "Madrid");
     std::pair<int, std::string> sp7 = std::make_pair(30, "Los Angeles");
     smap1.insert(sp1);
+    std::cout << "\n=============================== STD - MAP CONTENT - 1 element - increasing order ==================================\n\n";
+    for (std::map<int, std::string>::iterator it2 = smap1.begin(); it2 != smap1.end(); ++it2)
+    {
+        std::cout << it2->first << " => " << it2->second << '\n';
+    }
+    std::cout << "\n=============================== STD - Checking reverse iterator with 1 element starting from rbegin() ==================================\n\n";
+    std::map<int, std::string>::reverse_iterator rit1 = smap1.rbegin();
+    std::cout << "rbegin: " << (*rit1).first << std::endl;
+    --rit1;
+    std::cout << "--rbegin: " << (*rit1).first << std::endl;
+    --rit1;
+    std::cout << "--rbegin: " << (*rit1).first << std::endl;
+    --rit1;
+    std::cout << "--rbegin: " << (*rit1).first << std::endl;
+    --rit1;
+    std::cout << "--rbegin: " << (*rit1).first << std::endl;
+    --rit1;
+    std::cout << "--rbegin: " << (*rit1).first << std::endl;
+    --rit1;
+    std::cout << "--rbegin: " << (*rit1).first << std::endl;
+    --rit1;
+    std::cout << "--rbegin: " << (*rit1).first << std::endl;
+    --rit1;
+    std::cout << "--rbegin: " << (*rit1).first << std::endl;
+    --rit1;
+    std::cout << "--rbegin: " << (*rit1).first << std::endl;
+    --rit1;
+    std::cout << "--rbegin: " << (*rit1).first << std::endl;
+    --rit1;
+    std::cout << "--rbegin: " << (*rit1).first << std::endl;
+    --rit1;
+    std::cout << "--rbegin: " << (*rit1).first << std::endl;
+    rit1 = smap1.rbegin();
+    std::cout << "\n---------------------------\nrbegin: " << (*rit1).first << std::endl;
+    ++rit1;
+    std::cout << "++rbegin: " << (*rit1).first << std::endl;
+    ++rit1;
+    std::cout << "++rbegin: " << (*rit1).first << std::endl;    
+    ++rit1;
+    std::cout << "++rbegin: " << (*rit1).first << std::endl;    
+    ++rit1;
+    std::cout << "++rbegin: " << (*rit1).first << std::endl;
+    ++rit1;
+    std::cout << "++rbegin: " << (*rit1).first << std::endl;    
+    ++rit1;
+    std::cout << "++rbegin: " << (*rit1).first << std::endl;    
+    ++rit1;
+    std::cout << "++rbegin: " << (*rit1).first << std::endl;    
+    ++rit1;
+    std::cout << "++rbegin: " << (*rit1).first << std::endl;    
+    ++rit1;
+    std::cout << "++rbegin: " << (*rit1).first << std::endl;    
+    ++rit1;
+    std::cout << "++rbegin: " << (*rit1).first << std::endl;    
+    ++rit1;
+    std::cout << "++rbegin: " << (*rit1).first << std::endl;
     smap1.insert(sp2);
-    // smap1.insert(sp3);
-    // smap1.insert(sp4);
-    // smap1.insert(sp5);
-    // smap1.insert(sp6);
-    // smap1.insert(sp7);
     std::cout << "\n=============================== STD - MAP CONTENT - 2 elements - increasing order ==================================\n\n";
     for (std::map<int, std::string>::iterator it2 = smap1.begin(); it2 != smap1.end(); ++it2)
     {
         std::cout << it2->first << " => " << it2->second << '\n';
     }
-    std::cout << "\n=============================== STD - Checking reverse iterator with 2 elements starting from rend() ==================================\n\n";
-    std::map<int, std::string>::reverse_iterator rit1 = smap1.rbegin();
+    std::cout << "\n=============================== STD - Checking reverse iterator with 2 elements starting from rbegin() ==================================\n\n";
+    rit1 = smap1.rbegin();
     std::cout << "rbegin: " << (*rit1).first << std::endl;
     --rit1;
     std::cout << "--rbegin: " << (*rit1).first << std::endl;
@@ -299,7 +350,7 @@ int main()
     ++it1;
     std::cout << "++begin: " << (*it1).first << std::endl;
     ++it1;
-    std::cout << "++begin: " << (*rit1).first << std::endl;  
+    std::cout << "++begin: " << (*it1).first << std::endl;  
 
     std::cout << "\n=============================== STD - Checking normal iterator from end() ==================================\n\n";
     it1 = smap1.end();
@@ -377,7 +428,9 @@ int main()
     // for(it=map1.begin(); it!=map1.end(); ++it){
     //     std::cout << it->first << " => " << it->second << '\n';
     // }
-    // it = map1.end();
+
+
+    ft::map<int, std::string> map1;
     ft::pair<int, std::string> p1 = ft::make_pair(445, "Hong Kong");
     ft::pair<int, std::string> p2 = ft::make_pair(125, "Bangkok");
     ft::pair<int, std::string> p3 = ft::make_pair(484, "London");
@@ -385,117 +438,426 @@ int main()
     ft::pair<int, std::string> p5 = ft::make_pair(60, "NYC");
     ft::pair<int, std::string> p6 = ft::make_pair(20, "Madrid");
     ft::pair<int, std::string> p7 = ft::make_pair(30, "Los Angeles");
-    // ft::pair<int, std::string> p4 = ft::make_pair(10, "Paris");
-    // // ft::pair<int, std::string> p4 = ft::make_pair(221, "Lahore");
-    // ft::pair<int, std::string> p5 = ft::make_pair(5, "Singapore");
-    // ft::pair<int, std::string> p6 = ft::make_pair(2, "Madrid");
-    ft::map<int, std::string> map1;
-    ft::pair<ft::map<int, std::string>::iterator, bool> ret;
-    // ret = map1.insert(p1);
-    // std::cout << "wasInserted? " << ret.second<< std::endl;
-    // ret = map1.insert(p1);
-    // std::cout << "wasInserted? " << ret.second << "Mapped Value: " << ret.first->second<< std::endl;
-    map1[445] = "Hong Kong";
-    map1[125] = "Bangkok";
-    // map1[484] = "London";
-    // map1[40] = "Moscow";
-    // map1[60] = "NYC";
-    // map1[20] = "Madrid";
-    // map1[30] = "Los Angeles";
-    // map1.insert(p1);
-    // map1.insert(p2);
-    // map1.insert(p3);
-    // map1.insert(p4);
-    // map1.insert(p5);
-    // map1.insert(p6);
-    // map1.insert(p7);
-    // map1[30] = "City of the World";
-    ft::map<int, std::string>::reverse_iterator rit = map1.rbegin();
-    // ft::pair<int, std::string> rpair = *rit;
-    // std::cout << rpair.first << std::endl;
-
-    std::cout << "\n\n\n****************************************\n\n\nbegin=> (*rit).first: " << (*rit).first << std::endl;
-    rit--;
-    std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
-    rit--;
-    std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
-    rit--;
-    std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
-    rit--;
-    std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
-    rit--;
-    std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
-    rit--;
-    std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
-    rit--;
-    std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
-    rit--;
-    std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
-    rit--;
-    std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
-    rit--;
-    std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
-    rit--;
-    std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
-    rit--;
-    std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
-    rit--;
-    std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
-    rit--;
-    std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
-    rit--;
-    std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
-    rit--;
-    std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
-    
-    rit = map1.rbegin();
-    std::cout << "\n\n\n****************************************\n\n\nbegin=> (*rit).first: " << (*rit).first << std::endl;
-    rit++;
-    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
-    rit++;
-    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
-    rit++;
-    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
-    rit++;
-    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
-    rit++;
-    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
-    rit++;
-    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
-    rit++;
-    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
-    rit++;
-    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
-    rit++;
-    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
-    rit++;
-    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
-    rit++;
-    std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
-
-    // it = map1.begin();
-    // std::cout << "\n-----------------------------------------\nbegin => (*it).first: " << (*it).first << std::endl;
-    // rit++;
-    // std::cout << "++begin => (*it).first: " << (*it).first << std::endl;
-    // rit++;
-    // std::cout << "++begin => (*it).first: " << (*it).first << std::endl;
-    // rit++;
-    // std::cout << "++begin => (*it).first: " << (*it).first << std::endl;
-    // rit++;
-    // std::cout << "++begin => (*it).first: " << (*it).first << std::endl;
-    // rit++;
-    // std::cout << "++begin => (*it).first: " << (*it).first << std::endl;
-    // rit++;
-    // std::cout << "++begin => (*it).first: " << (*it).first << std::endl;
-    // it = map1.end();
-    // std::cout << "end => (*it).first: " << (*it).first << std::endl;
-    // --it;
-    // std::cout << "--end => (*it).first: " << (*it).first << std::endl;
-    // std::cout << "map1.end: " << map1.end()->first << map1.end()->second << std::endl;
-    for (ft::map<int, std::string>::iterator it = map1.begin(); it != map1.end(); ++it)
+    map1.insert(p1);
+    std::cout << "\n=============================== FT - MAP CONTENT - 1 element - increasing order ==================================\n\n";
+    for (ft::map<int, std::string>::iterator it2 = map1.begin(); it2 != map1.end(); ++it2)
     {
-        std::cout << it->first << " => " << it->second << '\n';
+        std::cout << it2->first << " => " << it2->second << '\n';
     }
+    std::cout << "\n=============================== FT - Checking reverse iterator with 1 element starting from rbegin() ==================================\n\n";
+    ft::map<int, std::string>::reverse_iterator rit = map1.rbegin();
+    std::cout << "rbegin: " << (*rit).first << std::endl;
+    --rit;
+    std::cout << "--rbegin: " << (*rit1).first << std::endl;
+    --rit;
+    std::cout << "--rbegin: " << (*rit).first << std::endl;
+    --rit;
+    std::cout << "--rbegin: " << (*rit).first << std::endl;
+    --rit;
+    std::cout << "--rbegin: " << (*rit).first << std::endl;
+    --rit;
+    std::cout << "--rbegin: " << (*rit).first << std::endl;
+    --rit;
+    std::cout << "--rbegin: " << (*rit).first << std::endl;
+    --rit;
+    std::cout << "--rbegin: " << (*rit).first << std::endl;
+    --rit;
+    std::cout << "--rbegin: " << (*rit).first << std::endl;
+    --rit;
+    std::cout << "--rbegin: " << (*rit).first << std::endl;
+    --rit;
+    std::cout << "--rbegin: " << (*rit).first << std::endl;
+    --rit;
+    std::cout << "--rbegin: " << (*rit).first << std::endl;
+    --rit;
+    std::cout << "--rbegin: " << (*rit).first << std::endl;
+    rit = map1.rbegin();
+    std::cout << "\n---------------------------\nrbegin: " << (*rit).first << std::endl;
+    ++rit;
+    std::cout << "++rbegin: " << (*rit).first << std::endl;
+    ++rit;
+    std::cout << "++rbegin: " << (*rit).first << std::endl;    
+    ++rit;
+    std::cout << "++rbegin: " << (*rit).first << std::endl;    
+    ++rit;
+    std::cout << "++rbegin: " << (*rit).first << std::endl;
+    ++rit;
+    std::cout << "++rbegin: " << (*rit).first << std::endl;    
+    ++rit;
+    std::cout << "++rbegin: " << (*rit).first << std::endl;    
+    ++rit;
+    std::cout << "++rbegin: " << (*rit).first << std::endl;    
+    ++rit;
+    std::cout << "++rbegin: " << (*rit).first << std::endl;    
+    ++rit;
+    std::cout << "++rbegin: " << (*rit).first << std::endl;    
+    ++rit;
+    std::cout << "++rbegin: " << (*rit).first << std::endl;    
+    ++rit;
+    std::cout << "++rbegin: " << (*rit).first << std::endl;
+
+    map1.insert(p2);
+    std::cout << "\n=============================== FT - MAP CONTENT - 2 elements - increasing order ==================================\n\n";
+    for (ft::map<int, std::string>::iterator it2 = map1.begin(); it2 != map1.end(); ++it2)
+    {
+        std::cout << it2->first << " => " << it2->second << '\n';
+    }
+    std::cout << "\n=============================== FT - Checking reverse iterator with 2 elements starting from rbegin() ==================================\n\n";
+    rit = map1.rbegin();
+    std::cout << "rbegin: " << (*rit).first << std::endl;
+    --rit;
+    std::cout << "--rbegin: " << (*rit1).first << std::endl;
+    --rit;
+    std::cout << "--rbegin: " << (*rit).first << std::endl;
+    --rit;
+    std::cout << "--rbegin: " << (*rit).first << std::endl;
+    --rit;
+    std::cout << "--rbegin: " << (*rit).first << std::endl;
+    --rit;
+    std::cout << "--rbegin: " << (*rit).first << std::endl;
+    --rit;
+    std::cout << "--rbegin: " << (*rit).first << std::endl;
+    --rit;
+    std::cout << "--rbegin: " << (*rit).first << std::endl;
+    --rit;
+    std::cout << "--rbegin: " << (*rit).first << std::endl;
+    --rit;
+    std::cout << "--rbegin: " << (*rit).first << std::endl;
+    --rit;
+    std::cout << "--rbegin: " << (*rit).first << std::endl;
+    --rit;
+    std::cout << "--rbegin: " << (*rit).first << std::endl;
+    --rit;
+    std::cout << "--rbegin: " << (*rit).first << std::endl;
+    rit = map1.rbegin();
+    std::cout << "\n---------------------------\nrbegin: " << (*rit).first << std::endl;
+    ++rit;
+    std::cout << "++rbegin: " << (*rit).first << std::endl;
+    ++rit;
+    std::cout << "++rbegin: " << (*rit).first << std::endl;    
+    ++rit;
+    std::cout << "++rbegin: " << (*rit).first << std::endl;    
+    ++rit;
+    std::cout << "++rbegin: " << (*rit).first << std::endl;
+    ++rit;
+    std::cout << "++rbegin: " << (*rit).first << std::endl;    
+    ++rit;
+    std::cout << "++rbegin: " << (*rit).first << std::endl;    
+    ++rit;
+    std::cout << "++rbegin: " << (*rit).first << std::endl;    
+    ++rit;
+    std::cout << "++rbegin: " << (*rit).first << std::endl;    
+    ++rit;
+    std::cout << "++rbegin: " << (*rit).first << std::endl;    
+    ++rit;
+    std::cout << "++rbegin: " << (*rit).first << std::endl;    
+    ++rit;
+    std::cout << "++rbegin: " << (*rit).first << std::endl;
+
+    map1.insert(p3);
+    map1.insert(p4);
+    map1.insert(p5);
+    map1.insert(p6);
+    map1.insert(p7);
+
+
+    std::cout << "\n=============================== FT - MAP CONTENT - 7 elements - decreasing order ==================================\n\n";
+    for (ft::map<int, std::string>::iterator it2 = --map1.end(); it2 != map1.begin(); --it2)
+    {
+        std::cout << it2->first << " => " << it2->second << '\n';
+    }
+    std::cout << "\n=============================== FT - Checking reverse iterator with 7 elements starting from rend() ==================================\n\n";
+    rit = map1.rend();
+    std::cout << "rend: " << (*rit).first << std::endl;
+    --rit;
+    std::cout << "--rend: " << (*rit).first << std::endl;
+    --rit;
+    std::cout << "--rend: " << (*rit).first << std::endl;
+    --rit;
+    std::cout << "--rend: " << (*rit).first << std::endl;
+    --rit;
+    std::cout << "--rend: " << (*rit).first << std::endl;
+    --rit;
+    std::cout << "--rend: " << (*rit).first << std::endl;
+    --rit;
+    std::cout << "--rend: " << (*rit).first << std::endl;
+    --rit;
+    std::cout << "--rend: " << (*rit).first << std::endl;
+    --rit;
+    std::cout << "--rend: " << (*rit).first << std::endl;
+    --rit;
+    std::cout << "--rend: " << (*rit).first << std::endl;
+    --rit;
+    std::cout << "--rend: " << (*rit).first << std::endl;
+    --rit;
+    std::cout << "--rend: " << (*rit).first << std::endl;
+    --rit;
+    std::cout << "--rend: " << (*rit).first << std::endl;
+    
+    rit = map1.rend();
+    std::cout << "\n---------------------------\nrend: " << (*rit).first << std::endl;
+    ++rit;
+    std::cout << "++rend: " << (*rit).first << std::endl;
+    ++rit;
+    std::cout << "++rend: " << (*rit).first << std::endl;
+    ++rit;
+    std::cout << "++rend: " << (*rit).first << std::endl;
+    ++rit;
+    std::cout << "++rend: " << (*rit).first << std::endl;
+    ++rit;
+    std::cout << "++rend: " << (*rit).first << std::endl;    
+    ++rit;
+    std::cout << "++rend: " << (*rit).first << std::endl;
+    ++rit;
+    std::cout << "++rend: " << (*rit).first << std::endl; 
+    ++rit;
+    std::cout << "++rend: " << (*rit).first << std::endl; 
+    ++rit;
+    std::cout << "++rend: " << (*rit).first << std::endl;  
+    ++rit;
+    std::cout << "++rend: " << (*rit).first << std::endl;   
+    ++rit;
+    std::cout << "++rend: " << (*rit).first << std::endl;
+    
+
+    std::cout << "\n=============================== FT - Checking normal iterator from begin() ==================================\n\n";
+    ft::map<int, std::string>::iterator it = map1.begin();
+    std::cout << "begin: " << (*it).first << std::endl;
+    --it;
+    std::cout << "--begin: " << (*it).first << std::endl;
+    --it;
+    std::cout << "--begin: " << (*it).first << std::endl;
+    --it;
+    std::cout << "--begin: " << (*it).first << std::endl;
+    --it;
+    std::cout << "--begin: " << (*it).first << std::endl;
+    --it;
+    std::cout << "--begin: " << (*it).first << std::endl;
+    --it;
+    std::cout << "--begin: " << (*it).first << std::endl;
+    --it;
+    std::cout << "--begin: " << (*it).first << std::endl;
+    --it;
+    std::cout << "--begin: " << (*it).first << std::endl;
+    --it;
+    std::cout << "--begin: " << (*it).first << std::endl;
+    --it;
+    std::cout << "--begin: " << (*it).first << std::endl;
+    --it;
+    std::cout << "--begin: " << (*it).first << std::endl;
+    it = map1.begin();
+    std::cout << "\n---------------------------\nbegin: " << (*it).first << std::endl;
+    ++it;
+    std::cout << "++begin: " << (*it).first << std::endl;
+    ++it;
+    std::cout << "++begin: " << (*it).first << std::endl; 
+    ++it;
+    std::cout << "++begin: " << (*it).first << std::endl;  
+    ++it;
+    std::cout << "++begin: " << (*it).first << std::endl;
+    ++it;
+    std::cout << "++begin: " << (*it).first << std::endl;
+    ++it;
+    std::cout << "++begin: " << (*it).first << std::endl; 
+    ++it;
+    std::cout << "++begin: " << (*it).first << std::endl;  
+    ++it;
+    std::cout << "++begin: " << (*it).first << std::endl;
+    ++it;
+    std::cout << "++begin: " << (*rit).first << std::endl;    
+    ++it;
+    std::cout << "++begin: " << (*it).first << std::endl;
+    ++it;
+    std::cout << "++begin: " << (*it).first << std::endl;  
+
+    std::cout << "\n=============================== FT - Checking normal iterator from end() ==================================\n\n";
+    it = map1.end();
+    std::cout << "end: " << (*it).first << std::endl;
+    --it;
+    std::cout << "--end: " << (*it).first << std::endl;
+    --it;
+    std::cout << "--end: " << (*it).first << std::endl;
+    --it;
+    std::cout << "--end: " << (*it).first << std::endl;
+    --it;
+    std::cout << "--end: " << (*it).first << std::endl;
+    --it;
+    std::cout << "--end: " << (*it).first << std::endl;
+    --it;
+    std::cout << "--end: " << (*it).first << std::endl;
+    --it;
+    std::cout << "--end: " << (*it).first << std::endl;
+    --it;
+    std::cout << "--end: " << (*it).first << std::endl;
+    --it;
+    std::cout << "--end: " << (*it).first << std::endl;
+    --it;
+    std::cout << "--end: " << (*it).first << std::endl;
+    --it;
+    std::cout << "--end: " << (*it).first << std::endl;
+    --it;
+    std::cout << "--end: " << (*it).first << std::endl;
+    --it;
+    std::cout << "--end: " << (*it).first << std::endl;
+
+    it = map1.end();
+    std::cout << "\n---------------------------\nend: " << (*it).first << std::endl;
+    ++it;
+    std::cout << "++end: " << (*it).first << std::endl;
+    ++it;
+    std::cout << "++end: " << (*it).first << std::endl;
+    ++it;
+    std::cout << "++end: " << (*it).first << std::endl;
+    ++it;
+    std::cout << "++end: " << (*it).first << std::endl;
+    ++it;
+    std::cout << "++end: " << (*it).first << std::endl;
+    ++it;
+    std::cout << "++end: " << (*it).first << std::endl;
+    ++it;
+    std::cout << "++end: " << (*it).first << std::endl;
+    ++it;
+    std::cout << "++end: " << (*it).first << std::endl;
+    ++it;
+    std::cout << "++end: " << (*it).first << std::endl;   
+    ++it;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    // // it = map1.end();
+    // ft::pair<int, std::string> p1 = ft::make_pair(445, "Hong Kong");
+    // ft::pair<int, std::string> p2 = ft::make_pair(125, "Bangkok");
+    // ft::pair<int, std::string> p3 = ft::make_pair(484, "London");
+    // ft::pair<int, std::string> p4 = ft::make_pair(40, "Moscow");
+    // ft::pair<int, std::string> p5 = ft::make_pair(60, "NYC");
+    // ft::pair<int, std::string> p6 = ft::make_pair(20, "Madrid");
+    // ft::pair<int, std::string> p7 = ft::make_pair(30, "Los Angeles");
+    // // ft::pair<int, std::string> p4 = ft::make_pair(10, "Paris");
+    // // // ft::pair<int, std::string> p4 = ft::make_pair(221, "Lahore");
+    // // ft::pair<int, std::string> p5 = ft::make_pair(5, "Singapore");
+    // // ft::pair<int, std::string> p6 = ft::make_pair(2, "Madrid");
+    // ft::map<int, std::string> map1;
+    // ft::pair<ft::map<int, std::string>::iterator, bool> ret;
+    // // ret = map1.insert(p1);
+    // // std::cout << "wasInserted? " << ret.second<< std::endl;
+    // // ret = map1.insert(p1);
+    // // std::cout << "wasInserted? " << ret.second << "Mapped Value: " << ret.first->second<< std::endl;
+    // map1[445] = "Hong Kong";
+    // map1[125] = "Bangkok";
+    // // map1[484] = "London";
+    // // map1[40] = "Moscow";
+    // // map1[60] = "NYC";
+    // // map1[20] = "Madrid";
+    // // map1[30] = "Los Angeles";
+    // // map1.insert(p1);
+    // // map1.insert(p2);
+    // // map1.insert(p3);
+    // // map1.insert(p4);
+    // // map1.insert(p5);
+    // // map1.insert(p6);
+    // // map1.insert(p7);
+    // // map1[30] = "City of the World";
+    // ft::map<int, std::string>::reverse_iterator rit = map1.rbegin();
+    // // ft::pair<int, std::string> rpair = *rit;
+    // // std::cout << rpair.first << std::endl;
+
+    // std::cout << "\n\n\n****************************************\n\n\nbegin=> (*rit).first: " << (*rit).first << std::endl;
+    // rit--;
+    // std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
+    // rit--;
+    // std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
+    // rit--;
+    // std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
+    // rit--;
+    // std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
+    // rit--;
+    // std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
+    // rit--;
+    // std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
+    // rit--;
+    // std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
+    // rit--;
+    // std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
+    // rit--;
+    // std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
+    // rit--;
+    // std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
+    // rit--;
+    // std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
+    // rit--;
+    // std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
+    // rit--;
+    // std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
+    // rit--;
+    // std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
+    // rit--;
+    // std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
+    // rit--;
+    // std::cout << "begin-- => (*rit).first: " << (*rit).first << std::endl;
+    
+    // rit = map1.rbegin();
+    // std::cout << "\n\n\n****************************************\n\n\nbegin=> (*rit).first: " << (*rit).first << std::endl;
+    // rit++;
+    // std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
+    // rit++;
+    // std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
+    // rit++;
+    // std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
+    // rit++;
+    // std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
+    // rit++;
+    // std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
+    // rit++;
+    // std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
+    // rit++;
+    // std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
+    // rit++;
+    // std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
+    // rit++;
+    // std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
+    // rit++;
+    // std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
+    // rit++;
+    // std::cout << "begin++ => (*rit).first: " << (*rit).first << std::endl;
+
+    // // it = map1.begin();
+    // // std::cout << "\n-----------------------------------------\nbegin => (*it).first: " << (*it).first << std::endl;
+    // // rit++;
+    // // std::cout << "++begin => (*it).first: " << (*it).first << std::endl;
+    // // rit++;
+    // // std::cout << "++begin => (*it).first: " << (*it).first << std::endl;
+    // // rit++;
+    // // std::cout << "++begin => (*it).first: " << (*it).first << std::endl;
+    // // rit++;
+    // // std::cout << "++begin => (*it).first: " << (*it).first << std::endl;
+    // // rit++;
+    // // std::cout << "++begin => (*it).first: " << (*it).first << std::endl;
+    // // rit++;
+    // // std::cout << "++begin => (*it).first: " << (*it).first << std::endl;
+    // // it = map1.end();
+    // // std::cout << "end => (*it).first: " << (*it).first << std::endl;
+    // // --it;
+    // // std::cout << "--end => (*it).first: " << (*it).first << std::endl;
+    // // std::cout << "map1.end: " << map1.end()->first << map1.end()->second << std::endl;
+    // for (ft::map<int, std::string>::iterator it = map1.begin(); it != map1.end(); ++it)
+    // {
+    //     std::cout << it->first << " => " << it->second << '\n';
+    // }
     // ft::map<int, std::string>::iterator it = map1.begin();
     // std::cout << it->first << " => " << it->second << '\n';
     // it++;
@@ -2059,8 +2421,8 @@ int main()
     // RedBlackT.printRBT();
 
     // ft::vector<int> v1(5, 100);
-    // ft::vector<int>::iterator rit1 = v1.begin() + 2;
-    // std::cout << *it1 << " " << &(*it1) << std::endl;    
+    // ft::vector<int>::iterator rit = v1.begin() + 2;
+    // std::cout << *it << " " << &(*it1) << std::endl;    
     // it1 = 1 - it1;
     // v1.printVec();
     // std::cout << *it1 << " " << &(*it1) << std::endl;
