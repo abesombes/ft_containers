@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 10:34:35 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/15 15:59:27 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/17 16:41:09 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,16 @@ class Node {
 
     public:
 
-            typedef const Key			key_type;
-            typedef T					mapped_type;
+            typedef const Key			    key_type;
+            typedef T					    mapped_type;
             typedef ft::pair<const Key, T>	value_type;
-            typedef std::size_t			size_type;
+            typedef std::size_t			    size_type;
 
-            value_type                  value;
-            Node                        *parent;
-            Node                        *left;
-            Node                        *right;
-            int                         color;
+            value_type                      value;
+            Node                            *parent;
+            Node                            *left;
+            Node                            *right;
+            int                             color;
             
             Node(void): parent(NULL), left(NULL), right(NULL), color(RED) {
                 value.first = Key();
@@ -266,16 +266,36 @@ class Node {
                 return (Predecessor->parent);
             }
 
-            int RBT_size()
+            // int RBT_size()
+            // {
+            //     int size = 1;
+            //     Node *tmp = this->getSuccessor();
+            //     while (tmp != this && size < 3)
+            //     {
+            //         if (!tmp->isNil())
+            //             size++;
+            //         tmp = tmp->getSuccessor();
+            //     }
+            //     return (size);
+            // }
+
+            bool isOrphan()
             {
-                int size = 1;
-                Node *tmp = this->getSuccessor();
-                while (tmp != this && !tmp->isNil())
-                {
-                    size++;
-                    tmp = tmp->getSuccessor();
-                }
-                return (size);
+                    std::cout << "left: " << left->getKey() << " - address = " << left << " - right: " << right->getKey() << " - address = " << right << std::endl;
+                    return (left == right);
+            }
+            
+            bool isTwoElemTree()
+            {
+                // std::cout << "this: " << this->getKey() << std::endl;
+                // std::cout << "this->getSuccessor(): " << this->getSuccessor()->getKey() << " - this->getSuccessor()->getSuccessor(): " << this->getSuccessor()->getSuccessor()->getKey() << std::endl;
+                // std::cout << "this->getPredecessor(): " << this->getPredecessor()->getKey() << " - this->getPredecessor()->getPredecessor(): " << this->getPredecessor()->getPredecessor()->getKey() << std::endl;                   
+                //this->getSuccessor()->getSuccessor() == this && 
+                // IDEE A CREUSER > tester si _sentinel->left = _sentinel->right; si oui > orphan sinon non.
+                // if (isSentinel())
+                    return (this->getPredecessor()->getPredecessor() == this->getSuccessor() || this->getPredecessor() == this->getSuccessor()->getSuccessor());
+                // else
+                //     return (this->getPredecessor()->getPredecessor() == this || this->getSuccessor()->getSuccessor() == this );
             }
 
             Node* getTreeMax( void )

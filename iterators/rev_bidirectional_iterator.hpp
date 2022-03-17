@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 09:58:22 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/15 15:58:33 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/17 16:37:36 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,9 @@ class rev_bidirectional_iterator
             reverse_iterator &operator++()
             { 
                 Node *tmp = _node->getPredecessor();
-                
-                _node = tmp;
+                // std::cout << "isOrphan? " << _node->isOrphan() << std::endl;
+                if (!_node->isOrphan())
+                    _node = tmp;
                 return (*this);
             };
             
@@ -83,27 +84,44 @@ class rev_bidirectional_iterator
             { 
                 Node *tmp = _node->getSuccessor();
                 
-                // if (tmp->isNil())
-                if (_node->isSentinel())
+                std::cout << "isOrphan? " << _node->isOrphan() << std::endl;
+                // std::cout << "_node before: " << _node->getKey() << std::endl;
+                // std::cout << "The Tree has only 2 Elem? " << _node->isTwoElemTree() << std::endl;
+                if (!_node->isOrphan())
                 {
-                    _node = _node->left;
-                    return (*this);
+                    if (_node->isSentinel())
+                    {
+                        std::cout << "line 94\n";
+                        _node = _node->left;
+                        return (*this);
+                    }
+                    if (_node->isTwoElemTree() && tmp->isSentinel())
+                    {
+                        std::cout << "line 99" << std::endl;
+                        _node = tmp;
+                        return (*this);
+                    }
+                    if (tmp->isSentinel())
+                    {
+                        std::cout << "line 106\n";
+                        _node = tmp->getPredecessor()->getPredecessor();
+                        return (*this);
+                    }
+                    std::cout << "line 110\n";
+                    _node = tmp;
                 }
-                if (tmp->isSentinel())
-                {
-                    _node = tmp->getPredecessor()->getPredecessor();
-                    return (*this);
-                }
-                _node = tmp;
+                std::cout << "line 112\n";
+                // std::cout << "_node after: " << _node->getKey() << std::endl;
                 return (*this);
             };
             
             self_type operator--(int)
             { 
                 self_type tmp_it(*this);
-                std::cout << "size: " << _node->RBT_size() << std::endl;
-                if (_node->RBT_size() != 1)
-                    --(*this);
+                // std::cout << "size: " << _node->RBT_size() << std::endl;
+                // if (_node->RBT_size() != 1)
+                // std::cout << "isOrphan? " << _node->isOrphan() << std::endl;
+                --(*this);
                 return (tmp_it);
             };
             

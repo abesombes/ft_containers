@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/17 11:38:21 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/17 15:01:39 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -448,7 +448,7 @@ int main()
     ft::map<int, std::string>::reverse_iterator rit = map1.rbegin();
     std::cout << "rbegin: " << (*rit).first << std::endl;
     --rit;
-    std::cout << "--rbegin: " << (*rit1).first << std::endl;
+    std::cout << "--rbegin: " << (*rit).first << std::endl;
     --rit;
     std::cout << "--rbegin: " << (*rit).first << std::endl;
     --rit;
@@ -506,7 +506,7 @@ int main()
     rit = map1.rbegin();
     std::cout << "rbegin: " << (*rit).first << std::endl;
     --rit;
-    std::cout << "--rbegin: " << (*rit1).first << std::endl;
+    std::cout << "--rbegin: " << (*rit).first << std::endl;
     --rit;
     std::cout << "--rbegin: " << (*rit).first << std::endl;
     --rit;
