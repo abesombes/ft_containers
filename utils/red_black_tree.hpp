@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/14 18:59:49 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/18 12:04:47 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,12 @@ class RBTree {
                         loopDeleteNode(node->left);
                     if (!node->right->isNil())
                         loopDeleteNode(node->right);
-                    deleteNode(node);
-                    _size--;
+                    if (node)
+                    {
+                        deleteNode(node);
+                        node = NULL;
+                        _size--;
+                    }
                 }
                 
                 void clear(void)
@@ -129,11 +133,11 @@ class RBTree {
                     }
                 }
             
-                Node* getRoot(){ return _root; }
+                Node* getRoot() { return _root; }
 
-                Node* getSentinel(){ return _sentinel; }
+                Node* getSentinel() { return _sentinel; }
 
-                size_t getSize(){ return _size; }
+                size_t getSize() { return _size; }
                 
                 void setRoot(Node &node){ _root = node; }
                 

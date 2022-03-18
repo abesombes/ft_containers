@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/17 15:01:39 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/18 12:06:59 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -431,6 +431,7 @@ int main()
 
 
     ft::map<int, std::string> map1;
+
     ft::pair<int, std::string> p1 = ft::make_pair(445, "Hong Kong");
     ft::pair<int, std::string> p2 = ft::make_pair(125, "Bangkok");
     ft::pair<int, std::string> p3 = ft::make_pair(484, "London");
@@ -560,8 +561,15 @@ int main()
     map1.insert(p6);
     map1.insert(p7);
 
+    ft::map<int, std::string> map2(map1);
 
-    std::cout << "\n=============================== FT - MAP CONTENT - 7 elements - decreasing order ==================================\n\n";
+    std::cout << "\n=============================== FT - MAP1 CONTENT - 7 elements - decreasing order ==================================\n\n";
+    for (ft::map<int, std::string>::iterator it2 = --map1.end(); it2 != map1.begin(); --it2)
+    {
+        std::cout << it2->first << " => " << it2->second << '\n';
+    }
+    std::cout << "MAX_SIZE: " << map1.max_size() << std::endl;
+    std::cout << "\n=============================== FT - MAP2 CONTENT (Copy of Map1) - 7 elements - decreasing order ==================================\n\n";
     for (ft::map<int, std::string>::iterator it2 = --map1.end(); it2 != map1.begin(); --it2)
     {
         std::cout << it2->first << " => " << it2->second << '\n';
@@ -723,6 +731,7 @@ int main()
     ++it;
 
 
+    
 
 
 

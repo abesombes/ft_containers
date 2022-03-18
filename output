@@ -248,7 +248,16 @@ Root updated
 
 ==== RECOLORING on 30 ====
 
-=============================== FT - MAP CONTENT - 7 elements - decreasing order ==================================
+=============================== FT - MAP1 CONTENT - 7 elements - decreasing order ==================================
+
+484 => London
+445 => Hong Kong
+125 => Bangkok
+60 => NYC
+40 => Moscow
+30 => Los Angeles
+
+=============================== FT - MAP2 CONTENT (Copy of Map1) - 7 elements - decreasing order ==================================
 
 484 => London
 445 => Hong Kong

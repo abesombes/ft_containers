@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:19 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/14 15:47:17 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/18 12:06:12 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,11 +157,13 @@ namespace ft{
                     ----------------------------------------------------------------------------------------------------
                     Map: Copy Constructor
                     ----------------------------------------------------------------------------------------------------
-					Constructs a container with a copy of each of the elements in x.
+					Constructs a container with a copy of each of the elements in src.
                     */
 				   
-					map (const map& x);
-
+					map (const map& src): _cmp(src._cmp), _mem_node_alloc(src._mem_node_alloc), _pair_alloc(src._pair_alloc)
+					{
+						// this->insert(src.begin(), src.end());
+					};
 
                     /*
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -257,12 +259,47 @@ namespace ft{
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                     */
 
+				//    	empty - Test whether container is empty (public member function )
+				// 	size - Return size (public member function )
+				// 	max_size - Return maximum size (public member function )
+
+					
+
+				//    this->erase(this->begin(), this->end());
+
 				   	/*
                     ----------------------------------------------------------------------------------------------------
-                    SIZE - Change Return container size
+                    EMPTY - Test whether container is empty
                     ----------------------------------------------------------------------------------------------------
-                    Returns the number of elements in the map container.
+					Returns whether the map container is empty (i.e. whether its size is 0).
+					This function does not modify the container in any way. To clear the content of a map container, see
+					map::clear.
                     */
+
+				   	bool empty() const { return (!_RBTree->getSize()); };
+
+				   	/*
+                    ----------------------------------------------------------------------------------------------------
+                    SIZE - Return container size
+                    ----------------------------------------------------------------------------------------------------
+					Returns the number of elements in the map container.
+                    */
+
+					size_type size() const { return (_RBTree->getSize()); };
+
+
+				   	/*
+                    ----------------------------------------------------------------------------------------------------
+                    MAX_SIZE - Return maximum size
+                    ----------------------------------------------------------------------------------------------------
+					Returns the maximum number of elements that the map container can hold. This is the maximum 
+					potential size the container can reach due to known system or library implementation limitations, 
+					but the container is by no means guaranteed to be able to reach that size: it can still fail to 
+					allocate storage at any point before that size is reached.
+                    */
+				   
+					size_type max_size() const { return (_mem_node_alloc.max_size()); };
+
 
 				    /*
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -298,6 +335,11 @@ namespace ft{
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                     */
+
+					// insert - Insert elements (public member function )
+					// erase - Erase elements (public member function )
+					// swap - Swap content (public member function )
+					// clear - Clear content (public member function )
 
 				   	/*
                     ----------------------------------------------------------------------------------------------------
@@ -363,15 +405,6 @@ namespace ft{
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                     */
 				   
-				   	/*
-                    ----------------------------------------------------------------------------------------------------
-                    SIZE - Return container size
-                    ----------------------------------------------------------------------------------------------------
-					Returns the number of elements in the map container.
-                    */
-		
-				   	size_type size() const { return (_RBTree->getSize()); };
-
 		
 	};
 
