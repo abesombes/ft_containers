@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:19 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/18 13:05:45 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/18 15:01:45 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -487,7 +487,11 @@ namespace ft{
 					arguments).
                 	*/
 				
-					size_type count (const key_type& k) const;
+					size_type count (const key_type& key) const
+					{
+						return(_RBTree.searchNode(_RBTree.getRoot(), key)->isNil() ? 0 : 1);
+							
+					}
 
 				   	/*
                     ----------------------------------------------------------------------------------------------------

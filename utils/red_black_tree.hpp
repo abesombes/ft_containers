@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/18 12:04:47 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/18 15:13:42 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,8 +133,8 @@ class RBTree {
                     }
                 }
             
-                Node* getRoot() { return _root; }
-
+                Node* getRoot() const { return _root; }
+                
                 Node* getSentinel() { return _sentinel; }
 
                 size_t getSize() { return _size; }
@@ -509,7 +509,7 @@ class RBTree {
                     return (root);
                 }
 
-                Node* searchNode(Node* node, Key key)
+                Node* const searchNode(Node* node, Key key) const
                 {
                     if (node->isNil() || key == node->getKey())
                         return node;
