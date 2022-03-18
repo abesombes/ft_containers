@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:19 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/18 15:01:45 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/18 17:53:05 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -429,7 +429,7 @@ namespace ft{
 					false reflexively (i.e., no matter the order in which the keys are passed as arguments).
                 	*/
 				
-				   	key_compare key_comp() const;
+				   	key_compare key_comp() const { return (key_compare()); };
 
 				   	/*
                     ----------------------------------------------------------------------------------------------------
@@ -473,7 +473,7 @@ namespace ft{
 					
 					const_iterator find (const key_type& key) const
 					{
-						return (iterator(_RBTree.searchNode(_RBTree.getRoot(), key)));						
+						return (const_iterator(_RBTree.searchNode(_RBTree.getRoot(), key)));						
 					}
 
 				   	/*
@@ -502,14 +502,37 @@ namespace ft{
 					object (key_comp) to determine this, returning an iterator to the first element for which 
 					key_comp(element_key,k) would return false. If the map class is instantiated with the default 
 					comparison type (less), the function returns an iterator to the first element whose key is not less 
-					than k. A similar member function, upper_bound, has the same behavior as lower_bound, except in the
-					case that the map contains an element with a key equivalent to k: In this case, lower_bound returns 
-					an iterator pointing to that element, whereas upper_bound returns an iterator pointing to the next 
-					element.
+					than the argument key. A similar member function, upper_bound, has the same behavior as lower_bound, 
+					except in the case that the map contains an element with a key equivalent to k: In this case, 
+					lower_bound returns an iterator pointing to that element, whereas upper_bound returns an iterator 
+					pointing to the next element.
                 	*/
 				
-					iterator lower_bound (const key_type& k);
-					const_iterator lower_bound (const key_type& k) const;
+					iterator lower_bound (const key_type& key)
+					{
+						iterator beg = this->begin();
+						iterator end = this->end();
+
+						if (this->_cmp(key, beg->first))
+							return (beg);
+						beg++;
+						while (beg != end && _cmp(beg->first, key))
+							beg++;
+						return (beg);
+					}
+					
+					const_iterator lower_bound (const key_type& key) const
+					{
+						const_iterator beg = this->begin();
+						const_iterator end = this->end();
+
+						if (this->_cmp(key, beg->first))
+							return (beg);
+						beg++;
+						while (beg != end && _cmp(beg->first, key))
+							beg++;
+						return (beg);
+					}
 
 				   	/*
                     ----------------------------------------------------------------------------------------------------
@@ -525,8 +548,31 @@ namespace ft{
 					returns an iterator pointing to the next element.
                 	*/
 				
-					iterator upper_bound (const key_type& k);
-					const_iterator upper_bound (const key_type& k) const;
+					iterator upper_bound (const key_type& key)
+					{
+						iterator beg = this->begin();
+						iterator end = this->end();
+
+						if (this->_cmp(key, beg->first))
+							return (beg);
+						beg++;
+						while (beg != end && (_cmp(beg->first, key) || (!_cmp(beg->first, key) && !_cmp(key, beg->first))))
+							beg++;
+						return (beg);
+					}
+					
+					const_iterator upper_bound (const key_type& key) const
+					{
+						const_iterator beg = this->begin();
+						const_iterator end = this->end();
+
+						if (this->_cmp(key, beg->first))
+							return (beg);
+						beg++;
+						while (beg != end && (_cmp(beg->first, key) || (!_cmp(beg->first, key) && !_cmp(key, beg->first))))
+							beg++;
+						return (beg);
+					}
 
 
 

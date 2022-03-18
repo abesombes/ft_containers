@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/18 15:03:42 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/18 17:49:50 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -405,7 +405,11 @@ int main()
     std::cout << "++end: " << (*it1).first << std::endl;   
     ++it1;
     it1 = smap1.find(484);
-    std::cout << "search for 484: " << (*it1).first << std::endl;   
+    std::cout << "search for 484: " << (*it1).first << std::endl;
+    std::cout << "Lower bound of 484: " << smap1.lower_bound(484)->first << std::endl;
+    std::cout << "Lower bound of 480: " << smap1.lower_bound(480)->first << std::endl;
+    std::cout << "Upper bound of 484: " << smap1.upper_bound(484)->first << std::endl;
+    std::cout << "Upper bound of 480: " << smap1.upper_bound(480)->first << std::endl;
     // rit1 = smap1.end();
     // std::cout << "end: " << (*rit1).first << std::endl; 
     // rit1--;
@@ -737,7 +741,12 @@ int main()
     ++it;
     std::cout << "++end: " << (*it).first << std::endl;   
     ++it;
-
+    std::cout << "Lower bound of 1: " << map1.lower_bound(1)->first << std::endl;
+    std::cout << "Lower bound of 19: " << map1.lower_bound(19)->first << std::endl;
+    std::cout << "Lower bound of 40: " << map1.lower_bound(40)->first << std::endl;
+    std::cout << "Lower bound of 42: " << map1.lower_bound(42)->first << std::endl;
+    std::cout << "Upper bound of 484: " << map1.upper_bound(484)->first << std::endl;
+    std::cout << "Upper bound of 480: " << map1.upper_bound(480)->first << std::endl;
 
     
 
