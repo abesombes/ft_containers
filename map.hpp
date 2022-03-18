@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:19 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/18 12:06:12 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/18 12:46:24 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,14 +259,6 @@ namespace ft{
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                     */
 
-				//    	empty - Test whether container is empty (public member function )
-				// 	size - Return size (public member function )
-				// 	max_size - Return maximum size (public member function )
-
-					
-
-				//    this->erase(this->begin(), this->end());
-
 				   	/*
                     ----------------------------------------------------------------------------------------------------
                     EMPTY - Test whether container is empty
@@ -375,6 +367,43 @@ namespace ft{
 						
 					// }
 
+					//    this->erase(this->begin(), this->end());
+
+				   	/*
+                    ----------------------------------------------------------------------------------------------------
+                    erase - Erase elements
+                    ----------------------------------------------------------------------------------------------------
+                    Removes from the map container either a single element or a range of elements ([first,last)).
+					This effectively reduces the container size by the number of elements removed, which are destroyed.
+                	*/
+
+					void erase (iterator position);
+					size_type erase (const key_type& k);
+					void erase (iterator first, iterator last);
+
+					/*
+                    ----------------------------------------------------------------------------------------------------
+                    swap - Swap content
+                    ----------------------------------------------------------------------------------------------------
+					Exchanges the content of the container by the content of x, which is another map of the same type. 
+					Sizes may differ. After the call to this member function, the elements in this container are those 
+					which were in x before the call, and the elements of x are those which were in this. All iterators, 
+					references and pointers remain valid for the swapped objects. Notice that a non-member function 
+					exists with the same name, swap, overloading that algorithm with an optimization that behaves like 
+					this member function.
+                	*/
+
+					void swap (map& x);
+
+					/*
+                    ----------------------------------------------------------------------------------------------------
+                    clear - Clear content
+                    ----------------------------------------------------------------------------------------------------
+					Removes all elem from the map container (which are destroyed), leaving the container with size of 0.
+                	*/
+
+					void clear();
+
 				    /*
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -385,6 +414,37 @@ namespace ft{
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                     */
 
+				   	/*
+                    ----------------------------------------------------------------------------------------------------
+                    key_comp - Return key comparison object
+                    ----------------------------------------------------------------------------------------------------
+                    Returns a copy of the comparison object used by the container to compare keys.
+
+					The comparison object of a map object is set on construction. Its type (member key_compare) is the 
+					third template parameter of the map template. By default, this is a less object, which returns the 
+					same as operator<. This object determines the order of the elements in the container: it is a 
+					function pointer or a function object that takes two arguments of the same type as the element keys, 
+					and returns true if the first argument is considered to go before the second in the strict weak 
+					ordering it defines, and false otherwise. Two keys are considered equivalent if key_comp returns 
+					false reflexively (i.e., no matter the order in which the keys are passed as arguments).
+                	*/
+				
+				   	key_compare key_comp() const;
+
+				   	/*
+                    ----------------------------------------------------------------------------------------------------
+                    value_comp - Return value comparison object
+                    ----------------------------------------------------------------------------------------------------
+					Returns a comparison object that can be used to compare two elements to get whether the key of the 
+					first one goes before the second. The arguments taken by this function object are of member type 
+					value_type (defined in map as an alias of pair<const key_type,mapped_type>), but the mapped_type 
+					part of the value is not taken into consideration in this comparison. The comparison object returned
+					is an object of the member type map::value_compare, which is a nested class that uses the internal 
+					comparison object to generate the appropriate comparison functional class.
+                	*/
+				
+					value_compare value_comp() const;
+
 				    /*
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -394,6 +454,86 @@ namespace ft{
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                     */
+				   
+   				   	/*
+                    ----------------------------------------------------------------------------------------------------
+                    find - Get iterator to element
+                    ----------------------------------------------------------------------------------------------------
+					Searches the container for an element with a key equivalent to k and returns an iterator to it if 
+					found, otherwise it returns an iterator to map::end. Two keys are considered equivalent if the 
+					container's comparison object returns false reflexively (i.e., no matter the order in which the 
+					elements are passed as arguments). Another member function, map::count, can be used to just check 
+					whether a particular key exists.
+                	*/
+				
+					iterator find (const key_type& k);
+					const_iterator find (const key_type& k) const;
+
+				   	/*
+                    ----------------------------------------------------------------------------------------------------
+                    count - Count elements with a specific key
+                    ----------------------------------------------------------------------------------------------------
+					Searches the container for elements with a key equivalent to k and returns the number of matches.
+					Because all elements in a map container are unique, the function can only return 1 (if the element 
+					is found) or zero (otherwise). Two keys are considered equivalent if the container's comparison 
+					object returns false reflexively (i.e., no matter the order in which the keys are passed as 
+					arguments).
+                	*/
+				
+					size_type count (const key_type& k) const;
+
+				   	/*
+                    ----------------------------------------------------------------------------------------------------
+                    lower_bound - Return iterator to lower bound
+                    ----------------------------------------------------------------------------------------------------
+					Returns an iterator pointing to the first element in the container whose key is not considered to go
+					before k (i.e., either it is equivalent or goes after). The function uses its internal comparison 
+					object (key_comp) to determine this, returning an iterator to the first element for which 
+					key_comp(element_key,k) would return false. If the map class is instantiated with the default 
+					comparison type (less), the function returns an iterator to the first element whose key is not less 
+					than k. A similar member function, upper_bound, has the same behavior as lower_bound, except in the
+					case that the map contains an element with a key equivalent to k: In this case, lower_bound returns 
+					an iterator pointing to that element, whereas upper_bound returns an iterator pointing to the next 
+					element.
+                	*/
+				
+					iterator lower_bound (const key_type& k);
+					const_iterator lower_bound (const key_type& k) const;
+
+				   	/*
+                    ----------------------------------------------------------------------------------------------------
+                    upper_bound - Return iterator to upper bound
+                    ----------------------------------------------------------------------------------------------------
+					Returns an iterator pointing to the first element in the container whose key is considered to go 
+					after k. The function uses its internal comparison object (key_comp) to determine this, returning an
+					iterator to the first element for which key_comp(k,element_key) would return true. If the map class 
+					is instantiated with the default comparison type (less), the function returns an iterator to the 
+					first element whose key is greater than k. A similar member function, lower_bound, has the same 
+					behavior as upper_bound, except in the case that the map contains an element with a key equivalent 
+					to k: In this case lower_bound returns an iterator pointing to that element, whereas upper_bound 
+					returns an iterator pointing to the next element.
+                	*/
+				
+					iterator upper_bound (const key_type& k);
+					const_iterator upper_bound (const key_type& k) const;
+
+
+
+				   	/*
+                    ----------------------------------------------------------------------------------------------------
+                    equal_range - Get range of equal elements
+                    ----------------------------------------------------------------------------------------------------
+					Returns the bounds of a range that includes all the elements in the container which have a key 
+					equivalent to k. Because the elements in a map container have unique keys, the range returned will 
+					contain a single element at most. If no matches are found, the range returned has a length of zero, 
+					with both iterators pointing to the first element that has a key considered to go after k according
+					to the container's internal comparison object (key_comp). Two keys are considered equivalent if the 
+					container's comparison object returns false reflexively (i.e., no matter the order in which the keys
+					are passed as arguments).
+                	*/
+					
+					pair<const_iterator,const_iterator> equal_range (const key_type& k) const;
+					pair<iterator,iterator>             equal_range (const key_type& k);
 
 				    /*
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -404,7 +544,15 @@ namespace ft{
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                     */
-				   
+
+				   	/*
+                    ----------------------------------------------------------------------------------------------------
+                    get_allocator - Get allocator
+                    ----------------------------------------------------------------------------------------------------
+					Returns a copy of the allocator object associated with the map.	
+                	*/
+				
+					allocator_type get_allocator() const;
 		
 	};
 

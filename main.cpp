@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/18 12:06:59 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/18 12:08:45 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,6 +248,7 @@ int main()
     {
         std::cout << it2->first << " => " << it2->second << '\n';
     }
+    std::cout << "SMAP1 MAX_SIZE: " << smap1.max_size() << std::endl;
     std::cout << "\n=============================== STD - Checking reverse iterator with 7 elements starting from rend() ==================================\n\n";
     rit1 = smap1.rend();
     std::cout << "rend: " << (*rit1).first << std::endl;
