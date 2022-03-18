@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/18 12:08:45 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/18 13:05:20 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -404,6 +404,8 @@ int main()
     ++it1;
     std::cout << "++end: " << (*it1).first << std::endl;   
     ++it1;
+    it1 = smap1.find(484);
+    std::cout << "search for 484: " << (*it1).first << std::endl;   
     // rit1 = smap1.end();
     // std::cout << "end: " << (*rit1).first << std::endl; 
     // rit1--;
@@ -678,6 +680,9 @@ int main()
     std::cout << "++begin: " << (*it).first << std::endl;
     ++it;
     std::cout << "++begin: " << (*it).first << std::endl;  
+
+    it = map1.find(484);
+    std::cout << "search for 484: " << (*it).first << std::endl;   
 
     std::cout << "\n=============================== FT - Checking normal iterator from end() ==================================\n\n";
     it = map1.end();

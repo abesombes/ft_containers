@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:19 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/18 12:46:24 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/18 13:05:45 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -443,7 +443,7 @@ namespace ft{
 					comparison object to generate the appropriate comparison functional class.
                 	*/
 				
-					value_compare value_comp() const;
+					// value_compare value_comp() const;
 
 				    /*
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -466,8 +466,15 @@ namespace ft{
 					whether a particular key exists.
                 	*/
 				
-					iterator find (const key_type& k);
-					const_iterator find (const key_type& k) const;
+					iterator find (const key_type& key)
+					{
+						return (iterator(_RBTree.searchNode(_RBTree.getRoot(), key)));
+					}
+					
+					const_iterator find (const key_type& key) const
+					{
+						return (iterator(_RBTree.searchNode(_RBTree.getRoot(), key)));						
+					}
 
 				   	/*
                     ----------------------------------------------------------------------------------------------------
