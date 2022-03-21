@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:19 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/21 11:53:43 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/21 12:51:14 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,18 @@ namespace ft{
 					node_allocator 	_mem_node_alloc;
 					Alloc          	_pair_alloc;
 					RBTree			_RBTree;
+
+		public:
+      			class value_compare: public std::binary_function<value_type, value_type, bool>
+      			{
+					friend class map<Key, T, Compare, Alloc>;
+      				protected:
+								key_compare comp;
+								value_compare(key_compare c) : comp(c) { }
+
+      				public:
+								bool operator()(const value_type& lhs, const value_type& rhs) const { return comp(lhs.first, rhs.first); }
+      			};
 
 		public:
 					// typedef typename iterator_traits<iterator>::difference_type difference_type;
@@ -443,7 +455,7 @@ namespace ft{
 					comparison object to generate the appropriate comparison functional class.
                 	*/
 				
-					// value_compare value_comp() const;
+					value_compare value_comp() const { return value_compare(key_comp()); };
 
 				    /*
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -490,7 +502,6 @@ namespace ft{
 					size_type count (const key_type& key) const
 					{
 						return(_RBTree.searchNode(_RBTree.getRoot(), key)->isNil() ? 0 : 1);
-							
 					}
 
 				   	/*
@@ -599,6 +610,8 @@ namespace ft{
 						beg++;
 						while (beg != end && _cmp(beg->first, key))
 							beg++;
+						if (!(!_cmp(beg->first, key) && !_cmp(key, beg->first)))
+							return (ft::make_pair(beg, beg));
 						return (ft::make_pair(beg, ++beg));
 					}
 
@@ -634,7 +647,7 @@ namespace ft{
 					Returns a copy of the allocator object associated with the map.	
                 	*/
 				
-					allocator_type get_allocator() const;
+					allocator_type get_allocator() const { return (_pair_alloc); };
 		
 	};
 
