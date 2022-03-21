@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/21 13:05:26 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/21 14:03:10 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,12 +249,20 @@ int main()
         std::cout << it2->first << " => " << it2->second << '\n';
     }
     std::cout << "SMAP1 MAX_SIZE: " << smap1.max_size() << std::endl;
-    std::cout << "*smap1.begin(): " << (*smap1.begin()).first << std::endl;
+
     std::map<int, std::string>::iterator it3 = smap1.end();
+    std::map<int, std::string>::iterator it4 = smap1.begin();
+    it4++;
+    it4++;
+    it4++;
+
     it3--;
-    std::cout << "*it3.end(): " << (*it3).first << std::endl;
+    it3--;
+    it3--;
+    std::cout << "*it4: " << (*it4).first << std::endl;
+    std::cout << "*it3: " << (*it3).first << std::endl;
     
-    std::cout << "begin < end? " << smap1.value_comp()(*smap1.begin(), *it3) << std::endl;
+    std::cout << "begin < end? " << smap1.value_comp()(*it4, *it3) << std::endl;
     std::cout << "\n=============================== STD - Checking reverse iterator with 7 elements starting from rend() ==================================\n\n";
     rit1 = smap1.rend();
     std::cout << "rend: " << (*rit1).first << std::endl;
@@ -761,8 +769,14 @@ int main()
     std::cout << "Equal Range of 60: it2 = " << map1.equal_range(60).second->first << std::endl;
     std::cout << "Equal Range of 55: it1 =  " << map1.equal_range(55).first->first << std::endl;
     std::cout << "Equal Range of 55: it2 = " << map1.equal_range(55).second->first << std::endl;
-
-    
+    ft::map<int, std::string>::iterator it5 = map1.begin();
+    it5++;
+    it5++;
+    ft::map<int, std::string>::iterator it6 = map1.begin();
+    it6++;
+    it6++;
+    it6++;
+    std::cout << "it5 < it6? " << map1.value_comp()(*it5, *it6) << std::endl;
 
 
 
