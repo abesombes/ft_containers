@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/18 17:49:50 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/21 10:55:07 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -410,6 +410,10 @@ int main()
     std::cout << "Lower bound of 480: " << smap1.lower_bound(480)->first << std::endl;
     std::cout << "Upper bound of 484: " << smap1.upper_bound(484)->first << std::endl;
     std::cout << "Upper bound of 480: " << smap1.upper_bound(480)->first << std::endl;
+    std::cout << "Equal Range of 60: it1 =  " << smap1.equal_range(60).first->first << std::endl;
+    std::cout << "Equal Range of 60: it2 = " << smap1.equal_range(60).second->first << std::endl;
+    std::cout << "Equal Range of 55: it1 =  " << smap1.equal_range(55).first->first << std::endl;
+    std::cout << "Equal Range of 55: it2 = " << smap1.equal_range(55).second->first << std::endl;
     // rit1 = smap1.end();
     // std::cout << "end: " << (*rit1).first << std::endl; 
     // rit1--;
@@ -747,6 +751,10 @@ int main()
     std::cout << "Lower bound of 42: " << map1.lower_bound(42)->first << std::endl;
     std::cout << "Upper bound of 484: " << map1.upper_bound(484)->first << std::endl;
     std::cout << "Upper bound of 480: " << map1.upper_bound(480)->first << std::endl;
+    std::cout << "Equal Range of 60: it1 =  " << map1.equal_range(60).first->first << std::endl;
+    std::cout << "Equal Range of 60: it2 = " << map1.equal_range(60).second->first << std::endl;
+    std::cout << "Equal Range of 55: it1 =  " << map1.equal_range(55).first->first << std::endl;
+    std::cout << "Equal Range of 55: it2 = " << map1.equal_range(55).second->first << std::endl;
 
     
 

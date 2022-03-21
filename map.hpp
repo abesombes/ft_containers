@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:19 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/18 17:53:05 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/21 11:53:43 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -589,8 +589,33 @@ namespace ft{
 					are passed as arguments).
                 	*/
 					
-					pair<const_iterator,const_iterator> equal_range (const key_type& k) const;
-					pair<iterator,iterator>             equal_range (const key_type& k);
+					pair<const_iterator, const_iterator> equal_range (const key_type& key) const
+					{
+						const_iterator beg = this->begin();
+						const_iterator end = this->end();
+
+						if (this->_cmp(key, beg->first))
+							return (ft::make_pair(beg, ++beg));
+						beg++;
+						while (beg != end && _cmp(beg->first, key))
+							beg++;
+						return (ft::make_pair(beg, ++beg));
+					}
+
+					pair<iterator,iterator>             equal_range (const key_type& key)
+					{
+						iterator beg = this->begin();
+						iterator end = this->end();
+
+						if (this->_cmp(key, beg->first))
+							return (ft::make_pair(beg, ++beg));
+						beg++;
+						while (beg != end && _cmp(beg->first, key))
+							beg++;
+						if (!(!_cmp(beg->first, key) && !_cmp(key, beg->first)))
+							return (ft::make_pair(beg, beg));
+						return (ft::make_pair(beg, ++beg));
+					}
 
 				    /*
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
