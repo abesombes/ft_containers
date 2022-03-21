@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/21 14:03:10 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/21 18:57:00 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,11 @@ int main()
     // map1['d']=40;
     
     std::map<int, std::string> smap1;
+    std::cout << "MALEFIC TEST: \n";
+    for (std::map<int, std::string>::iterator it2 = smap1.begin(); it2 != smap1.end(); ++it2)
+    {
+        std::cout << it2->first << " => " << it2->second << '\n';
+    }
     std::pair<int, std::string> sp1 = std::make_pair(445, "Hong Kong");
     std::pair<int, std::string> sp2 = std::make_pair(125, "Bangkok");
     std::pair<int, std::string> sp3 = std::make_pair(484, "London");
@@ -428,6 +433,44 @@ int main()
     std::cout << "Equal Range of 60: it2 = " << smap1.equal_range(60).second->first << std::endl;
     std::cout << "Equal Range of 55: it1 =  " << smap1.equal_range(55).first->first << std::endl;
     std::cout << "Equal Range of 55: it2 = " << smap1.equal_range(55).second->first << std::endl;
+    for (std::map<int, std::string>::iterator it2 = --smap1.end(); it2 != smap1.begin(); --it2)
+    {
+        std::cout << it2->first << " => " << it2->second << '\n';
+    }
+    smap1.clear();
+    std::map<int, std::string> smap3;
+    std::map<int, std::string> smap4;
+    smap3[10]="aaaaaa";
+    smap3[20]="bbbbbb";
+    smap3[30]="cccccc";
+    smap3[40]="dddddd";
+    smap4[2]="triangle";
+    smap4[4]="square";
+    smap4[8]="cube";
+    smap4[16]="sphere";
+    smap4[32]="octogon";
+    smap4[64]="hexagon";
+    smap4[128]="cylinder";
+    smap4[256]="pipe";
+    std::cout << "before swap\n";
+    for (std::map<int, std::string>::iterator it2 = smap3.begin(); it2 != smap3.end(); ++it2)
+    {
+        std::cout << it2->first << " => " << it2->second << '\n';
+    }
+    smap3.swap(smap4);
+    std::cout << "after swap\n";
+    for (std::map<int, std::string>::iterator it2 = smap3.begin(); it2 != smap3.end(); ++it2)
+    {
+        std::cout << it2->first << " => " << it2->second << '\n';
+    }
+
+    std::cout << "\n============================================================= THE END ========================================================\n";
+    std::cout << "\n==============================================================================================================================\n";
+    std::cout << "\n==============================================================================================================================\n\n\n\n\n\n\n\n"; 
+    // for (std::map<int, std::string>::iterator it2 = --smap1.end(); it2 != smap1.begin(); --it2)
+    // {
+    //     std::cout << it2->first << " => " << it2->second << '\n';
+    // }
     // rit1 = smap1.end();
     // std::cout << "end: " << (*rit1).first << std::endl; 
     // rit1--;
@@ -777,9 +820,60 @@ int main()
     it6++;
     it6++;
     std::cout << "it5 < it6? " << map1.value_comp()(*it5, *it6) << std::endl;
+    for (ft::map<int, std::string>::iterator it2 = map1.begin(); it2 != map1.end(); ++it2)
+    {
+        std::cout << it2->first << " => " << it2->second << '\n';
+    }
+    map1.clear();
+    // for (ft::map<int, std::string>::iterator it2 = map1.begin(); it2 != map1.end(); ++it2)
+    // {
+    //     std::cout << it2->first << " => " << it2->second << '\n';
+    // }
+    std::cout << "\n===============================================================================================================\n";
 
-
-
+    ft::map<int, std::string> map3;
+    // ft::map<int, std::string> map4;
+    // ft::pair<int, std::string> p01 = ft::make_pair(10, "aaaaaa");
+    // ft::pair<int, std::string> p02 = ft::make_pair(20, "bbbbbb");
+    // ft::pair<int, std::string> p03 = ft::make_pair(30, "cccccc");
+    // ft::pair<int, std::string> p04 = ft::make_pair(40, "dddddd");
+    // ft::pair<int, std::string> p01 = ft::make_pair(10, "Hong Kong");
+    // ft::pair<int, std::string> p02 = ft::make_pair(20, "Bangkok");
+    // ft::pair<int, std::string> p03 = ft::make_pair(30, "London");
+    // ft::pair<int, std::string> p04 = ft::make_pair(40, "Moscow");
+    // ft::pair<int, std::string> p05 = ft::make_pair(50, "NYC");
+    // ft::pair<int, std::string> p06 = ft::make_pair(60, "Madrid");
+    // ft::pair<int, std::string> p07 = ft::make_pair(70, "Los Angeles");
+    map3[10]="aaaaaa";
+    map3[20]="bbbbbb";
+    map3[30]="cccccc";
+    map3[40]="dddddd";
+    // map3.insert(p01);
+    // map3.insert(p02);
+    // map3.insert(p03);
+    // map3.insert(p04);
+    // map3.insert(p05);
+    // map3.insert(p06);
+    // map3.insert(p07);
+    // map4[2]="triangle";
+    // map4[4]="square";
+    // map4[8]="cube";
+    // map4[16]="sphere";
+    // map4[32]="octogon";
+    // map4[64]="hexagon";
+    // map4[128]="cylinder";
+    // map4[256]="pipe";
+    // std::cout << "before swap\n";
+    for (ft::map<int, std::string>::iterator it2 = map3.begin(); it2 != map3.end(); ++it2)
+    {
+        std::cout << it2->first << " => " << it2->second << '\n';
+    }
+    // map3.swap(map4);
+    // std::cout << "after swap\n";
+    // for (ft::map<int, std::string>::iterator it2 = map3.begin(); it2 != map3.end(); ++it2)
+    // {
+    //     std::cout << it2->first << " => " << it2->second << '\n';
+    // }
 
 
 

@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/18 15:13:42 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/21 19:20:26 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,8 @@ class RBTree {
                         _size--;
                         _root = _nil;
                     }
+                    _sentinel->left = _nil;
+                    _sentinel->right = _nil;
                 }
             
                 Node* getRoot() const { return _root; }
@@ -165,9 +167,9 @@ class RBTree {
                     
                     _sentinel = newNode(nilValue);
                     _sentinel->color = SENTINEL;
-                    _sentinel->parent = this->_nil;
-                    _sentinel->left = this->_nil;
-                    _sentinel->right = this->_nil;
+                    _sentinel->parent = _sentinel;
+                    _sentinel->left = _sentinel;
+                    _sentinel->right = _sentinel;
                 }
 
                 Node* newNode(const value_type &value)
@@ -234,13 +236,13 @@ class RBTree {
                     Node* new_Node = newNode(value);
                     Node *ret = BSTInsert(new_Node, wasInserted);
  
-                    // std::cout << "\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
-                    // std::cout << "+++++++++++++ ANNOUNCEMENT: NEW VALUE ADDED - " << value.first << " +++++++++++++" << std::endl;
-                    // std::cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
+                    std::cout << "\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
+                    std::cout << "+++++++++++++ ANNOUNCEMENT: NEW VALUE ADDED - " << value.first << " +++++++++++++" << std::endl;
+                    std::cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
                     
-                    // std::cout << "_root: " << _root->getKey() << std::endl;
-                    // std::cout << "wasInserted? " << wasInserted << std::endl;
-                    // std::cout << "size: " << getSize() << std::endl;
+                    std::cout << "_root: " << _root->getKey() << std::endl;
+                    std::cout << "wasInserted? " << wasInserted << std::endl;
+                    std::cout << "size: " << getSize() << std::endl;
                     _root = fixInsertion(this->_root, new_Node);
                     if (_root->isRed())
                         _root->setBlack();
@@ -440,15 +442,17 @@ class RBTree {
                     Node* Uncle = node->getUncle();
                     Node* ret = NULL;
                     // root->printNodeSubTree();
-                    // std::cout << "\nTrying to fix node " << node->getKey() << std::endl;
+                    std::cout << "\nTrying to fix node " << node->getKey() << std::endl;
                     if (!node->parent->isNil())
                     {
-                        // std::cout << "Node Shape: " << node->isLeftRightCase() << std::endl;
-                        // std::cout << "node->isRed? " << node->isRed() << std::endl;
-                        // std::cout << "node->parent->isRed? " << node->parent->isRed() << std::endl;
-                        // std::cout << "0 = LeftRight Case\n1 = RightLeft Case\n2 = LeftLeft Case\n3 = RightRight Case" << std::endl;
+                        std::cout << "Node Shape: " << node->isLeftRightCase() << std::endl;
+                        std::cout << "node->isRed? " << node->isRed() << " - node: " << node->getKey() << std::endl;
+                        std::cout << "node->parent->isRed? " << node->parent->isRed() << " - node->parent: " << node->parent->getKey() << std::endl;
+                        std::cout << "0 = LeftRight Case\n1 = RightLeft Case\n2 = LeftLeft Case\n3 = RightRight Case" << std::endl;
                         // root->printNodeSubTree();
-                        // std::cout << "Uncle: " << Uncle->isRed() << std::endl;
+                        std::cout << "Uncle: " << Uncle->isRed() << std::endl;
+                        if (node->doubleRed())
+                            std::cout << "DoubleRed\n";
                         if (node->doubleRed() && Uncle != node && Uncle->isRed())
                         {            
                             pushBlacknessDown(node);
@@ -981,6 +985,32 @@ class RBTree {
                         if (!_root->right->isNil())
                             _root->right->printNode('r', _root);
                     }
+                }
+
+                void swap(RBTree &rhs)
+                {
+                    Node*                               tmp_root = _root;
+                    Node*                               tmp_nil = _nil;
+                    Node*                               tmp_sentinel = _sentinel;
+                    size_t                              tmp_size = _size;
+                    Compare                             tmp_cmp = _cmp;
+                    Alloc                               tmp_valueAlloc = _valueAlloc;
+                    std::allocator<Node>                tmp_nodeAlloc = _nodeAlloc;
+
+                    _root = rhs._root;
+                    _nil = rhs._nil;
+                    _sentinel = rhs._sentinel;
+                    _size = rhs._size;
+                    _cmp = rhs._cmp;
+                    _valueAlloc = rhs._valueAlloc;
+                    _nodeAlloc = rhs._nodeAlloc;
+                    rhs._root = tmp_root;
+                    rhs._nil = tmp_nil;
+                    rhs._sentinel = tmp_sentinel;
+                    rhs._size = tmp_size;
+                    rhs._cmp = tmp_cmp;
+                    rhs._valueAlloc = tmp_valueAlloc;
+                    rhs._nodeAlloc = tmp_nodeAlloc;
                 }
 };
 

@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:19 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/21 12:51:14 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/21 18:03:09 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -343,7 +343,6 @@ namespace ft{
 					// insert - Insert elements (public member function )
 					// erase - Erase elements (public member function )
 					// swap - Swap content (public member function )
-					// clear - Clear content (public member function )
 
 				   	/*
                     ----------------------------------------------------------------------------------------------------
@@ -405,7 +404,17 @@ namespace ft{
 					this member function.
                 	*/
 
-					void swap (map& x);
+					void swap (map& rhs)
+					{
+						node_allocator 	_tmp_mem_node_alloc = rhs._mem_node_alloc;
+						Alloc          	_tmp_pair_alloc = rhs._pair_alloc;
+
+						rhs._mem_node_alloc = this->_mem_node_alloc;
+						rhs._pair_alloc = this->_pair_alloc;
+						_mem_node_alloc = _tmp_mem_node_alloc;
+						_pair_alloc = _tmp_pair_alloc;
+						_RBTree.swap(rhs._RBTree);
+					}
 
 					/*
                     ----------------------------------------------------------------------------------------------------
@@ -414,7 +423,7 @@ namespace ft{
 					Removes all elem from the map container (which are destroyed), leaving the container with size of 0.
                 	*/
 
-					void clear();
+					void clear() { _RBTree.clear(); };
 
 				    /*
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -615,7 +624,7 @@ namespace ft{
 						return (ft::make_pair(beg, ++beg));
 					}
 
-					pair<iterator,iterator>             equal_range (const key_type& key)
+					pair<iterator,iterator> equal_range (const key_type& key)
 					{
 						iterator beg = this->begin();
 						iterator end = this->end();

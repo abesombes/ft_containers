@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 10:34:35 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/17 17:07:04 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/21 18:42:32 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -297,6 +297,7 @@ class Node {
                 
                 while (!TreeMax->right->isNil())
                     TreeMax = TreeMax->right;
+
                 return (TreeMax);
             }
 
