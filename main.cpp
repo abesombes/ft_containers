@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/22 23:04:16 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/23 00:30:34 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -775,8 +775,10 @@ int main()
     // map1.erase(i1b, i1e);
     // map1.erase(60);
     map1.erase(30);
-    map1.erase(40);
+    // map1.erase(40);
     map1.erase(50);
+    ((map1.begin()).getNode())->getRoot()->printNodeSubTree();
+    // map1.erase(50);
     // map1.erase(60);
     for (ft::map<int, std::string>::iterator it2 = map1.begin(); it2 != map1.end(); ++it2)
     {

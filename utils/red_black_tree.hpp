@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/22 22:26:27 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/23 00:30:17 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -817,6 +817,7 @@ class RBTree {
                                     }
                                     else if (TargetNode->isLChild())
                                     {
+                                        // std::cout << "Left Child TargetNode has Black Nephews? " << TargetNode->hasBNephews() << "\n";
                                         if (TargetNode->hasBNephews())
                                         {
                                             std::cout << "==== Left Child TargetNode has 2 Black Nephews ====" << std::endl;

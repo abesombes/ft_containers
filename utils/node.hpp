@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   node.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 10:34:35 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/21 18:42:32 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/23 00:29:38 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,21 @@ class Node {
                 return (this);
             }
 
+            Node* getRoot(void)
+            {
+                if (this->isNil() || parent == this)
+                    return (this);
+                Node* Parent = this->parent;
+                Node* tmp = this;
+                while (Parent != tmp && !Parent->isNil())
+                {
+                    // std::cout << "Parent: " << Parent->getKey() << " - tmp: " << tmp->getKey() << std::endl;
+                    tmp = tmp->parent;
+                    Parent = Parent->parent;
+                }
+                return (tmp);
+            }
+
             /* -------------------- Node Structures ---------------------- */
 
             int isLeftRightChild(void)
@@ -197,9 +212,9 @@ class Node {
 
             int hasRSibling(void) { return (getSibling() != this && getSibling()->isRed()); }
 
-            int hasLBNephew(void) { return (getLNephew() != this && getLNephew()->isBlack()); }
+            int hasLBNephew(void) { return (getLNephew() != this && (getLNephew()->isBlack() || getLNephew()->isNil())); }
             
-            int hasRBNephew(void) { return (getRNephew() != this && getRNephew()->isBlack()); }
+            int hasRBNephew(void) { return (getRNephew() != this && (getRNephew()->isBlack() || getRNephew()->isNil())); }
 
             int hasBNephews(void) { return (hasRBNephew() && hasLBNephew()); }
 
