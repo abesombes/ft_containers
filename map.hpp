@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:19 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/21 18:03:09 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/22 11:12:26 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -657,6 +657,8 @@ namespace ft{
                 	*/
 				
 					allocator_type get_allocator() const { return (_pair_alloc); };
+
+					RBTree getRBTree() {return _RBTree; };
 		
 	};
 

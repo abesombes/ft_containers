@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/21 18:57:00 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/22 12:26:24 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ int main()
     // map1['d']=40;
     
     std::map<int, std::string> smap1;
-    std::cout << "MALEFIC TEST: \n";
     for (std::map<int, std::string>::iterator it2 = smap1.begin(); it2 != smap1.end(); ++it2)
     {
         std::cout << it2->first << " => " << it2->second << '\n';
@@ -500,12 +499,12 @@ int main()
 
     ft::map<int, std::string> map1;
 
-    ft::pair<int, std::string> p1 = ft::make_pair(445, "Hong Kong");
-    ft::pair<int, std::string> p2 = ft::make_pair(125, "Bangkok");
+    ft::pair<int, std::string> p1 = ft::make_pair(10, "Hong Kong");
+    ft::pair<int, std::string> p2 = ft::make_pair(20, "Bangkok");
     ft::pair<int, std::string> p3 = ft::make_pair(484, "London");
     ft::pair<int, std::string> p4 = ft::make_pair(40, "Moscow");
     ft::pair<int, std::string> p5 = ft::make_pair(60, "NYC");
-    ft::pair<int, std::string> p6 = ft::make_pair(20, "Madrid");
+    ft::pair<int, std::string> p6 = ft::make_pair(50, "Madrid");
     ft::pair<int, std::string> p7 = ft::make_pair(30, "Los Angeles");
     map1.insert(p1);
     std::cout << "\n=============================== FT - MAP CONTENT - 1 element - increasing order ==================================\n\n";
@@ -630,15 +629,15 @@ int main()
     map1.insert(p7);
 
     ft::map<int, std::string> map2(map1);
-
+    // map1.getRBTree().printRBT();
     std::cout << "\n=============================== FT - MAP1 CONTENT - 7 elements - decreasing order ==================================\n\n";
-    for (ft::map<int, std::string>::iterator it2 = --map1.end(); it2 != map1.begin(); --it2)
+    for (ft::map<int, std::string>::iterator it2 = --map1.end(); it2 != --map1.begin(); --it2)
     {
         std::cout << it2->first << " => " << it2->second << '\n';
     }
     std::cout << "MAX_SIZE: " << map1.max_size() << std::endl;
     std::cout << "\n=============================== FT - MAP2 CONTENT (Copy of Map1) - 7 elements - decreasing order ==================================\n\n";
-    for (ft::map<int, std::string>::iterator it2 = --map1.end(); it2 != map1.begin(); --it2)
+    for (ft::map<int, std::string>::iterator it2 = --map1.end(); it2 != --map1.begin(); --it2)
     {
         std::cout << it2->first << " => " << it2->second << '\n';
     }

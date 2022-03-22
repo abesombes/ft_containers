@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   red_black_tree.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/21 19:20:26 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/22 12:28:16 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,8 @@ class RBTree {
                 {
                     Node *tmp = _root;
                     Node *Parent = _root;
+                    int lrflag = 0;
+                    // std::cout << "Node that is being inserted: " << node->getKey() << " - tmp = " << tmp->getKey() << " - size = " << _size << std::endl;
                     if (_size == 0)
                     {
                         link(_sentinel, node, 1);
@@ -203,10 +205,17 @@ class RBTree {
                         while (!tmp->isNil())
                         {
                             Parent = tmp;
+                            
                             if (_cmp(node->getKey(), tmp->getKey()))
+                            {
                                 tmp = tmp->left;
+                                lrflag = 1;
+                            }
                             else if (_cmp(tmp->getKey(), node->getKey()))
+                            {
                                 tmp = tmp->right;
+                                lrflag = 2;
+                            }
                             else
                                 return (tmp);
                         }
@@ -214,7 +223,8 @@ class RBTree {
                         {
                             node->setRed();
                             _size++;
-                            link(Parent, node, Parent->left == tmp ? 1 : 2);
+                            // std::cout << "Parent: " << Parent->getKey() << " - tmp: " << tmp->getKey() << " - Parent->left: " << Parent->left->getKey() << " - Parent->left == tmp ? " << (Parent->left == tmp) << std::endl;
+                            link(Parent, node, lrflag);
                             successful_insertion = true;
                             if (_cmp(node->getValue().first, _sentinel->left->getValue().first))
                             {
@@ -240,10 +250,11 @@ class RBTree {
                     std::cout << "+++++++++++++ ANNOUNCEMENT: NEW VALUE ADDED - " << value.first << " +++++++++++++" << std::endl;
                     std::cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
                     
-                    std::cout << "_root: " << _root->getKey() << std::endl;
-                    std::cout << "wasInserted? " << wasInserted << std::endl;
-                    std::cout << "size: " << getSize() << std::endl;
-                    _root = fixInsertion(this->_root, new_Node);
+                    // std::cout << "_root: " << _root->getKey() << std::endl;
+                    // std::cout << "wasInserted? " << wasInserted << std::endl;
+                    // std::cout << "size: " << getSize() << std::endl;
+                    if (_size > 1)
+                        _root = fixInsertion(this->_root, new_Node);
                     if (_root->isRed())
                         _root->setBlack();
                     if (!wasInserted)
@@ -442,17 +453,17 @@ class RBTree {
                     Node* Uncle = node->getUncle();
                     Node* ret = NULL;
                     // root->printNodeSubTree();
-                    std::cout << "\nTrying to fix node " << node->getKey() << std::endl;
+                    // std::cout << "\nTrying to fix node " << node->getKey() << std::endl;
                     if (!node->parent->isNil())
                     {
-                        std::cout << "Node Shape: " << node->isLeftRightCase() << std::endl;
-                        std::cout << "node->isRed? " << node->isRed() << " - node: " << node->getKey() << std::endl;
-                        std::cout << "node->parent->isRed? " << node->parent->isRed() << " - node->parent: " << node->parent->getKey() << std::endl;
-                        std::cout << "0 = LeftRight Case\n1 = RightLeft Case\n2 = LeftLeft Case\n3 = RightRight Case" << std::endl;
+                        // std::cout << "Node Shape: " << node->isLeftRightCase() << std::endl;
+                        // std::cout << "node->isRed? " << node->isRed() << " - node: " << node->getKey() << std::endl;
+                        // std::cout << "node->parent->isRed? " << node->parent->isRed() << " - node->parent: " << node->parent->getKey() << std::endl;
+                        // std::cout << "0 = LeftRight Case\n1 = RightLeft Case\n2 = LeftLeft Case\n3 = RightRight Case" << std::endl;
                         // root->printNodeSubTree();
-                        std::cout << "Uncle: " << Uncle->isRed() << std::endl;
-                        if (node->doubleRed())
-                            std::cout << "DoubleRed\n";
+                        // std::cout << "Uncle: " << Uncle->isRed() << std::endl;
+                        // if (node->doubleRed())
+                        //     std::cout << "DoubleRed\n";
                         if (node->doubleRed() && Uncle != node && Uncle->isRed())
                         {            
                             pushBlacknessDown(node);
@@ -493,7 +504,7 @@ class RBTree {
                         }
                         if (ret)
                         {
-                            std::cout<< "Root updated" << std::endl;
+                            // std::cout<< "Root updated" << std::endl;
                             ret->setBlack();
                             root = ret;
                         }
