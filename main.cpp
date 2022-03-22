@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:34:41 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/22 12:26:24 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/22 23:04:16 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -629,6 +629,17 @@ int main()
     map1.insert(p7);
 
     ft::map<int, std::string> map2(map1);
+    ft::map<int, std::string> map7;
+    std::cout << "\n=============================== FT - MAP7 CONTENT - 2 elements - increasing order ==================================\n\n";
+    ft::map<int, std::string>::iterator it7e = map1.begin();
+    it7e++;
+    it7e++;
+    map7.insert(++map1.begin(), it7e);
+    std::cout << "Size: " << map7.size() << std::endl;
+    for (ft::map<int, std::string>::iterator it2 = map7.begin(); it2 != map7.end(); ++it2)
+    {
+        std::cout << it2->first << " => " << it2->second << '\n';
+    }
     // map1.getRBTree().printRBT();
     std::cout << "\n=============================== FT - MAP1 CONTENT - 7 elements - decreasing order ==================================\n\n";
     for (ft::map<int, std::string>::iterator it2 = --map1.end(); it2 != --map1.begin(); --it2)
@@ -748,7 +759,29 @@ int main()
     it = map1.find(485);
     std::cout << "search for 485: " << (*it).first << std::endl;
     std::cout << "count(485): " << map1.count(485) << std::endl; 
-    std::cout << "count(484): " << map1.count(484) << std::endl;     
+    std::cout << "count(484): " << map1.count(484) << std::endl;
+    for (ft::map<int, std::string>::iterator it2 = map1.begin(); it2 != map1.end(); ++it2)
+    {
+        std::cout << it2->first << " => " << it2->second << '\n';
+    }  
+    // it = map1.find(40);
+    // map1.erase(it);
+    // ft::map<int, std::string>::iterator i1b = map1.begin();
+    // i1b++;
+    // i1b++;
+    // ft::map<int, std::string>::iterator i1e = map1.end();    
+    // i1e--;
+    // i1e--;
+    // map1.erase(i1b, i1e);
+    // map1.erase(60);
+    map1.erase(30);
+    map1.erase(40);
+    map1.erase(50);
+    // map1.erase(60);
+    for (ft::map<int, std::string>::iterator it2 = map1.begin(); it2 != map1.end(); ++it2)
+    {
+        std::cout << it2->first << " => " << it2->second << '\n';
+    }  
 
     std::cout << "\n=============================== FT - Checking normal iterator from end() ==================================\n\n";
     it = map1.end();

@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:19 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/22 11:12:26 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/22 22:32:58 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,7 +280,7 @@ namespace ft{
 					map::clear.
                     */
 
-				   	bool empty() const { return (!_RBTree->getSize()); };
+				   	bool empty() const { return (!_RBTree.getSize()); };
 
 				   	/*
                     ----------------------------------------------------------------------------------------------------
@@ -289,7 +289,7 @@ namespace ft{
 					Returns the number of elements in the map container.
                     */
 
-					size_type size() const { return (_RBTree->getSize()); };
+					size_type size() const { return (_RBTree.getSize()); };
 
 
 				   	/*
@@ -340,9 +340,6 @@ namespace ft{
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                     */
 
-					// insert - Insert elements (public member function )
-					// erase - Erase elements (public member function )
-					// swap - Swap content (public member function )
 
 				   	/*
                     ----------------------------------------------------------------------------------------------------
@@ -367,18 +364,22 @@ namespace ft{
 					}
 
 
-					// iterator insert (iterator position, const value_type& val)
-					// {
-						
-					// }
-					
-					// template <class InputIterator>
-					// void insert (InputIterator first, InputIterator last)
-					// {
-						
-					// }
+					iterator insert (iterator position, const value_type& val)
+					{
+						bool 			wasInserted = false;
+						(void)position;
+						iterator		inserted = _RBTree.insertValue(val, wasInserted);
 
-					//    this->erase(this->begin(), this->end());
+						return (ft::make_pair(iterator(inserted), wasInserted));
+					}
+					
+					template <class InputIterator>
+					void insert (InputIterator first, InputIterator last)
+					{
+						bool 			wasInserted = false;
+						while (first != last)
+							_RBTree.insertValue(*first++, wasInserted);
+					}
 
 				   	/*
                     ----------------------------------------------------------------------------------------------------
@@ -388,9 +389,21 @@ namespace ft{
 					This effectively reduces the container size by the number of elements removed, which are destroyed.
                 	*/
 
-					void erase (iterator position);
-					size_type erase (const key_type& k);
-					void erase (iterator first, iterator last);
+					void erase (iterator position)
+					{
+						_RBTree.removeNode(position.getNode(), position.getNode()->value.first);
+					}
+					
+					size_type erase (const key_type& key)
+					{
+						return((_RBTree.removeNode(_RBTree.searchNode(_RBTree.getRoot(), key), key)));
+					}
+
+					void erase (iterator first, iterator last)
+					{
+						while (first != last)
+							erase(first++);
+					}
 
 					/*
                     ----------------------------------------------------------------------------------------------------

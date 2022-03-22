@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/22 12:28:16 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/22 22:26:27 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ class RBTree {
                 
                 Node* getSentinel() { return _sentinel; }
 
-                size_t getSize() { return _size; }
+                size_t getSize() const { return _size; }
                 
                 void setRoot(Node &node){ _root = node; }
                 
@@ -696,7 +696,7 @@ class RBTree {
                     }
                 }
 
-                Node* removeNode(Node* node, Key key)
+                bool removeNode(Node* node, Key key)
                 {
                     std::cout << "\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n";
                     std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n";
@@ -705,9 +705,13 @@ class RBTree {
                     std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n";
                     int flag_lsentinel = 0;
                     int flag_rsentinel = 0;
+                    bool found_node = false;
                     Node* TargetNode = searchNode(node, key);
                     if (!TargetNode->isNil())
+                    {
                         _size--;
+                        found_node = true;
+                    }
                     if (TargetNode == _sentinel->left)
                         flag_lsentinel = 1;
                     else if (TargetNode == _sentinel->right)
@@ -981,7 +985,7 @@ class RBTree {
                         _sentinel->right = tmp_max;
                         tmp_max->right = _sentinel;
                     }
-                    return TargetNode;
+                    return found_node;
                     // return (!TargetNode->isNil() ? TargetNode : _nil);
                 }
                 
