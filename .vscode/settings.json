@@ -74,6 +74,7 @@
         "fstream": "cpp",
         "compare": "cpp",
         "concepts": "cpp",
-        "ranges": "cpp"
+        "ranges": "cpp",
+        "iomanip": "cpp"
     }
 }

@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/23 18:52:44 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/23 19:39:50 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ namespace ft{
                         }
                     }
 
-                    vector(vector const &src): _alloc(src._alloc), _size(src._size), _capacity(src._capacity)
+                    vector(vector const &src): _alloc(src._alloc), _size(src._size), _capacity(src._size)
                     {
                         if (max_size() - size() < _capacity)
 	                        throw std::length_error("Vector");
@@ -208,7 +208,13 @@ namespace ft{
                     vector& operator= (const vector& rhs)
                     {
                         vector tmp(rhs);
-                        this->swap(tmp);
+                        if (_capacity >= rhs._capacity)
+                            this->swap(tmp);
+                        else
+                        {
+                            reallocate_Vector(rhs._capacity);
+                            
+                        }
                         return (*this);
                     }
 
@@ -529,8 +535,6 @@ namespace ft{
                                 for (size_t i = 0; i < nb_elem_to_move_to_right - n; i++)
                                     *(end() - 1 - n - i) = *(end() - 1 - i - (n * 2));
                             }
-                            
-                            
                             tmp_it--;
                             tmp_it--;
                             for (size_t i = 0; i < n; i++)
@@ -602,7 +606,7 @@ namespace ft{
                     {
                         std::swap(this->_arr, other._arr);
                         std::swap(this->_size, other._size);
-                        std::swap(this->_capacity,other._capacity);
+                        std::swap(this->_capacity, other._capacity);
                     }
 
                     /*
