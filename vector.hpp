@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/23 15:54:52 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/23 18:52:44 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -327,7 +327,7 @@ namespace ft{
 	                    if (new_size > max_size())
 	                        throw std::length_error("Vector");
                         if (new_size > _capacity)
-                            reallocate_Vector(new_size);
+                            reallocate_Vector(std::max(_size * 2, new_size));
                         while (new_size < _size)
                             pop_back();
                         while (new_size > _size) 
@@ -483,7 +483,7 @@ namespace ft{
                         difference_type offset = position - begin();
                         
                         if (_size + n > _capacity)
-                            reallocate_Vector(_size + n > 2 * _size ? _size + n: 2 * _size);
+                            reallocate_Vector(std::max(_size + n, 2 * _size));
                         iterator tmp;
                         position = iterator(_arr + offset);
                         for ( tmp = end() - 1 + n ; tmp > position + n - 1; tmp--)
@@ -497,6 +497,12 @@ namespace ft{
                     void insert (iterator position, InputIterator first, InputIterator last, 
                     typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type = 0)
                     {
+                        if (position == end())
+                        {
+                            while (first != last)
+                                push_back(*first++);
+                            return ;
+                        }
                         // n = last - first; // cannot use that because of the nature of InputIterator
                         // InputIterator can be bidirectional iterators - in this case, no -operator overload avail
                         InputIterator tmp_it(first);
@@ -508,18 +514,35 @@ namespace ft{
                             reallocate_Vector(_size + n > _size * 2 ? _size + n: _size * 2);
                         position = iterator(begin() + offset);
                         size_t nb_elem_to_move_to_right = _size - offset;
-                        size_t save = _size;
+                        // std::cout << "NB ELEM TO MOVE RIGHT: " << nb_elem_to_move_to_right;
+                        // size_t save = _size;
                         _size = _size + n;
                         if (nb_elem_to_move_to_right)
                         {
                             for (size_t i = 0; i < n; i++)
                                 if (iterator(&(*(end() - 1 - i - n))) >= begin() )
                                     _alloc.construct(&(*(end() - 1 - i)), *(end() - 1 - i - n));
-                            for (size_t i = n; i < save; i++)
-                                *(end() - 1 - i) = *(end() - 1 - i - n); 
+                            // for (size_t i = n; i < save; i++)
+                            //     *(end() - 1 - i) = *(end() - 1 - i - n);
+                            if (nb_elem_to_move_to_right > n)
+                            {
+                                for (size_t i = 0; i < nb_elem_to_move_to_right - n; i++)
+                                    *(end() - 1 - n - i) = *(end() - 1 - i - (n * 2));
+                            }
+                            
+                            
+                            tmp_it--;
+                            tmp_it--;
+                            for (size_t i = 0; i < n; i++)
+                            {
+                                *(end() - 1 - nb_elem_to_move_to_right - i) = *tmp_it;
+                                tmp_it--;
+                            }
                         }
-                        for (tmp_it = first; tmp_it != last ; tmp_it++, position++)
-                            _alloc.construct(&(*position), *tmp_it);
+                        // else
+
+                        // for (tmp_it = first; tmp_it != last ; tmp_it++, position++)
+                        //     _alloc.construct(&(*position), *tmp_it);
                     }
                
 
