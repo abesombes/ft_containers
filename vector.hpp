@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/10 22:37:06 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/23 12:29:36 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,16 @@
 #include <cstddef>
 #include <limits>
 #include <algorithm>
-#include "iterators/random_access_iterator.hpp"
-#include "iterators/rev_random_access_iterator.hpp"
-
-namespace ft{
-    
-#include <cstddef>
 #include <stdexcept>
 #include "utils/enable_if.hpp"
 #include "utils/is_integral.hpp"
 #include "utils/const_or_not.hpp"
 #include "utils/lexicographical_compare.hpp"
+#include "iterators/random_access_iterator.hpp"
+#include "iterators/rev_random_access_iterator.hpp"
 
+namespace ft{
+    
     template <class T, class Alloc = std::allocator<T> >
     class vector {
 
@@ -375,12 +373,20 @@ namespace ft{
 
 
 
-                    
                     /*
                     ----------------------------------------------------------------------------------------------------
                     ASSIGN - Assign vector content
-                    ----------------------------------template <class Key, class T, class Compare = ft::less<Key>, class Alloc = std::allocator<pair<const Key,T> > 
-class map {egral<InputIterator>::value >::type = 0)
+                    ----------------------------------------------------------------------------------------------------
+                    Assigns new contents to the vector replacing its current contents & modifying its size accordingly.
+                    In the range version (1), the new contents are elements constructed from each of the elements in the
+                    range between first and last, in the same order. 
+                    In the fill version (2), the new contents are n elements, each initialized to a copy of val.
+                    If a reallocation happens,the storage needed is allocated using the internal allocator.
+                    */
+                   
+                    template <class InputIterator>
+                    void assign (InputIterator first, InputIterator last, 
+                    typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type = 0)
                     {
                         clear();
                         // n = last - first; // cannot use that because of the nature of InputIterator

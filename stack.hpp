@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stack.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:16 by abesombes         #+#    #+#             */
-/*   Updated: 2022/01/29 18:25:26 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/23 12:32:12 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@
 
 namespace ft{
     
-
-
 template <typename T, class Container = vector<T> >
 class stack{
 
