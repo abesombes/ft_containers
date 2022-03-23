@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/23 12:29:36 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/23 15:54:52 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -487,7 +487,7 @@ namespace ft{
                         iterator tmp;
                         position = iterator(_arr + offset);
                         for ( tmp = end() - 1 + n ; tmp > position + n - 1; tmp--)
-                            *tmp = *(tmp - n);
+                            _alloc.construct(&(*tmp), *(tmp - n));
                         for ( tmp = position + n - 1; tmp >= position; tmp-- )
                             *tmp = val;
                         _size = _size + n;
