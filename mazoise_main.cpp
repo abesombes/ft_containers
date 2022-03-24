@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2022/03/24 01:17:17 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/24 01:21:20 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,14 +111,14 @@ void	resize_tests(void)
 
 	test.resize(72);
 	std::cout << "s: " << test.size() << ", c: " << test.capacity() << std::endl;
-	test.resize(100);
-	std::cout << "s: " << test.size() << ", c: " << test.capacity() << std::endl;
-	test.resize(4170);
-	std::cout << "s: " << test.size() << ", c: " << test.capacity() << std::endl;
-	test.resize(171, 12);
-	std::cout << "s: " << test.size() << ", c: " << test.capacity() << std::endl;
-	test.resize(62);
-	std::cout << "s: " << test.size() << ", c: " << test.capacity() << std::endl;
+	// test.resize(100);
+	// std::cout << "s: " << test.size() << ", c: " << test.capacity() << std::endl;
+	// test.resize(4170);
+	// std::cout << "s: " << test.size() << ", c: " << test.capacity() << std::endl;
+	// test.resize(171, 12);
+	// std::cout << "s: " << test.size() << ", c: " << test.capacity() << std::endl;
+	// test.resize(62);
+	// std::cout << "s: " << test.size() << ", c: " << test.capacity() << std::endl;
 }
 
 template <class T>
@@ -291,9 +291,9 @@ int main()
 	// reverse_it_tests<int>();
 	// erase_clear_tests<int>();
 	// max_size_tests();
-	awesome_tests();
+	// awesome_tests();
 	// push_pop_back_tests<Awesome>();
-	// resize_tests<Awesome>();
+	resize_tests<Awesome>();
 	// insert_tests<Awesome>();
 	// reserve_tests<Awesome>();
 	// copy_swap_tests<Awesome>();
