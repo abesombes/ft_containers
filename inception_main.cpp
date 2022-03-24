@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2022/03/23 12:41:59 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/24 17:17:14 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,6 +244,7 @@ int main()
 		cout << insert_bis[i].back() << ' ';
 	cout << '\n';
 
+	// std::cout << "insert_bis - size = " << insert_bis.size() << "insert_in_me - size = " << insert_in_me.size()  << std::endl;
 	insert_bis.insert(insert_bis.begin() + 5, insert_in_me.begin(), insert_in_me.end());
 	for (size_t i = 0; i < insert_bis.size(); i++)
 		cout << insert_bis[i].back() << ' ';

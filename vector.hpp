@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/24 16:18:37 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/24 17:47:13 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -358,7 +358,7 @@ namespace ft{
                     void reserve (size_type n)
                     {
                         if (n > max_size())
-                            throw std::length_error("vector");
+                            throw std::length_error("vector::reserve");
                         if (n > _capacity)
                             reallocate_Vector(n);
                     }
@@ -554,10 +554,15 @@ namespace ft{
                             }
                             tmp_it--;
                             tmp_it--;
+                            size_t count = 0;
                             for (size_t i = 0; i < n; i++)
                             {
-                                *(end() - 1 - nb_elem_to_move_to_right - i) = *tmp_it;
+                                if (count < n - nb_elem_to_move_to_right)
+                                    _alloc.construct(&(*(end() - 1 - nb_elem_to_move_to_right - i)), *tmp_it);
+                                else
+                                    *(end() - 1 - nb_elem_to_move_to_right - i) = *tmp_it;
                                 tmp_it--;
+                                count++;
                             }
                         }
                     }
@@ -792,16 +797,16 @@ namespace ft{
                         }
                     }
 
-                                void moveElementsToTheRight(iterator pos, size_type lenMov)
-            {
-                // Starting from the end, until it meets pos iterator
-                for (std::pair<iterator, iterator> it(end() - 1, end());
-                    it.second != pos; --it.first, --it.second)
-                {
-                    _alloc.construct(&(*(it.first + lenMov)), *it.first);
-                    _alloc.destroy(&(*it.first));
-                }
-            }
+                    void moveElementsToTheRight(iterator pos, size_type lenMov)
+                    {
+                        // Starting from the end, until it meets pos iterator
+                        for (std::pair<iterator, iterator> it(end() - 1, end());
+                            it.second != pos; --it.first, --it.second)
+                        {
+                            _alloc.construct(&(*(it.first + lenMov)), *it.first);
+                            _alloc.destroy(&(*it.first));
+                        }
+                    }
 
 
                     void clean_former_arr()
