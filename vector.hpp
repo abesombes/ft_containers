@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/24 01:16:39 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/24 01:37:29 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -338,8 +338,13 @@ namespace ft{
                             reallocate_Vector(std::max(_size * 2, new_size));
                         while (new_size < _size)
                             pop_back();
-                        while (new_size > _size) 
-                            push_back(val);                 
+                        while (new_size > _size)
+                        {
+                            if (val != value_type())    
+                                push_back(val);
+                            else
+                                push_back(value_type());
+                        }              
                     }
 
                     size_type capacity() const { return (_capacity); }
