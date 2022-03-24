@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/23 19:39:50 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/24 01:16:39 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,13 +208,15 @@ namespace ft{
                     vector& operator= (const vector& rhs)
                     {
                         vector tmp(rhs);
-                        if (_capacity >= rhs._capacity)
-                            this->swap(tmp);
+                        size_t save_capacity = _capacity;
+                        size_t save_rhs_capacity = rhs._capacity;
+                        // std::cout << "save_capa: " << save_capacity << " vs save_rhs_capacity: " << save_rhs_capacity << std::endl;
+                        
+                        this->swap(tmp);
+                        if (save_capacity < save_rhs_capacity)
+                            reallocate_Vector(save_rhs_capacity);
                         else
-                        {
-                            reallocate_Vector(rhs._capacity);
-                            
-                        }
+                            reallocate_Vector(save_capacity);
                         return (*this);
                     }
 

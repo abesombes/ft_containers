@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mazoise_main.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2022/03/23 19:39:05 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/24 01:17:17 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,13 +272,13 @@ void	awesome_tests(void)
 	print_vector<Awesome>(test);
 	test = test2;
 	print_vector<Awesome>(test);
-// 	std::cout << "SAME ?" << (test.begin() + 1 == test2.begin() + 1) << std::endl;
-// 	test.insert(test.end(), test2.begin(), test2.end());
-// 	print_vector<Awesome>(test);
-// 	test.insert(test.begin(), test2.begin(), test2.end());
-// 	test2 = test;
-// 	print_vector<Awesome>(test);
-// 	std::cout << "end awesome test" << std::endl;
+	std::cout << "SAME ?" << (test.begin() + 1 == test2.begin() + 1) << std::endl;
+	test.insert(test.end(), test2.begin(), test2.end());
+	print_vector<Awesome>(test);
+	test.insert(test.begin(), test2.begin(), test2.end());
+	test2 = test;
+	print_vector<Awesome>(test);
+	std::cout << "end awesome test" << std::endl;
 }
 
 int main()
@@ -287,11 +287,11 @@ int main()
 	// resize_tests<int>();
 	// insert_tests<int>();
 	// reserve_tests<int>();
-	copy_swap_tests<int>();
+	// copy_swap_tests<int>();
 	// reverse_it_tests<int>();
 	// erase_clear_tests<int>();
 	// max_size_tests();
-	// awesome_tests();
+	awesome_tests();
 	// push_pop_back_tests<Awesome>();
 	// resize_tests<Awesome>();
 	// insert_tests<Awesome>();
