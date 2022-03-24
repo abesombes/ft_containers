@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/24 17:47:13 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/25 00:46:47 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ namespace ft{
                     {
                         if (max_size() - size() < _capacity)
 	                        throw std::length_error("Vector");
-                        _arr = _alloc.allocate(_capacity);
+                        this->_arr = _alloc.allocate(_capacity);
                         for (size_t i = 0; i < _size; i++)
                             _alloc.construct(&_arr[i], src._arr[i]);
                     }
@@ -504,13 +504,14 @@ namespace ft{
                             }
                             iterator tmp;
                             position = iterator(_arr + offset);
-                            int nb_elem_to_move = _size - offset;
+                            size_t nb_elem_to_move = _size - offset;
                             for ( tmp = end() - 1 + n ; tmp > position + n - 1; tmp--)
                                 _alloc.construct(&(*tmp), *(tmp - n));
                             size_t i = 0;
                             for ( tmp = position + n - 1; tmp >= position; tmp-- )
                             {
-                                if (i < n - nb_elem_to_move)
+                                // std::cout << "n: " << n << " vs " << "nb_elem_to_move: " << nb_elem_to_move << std::endl;
+                                if (n > nb_elem_to_move && i < n - nb_elem_to_move)
                                     _alloc.construct(&(*tmp), val);
                                 else
                                     *tmp = val;

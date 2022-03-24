@@ -6,7 +6,7 @@
 /*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2022/03/24 23:42:35 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/25 00:49:07 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,6 +217,7 @@ int main()
 
 	//INSERT
 	cout << "\nINSERT\n";
+	// std::cout << "sizeof(int): " << sizeof(int) << std::endl;
 	vector<vector<int> >	std_insert_in_me;
 	for (int i = 0; i < 15; i++)
 		std_insert_in_me.push_back(test);
@@ -230,14 +231,14 @@ int main()
 	std::cout << "\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n";
 	std::cout << "XXXXXXXXXXXXXXXXXXXXXX     TEST    XXXXXXXXXXXXXXXXXXX\n";
 	std::cout << "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n";
-	
+	// std::cout << "size = " << test.size() << " - capacity = " << test.capacity() << " - sizeof = " << sizeof(test) << std::endl;
 	for (vector<int>::iterator itmp = test.begin(); itmp != test.end(); itmp++)
 		std::cout << "Test["<< i++ << "] = " << *itmp << std::endl;
 
 	std::cout << "\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n";
 	std::cout << "XXXXXXXXXXXXXXXXXXXXX  INSERT_IN_ME  XXXXXXXXXXXXXXXXX\n";
 	std::cout << "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n";
-
+	// std::cout << "size = " << std_insert_in_me.size() << " - capacity = " << std_insert_in_me.capacity() << " - sizeof = " << sizeof(test) << std::endl;
 	i = 0;
 	int j = 0;
 	for (vector<vector<int> >::iterator it4 = std_insert_in_me.begin(); it4!= std_insert_in_me.end(); it4++)
@@ -252,7 +253,7 @@ int main()
 	std::cout << "\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n";
 	std::cout << "XXXXXXXXXXXXX  INSERT_IN_ME - UPDATED XXXXXXXXXXXXXX\n";
 	std::cout << "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n";
-
+	// std::cout << "size = " << std_insert_in_me.size() << " - capacity = " << std_insert_in_me.capacity() << " - sizeof = " << sizeof(test) << std::endl;
 	i = 0;
 	j = 0;
 	for (vector<vector<int> >::iterator it4 = std_insert_in_me.begin(); it4!= std_insert_in_me.end(); it4++)
