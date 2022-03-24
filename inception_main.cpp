@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inception_main.cpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2022/03/24 17:17:14 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/24 23:42:35 by abesombes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,7 +226,43 @@ int main()
 
 	vector<vector<int> >::iterator	std_tmp;
 	std_tmp = std_insert_in_me.begin() + 4;
+	int i = 0;
+	std::cout << "\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n";
+	std::cout << "XXXXXXXXXXXXXXXXXXXXXX     TEST    XXXXXXXXXXXXXXXXXXX\n";
+	std::cout << "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n";
+	
+	for (vector<int>::iterator itmp = test.begin(); itmp != test.end(); itmp++)
+		std::cout << "Test["<< i++ << "] = " << *itmp << std::endl;
+
+	std::cout << "\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n";
+	std::cout << "XXXXXXXXXXXXXXXXXXXXX  INSERT_IN_ME  XXXXXXXXXXXXXXXXX\n";
+	std::cout << "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n";
+
+	i = 0;
+	int j = 0;
+	for (vector<vector<int> >::iterator it4 = std_insert_in_me.begin(); it4!= std_insert_in_me.end(); it4++)
+	{
+		j = 0;
+		for (vector<int>::iterator it5 = (*it4).begin(); it5 != (*it4).end(); it5++)
+			std::cout << "Test["<< i << "]["<< j++ << "] = " << *it5 << std::endl;
+		i++;
+	}
+
 	std_insert_in_me.insert(std_tmp, 8, test);
+	std::cout << "\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n";
+	std::cout << "XXXXXXXXXXXXX  INSERT_IN_ME - UPDATED XXXXXXXXXXXXXX\n";
+	std::cout << "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n";
+
+	i = 0;
+	j = 0;
+	for (vector<vector<int> >::iterator it4 = std_insert_in_me.begin(); it4!= std_insert_in_me.end(); it4++)
+	{
+		j = 0;
+		for (vector<int>::iterator it5 = (*it4).begin(); it5 != (*it4).end(); it5++)
+			std::cout << "Test["<< i << "]["<< j++ << "] = " << *it5 << std::endl;
+		i++;
+	}
+
 	for (size_t i = 0; i < std_insert_in_me.size(); i++)
 		cout << std_insert_in_me.at(i).back() << ' ';
 	cout << '\n';
