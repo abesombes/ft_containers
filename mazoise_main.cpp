@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mazoise_main.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2022/03/24 01:21:20 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/24 16:20:11 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ class Awesome {
 	public:
 
 		Awesome( void ) : _n( 42 ) { std::cout << "Default constructor" << std::endl; } //should not happen too often or else there is a wrong use of allocator (which calls the copy constructor)
-		Awesome( int n ) : _n( n ) { std::cout << "Int constructor" << std::endl; (void)n; }
+		Awesome( int n ) : _n( n ) { std::cout << "Int constructor " << n << std::endl; (void)n; }
 		Awesome( Awesome const &rhs ) : _n( 42 ) { *this = rhs;}
-		virtual ~Awesome(void) {}
+		virtual ~Awesome(void) { }
 
 		Awesome &operator=( Awesome const & rhs ) { this->_n = rhs._n; return (*this); }
 		bool operator==( Awesome const & rhs ) const { return (this->_n == rhs._n); }
@@ -293,8 +293,8 @@ int main()
 	// max_size_tests();
 	// awesome_tests();
 	// push_pop_back_tests<Awesome>();
-	resize_tests<Awesome>();
-	// insert_tests<Awesome>();
+	// resize_tests<Awesome>();
+	insert_tests<Awesome>();
 	// reserve_tests<Awesome>();
 	// copy_swap_tests<Awesome>();
 	// reverse_it_tests<Awesome>();

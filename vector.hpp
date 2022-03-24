@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/24 01:37:29 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/24 16:18:37 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,6 @@ namespace ft{
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                     */
-
-                   void setName(std::string name) { _name = name; }; // to be removed later
-                   std::string getName() { return (_name); }; // to be removed later
 
                     /*
                     ----------------------------------------------------------------------------------------------------
@@ -336,15 +333,10 @@ namespace ft{
 	                        throw std::length_error("Vector");
                         if (new_size > _capacity)
                             reallocate_Vector(std::max(_size * 2, new_size));
+                        while (new_size > _size)
+                            push_back(val);    
                         while (new_size < _size)
                             pop_back();
-                        while (new_size > _size)
-                        {
-                            if (val != value_type())    
-                                push_back(val);
-                            else
-                                push_back(value_type());
-                        }              
                     }
 
                     size_type capacity() const { return (_capacity); }
@@ -448,11 +440,11 @@ namespace ft{
                     surpasses the current vector capacity.
                     */
 
-                    void push_back(T data)
+                    void push_back(const value_type& val)
                     {
                         if (_size + 1 > _capacity)
                             reallocate_Vector(_capacity ? _capacity * 2 : 1);
-                        _alloc.construct(&_arr[_size++], data);
+                        _alloc.construct(&_arr[_size++], val);
                     }
 
                     /*
@@ -494,16 +486,38 @@ namespace ft{
                     void insert (iterator position, size_type n, const value_type& val)
                     {
                         difference_type offset = position - begin();
-                        
-                        if (_size + n > _capacity)
-                            reallocate_Vector(std::max(_size + n, 2 * _size));
-                        iterator tmp;
-                        position = iterator(_arr + offset);
-                        for ( tmp = end() - 1 + n ; tmp > position + n - 1; tmp--)
-                            _alloc.construct(&(*tmp), *(tmp - n));
-                        for ( tmp = position + n - 1; tmp >= position; tmp-- )
-                            *tmp = val;
-                        _size = _size + n;
+                        size_t index = 0;
+
+                        if (n > 0)
+                        {
+                            if (_size + n > _capacity)
+                                reallocate_Vector(std::max(_size + n, 2 * _size));
+                                
+                            if (position == end())
+                            {
+                                while (index < n)
+                                {
+                                    push_back(val);
+                                    index++;
+                                }
+                                return ;
+                            }
+                            iterator tmp;
+                            position = iterator(_arr + offset);
+                            int nb_elem_to_move = _size - offset;
+                            for ( tmp = end() - 1 + n ; tmp > position + n - 1; tmp--)
+                                _alloc.construct(&(*tmp), *(tmp - n));
+                            size_t i = 0;
+                            for ( tmp = position + n - 1; tmp >= position; tmp-- )
+                            {
+                                if (i < n - nb_elem_to_move)
+                                    _alloc.construct(&(*tmp), val);
+                                else
+                                    *tmp = val;
+                                i++;
+                            }
+                            _size = _size + n;
+                        }
                     }
 
                     template <class InputIterator>
@@ -527,16 +541,12 @@ namespace ft{
                             reallocate_Vector(_size + n > _size * 2 ? _size + n: _size * 2);
                         position = iterator(begin() + offset);
                         size_t nb_elem_to_move_to_right = _size - offset;
-                        // std::cout << "NB ELEM TO MOVE RIGHT: " << nb_elem_to_move_to_right;
-                        // size_t save = _size;
                         _size = _size + n;
                         if (nb_elem_to_move_to_right)
                         {
                             for (size_t i = 0; i < n; i++)
                                 if (iterator(&(*(end() - 1 - i - n))) >= begin() )
                                     _alloc.construct(&(*(end() - 1 - i)), *(end() - 1 - i - n));
-                            // for (size_t i = n; i < save; i++)
-                            //     *(end() - 1 - i) = *(end() - 1 - i - n);
                             if (nb_elem_to_move_to_right > n)
                             {
                                 for (size_t i = 0; i < nb_elem_to_move_to_right - n; i++)
@@ -550,10 +560,6 @@ namespace ft{
                                 tmp_it--;
                             }
                         }
-                        // else
-
-                        // for (tmp_it = first; tmp_it != last ; tmp_it++, position++)
-                        //     _alloc.construct(&(*position), *tmp_it);
                     }
                
 
@@ -739,7 +745,7 @@ namespace ft{
                     void printVec() // to be removed later
                     {
                         std::cout << "\n-----------------------------------------" << std::endl; 
-                        std::cout << "---- VECTOR PRINTING: "<< getName() << " (" << size() << "/" << capacity() << ") -----" << std::endl;
+                        std::cout << "---- VECTOR PRINTING: " << " (" << size() << "/" << capacity() << ") -----" << std::endl;
                         std::cout << "-----------------------------------------" << std::endl; 
                         int j = 0;
                         if (_size > 0)
@@ -759,7 +765,6 @@ namespace ft{
                     pointer         _arr;
                     size_t          _size;
                     size_t          _capacity;
-                    std::string     _name;
                     
                     void reallocate_Vector(size_type new_capacity)
                     {
