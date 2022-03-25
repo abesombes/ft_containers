@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/25 12:33:02 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/25 12:54:14 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -482,47 +482,6 @@ namespace ft{
                         insert(position, 1, val);
                         return (iterator(&_arr[index]));
                     }
-                 
-                    // void insert (iterator position, size_type n, const value_type& val)
-                    // {
-                    //     difference_type offset = position - begin();
-                    //     size_t index = 0;
-
-                    //     if (n > 0)
-                    //     {
-                    //         if (_size + n > _capacity)
-                    //             reallocate_Vector(std::max(_size + n, 2 * _size));
-                                
-                    //         if (position == end())
-                    //         {
-                    //             while (index < n)
-                    //             {
-                    //                 push_back(val);
-                    //                 index++;
-                    //             }
-                    //             return ;
-                    //         }
-                    //         iterator tmp;
-                    //         position = iterator(_arr + offset);
-                    //         iterator limit = (position + n <= end() ? end() - 1 : position + n);
-                    //         size_t nb_elem_to_move = _size - offset;
-                    //         for ( tmp = end() - 1 + n ; tmp > limit; tmp--)
-                    //             _alloc.construct(&(*tmp), *(tmp - n));
-                    //         for ( tmp = limit; tmp > position + n - 1; tmp-- )
-                    //             *tmp = *(tmp - n);
-                    //         size_t i = 0;
-                    //         for ( tmp = position + n - 1; tmp >= position; tmp-- )
-                    //         {
-                    //             // std::cout << "n: " << n << " vs " << "nb_elem_to_move: " << nb_elem_to_move << std::endl;
-                    //             if (n > nb_elem_to_move && i < n - nb_elem_to_move)
-                    //                 _alloc.construct(&(*tmp), val);
-                    //             else
-                    //                 *tmp = val;
-                    //             i++;
-                    //         }
-                    //         _size = _size + n;
-                    //     }
-                    // }
 
                     void insert (iterator position, size_type n, const value_type& val)
                     {
@@ -558,54 +517,6 @@ namespace ft{
                         }
                     }
 
-                    
-                    // template <class InputIterator>
-                    // void insert (iterator position, InputIterator first, InputIterator last, 
-                    // typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type = 0)
-                    // {
-                    //     if (position == end())
-                    //     {
-                    //         while (first != last)
-                    //             push_back(*first++);
-                    //         return ;
-                    //     }
-                    //     // n = last - first; // cannot use that because of the nature of InputIterator
-                    //     // InputIterator can be bidirectional iterators - in this case, no -operator overload avail
-                    //     InputIterator tmp_it(first);
-                    //     size_t n = 0;
-                    //     while (tmp_it++ != last)
-                    //         n++;
-                    //     difference_type offset = position - begin();
-                    //     if (_size + n > _capacity)
-                    //         reallocate_Vector(_size + n > _size * 2 ? _size + n: _size * 2);
-                    //     position = iterator(begin() + offset);
-                    //     size_t nb_elem_to_move_to_right = _size - offset;
-                    //     _size = _size + n;
-                    //     if (nb_elem_to_move_to_right)
-                    //     {
-                    //         for (size_t i = 0; i < n; i++)
-                    //             if (iterator(&(*(end() - 1 - i - n))) >= begin() )
-                    //                 _alloc.construct(&(*(end() - 1 - i)), *(end() - 1 - i - n));
-                    //         if (nb_elem_to_move_to_right > n)
-                    //         {
-                    //             for (size_t i = 0; i < nb_elem_to_move_to_right - n; i++)
-                    //                 *(end() - 1 - n - i) = *(end() - 1 - i - (n * 2));
-                    //         }
-                    //         tmp_it--;
-                    //         tmp_it--;
-                    //         size_t count = 0;
-                    //         for (size_t i = 0; i < n; i++)
-                    //         {
-                    //             if (count + nb_elem_to_move_to_right < n)
-                    //                 _alloc.construct(&(*(end() - 1 - nb_elem_to_move_to_right - i)), *tmp_it);
-                    //             else
-                    //                 *(end() - 1 - nb_elem_to_move_to_right - i) = *tmp_it;
-                    //             tmp_it--;
-                    //             count++;
-                    //         }
-                    //     }
-                    // }
-
                     template <class InputIterator>
                     void insert (iterator position, InputIterator first, InputIterator last, 
                     typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type = 0)
@@ -632,34 +543,12 @@ namespace ft{
                         size_t nb_elem_to_move = _size - offset;
                         for ( tmp = end() - 1 + n ; tmp > end() - 1 + n - nb_elem_to_move; tmp--)
                             *tmp = *(tmp - n);
-                        tmp_it = tmp_it - 2;
+                        tmp_it--;
+                        tmp_it--;
                         for ( tmp = position + n - 1; tmp >= position ; tmp--)
                             *tmp = *tmp_it--;
                         _size = _size + n;
-                        // _size = _size + n;
-                        // if (nb_elem_to_move_to_right)
-                        // {
-                        //     for (size_t i = 0; i < n; i++)
-                        //         if (iterator(&(*(end() - 1 - i - n))) >= begin() )
-                        //             _alloc.construct(&(*(end() - 1 - i)), *(end() - 1 - i - n));
-                        //     if (nb_elem_to_move_to_right > n)
-                        //     {
-                        //         for (size_t i = 0; i < nb_elem_to_move_to_right - n; i++)
-                        //             *(end() - 1 - n - i) = *(end() - 1 - i - (n * 2));
-                        //     }
-                        //     tmp_it--;
-                        //     tmp_it--;
-                        //     size_t count = 0;
-                        //     for (size_t i = 0; i < n; i++)
-                        //     {
-                        //         if (count + nb_elem_to_move_to_right < n)
-                        //             _alloc.construct(&(*(end() - 1 - nb_elem_to_move_to_right - i)), *tmp_it);
-                        //         else
-                        //             *(end() - 1 - nb_elem_to_move_to_right - i) = *tmp_it;
-                        //         tmp_it--;
-                        //         count++;
-                        //     }
-                        // }
+
                     }
                
 

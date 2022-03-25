@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:30:34 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/10 16:08:44 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/25 12:49:49 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ random_access_iterator<T, B> operator+(ptrdiff_t offset, random_access_iterator<
 
 template <typename T, bool B>
 random_access_iterator<T, B> operator-(ptrdiff_t offset, random_access_iterator<T, B> it) { return static_cast<random_access_iterator<T, B> >(it.getVal() - offset); };
+
 
 }
 
