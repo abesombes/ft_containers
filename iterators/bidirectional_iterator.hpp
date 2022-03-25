@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:30:34 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/25 15:24:47 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/25 18:22:53 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,11 @@ class bidirectional_iterator
             operator    bidirectional_iterator<Key, T, Compare, true>() const
             {
                 return bidirectional_iterator<Key, T, Compare, true>(_node);
+            }
+
+            operator    bidirectional_iterator<Key, T, Compare, false>() const
+            {
+                return bidirectional_iterator<Key, T, Compare, false>(_node);
             }
             
             iterator &operator++()
