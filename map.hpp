@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:19 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/25 14:23:44 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/25 17:53:43 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,8 +196,27 @@ namespace ft{
 					container using its allocator.
                     */		
 
-					~map(){};
-				   		   
+					~map(){
+						_RBTree.clear();
+                    	_RBTree.deleteNode(_RBTree.getNil());
+                    	_RBTree.deleteNode(_RBTree.getSentinel());
+					};
+
+					/*
+                    ----------------------------------------------------------------------------------------------------
+                    Operator()
+                    ----------------------------------------------------------------------------------------------------
+                    */
+
+					map	&operator=( const map& rhs )
+					{
+						this->_cmp = rhs._cmp;
+						this->_pair_alloc = rhs._pair_alloc;
+						clear();
+						insert(rhs.begin(), rhs.end());
+						return *this;
+					}
+
                     /*
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -219,7 +238,7 @@ namespace ft{
                     */
 
 					iterator begin() { return (iterator(_RBTree.getSentinel()->left)); };
-					const_iterator begin() const { return (iterator(_RBTree.getSentinel()->left)); };
+					const_iterator begin() const { return (const_iterator(_RBTree.getSentinel()->left)); };
 
 				   	/*
                     ----------------------------------------------------------------------------------------------------
@@ -235,7 +254,7 @@ namespace ft{
                     */
 
 					iterator end() { return (iterator(_RBTree.getSentinel())); };
-					const_iterator end() const { return (iterator(_RBTree.getSentinel())); };
+					const_iterator end() const { return (const_iterator(_RBTree.getSentinel())); };
 
 				   	/*
                     ----------------------------------------------------------------------------------------------------
@@ -247,7 +266,7 @@ namespace ft{
                     */
 
 					reverse_iterator rbegin() { return (reverse_iterator(_RBTree.getSentinel()->right)); };
-					const_reverse_iterator rbegin() const { return (reverse_iterator(_RBTree.getSentinel()->right)); };
+					const_reverse_iterator rbegin() const { return (const_reverse_iterator(_RBTree.getSentinel()->right)); };
 
 				    /*
                     ----------------------------------------------------------------------------------------------------
@@ -258,7 +277,7 @@ namespace ft{
 					contains all the elements of the container (in reverse order).
                     */
 				   	reverse_iterator rend() { return (reverse_iterator(_RBTree.getSentinel())); };
-					const_reverse_iterator rend() const { return (reverse_iterator(_RBTree.getSentinel())); };
+					const_reverse_iterator rend() const { return (const_reverse_iterator(_RBTree.getSentinel())); };
 
 	   				   				
                     /*
@@ -370,7 +389,7 @@ namespace ft{
 						(void)position;
 						iterator		inserted = _RBTree.insertValue(val, wasInserted);
 
-						return (ft::make_pair(iterator(inserted), wasInserted));
+						return (inserted);
 					}
 					
 					template <class InputIterator>

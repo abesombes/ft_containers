@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:30:34 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/15 15:58:17 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/25 15:24:47 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ class bidirectional_iterator
 
     public:
             typedef ft::pair<const Key, T>												value_type;
-			typedef bidirectional_iterator												iterator;
+			typedef bidirectional_iterator			    								iterator;
             typedef typename const_or_not<B, const value_type&, value_type&>::type		reference;
             typedef typename const_or_not<B, const value_type*, value_type*>::type		pointer;
             typedef ft::bidirectional_iterator_tag										iterator_category;
@@ -48,9 +48,14 @@ class bidirectional_iterator
     public:        
             bidirectional_iterator( Node* node = NULL): _node(node){};
             bidirectional_iterator( bidirectional_iterator<Key, T, Compare, B> const &src ): _node(src.getNode()) {};
-            bidirectional_iterator &operator=(bidirectional_iterator<const Key, T, Compare> const &rhs){ this->_node = rhs.getNode(); return (*this); };
+            bidirectional_iterator &operator=(bidirectional_iterator const &rhs){ this->_node = rhs.getNode(); return (*this); };
             virtual ~bidirectional_iterator(){};
             Node *getNode( void ) const { return _node;}
+            
+            operator    bidirectional_iterator<Key, T, Compare, true>() const
+            {
+                return bidirectional_iterator<Key, T, Compare, true>(_node);
+            }
             
             iterator &operator++()
             { 

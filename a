@@ -1,0 +1,6 @@
+============= ROOT ============
+Parent = 0 - y - 16 - Black
+Left of y - Parent = y - x - 8 - Red
+Right of y - Parent = y - z - 32 - Red
+Size of first: 0
+Size of second: 3

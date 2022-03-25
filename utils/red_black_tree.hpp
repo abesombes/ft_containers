@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/25 14:27:10 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/25 17:51:52 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,10 @@ class RBTree {
                 RBTree(const RBTree &src)
                 {
                     _root = src._root;
-                    initializeNil();
-                    initializeSentinel();
+                    // initializeNil();
+                    // initializeSentinel();
+                    _nil = src._nil;
+                    _sentinel = src._sentinel;
                     _size = src._size;
                     _cmp = src._cmp;
                     _valueAlloc = src._valueAlloc;
@@ -92,15 +94,20 @@ class RBTree {
                 }
 
                 ~RBTree(void) {
-                    clear();
-                    deleteNode(_nil);
-                    deleteNode(_sentinel);
-                    _nil = NULL;
-                    _sentinel = NULL;
+                    // clear();
+                    // deleteNode(_nil);
+                    // deleteNode(_sentinel);
+                    // _nil = NULL;
+                    // _sentinel = NULL;
                 }
 
                 void deleteNode(Node *node)
                 {
+                    // if (node == _sentinel)
+                    //     std::cout << "!!!!! This is the Sentinel !!!!!!\n";
+                    // else if (node->isNil())
+                    //     std::cout << "!!!!! This is Nil !!!!!!\n";
+                    // std::cout << "Node destroyed: " << node << " - Key = "<< node->getKey() << "\n";
                     _valueAlloc.destroy(&node->value);
                     _nodeAlloc.deallocate(node, 1);
                 }
@@ -136,8 +143,10 @@ class RBTree {
                 }
             
                 Node* getRoot() const { return _root; }
+        
+                Node* getNil() const { return _nil; }
                 
-                Node* getSentinel() { return _sentinel; }
+                Node* getSentinel() const { return _sentinel; }
 
                 size_t getSize() const { return _size; }
                 
@@ -177,6 +186,7 @@ class RBTree {
                     Node *newNode = _nodeAlloc.allocate(1);
                     
                     _valueAlloc.construct(&newNode->value, value);
+                    // std::cout << "newNode built: " << newNode << "\n";
                     newNode->left = _nil;
                     newNode->right = _nil;
                     newNode->parent = _nil;
@@ -995,10 +1005,10 @@ class RBTree {
                     if (this->_root)
                     {
                         // std::cout << std::endl << std::endl << std::endl;
-                        // std::cout << "============= ROOT ============\nParent = " << (_root->parent? _root->parent->getKey() : 0)<< " - " << _root->getKey() << " - " << _root->getMapped() << " - " << (_root->getColor() == RED? "Red" : _root->getColor() == DOUBLE_BLACK? "Double Black": "Black") << std::endl;
-                        if (!_root->left->isNil())
+                        std::cout << "============= ROOT ============\nParent = " << (_root->parent? _root->parent->getKey() : 0)<< " - " << _root->getKey() << " - " << _root->getMapped() << " - " << (_root->getColor() == RED? "Red" : _root->getColor() == DOUBLE_BLACK? "Double Black": "Black") << std::endl;
+                        if (!_root->left->isNil() || (_root->left->isNil() && _root->left->isSentinel()))
                             _root->left->printNode('l', _root);
-                        if (!_root->right->isNil())
+                        if (!_root->right->isNil() || (_root->right->isNil() && _root->right->isSentinel()))
                             _root->right->printNode('r', _root);
                     }
                 }
