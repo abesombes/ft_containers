@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:19 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/22 22:32:58 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/25 14:23:44 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,7 @@ namespace ft{
 				   
 					map (const map& src): _cmp(src._cmp), _mem_node_alloc(src._mem_node_alloc), _pair_alloc(src._pair_alloc)
 					{
-						// this->insert(src.begin(), src.end());
+						this->insert(src.begin(), src.end());
 					};
 
                     /*
