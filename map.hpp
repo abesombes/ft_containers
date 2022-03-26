@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:19 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/26 10:52:32 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/26 12:35:04 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -736,9 +736,7 @@ namespace ft{
                     friend bool operator>=(const map &lhs, const map &rhs)
                     { return !(lhs < rhs); }
 
-                    /// See std::vector::swap().
-                    // friend void swap(vector &lhs, vector &rhs)
-                    // { lhs.swap(rhs); }
+					friend void	swap( map &rhs, map &lhs ) { lhs.swap(rhs); }
 		
 	};
 
