@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/26 10:58:10 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/26 12:41:20 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,8 +203,10 @@ class RBTree {
                     // std::cout << "Node that is being inserted: " << node->getKey() << " - tmp = " << tmp->getKey() << " - size = " << _size << std::endl;
                     if (_size == 0)
                     {
-                        link(_sentinel, node, 1);
-                        link(_sentinel, node, 2);
+                        _sentinel->left = node;
+                        node->left = _sentinel;
+                        _sentinel->right = node;
+                        node->right = _sentinel; 
                         _size++;
                         node->setBlack();
                         successful_insertion = true;
