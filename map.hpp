@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:19 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/26 13:01:07 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/26 14:05:20 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -423,7 +423,11 @@ namespace ft{
 					void erase (iterator first, iterator last)
 					{
 						while (first != last)
+						{
+							std::cout << "First: " << (*first).first << " -  Last: " << (*last).first << std::endl;
 							erase(first++);
+						}
+						std::cout << "THE END \n";
 					}
 
 					/*
