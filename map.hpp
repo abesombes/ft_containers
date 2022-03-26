@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:19 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/26 12:35:04 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/26 13:01:07 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 #include "utils/node.hpp"
 #include "utils/red_black_tree.hpp"
 #include "utils/lexicographical_compare.hpp"
+#include "utils/pair.hpp"
 
 namespace ft{
 
@@ -642,34 +643,40 @@ namespace ft{
 					are passed as arguments).
                 	*/
 					
-					pair<const_iterator, const_iterator> equal_range (const key_type& key) const
+					ft::pair<const_iterator, const_iterator> equal_range (const key_type& key) const
 					{
-						const_iterator beg = this->begin();
-						const_iterator end = this->end();
+						// const_iterator beg = this->begin();
+						// const_iterator end = this->end();
 
-						if (this->_cmp(key, beg->first))
-							return (ft::make_pair(beg, ++beg));
-						beg++;
-						while (beg != end && _cmp(beg->first, key))
-							beg++;
-						if (!(!_cmp(beg->first, key) && !_cmp(key, beg->first)))
-							return (ft::make_pair(beg, beg));
-						return (ft::make_pair(beg, ++beg));
+						// if (this->_cmp(key, beg->first))
+						// 	return (ft::make_pair(beg, ++beg));
+						// beg++;
+						// while (beg != end && _cmp(beg->first, key))
+						// 	beg++;
+						// if (!(!_cmp(beg->first, key) && !_cmp(key, beg->first)))
+						// 	return (ft::make_pair(beg, beg));
+						// return (ft::make_pair(beg, ++beg));
+						const_iterator lb = lower_bound(key);
+						const_iterator ub = upper_bound(key);
+						return (ft::make_pair(lb, ub));
 					}
 
-					pair<iterator,iterator> equal_range (const key_type& key)
+					ft::pair<iterator,iterator> equal_range (const key_type& key)
 					{
-						iterator beg = this->begin();
-						iterator end = this->end();
+						// iterator beg = this->begin();
+						// iterator end = this->end();
 
-						if (this->_cmp(key, beg->first))
-							return (ft::make_pair(beg, ++beg));
-						beg++;
-						while (beg != end && _cmp(beg->first, key))
-							beg++;
-						if (!(!_cmp(beg->first, key) && !_cmp(key, beg->first)))
-							return (ft::make_pair(beg, beg));
-						return (ft::make_pair(beg, ++beg));
+						// if (this->_cmp(key, beg->first))
+						// 	return (ft::make_pair(beg, ++beg));
+						// beg++;
+						// while (beg != end && _cmp(beg->first, key))
+						// 	beg++;
+						// if (!(!_cmp(beg->first, key) && !_cmp(key, beg->first)))
+						// 	return (ft::make_pair(beg, beg));
+						// return (ft::make_pair(beg, ++beg));
+						iterator lb = lower_bound(key);
+						iterator ub = upper_bound(key);
+						return (ft::make_pair(lb, ub));
 					}
 
 				    /*
