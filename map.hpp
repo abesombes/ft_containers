@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:19 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/25 18:23:54 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/26 10:52:32 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -566,7 +566,7 @@ namespace ft{
 						iterator beg = this->begin();
 						iterator end = this->end();
 
-						if (this->_cmp(key, beg->first))
+						if (this->_cmp(key, beg->first) || (!_cmp(beg->first, key) && !_cmp(key, beg->first)))
 							return (beg);
 						beg++;
 						while (beg != end && _cmp(beg->first, key))
@@ -578,8 +578,8 @@ namespace ft{
 					{
 						const_iterator beg = this->begin();
 						const_iterator end = this->end();
-
-						if (this->_cmp(key, beg->first))
+			
+						if (this->_cmp(key, beg->first) || (!_cmp(beg->first, key) && !_cmp(key, beg->first)))
 							return (beg);
 						beg++;
 						while (beg != end && _cmp(beg->first, key))

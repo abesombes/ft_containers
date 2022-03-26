@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2022/03/25 18:53:18 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/26 10:59:04 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,123 +117,123 @@ int main()
 	cout << std::setw(40) << "mymap.lower_bound(\"ft\"): " << it->first << ":" << it->second << std::endl;
 	cout << std::endl;
 	print(mymap);
-	// it = mymap.lower_bound("zzz");
-	// print(mymap);
+	it = mymap.lower_bound("zzz");
+	print(mymap);
 	
-	// if (it == mymap.end())
-	// 	cout << std::setw(40) << "mymap.lower_bound(\"zzz\"): mymap.end()" << std::endl;
-	// cout << std::endl;
-	// print(mymap);
-	// it = mymap.upper_bound("aaa");
+	if (it == mymap.end())
+		cout << std::setw(40) << "mymap.lower_bound(\"zzz\"): mymap.end()" << std::endl;
+	cout << std::endl;
+	print(mymap);
+	it = mymap.upper_bound("aaa");
 	
-	// print(mymap);
-	// cout << std::setw(40) << "mymap.upper_bound(\"aaa\"): " << it->first << ":" << it->second << std::endl;;
-	// cout << std::endl;
-	// print(mymap);
-	// it = mymap.upper_bound("oae");
-	// print(mymap);
-	// cout << std::setw(40) << "mymap.upper_bound(\"oae\"): " << it->first << ":" << it->second << std::endl;;
-	// cout << std::endl;
-	// print(mymap);
-	// it = mymap.upper_bound("one");
+	print(mymap);
+	cout << std::setw(40) << "mymap.upper_bound(\"aaa\"): " << it->first << ":" << it->second << std::endl;;
+	cout << std::endl;
+	print(mymap);
+	it = mymap.upper_bound("oae");
+	print(mymap);
+	cout << std::setw(40) << "mymap.upper_bound(\"oae\"): " << it->first << ":" << it->second << std::endl;;
+	cout << std::endl;
+	print(mymap);
+	it = mymap.upper_bound("one");
 	
-	// if (it == mymap.end())
-	// 	cout << std::setw(40) << "mymap.upper_bound(\"one\"): mymap.end()" << std::endl;
-	// print(mymap);
-	// cout << std::endl;
-	// it = mymap.upper_bound("ft");
-	// print(mymap);
-	// cout << std::setw(40) << "mymap.upper_bound(\"ft\"): " << it->first << ":" << it->second << std::endl;;
-	// cout << std::endl;
-	// print(mymap);
-	// it = mymap.upper_bound("zzz");
+	if (it == mymap.end())
+		cout << std::setw(40) << "mymap.upper_bound(\"one\"): mymap.end()" << std::endl;
+	print(mymap);
+	cout << std::endl;
+	it = mymap.upper_bound("ft");
+	print(mymap);
+	cout << std::setw(40) << "mymap.upper_bound(\"ft\"): " << it->first << ":" << it->second << std::endl;;
+	cout << std::endl;
+	print(mymap);
+	it = mymap.upper_bound("zzz");
 	
-	// if (it == mymap.end())
-	// 	cout << std::setw(40) << "mymap.upper_bound(\"zzz\"): mymap.end()" << std::endl;
-	// print(mymap);
-	// cout << std::endl;
+	if (it == mymap.end())
+		cout << std::setw(40) << "mymap.upper_bound(\"zzz\"): mymap.end()" << std::endl;
+	print(mymap);
+	cout << std::endl;
 
-	// print(mymap);
-	// mymap.erase("undefined");
-	// print(mymap);
-	// mymap.erase("ft");
-	// print(mymap);
-	// cout << _WHITE << "# double clear" << _END << std::endl;
+	print(mymap);
+	mymap.erase("undefined");
+	print(mymap);
+	mymap.erase("ft");
+	print(mymap);
+	cout << _WHITE << "# double clear" << _END << std::endl;
 
-	// print(mymap);
-	// mymap.clear();
-	// print(mymap);
-	// mymap.clear();
-	// print(mymap);
-	// mymap["lol"];
-	// print(mymap);
-	// mymap.insert(pair<string, int>("xD", 123));
-	// print(mymap);
-	// mymap.insert(mymap.end(), pair<string, int>("uch", 442));
-	// print(mymap);
-	// mymap.insert(mymap.begin(), pair<string, int>("uch", 22));
-	// print(mymap);
-	// mymap.insert(mymap.end(), pair<string, int>("uch", 23));
-	// print(mymap);
-	// mymap.insert(pair<string, int>("uch", 23));
-	// print(mymap);
-	// mymap["lol"] = 8;
+	print(mymap);
+	mymap.clear();
+	print(mymap);
+	mymap.clear();
+	print(mymap);
+	mymap["lol"];
+	print(mymap);
+	mymap.insert(pair<string, int>("xD", 123));
+	print(mymap);
+	mymap.insert(mymap.end(), pair<string, int>("uch", 442));
+	print(mymap);
+	mymap.insert(mymap.begin(), pair<string, int>("uch", 22));
+	print(mymap);
+	mymap.insert(mymap.end(), pair<string, int>("uch", 23));
+	print(mymap);
+	mymap.insert(pair<string, int>("uch", 23));
+	print(mymap);
+	mymap["lol"] = 8;
 
 
-	// print(mymap);
-	// map<string, int> map2;
+	print(mymap);
+	map<string, int> map2;
 
-	// print(mymap);
-	// print(map2);
-	// cout << "mymap<" << _PURPLE << "string" << _END << ", " << _PURPLE << "int" << _END <<"> mymap2;" << std::endl;
-	// print(mymap);
-	// cout << "empty line\n";
-	// print(map2);
-	// cout << "empty line2\n";
+	print(mymap);
+	print(map2);
+	cout << "mymap<" << _PURPLE << "string" << _END << ", " << _PURPLE << "int" << _END <<"> mymap2;" << std::endl;
+	print(mymap);
+	cout << "empty line\n";
+	print(map2);
+	cout << "empty line2\n";
 
-	// swap(mymap, map2);
-	// cout << "empty line3\n";
-	// print(mymap);
-	// cout << "empty line4\n";
-	// print(map2);
-	// cout << "empty line5\n";
+	swap(mymap, map2);
+	cout << "empty line3\n";
+	print(mymap);
+	cout << "empty line4\n";
+	print(map2);
+	cout << "empty line5\n";
 
-	// mymap = map2;
-	// print(mymap);
-	// print(map2);
+	mymap = map2;
+	print(mymap);
+	print(map2);
 
-	// cout << std::setw(40) << "map == map2: " << (mymap == map2) << std::endl;
-	// print(mymap);
-	// print(map2);
-	// cout << std::endl;
+	cout << std::setw(40) << "map == map2: " << (mymap == map2) << std::endl;
+	print(mymap);
+	print(map2);
+	cout << std::endl;
 
-	// mymap.clear();
-	// print(mymap);
-	// print(map2);
+	mymap.clear();
+	print(mymap);
+	print(map2);
 
-	// mymap["satan"] = 666;
-	// print(mymap);
-	// print(map2);
-	// cout << std::setw(40) << "mymap == map2: " << (mymap == map2) << std::endl;
-	// print(mymap);
-	// print(map2);
-	// cout << std::endl;
-	// cout << std::setw(40) << "mymap <= map2: " << (mymap <= map2) << std::endl;
-	// print(mymap);
-	// print(map2);
-	// cout << std::endl;
-	// cout << std::setw(40) << "mymap >= map2: " << (mymap >= map2) << std::endl;
-	// print(mymap);
-	// print(map2);
-	// cout << std::endl;
-	// cout << std::setw(40) << "mymap > map2: " << (mymap > map2) << std::endl;
-	// print(mymap);
-	// print(map2);
-	// cout << std::endl;
-	// cout << std::setw(40) << "mymap < map2: " << (mymap > map2) << std::endl;
-	// print(mymap);
-	// print(map2);
-	// cout << std::endl;
+	mymap["satan"] = 666;
+	print(mymap);
+	print(map2);
+	cout << std::setw(40) << "mymap == map2: " << (mymap == map2) << std::endl;
+	print(mymap);
+	print(map2);
+	cout << std::endl;
+	cout << std::setw(40) << "mymap <= map2: " << (mymap <= map2) << std::endl;
+	print(mymap);
+	print(map2);
+	cout << std::endl;
+	cout << std::setw(40) << "mymap >= map2: " << (mymap >= map2) << std::endl;
+	print(mymap);
+	print(map2);
+	cout << std::endl;
+	cout << std::setw(40) << "mymap > map2: " << (mymap > map2) << std::endl;
+	print(mymap);
+	print(map2);
+	cout << std::endl;
+	cout << std::setw(40) << "mymap < map2: " << (mymap > map2) << std::endl;
+	print(mymap);
+	print(map2);
+	cout << std::endl;
 
 	return 0;
 }

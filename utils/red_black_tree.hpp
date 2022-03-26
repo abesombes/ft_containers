@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/25 17:51:52 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/26 10:58:10 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,8 +138,8 @@ class RBTree {
                         _size--;
                         _root = _nil;
                     }
-                    _sentinel->left = _nil;
-                    _sentinel->right = _nil;
+                    _sentinel->left = _sentinel;
+                    _sentinel->right = _sentinel;
                 }
             
                 Node* getRoot() const { return _root; }
