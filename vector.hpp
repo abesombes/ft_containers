@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/27 18:14:18 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/27 18:26:06 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,11 +129,9 @@ namespace ft{
 
                     explicit vector(size_type n, const value_type& value = value_type(), const allocator_type& alloc = allocator_type()): _alloc(alloc), _size(n), _capacity(n)
                     {
-                        // std::cout << "value: " << value << std::endl;
                         _arr = _alloc.allocate(_capacity);
                         for (size_t i = 0; i < _size; i++)
                             _alloc.construct(&_arr[i], value);
-                        // printVec();
                     }
                     
                     /*
@@ -148,8 +146,6 @@ namespace ft{
                     vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), 
                     typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type = 0): _alloc(alloc), _size(0), _capacity(0)
                     {
-                        // _capacity = last - first; // cannot use that because of the nature of InputIterator
-                        // InputIterator can be bidirectional iterators - in this case, no -operator overload avail
                         InputIterator tmp(first);
                         while (tmp++ != last)
                             _capacity++;
@@ -186,11 +182,9 @@ namespace ft{
                     ~vector(){
                         for (size_t i = 0; i < _size; i++)
                         {
-                            // std::cout << "object destroyed " << i << std::endl;
                             _alloc.destroy(&_arr[i]);
                         }
                         _alloc.deallocate(_arr, this->_capacity);
-                        // std::cout << "destruction completed for " << getName() << std::endl;
                     };
 
 
@@ -209,7 +203,6 @@ namespace ft{
                         vector tmp(rhs);
                         size_t save_capacity = _capacity;
                         size_t save_rhs_capacity = rhs._capacity;
-                        // std::cout << "save_capa: " << save_capacity << " vs save_rhs_capacity: " << save_rhs_capacity << std::endl;
                         
                         this->swap(tmp);
                         if (save_capacity < save_rhs_capacity)
@@ -308,12 +301,8 @@ namespace ft{
                     
                     size_type size() const { return (_size); };
 
-                    size_type max_size() const{
-                        // alternative solution: size_t max_size = -1;
-                        // return (max_size / sizeof(T));
-                        // other solution: return (std::numeric_limits<size_t>::max() / sizeof(T));   
+                    size_type max_size() const{  
                         return allocator_type().max_size();
-                        // other solution: return std::numeric_limits<size_type>::max() / sizeof(value_type);
                     }
                     
                     /*
@@ -396,8 +385,6 @@ namespace ft{
                     typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type = 0)
                     {
                         clear();
-                        // n = last - first; // cannot use that because of the nature of InputIterator
-                        // InputIterator can be bidirectional iterators - in this case, no -operator overload avail
                         InputIterator tmp(first);
                         size_t n = 0;
                         while (tmp++ != last)
@@ -529,8 +516,6 @@ namespace ft{
                                 push_back(*first++);
                             return ;
                         }
-                        // n = last - first; // cannot use that because of the nature of InputIterator
-                        // InputIterator can be bidirectional iterators - in this case, no -operator overload avail
                         InputIterator tmp_it(first);
                         size_t n = 0;
                         while (tmp_it++ != last)
@@ -667,30 +652,6 @@ namespace ft{
                         { return (lhs.size() == rhs.size()
                             && ft::equal(lhs.begin(), lhs.end(), rhs.begin())); }
 
-                    /**
-                    *  @brief  Vector ordering relation.
-                    *  @param  __x  A %vector.
-                    *  @param  __y  A %vector of the same type as @a __x.
-                    *  @return  True iff @a __x is lexicographically less than @a __y.
-                    *
-                    *  This is a total ordering relation.  It is linear in the size of the
-                    *  vectors.  The elements must be comparable with @c <.
-                    *
-                    *  See std::lexicographical_compare() for how the determination is made.
-                    *  template <class InputIterator1, class InputIterator2>
-                    *  bool lexicographical_compare (InputIterator1 first1, InputIterator1 last1,
-                    *  InputIterator2 first2, InputIterator2 last2)
-                    *  {
-                    *       while (first1!=last1)
-                    *       {
-                    *           if (first2==last2 || *first2<*first1) return false; // is v2 shorter in size than v1 or the elem of v2 < elem v1? if yes return false
-                    *           else if (*first1<*first2) return true; // otherwise if elem of v2 > elem of v1, return true 
-                    *           ++first1; ++first2; // otherwise, it means v2 is large enough to provide an element at this point and this elem is strictly equal to v1's element.
-                    *       }
-                    *  return (first2!=last2); // we checked all elements so far > they are all equal. Now the last point to check is to see if v2 is larger in size than v1
-                    *  }
-                    */
-
                     friend bool operator<(const vector& lhs, const vector &rhs)
                     { return ft::lexicographical_compare(lhs.begin(), lhs.end(),
                                     rhs.begin(), rhs.end()); }
@@ -711,44 +672,8 @@ namespace ft{
                     friend bool operator>=(const vector &lhs, const vector &rhs)
                     { return !(lhs < rhs); }
 
-                    /// See std::vector::swap().
                     friend void swap(vector &lhs, vector &rhs)
                     { lhs.swap(rhs); }
-
-
-                   /*
-                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-                    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! TO BE REMOVED !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-                    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-                    */
-                    
-                    void fill(int start) // to be removed later
-                    {
-                        for (size_t i = 0; i < _size; i++, start++)
-                            _arr[i] = (start + 1) * 100;
-                    }
-
-                    void printVec() // to be removed later
-                    {
-                        std::cout << "\n-----------------------------------------" << std::endl; 
-                        std::cout << "---- VECTOR PRINTING: " << " (" << size() << "/" << capacity() << ") -----" << std::endl;
-                        std::cout << "-----------------------------------------" << std::endl; 
-                        int j = 0;
-                        if (_size > 0)
-                        {
-                            for (iterator i = begin(); i < end(); i++)
-                            {
-                                std::cout << "vector[" << j << "]: " << *i << " - addr = " << &*i << std::endl;
-                                j++;
-                            }
-                        }
-                        std::cout << "-----------------------------------------" << std::endl; 
-                        std::cout << "-----------------------------------------\n" << std::endl; 
-                    }
             
         private:
                     allocator_type  _alloc;
@@ -758,25 +683,18 @@ namespace ft{
                     
                     void reallocate_Vector(size_type new_capacity)
                     {
-                        // std::cout << "new_capacity: "<< new_capacity << std::endl;
                         pointer tmp = _alloc.allocate(new_capacity);
                         for (size_t i = 0; i < _size; i++)
                             _alloc.construct(&tmp[i], _arr[i]);
                         clean_former_arr();
                         _capacity = new_capacity;
                         _arr = tmp;
-                        // printVec();
                     }
                     void moveElementsToTheLeft(iterator first, iterator last)
                     {
                         for (; first != end(); ++first, ++last)
                         {
-                            // Destructing the previous element to replace it by a new one.
-                            // First will destroy all the element until the end.
                             _alloc.destroy(&(*first));
-                            
-                            // Moving a new element to the left at first position, only if there is
-                            // still element to move
                             if (last < end())
                                 _alloc.construct(&(*(first)), *last);
                         }

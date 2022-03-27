@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:19 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/27 18:00:35 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/27 18:29:18 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -654,17 +654,6 @@ namespace ft{
 					
 					ft::pair<const_iterator, const_iterator> equal_range (const key_type& key) const
 					{
-						// const_iterator beg = this->begin();
-						// const_iterator end = this->end();
-
-						// if (this->_cmp(key, beg->first))
-						// 	return (ft::make_pair(beg, ++beg));
-						// beg++;
-						// while (beg != end && _cmp(beg->first, key))
-						// 	beg++;
-						// if (!(!_cmp(beg->first, key) && !_cmp(key, beg->first)))
-						// 	return (ft::make_pair(beg, beg));
-						// return (ft::make_pair(beg, ++beg));
 						const_iterator lb = lower_bound(key);
 						const_iterator ub = upper_bound(key);
 						return (ft::make_pair(lb, ub));
@@ -672,17 +661,6 @@ namespace ft{
 
 					ft::pair<iterator,iterator> equal_range (const key_type& key)
 					{
-						// iterator beg = this->begin();
-						// iterator end = this->end();
-
-						// if (this->_cmp(key, beg->first))
-						// 	return (ft::make_pair(beg, ++beg));
-						// beg++;
-						// while (beg != end && _cmp(beg->first, key))
-						// 	beg++;
-						// if (!(!_cmp(beg->first, key) && !_cmp(key, beg->first)))
-						// 	return (ft::make_pair(beg, beg));
-						// return (ft::make_pair(beg, ++beg));
 						iterator lb = lower_bound(key);
 						iterator ub = upper_bound(key);
 						return (ft::make_pair(lb, ub));
@@ -712,25 +690,6 @@ namespace ft{
                     friend bool operator==(const map &lhs, const map &rhs)
                         { return (lhs.size() == rhs.size()
                             && ft::equal(lhs.begin(), lhs.end(), rhs.begin())); }
-
-					// friend bool	operator==( const map &lhs, const map &rhs )
-					// {
-					// 	iterator	lhs_it = lhs.begin();
-					// 	iterator	lhs_ite = lhs.end();
-					// 	iterator	rhs_it = rhs.begin();
-					// 	iterator	rhs_ite = rhs.end();
-
-					// 	while (lhs_it != lhs_ite && rhs_it != rhs_ite)
-					// 	{
-					// 		if (lhs_it->second != rhs_it->second)
-					// 			return false;
-					// 		lhs_it++;
-					// 		rhs_it++;
-					// 	}
-					// 	if (lhs_it != lhs_ite || rhs_it != rhs_ite)
-					// 		return false;
-					// 	return true;
-					// }
 
 					friend bool operator<(const map& lhs, const map &rhs)
                     { return ft::lexicographical_compare(lhs.begin(), lhs.end(),
