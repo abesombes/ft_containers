@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/25 12:54:14 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/27 18:02:36 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <algorithm>
 #include <stdexcept>
 #include "utils/enable_if.hpp"
+#include "utils/equal.hpp"
 #include "utils/is_integral.hpp"
 #include "utils/const_or_not.hpp"
 #include "utils/lexicographical_compare.hpp"
@@ -663,7 +664,7 @@ namespace ft{
                      */
                     friend bool operator==(const vector &lhs, const vector &rhs)
                         { return (lhs.size() == rhs.size()
-                            && std::equal(lhs.begin(), lhs.end(), rhs.begin())); }
+                            && ft::equal(lhs.begin(), lhs.end(), rhs.begin())); }
 
                     /**
                     *  @brief  Vector ordering relation.

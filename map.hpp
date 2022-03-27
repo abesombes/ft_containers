@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:19 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/27 17:34:11 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/27 18:00:35 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 #include "utils/enable_if.hpp"
 #include "utils/is_integral.hpp"
 #include "utils/const_or_not.hpp"
+#include "utils/equal.hpp"
 #include "utils/less.hpp"
 #include "utils/node.hpp"
 #include "utils/red_black_tree.hpp"
@@ -379,7 +380,7 @@ namespace ft{
 					ft::pair<iterator,bool> insert (const value_type& val)
 					{
 						bool 			wasInserted = false;
-						iterator		inserted = _RBTree.insertValue(val, wasInserted);
+						node_type*		inserted = _RBTree.insertValue(val, wasInserted);
 
 						return (ft::make_pair(iterator(inserted), wasInserted));
 					}
@@ -708,28 +709,28 @@ namespace ft{
 
 					RBTree getRBTree() {return _RBTree; };
 
-                    // friend bool operator==(const map &lhs, const map &rhs)
-                    //     { return (lhs.size() == rhs.size()
-                    //         && std::equal(lhs.begin(), lhs.end(), rhs.begin())); }
+                    friend bool operator==(const map &lhs, const map &rhs)
+                        { return (lhs.size() == rhs.size()
+                            && ft::equal(lhs.begin(), lhs.end(), rhs.begin())); }
 
-					friend bool	operator==( const map &lhs, const map &rhs )
-					{
-						iterator	lhs_it = lhs.begin();
-						iterator	lhs_ite = lhs.end();
-						iterator	rhs_it = rhs.begin();
-						iterator	rhs_ite = rhs.end();
+					// friend bool	operator==( const map &lhs, const map &rhs )
+					// {
+					// 	iterator	lhs_it = lhs.begin();
+					// 	iterator	lhs_ite = lhs.end();
+					// 	iterator	rhs_it = rhs.begin();
+					// 	iterator	rhs_ite = rhs.end();
 
-						while (lhs_it != lhs_ite && rhs_it != rhs_ite)
-						{
-							if (lhs_it->second != rhs_it->second)
-								return false;
-							lhs_it++;
-							rhs_it++;
-						}
-						if (lhs_it != lhs_ite || rhs_it != rhs_ite)
-							return false;
-						return true;
-					}
+					// 	while (lhs_it != lhs_ite && rhs_it != rhs_ite)
+					// 	{
+					// 		if (lhs_it->second != rhs_it->second)
+					// 			return false;
+					// 		lhs_it++;
+					// 		rhs_it++;
+					// 	}
+					// 	if (lhs_it != lhs_ite || rhs_it != rhs_ite)
+					// 		return false;
+					// 	return true;
+					// }
 
 					friend bool operator<(const map& lhs, const map &rhs)
                     { return ft::lexicographical_compare(lhs.begin(), lhs.end(),

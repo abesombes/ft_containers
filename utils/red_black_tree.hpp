@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/27 17:36:05 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/27 17:44:42 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,11 @@ class RBTree {
     
     public:          
 
-                typedef Node<const Key, T, Compare, Alloc>	Node;
-                typedef Key									key_type;
-                typedef T									mapped_type;
-                typedef ft::pair<const Key, T>				value_type;
-                typedef std::size_t							size_type;
-                typedef bidirectional_iterator<const Key, T, Compare>				iterator;
+                typedef Node<const Key, T, Compare, Alloc>	                            Node;
+                typedef Key									                            key_type;
+                typedef T									                            mapped_type;
+                typedef ft::pair<const Key, T>				                            value_type;
+                typedef std::size_t							                            size_type;
                 
     private:
                 Node*                               _root;
@@ -253,7 +252,7 @@ class RBTree {
                     return (tmp);
                 }
 
-                iterator insertValue(const value_type &value, bool &wasInserted)
+                Node* insertValue(const value_type &value, bool &wasInserted)
                 {
                     Node* new_Node = newNode(value);
                     Node *ret = BSTInsert(new_Node, wasInserted);
@@ -272,9 +271,9 @@ class RBTree {
                     if (!wasInserted)
                     {
                         deleteNode(new_Node);
-                        return (iterator(ret));
+                        return (ret);
                     }
-                    return (iterator(new_Node));
+                    return (new_Node);
                 }
 
                 Node* getMaxValueNode(Node *root)
