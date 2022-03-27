@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:16 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/27 18:10:38 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/27 18:53:18 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ public:
         the ctnr argument passed to the constructor, if any, otherwise it is an empty container.
         */
        
-        explicit stack (const container_type& ctnr = container_type()): _ctnr(ctnr){}
+        explicit stack (const container_type& ctnr = container_type()): c(ctnr){}
 
 
         /*
@@ -86,7 +86,7 @@ public:
         Copy constructor, creates a stack with the same container object.
         */
        
-        stack(stack const &src): _ctnr(src._ctnr) {}
+        stack(stack const &src): c(src.c) {}
 
 
         /*
@@ -114,7 +114,7 @@ public:
         stack &operator=(const stack &rhs)
         {
             stack tmp(rhs);
-            swap (_ctnr, tmp._ctnr);
+            swap (c, tmp.c);
             return (*this);
         }
 
@@ -130,7 +130,7 @@ public:
         */
 
 
-        bool empty() const { return (!_ctnr.size()); }
+        bool empty() const { return (!c.size()); }
         
         /*
         ----------------------------------------------------------------------------------------------------
@@ -141,7 +141,7 @@ public:
 
         size_type size() const
         {
-            return (_ctnr.size());
+            return (c.size());
         }
 
         /*
@@ -153,9 +153,9 @@ public:
         member back of the underlying container object.
         */
 
-        value_type& top() { return (_ctnr.back()); }; // quid de la compatibilite avec d'autres containers? back() pas dispo dans map, list, set etc
+        value_type& top() { return (c.back()); }; // quid de la compatibilite avec d'autres containers? back() pas dispo dans map, list, set etc
         
-        const value_type& top() const  { return (_ctnr.back()); };
+        const value_type& top() const  { return (c.back()); };
 
         /*
         ----------------------------------------------------------------------------------------------------
@@ -166,8 +166,8 @@ public:
         function push_back of the underlying container object.
         */
 
-        void push (const value_type& val) { _ctnr.push_back(val); }
-        container_type &get_ctnr() { return (_ctnr); };
+        void push (const value_type& val) { c.push_back(val); }
+        container_type &getc() { return (c); };
 
         /*
         ----------------------------------------------------------------------------------------------------
@@ -178,10 +178,10 @@ public:
         stack::top. This calls the removed element's destructor. This member function effectively calls the 
         member function pop_back of the underlying container object.
         */
-        // void pop() { _ctnr.erase(static_cast<typename Container::iterator>(&_ctnr[0] + size() - 1)); };    
+        // void pop() { c.erase(static_cast<typename Container::iterator>(&c[0] + size() - 1)); };    
         // autre solution qui a l'avantage d'utiliser size() et erase() qui sont disponibles dans tous les
         // containers standards mais peut-etre moins efficace (moins rapide)?   
-        void pop() { _ctnr.pop_back(); };   // quid de la compatibilite avec d'autres containers ne disposant pas de pop_back?
+        void pop() { c.pop_back(); };   // quid de la compatibilite avec d'autres containers ne disposant pas de pop_back?
 
         /*
         ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -193,15 +193,15 @@ public:
         ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         */
        
-        friend bool operator== (const stack<T, Container>& lhs, const stack<T, Container>& rhs) { return (lhs._ctnr == rhs._ctnr); }
-        friend bool operator!= (const stack<T, Container>& lhs, const stack<T, Container>& rhs) { return (lhs._ctnr != rhs._ctnr); }
-        friend bool operator>= (const stack<T, Container>& lhs, const stack<T, Container>& rhs) { return (lhs._ctnr >= rhs._ctnr); }
-        friend bool operator<= (const stack<T, Container>& lhs, const stack<T, Container>& rhs) { return (lhs._ctnr <= rhs._ctnr); }
-        friend bool operator> (const stack<T, Container>& lhs, const stack<T, Container>& rhs) { return (lhs._ctnr > rhs._ctnr); }
-        friend bool operator< (const stack<T, Container>& lhs, const stack<T, Container>& rhs) { return (lhs._ctnr < rhs._ctnr); }  
+        friend bool operator== (const stack<T, Container>& lhs, const stack<T, Container>& rhs) { return (lhs.c == rhs.c); }
+        friend bool operator!= (const stack<T, Container>& lhs, const stack<T, Container>& rhs) { return (lhs.c != rhs.c); }
+        friend bool operator>= (const stack<T, Container>& lhs, const stack<T, Container>& rhs) { return (lhs.c >= rhs.c); }
+        friend bool operator<= (const stack<T, Container>& lhs, const stack<T, Container>& rhs) { return (lhs.c <= rhs.c); }
+        friend bool operator> (const stack<T, Container>& lhs, const stack<T, Container>& rhs) { return (lhs.c > rhs.c); }
+        friend bool operator< (const stack<T, Container>& lhs, const stack<T, Container>& rhs) { return (lhs.c < rhs.c); }  
 
-        private:
-                container_type _ctnr;
+        protected:
+            container_type c;
     
 };
 

@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/27 18:26:06 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/27 19:32:41 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,14 +257,14 @@ namespace ft{
 
                     const_reference at (size_type n) const
                     {
-                        if (n > _size - 1)
+                        if (n >= _size)
                             throw std::out_of_range("Out of Range error.");
                         return (_arr[n]);
                     }
                     
                     reference at (size_type n)
                     {
-                        if (n > _size - 1)
+                        if (n >= _size)
                             throw std::out_of_range("Out of Range error.");
                         return (_arr[n]);
                     }
