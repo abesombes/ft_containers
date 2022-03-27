@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/27 18:02:36 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/27 18:14:18 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include <stdexcept>
 #include "utils/enable_if.hpp"
 #include "utils/equal.hpp"
+#include "utils/pair.hpp"
 #include "utils/is_integral.hpp"
 #include "utils/const_or_not.hpp"
 #include "utils/lexicographical_compare.hpp"
@@ -783,8 +784,8 @@ namespace ft{
 
                     void moveElementsToTheRight(iterator pos, size_type lenMov)
                     {
-                        // Starting from the end, until it meets pos iterator
-                        for (std::pair<iterator, iterator> it(end() - 1, end());
+                        
+                        for (ft::pair<iterator, iterator> it(end() - 1, end());
                             it.second != pos; --it.first, --it.second)
                         {
                             _alloc.construct(&(*(it.first + lenMov)), *it.first);
