@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 09:58:22 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/26 12:49:15 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/27 17:33:27 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,13 @@ class rev_bidirectional_iterator
             reverse_iterator &operator=(rev_bidirectional_iterator const &rhs){ this->_node = rhs._node; return (*this); };
             virtual ~rev_bidirectional_iterator(){};
             Node *getNode( void ) const { return _node;}
+
+            explicit rev_bidirectional_iterator( iterator src ):
+                _node(src.getNode())
+            {
+                ++(*this);
+                return;
+            }
 
             operator    rev_bidirectional_iterator<Key, T, Compare, true>() const
             {
