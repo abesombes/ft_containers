@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:19 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/27 15:34:38 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/27 16:21:31 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -523,12 +523,20 @@ namespace ft{
 				
 					iterator find (const key_type& key)
 					{
-						return (iterator(_RBTree.searchNode(_RBTree.getRoot(), key)));
+						node_type* tmp = _RBTree.searchNode(_RBTree.getRoot(), key);
+						if (tmp->isNil())
+							return (iterator(_RBTree.getNil()));
+						else
+							return (iterator(_RBTree.searchNode(_RBTree.getRoot(), key)));
 					}
 					
 					const_iterator find (const key_type& key) const
 					{
-						return (const_iterator(_RBTree.searchNode(_RBTree.getRoot(), key)));						
+						node_type* tmp = _RBTree.searchNode(_RBTree.getRoot(), key);
+						if (tmp->isNil())
+							return (const_iterator(_RBTree.getNil()));
+						else
+							return (const_iterator(_RBTree.searchNode(_RBTree.getRoot(), key)));				
 					}
 
 				   	/*

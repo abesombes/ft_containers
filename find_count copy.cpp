@@ -10,6 +10,10 @@ void	ft_find(T1 const &k)
 {
 	TESTED_NAMESPACE::map<T1, T2>::iterator ret = mp.find(k);
 
+	// std::cout << "it: " << &(*it) << std::endl;
+	// std::cout << "ret: " << &(*ret) << std::endl;	
+	// std::cout << "sentinel: " << &(*mp.getRBTree().getSentinel()) << std::endl;
+	// std::cout << "nil: " << &(*mp.getRBTree().getNil())<< std::endl;
 	if (ret != it)
 		printPair(ret);
 	else
@@ -29,6 +33,7 @@ int		main(void)
 	mp[12] = "no";
 	mp[27] = "bee";
 	mp[90] = "8";
+	// mp.getRBTree().printRBT();
 	printSize(mp);
 
 	std::cout << "\t-- FIND --" << std::endl;
