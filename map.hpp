@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:19 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/26 14:05:20 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/27 15:34:38 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,8 +239,8 @@ namespace ft{
 					dereferenced.
                     */
 
-					iterator begin() { return (iterator(_RBTree.getSentinel()->left)); };
-					const_iterator begin() const { return (const_iterator(_RBTree.getSentinel()->left)); };
+					iterator begin() { return (size()? iterator(_RBTree.getSentinel()->left) : iterator(_RBTree.getNil())); };
+					const_iterator begin() const { return (size()? const_iterator(_RBTree.getSentinel()->left) : const_iterator(_RBTree.getNil())); };
 
 				   	/*
                     ----------------------------------------------------------------------------------------------------
@@ -255,8 +255,8 @@ namespace ft{
 					map::begin.
                     */
 
-					iterator end() { return (iterator(_RBTree.getSentinel())); };
-					const_iterator end() const { return (const_iterator(_RBTree.getSentinel())); };
+					iterator end() { return (size() ? iterator(_RBTree.getSentinel()) : iterator(_RBTree.getNil())); };
+					const_iterator end() const { return (size() ? const_iterator(_RBTree.getSentinel()) : const_iterator(_RBTree.getNil())); };
 
 				   	/*
                     ----------------------------------------------------------------------------------------------------
@@ -423,11 +423,7 @@ namespace ft{
 					void erase (iterator first, iterator last)
 					{
 						while (first != last)
-						{
-							std::cout << "First: " << (*first).first << " -  Last: " << (*last).first << std::endl;
 							erase(first++);
-						}
-						std::cout << "THE END \n";
 					}
 
 					/*
