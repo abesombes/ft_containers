@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 10:34:35 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/27 18:27:56 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/28 12:00:51 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 namespace ft{
 
-template <class Key, class T, class Compare = less<Key>, class Alloc = std::allocator<pair<const Key,T> > > 
+template <class Key, class T, class Compare = less<Key> > 
 class Node {
 
     public:

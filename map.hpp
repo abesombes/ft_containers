@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:19 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/28 11:51:08 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/28 12:01:14 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ namespace ft{
 					typedef T															mapped_type;
 					typedef Compare														key_compare;
 					typedef Alloc                   									allocator_type;
-					typedef Node<const Key, T, Compare, Alloc>							node_type;
+					typedef Node<const Key, T, Compare>									node_type;
 					typedef typename allocator_type::reference 							reference;
 					typedef typename allocator_type::const_reference 					const_reference;
 					typedef typename allocator_type::pointer 							pointer;
