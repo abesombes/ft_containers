@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 11:48:33 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/27 18:36:59 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/28 11:41:02 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ class RBTree {
                 typedef T									                            mapped_type;
                 typedef ft::pair<const Key, T>				                            value_type;
                 typedef std::size_t							                            size_type;
+                typedef typename Alloc::template rebind<Node>::other 			        node_allocator;
                 
     private:
                 Node*                               _root;
@@ -52,7 +53,7 @@ class RBTree {
                 size_t                              _size;
                 Compare                             _cmp;
                 Alloc                               _valueAlloc;
-                std::allocator<Node>                _nodeAlloc;
+                node_allocator                      _nodeAlloc;
                 
    
     public:
@@ -67,7 +68,7 @@ class RBTree {
                
                 RBTree(): _root(NULL), _size(0), _cmp(Compare()), _valueAlloc(Alloc()) 
                 {
-                    _nodeAlloc = std::allocator<Node>(); // it builds the std::allocator for the type <Node> each time
+                    _nodeAlloc = node_allocator(); 
                     initializeNil();
                     initializeSentinel();
                     _root = _nil;
@@ -866,7 +867,7 @@ class RBTree {
                     size_t                              tmp_size = _size;
                     Compare                             tmp_cmp = _cmp;
                     Alloc                               tmp_valueAlloc = _valueAlloc;
-                    std::allocator<Node>                tmp_nodeAlloc = _nodeAlloc;
+                    node_allocator                      tmp_nodeAlloc = _nodeAlloc;
 
                     _root = rhs._root;
                     _nil = rhs._nil;

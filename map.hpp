@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:19 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/28 10:56:35 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/28 11:51:08 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -709,10 +709,11 @@ namespace ft{
                     friend bool operator>=(const map &lhs, const map &rhs)
                     { return !(lhs < rhs); }
 
-					friend void	swap( map &rhs, map &lhs ) { lhs.swap(rhs); }
+
 		
 	};
-
+	template <class Key, class T, class Compare, class Alloc>
+	void	swap( map<Key, T, Compare, Alloc> &rhs, map<Key, T, Compare, Alloc> &lhs ) { lhs.swap(rhs); }
 }
 
 #endif

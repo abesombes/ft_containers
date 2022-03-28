@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:25:50 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/27 19:32:41 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/28 11:48:52 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -672,8 +672,7 @@ namespace ft{
                     friend bool operator>=(const vector &lhs, const vector &rhs)
                     { return !(lhs < rhs); }
 
-                    friend void swap(vector &lhs, vector &rhs)
-                    { lhs.swap(rhs); }
+
             
         private:
                     allocator_type  _alloc;
@@ -728,6 +727,10 @@ namespace ft{
 	                    return ((len < size() || len > max_size()) ? max_size() : len);
                     }
     };
+    
+    template <class T, class Alloc>
+    void swap(vector<T, Alloc> &lhs, vector<T, Alloc> &rhs) { lhs.swap(rhs); }
+
 }
 
 
