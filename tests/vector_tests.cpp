@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 18:49:23 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/27 18:51:14 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/28 10:50:12 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,16 @@ template<typename T>
 void	constructing_vectors( void )
 {
 	NAMESPACE::vector<T>	first;
-	// NAMESPACE::vector<T>	second(4, "salut");
 	NAMESPACE::vector<T>	second(4, 5);
 	NAMESPACE::vector<T>	third (second.begin(), second.end());
 	NAMESPACE::vector<T>	fourth (third);
 
-	// T	mytab[] = {"hola", "como", "estas", "chao"};
 	T	mytab[] = {16,2,77,29};
-	NAMESPACE::vector<T>	fiNAMESPACEh(mytab, mytab + sizeof(mytab) / sizeof(T) );
+	NAMESPACE::vector<T>	fifth(mytab, mytab + sizeof(mytab) / sizeof(T) );
 
-	std::cout << "The contents of fiNAMESPACEh are:";
-	typename NAMESPACE::vector<T>::iterator it = fiNAMESPACEh.begin();
-	for (; it != fiNAMESPACEh.end(); ++it)
+	std::cout << "The contents of fifth are:";
+	typename NAMESPACE::vector<T>::iterator it = fifth.begin();
+	for (; it != fifth.end(); ++it)
 		std::cout << ' ' << *it;
 	std::cout << '\n';
 }
@@ -52,17 +50,12 @@ void	constructing_vectors( void )
 template<typename T>	
 void	vector_assignment( void )
 {
-	// NAMESPACE::vector<T>	foo(3,0);
-	// NAMESPACE::vector<T>	bar(5,0);
-
 	NAMESPACE::vector<T>	foo(3, "hola");
 	NAMESPACE::vector<T>	bar(5, "chao");
 
 	bar = foo;
 	foo = NAMESPACE::vector<T>();
 
-	// std::cout << "Size of foo: " << int(foo.size()) << '\n';
-	// std::cout << "Size of bar: " << int(bar.size()) << '\n';
 	std::cout << "Size of foo: " << foo.size() << '\n';
 	std::cout << "Size of bar: " << bar.size() << '\n';
 }

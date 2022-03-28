@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:19 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/27 18:29:18 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/28 10:56:35 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -684,8 +684,6 @@ namespace ft{
                 	*/
 				
 					allocator_type get_allocator() const { return (_pair_alloc); };
-
-					RBTree getRBTree() {return _RBTree; };
 
                     friend bool operator==(const map &lhs, const map &rhs)
                         { return (lhs.size() == rhs.size()

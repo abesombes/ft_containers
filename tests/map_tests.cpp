@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 18:48:39 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/27 18:50:22 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/28 10:35:14 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -294,10 +294,6 @@ void	map_speed( void )
 
 	std::cout << std::endl << "After Erase:" << std::endl;
 
-	// std::cout << "----------------------------------------------" << std::endl;
-	// mymap.getRBTree()->printTree2(mymap.getRBTree()->getRoot(), 0);
-	// std::cout << "----------------------------------------------" << std::endl;
-
 	typename NAMESPACE::map<Key, T>::iterator	it3 = mymap.begin();
 	typename NAMESPACE::map<Key, T>::iterator	ite3 = mymap.end();
 
@@ -325,7 +321,7 @@ void	map_erase( void )
 	it = mymap.find('b');
 	mymap.erase(it);                   // erasing by iterator
 
-	mymap.erase('c');                  // erasing by key
+	mymap.erase('c');                  // erasing by key		
 
 	it = mymap.find('e');
 	mymap.erase( it, mymap.end() );    // erasing by range

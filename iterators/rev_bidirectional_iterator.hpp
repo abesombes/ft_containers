@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 09:58:22 by abesombe          #+#    #+#             */
-/*   Updated: 2022/03/27 17:33:27 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/28 10:51:31 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ class rev_bidirectional_iterator
 
             iterator base( void ) const
             {
-                rev_bidirectional_iterator tmp(*this); // on cree un tmp rev iterator pour ne pas bouger le rev_iterator initial
+                rev_bidirectional_iterator tmp(*this);
 
                 --tmp;
                 return (iterator(tmp.getNode()));
@@ -77,7 +77,6 @@ class rev_bidirectional_iterator
             reverse_iterator &operator++()
             { 
                 Node *tmp = _node->getPredecessor();
-                // std::cout << "isOrphan? " << _node->isOrphan() << std::endl;
                 if (!_node->isOrphan())
                     _node = tmp;
                 return (*this);
@@ -96,7 +95,6 @@ class rev_bidirectional_iterator
             { 
                 Node *tmp = _node->getSuccessor();
                 
-                // std::cout << "isOrphan? " << _node->isOrphan() << std::endl;
                 if (!_node->isOrphan())
                 {
                     if (_node->isSentinel())
@@ -122,9 +120,6 @@ class rev_bidirectional_iterator
             self_type operator--(int)
             { 
                 self_type tmp_it(*this);
-                // std::cout << "size: " << _node->RBT_size() << std::endl;
-                // if (_node->RBT_size() != 1)
-                // std::cout << "isOrphan? " << _node->isOrphan() << std::endl;
                 --(*this);
                 return (tmp_it);
             };

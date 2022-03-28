@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 09:59:16 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/27 18:53:18 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/28 10:23:14 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ class stack{
 
 public:
         typedef T                   value_type;
-        typedef Container  container_type;
+        typedef Container           container_type;
         typedef size_t              size_type;
 
         /*

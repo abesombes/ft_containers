@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rev_random_access_iterator.hpp                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abesombes <abesombes@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 17:05:11 by abesombe          #+#    #+#             */
-/*   Updated: 2022/01/28 23:49:16 by abesombes        ###   ########.fr       */
+/*   Updated: 2022/03/28 10:51:38 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,15 +74,6 @@ rev_random_access_iterator<T, B> operator+(ptrdiff_t offset, rev_random_access_i
 
 template <typename T, bool B>
 rev_random_access_iterator<T, B> operator-(ptrdiff_t offset, rev_random_access_iterator<T, B> it) { return static_cast<rev_random_access_iterator<T, B> >(it.getVal() + offset); };
-
-// template <typename T, bool B>
-// rev_random_access_iterator<T, B> operator-(rev_random_access_iterator<T, B> ita, rev_random_access_iterator<T, B> itb) { return static_cast<rev_random_access_iterator<T, B> >(ita.getVal() + itb.getVal()); };
-// template <typename T, bool B>
-// bool operator< (const rev_random_access_iterator<T, B>& lhs, const rev_random_access_iterator<T, B>& rhs)
-// {
-//     return (lhs.getVal() > rhs.getVal());
-// }
-
 
 }
 #endif

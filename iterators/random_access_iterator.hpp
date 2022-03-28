@@ -6,7 +6,7 @@
 /*   By: abesombe <abesombe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:30:34 by abesombes         #+#    #+#             */
-/*   Updated: 2022/03/25 12:49:49 by abesombe         ###   ########.fr       */
+/*   Updated: 2022/03/28 10:51:10 by abesombe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ class random_access_iterator
             explicit random_access_iterator(elem_pointer val): _val(val){};
             elem_pointer getVal() const { return _val; };
             
-            // random_access_iterator( random_access_iterator<T, true> const &src ): _val(src.getVal()){}; // useful to convert implicitly const to non_const
             random_access_iterator( random_access_iterator<T, false> const &src ): _val(src.getVal()){};
             random_access_iterator &operator=(random_access_iterator const &rhs){ this->_val = rhs._val; return (*this); };
             virtual ~random_access_iterator(){};
@@ -44,7 +43,6 @@ class random_access_iterator
             self_type &operator--(){ _val--; return (*this);};
             self_type operator--(int){ self_type tmp = *this; --*this; return tmp; };
             bool operator==(self_type const & rhs) const { 
-                // if (compatible(rhs))
                     return _val == rhs._val; 
             };
             bool operator!=(self_type const & rhs) const { 
@@ -56,7 +54,6 @@ class random_access_iterator
             self_type operator-(difference_type offset) const { return static_cast<self_type>(_val - offset); };
             difference_type operator-(self_type const &rhs) const { return (_val - rhs._val); };
             bool operator<(self_type const &rhs) const {                 
-                // if (compatible(rhs))
                     return (_val < rhs._val);  
             };  
             bool operator>(self_type const &rhs) const { return (rhs < *this); };  
@@ -71,8 +68,6 @@ class random_access_iterator
             T*      _val;
             bool compatible(self_type const &other) const { return (_val == other._val); };
 };
-
-//enables implicit conversion from const to non_const
 
 template <class T>
 bool operator==(const random_access_iterator<T, false>& lhs, const random_access_iterator<T, true>& rhs)
